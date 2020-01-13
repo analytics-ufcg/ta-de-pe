@@ -1,11 +1,12 @@
 {
   "name": "ta-na-mesa",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "test": "npm test"
+    "test": "npm test",
+    "client": "npm start --prefix client"
   },
   "repository": {
     "type": "git",
