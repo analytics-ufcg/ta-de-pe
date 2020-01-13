@@ -1,0 +1,29 @@
+{
+  "name": "ta-na-mesa",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/analytics-ufcg/ta-na-mesa.git"
+  },
+  "keywords": [
+    "merenda"
+  ],
+  "author": "Transparência Brasil e UFCG",
+  "license": "AGPL-3.0-or-later",
+  "bugs": {
+    "url": "https://github.com/analytics-ufcg/ta-na-mesa/issues"
+  },
+  "homepage": "https://github.com/analytics-ufcg/ta-na-mesa#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "express": "^4.16.3"
+  }
+}
