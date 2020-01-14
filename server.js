@@ -22,6 +22,11 @@ app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// Rotas
+app.get("/api", (req, res) => {
+  res.json({ "status": "OK"});
+});
+
 // Define diretório estático (site)
 app.use(express.static("client/build"));
 app.get("*", (req, res) => {
