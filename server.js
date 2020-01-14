@@ -22,6 +22,9 @@ app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// Banco de dados
+const db = require("./server/models/index");
+
 // Rotas
 app.get("/api", (req, res) => {
   res.json({ "status": "OK"});
