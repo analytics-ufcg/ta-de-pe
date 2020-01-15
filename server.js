@@ -22,6 +22,14 @@ app.use(cors(corsOptions));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 
+// Banco de dados
+const db = require("./server/models/index");
+
+// Rotas
+app.get("/api", (req, res) => {
+  res.json({ "status": "OK"});
+});
+
 // Define diretório estático (site)
 app.use(express.static("client/build"));
 app.get("*", (req, res) => {
@@ -30,4 +38,4 @@ app.get("*", (req, res) => {
 
 // Levanta o servidor
 const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
+app.listen(port, () => console.log(`Servidor web rodando na porta ${port}`));
