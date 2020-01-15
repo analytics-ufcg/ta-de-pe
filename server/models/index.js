@@ -33,7 +33,7 @@ if (!global.hasOwnProperty("models")) {
   });
   
   sequelize.sync({ force: false }).then(() => {
-    console.log("BD sincronizado");
+    console.log("Conectado com o banco de dados");
   });
   // Retorna campos do tipo decimal como float e não como string
   Sequelize.postgres.DECIMAL.parse = function (value) { return parseFloat(value); };

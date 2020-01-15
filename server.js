@@ -38,4 +38,4 @@ app.get("*", (req, res) => {
 
 // Levanta o servidor
 const port = process.env.PORT || 5000;
-app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
+app.listen(port, () => console.log(`Servidor web rodando na porta ${port}`));
