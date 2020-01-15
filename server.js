@@ -3,11 +3,13 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const cors = require("cors");
 const compression = require("compression");
+const forceSsl = require("force-ssl-heroku");
 
 /*
  * Configuração do servidor web
  */
 const app = express();
+app.use(forceSsl);
 app.use(compression());
 // Habilita CORS para algumas origens
 const corsOptions = {
