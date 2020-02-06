@@ -5,6 +5,9 @@ const cors = require("cors");
 const compression = require("compression");
 const forceSsl = require("force-ssl-heroku");
 
+
+const orgaos = require("./server/routes/api/orgaos");
+
 /*
  * Configuração do servidor web
  */
@@ -31,6 +34,8 @@ const db = require("./server/models/index");
 app.get("/api", (req, res) => {
   res.json({ "status": "OK"});
 });
+
+app.use("/api/orgaos", orgaos);
 
 // Define diretório estático (site)
 app.use(express.static("client/build"));
