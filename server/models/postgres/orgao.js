@@ -18,5 +18,13 @@ module.exports = (sequelize, type) => {
         freezeTableName: true
       }
   );
+
+  orgao.associate = function(models) {
+    orgao.hasMany(models.licitacao, {
+        foreignKey: "id_orgao",
+        sourceKey: "id_orgao",
+        as: "licitacoesOrgao"
+    })
+  };
   return orgao;
 };

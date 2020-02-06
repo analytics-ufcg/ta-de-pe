@@ -23,12 +23,12 @@ module.exports = (sequelize, type) => {
         tipo_licitacao: type.STRING
       },
       {
-        timestamps: false
+        freezeTableName: true
       }
     );
     
     licitacao.associate = function(models) {
-        licitacao.hasMany(models.id_orgao, {
+        licitacao.belongsTo(models.orgao, {
             foreignKey: "id_orgao",
             sourceKey: "id_orgao",
             as: "licitacoesOrgao"
