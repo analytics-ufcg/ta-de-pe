@@ -5,10 +5,10 @@ import { Observable } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
-  })
+})
 export class BuscaMunicipioService {
 
-    private url = "http://localhost:5000/api/orgaos/";
+    private url = "http://localhost:5000/api/orgaos/municipios";
 
     constructor(private http: HttpClient) { }
 

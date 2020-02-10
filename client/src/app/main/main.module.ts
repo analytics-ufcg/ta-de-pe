@@ -5,6 +5,9 @@ import { MainRoutingModule } from './main-routing.module';
 import { HomeComponent } from './home/home.component';
 import { NovidadesComponent } from './novidades/novidades.component';
 
+import { BuscaMunicipioModule } from '../busca-municipio/busca-municipio.module'
+
+
 @NgModule({
   declarations: [
     HomeComponent,
@@ -12,7 +15,9 @@ import { NovidadesComponent } from './novidades/novidades.component';
   ],
   imports: [
     CommonModule,
-    MainRoutingModule
-  ]
+    MainRoutingModule,
+    BuscaMunicipioModule
+  ],
+  providers: [BuscaMunicipioModule]
 })
 export class MainModule { }
