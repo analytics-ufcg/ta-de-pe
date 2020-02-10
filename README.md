@@ -31,9 +31,9 @@ Instale o [docker](https://docs.docker.com/install/) e o [docker-compose](https:
 
 ### Passo 2
 
-Faça o build da imagem docker com as dependências.
+Para levantar os serviços do frontend e backend com as dependência execute:
 
-```bash
+```
 docker-compose up
 ```
 
@@ -41,3 +41,50 @@ docker-compose up
 
 Acesse o frontend em http://localhost:4200 e o backend (API) em http://localhost:5000/api.
 
+### Como instalar novas depedências?
+
+Sempre que for instalar uma nova dependência/pacote via npm será necessário realizar o build da imagem para que a dependência seja instalada no container docker. Para isto siga os passos:
+
+1. Pare os serviçosem execução.
+
+2. Execute o build das imagens
+```
+docker-compose build
+```
+3. Levante novamente os serviços
+```
+docker-compose up
+```
+
+### Como parar os containers e apagar os volumes criados?
+
+Caso você queira parar os serviços execute:
+
+```
+docker-compose down
+```
+
+Caso você queira parar os serviços e remover os volumes criados execute:
+```
+docker-compose down --volumes
+```
+
+### Comandos úteis
+
+Para visualizar os containers rodando:
+
+```
+docker ps
+```
+
+Para executar comandos num shell dentro do container:
+
+```
+docker exec -it <container_id> sh
+```
+
+Para matar um container
+
+```
+docker kill <container_id>
+```
