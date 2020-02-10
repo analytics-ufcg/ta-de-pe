@@ -10,7 +10,6 @@ module.exports = (sequelize, type) => {
         nm_orgao: type.STRING,
         nr_licitacao: type.INTEGER,
         ano_licitacao: type.INTEGER,
-        genero: type.STRING,
         cd_tipo_modalidade: type.STRING,
         permite_subcontratacao: type.STRING,
         tp_fornecimento: type.STRING,
