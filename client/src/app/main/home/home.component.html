@@ -1,14 +1,25 @@
 <div class="container app-container">
   <div class="row gutters-sm">
       <div class="col-lg-10">
-        <div class="form-group">
-          <input
-            type="text"
-            class="form-control"
-            id="searchCity"
-            placeholder="Pesquisar por cidade"
-          >
-        </div>
+        <div class="ng-autocomplete">
+          <ng-autocomplete 
+            [data]="data"
+            [searchKeyword]="keyword"
+            (selected)='selectEvent($event)'
+            (inputChanged)='onChangeSearch($event)'
+            (inputFocused)='onFocused($event)'
+            [itemTemplate]="itemTemplate"
+            [notFoundTemplate]="notFoundTemplate">                                 
+          </ng-autocomplete>
+           
+          <ng-template #itemTemplate let-item>
+          <a [innerHTML]="item.name"></a>
+          </ng-template>
+           
+          <ng-template #notFoundTemplate let-notFound>
+          <div [innerHTML]="notFound"></div>
+          </ng-template>
+          </div>
       </div>
       <div class="col-5 col-lg-2 mb-lg-3 mb-1">
         <button
