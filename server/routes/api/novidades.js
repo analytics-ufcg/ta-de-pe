@@ -9,22 +9,16 @@ const Novidades = models.novidade;
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
 
-attNovidade = ['id_novidade', 'id_tipo', 'data'];
-
 router.get("/", (req, res) => {
 
-    Novidades.findAll({
-        attributes: attNovidade
-    })
+    Novidades.findAll()
     .then(novidades => res.status(SUCCESS).json(novidades))
     .catch(err => res.status(BAD_REQUEST).json({ err }));
   })
   
   router.get("/novidades", (req, res) => {
   
-    Novidades.findAll({
-      attributes: attNovidade
-    })
+    Novidades.findAll()
     .then(novidades => res.status(SUCCESS).json(novidades))
     .catch(err => res.status(BAD_REQUEST).json({ err }));
   })
