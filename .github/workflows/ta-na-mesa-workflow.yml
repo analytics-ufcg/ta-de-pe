@@ -12,8 +12,12 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 10.x
-      - name: Altera diretório de trabalho
+      - name: Instala dependências
         working-directory: ./client
-      - run: npm install
-      - run: npm run lint
-      - run: npm run build
+        run: npm install
+      - name: Executa lint
+        working-directory: ./client
+        run: npm run lint
+      - name: Executa build
+        working-directory: ./client
+        run: npm run build
