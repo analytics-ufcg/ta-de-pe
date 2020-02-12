@@ -9,7 +9,7 @@ const Novidades = models.novidade;
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
 
-attNovidade = ['id_novidade', 'id_tipo', 'id_licitacao', 'data', 'id_original', 'nm_municipio'];
+attNovidade = ['id_novidade', 'id_tipo', 'data'];
 
 router.get("/", (req, res) => {
 

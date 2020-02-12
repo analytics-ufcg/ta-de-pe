@@ -3,7 +3,7 @@ module.exports = (sequelize, type) => {
       "novidade",
       {
         id_novidade: {
-            type: type.STRING,
+            type: type.INTEGER,
             primaryKey: true
         },
         

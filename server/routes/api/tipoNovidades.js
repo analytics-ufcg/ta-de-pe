@@ -11,14 +11,14 @@ const SUCCESS = 200;
 
 router.get("/", (req, res) => {
 
-    Novidades.findAll({
+    tipoNovidades.findAll({
         attributes: ['id_tipo']
     })
     .then(tipoNovidades => res.status(SUCCESS).json(tipoNovidades))
     .catch(err => res.status(BAD_REQUEST).json({ err }));
   })
   
-  router.get("/tipoNovidade", (req, res) => {
+  router.get("/tiponovidades", (req, res) => {
   
     tipoNovidades.findAll({
       attributes: ['id_tipo']

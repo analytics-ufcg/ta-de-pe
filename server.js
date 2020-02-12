@@ -40,7 +40,7 @@ app.get("/api", (req, res) => {
 app.use("/api/orgaos", orgaos);
 app.use("/api/licitacoes", licitacoes);
 app.use("/api/novidades", novidades);
-app.use("/api/tipoNovidades", tipoNovidades);
+app.use("/api/tiponovidades", tipoNovidades);
 
 // Define diretório estático (site)
 app.use(express.static("client/build"));

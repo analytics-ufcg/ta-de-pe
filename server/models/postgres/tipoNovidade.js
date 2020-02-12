@@ -16,7 +16,7 @@ module.exports = (sequelize, type) => {
     );
 
     tipoNovidade.associate = function(models) {
-        novidade.belongsTo(models.tipoNovidade, {
+        tipoNovidade.belongsTo(models.tipoNovidade, {
             foreignKey: "id_tipo",
             sourceKey: "id_tipo",
             as: "NovidadeTipoNovidade"
