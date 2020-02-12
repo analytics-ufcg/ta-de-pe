@@ -25,8 +25,8 @@ if (!global.hasOwnProperty("models")) {
   global.models = {
     Sequelize: Sequelize,
     sequelize: sequelize,
-    orgao: sequelize.import(OrgaoModel)
-    //licitacao: sequelize.import(LicitacaoModel)
+    orgao: sequelize.import(OrgaoModel),
+    licitacao: sequelize.import(LicitacaoModel)
     //add your others models here
   };
 
