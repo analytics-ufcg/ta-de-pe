@@ -45,7 +45,7 @@ Acesse o frontend em http://localhost:4200 e o backend (API) em http://localhost
 
 Sempre que for instalar uma nova dependência/pacote via npm será necessário realizar o build da imagem para que a dependência seja instalada no container docker. Para isto siga os passos:
 
-1. Pare os serviçosem execução.
+1. Pare os serviços em execução.
 
 2. Execute o build das imagens
 ```
