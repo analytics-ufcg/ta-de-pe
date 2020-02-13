@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
+    "server": "nodemon server.js",
     "test": "npm test",
     "client": "npm start --prefix client",
     "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
@@ -30,5 +31,8 @@
     "force-ssl-heroku": "^1.0.2",
     "pg": "^7.17.1",
     "sequelize": "^4.44.3"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
   }
 }

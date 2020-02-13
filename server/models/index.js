@@ -1,5 +1,10 @@
 const Sequelize = require("sequelize");
 
+const OrgaoModel = "./postgres/orgao.js";
+const LicitacaoModel = "./postgres/licitacao.js";
+const NovidadeModel = "./postgres/novidade.js";
+const tipoNovidadeModel = "./postgres/tipoNovidade.js";
+
 if (!global.hasOwnProperty("models")) {
   const db = process.env.POSTGRESURI;
 
@@ -22,14 +27,18 @@ if (!global.hasOwnProperty("models")) {
   global.models = {
     Sequelize: Sequelize,
     sequelize: sequelize,
-    // add your other models here
+    orgao: sequelize.import(OrgaoModel),
+    licitacao: sequelize.import(LicitacaoModel),
+    novidade: sequelize.import(NovidadeModel),
+    tipoNovidade: sequelize.import(tipoNovidadeModel)
+    //add your others models here
   };
 
   Object.keys(global.models).forEach(modelName => {
-    console.log(modelName);
-    if (global.models[modelName].associate) {
-      global.models[modelName].associate(global.models);
-    }
+    //console.log(global.models[modelName].associate);
+    // if (global.models[modelName].associate !== undefined) {
+    //   global.models[modelName].associate(global.models);
+    // }
   });
   
   sequelize.sync({ force: false }).then(() => {

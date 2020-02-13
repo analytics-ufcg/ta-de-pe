@@ -1,0 +1,28 @@
+module.exports = (sequelize, type) => {
+    tipoNovidade = sequelize.define(
+      "tipo_novidade",
+      {
+        id_tipo: {
+            type: type.INTEGER,
+            primaryKey: true
+        },
+        
+        texto_evento: type.STRING
+
+      },
+      {
+        freezeTableName: true,
+        timestamps: false
+      }
+    );
+
+    tipoNovidade.associate = function(models) {
+        tipoNovidade.belongsTo(models.tipoNovidade, {
+            foreignKey: "id_tipo",
+            sourceKey: "id_tipo",
+            as: "NovidadeTipoNovidade"
+        })
+    };
+    
+    return tipoNovidade;
+}
