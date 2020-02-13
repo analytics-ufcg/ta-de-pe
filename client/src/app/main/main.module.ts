@@ -3,21 +3,14 @@ import { CommonModule } from '@angular/common';
 
 import { MainRoutingModule } from './main-routing.module';
 import { HomeComponent } from './home/home.component';
-import { NovidadesComponent } from './novidades/novidades.component';
-
-import { BuscaMunicipioModule } from '../busca-municipio/busca-municipio.module'
-
 
 @NgModule({
   declarations: [
-    HomeComponent,
-    NovidadesComponent
+    HomeComponent
   ],
   imports: [
     CommonModule,
-    MainRoutingModule,
-    BuscaMunicipioModule
-  ],
-  providers: [BuscaMunicipioModule]
+    MainRoutingModule
+  ]
 })
 export class MainModule { }

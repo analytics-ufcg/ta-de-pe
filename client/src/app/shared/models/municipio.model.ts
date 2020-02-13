@@ -1,3 +1,3 @@
 export interface Municipio {
-    nome_municipio: string;
+  nome_municipio: string;
 }

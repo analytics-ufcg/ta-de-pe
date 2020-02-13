@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import { BuscaMunicipioService } from './busca-municipio.service';
+import { MunicipioService } from '../../services/municipio.service';
 
 @Component({
     selector: 'app-busca-municipio',
@@ -10,18 +10,18 @@ import { BuscaMunicipioService } from './busca-municipio.service';
 
 export class BuscaMunicipioComponent {
 
-    public placeholder: string = 'Escolha um município';
+    public placeholder = 'Escolha um município';
     public keyword = 'name';
 
     public municipios: any[];
 
     constructor(
-        private buscaMunicipioService: BuscaMunicipioService) {
-        this.municipios = []
+        private buscaMunicipioService: MunicipioService) {
+        this.municipios = [];
     }
 
     ngOnInit() {
-        this.getMunicipios()
+        this.getMunicipios();
     }
 
     submitTemplateForm(value) {
