@@ -11,9 +11,7 @@ const SUCCESS = 200;
 
 router.get("/", (req, res) => {
 
-    Orgaos.findAll({
-        attributes: [[Sequelize.fn('DISTINCT', Sequelize.col('nm_orgao')), 'nm_orgao']]
-    })
+    Orgaos.findAll()
     .then(municipios => res.status(SUCCESS).json(municipios))
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 })
