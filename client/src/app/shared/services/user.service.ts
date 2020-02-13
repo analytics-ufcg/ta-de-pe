@@ -7,25 +7,31 @@ import { BehaviorSubject, Observable } from 'rxjs';
 })
 export class UserService {
 
-  private municipios = new BehaviorSubject<string[]>();
+  private municipio = new BehaviorSubject<string>('');
 
   constructor() { }
 
-  getMunicipioEscolhido(): Observable<string[]> {
-    return this.municipios.asObservable();
+  getMunicipioEscolhido(): Observable<string> {
+    const municipioSalvo = this.getMunicipioLocalStorage();
+
+    if (municipioSalvo && municipioSalvo !== null) {
+      this.municipio.next(municipioSalvo);
+    }
+
+    return this.municipio.asObservable();
   }
 
-  setMunicipioEscolhido(novosMunicipios: string[]) {
-    const municipiosSalvos = this.setMunicipioLocalStorage(novosMunicipios);
-    this.municipios.next(municipiosSalvos);
+  setMunicipioEscolhido(novosMunicipios: string) {
+    const municipioSalvo = this.setMunicipioLocalStorage(novosMunicipios);
+    this.municipio.next(municipioSalvo);
   }
 
-  private getMunicipiosLocalStorage(): string {
-    return JSON.parse(localStorage.getItem('municipioEscolhido'));
+  private getMunicipioLocalStorage(): string {
+    return JSON.parse(localStorage.getItem('municipio'));
   }
 
   private setMunicipioLocalStorage(novoMunicipio): string {
-    localStorage.setItem('municipioEscolhido', JSON.stringify(novoMunicipio));
+    localStorage.setItem('municipio', JSON.stringify(novoMunicipio));
     return(novoMunicipio);
   }
 
