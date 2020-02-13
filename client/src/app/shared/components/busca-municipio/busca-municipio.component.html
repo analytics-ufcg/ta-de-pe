@@ -1,8 +1,8 @@
-<form
-  #form="ngForm"
-  (ngSubmit)="submitTemplateForm(form.value)"
->
-  <div class="container">
+<div class="busca-municipio">
+  <form
+    #form="ngForm"
+    (ngSubmit)="submitTemplateForm(form.value)"
+  >
     <div class="ng-autocomplete">
       <ng-autocomplete
         #ngAutoCompleteStatic
@@ -30,5 +30,5 @@
         <div [innerHTML]="notFound"></div>
       </ng-template>
     </div>
-  </div>
-</form>
+  </form>
+</div>
