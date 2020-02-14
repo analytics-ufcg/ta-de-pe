@@ -4,12 +4,14 @@ import { Observable } from 'rxjs';
 
 import { Municipio } from '../models/municipio.model';
 
+import { environment } from '../../../environments/environment';
+
 @Injectable({
     providedIn: 'root'
 })
 export class MunicipioService {
 
-    private url = 'http://localhost:5000/api/orgaos/municipios';
+    private url = environment.apiUrl + 'orgaos/municipios';
 
     constructor(private http: HttpClient) { }
 
