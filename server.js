@@ -7,6 +7,8 @@ const forceSsl = require("force-ssl-heroku");
 
 const orgaos = require("./server/routes/api/orgaos");
 const licitacoes = require("./server/routes/api/licitacoes");
+const novidades = require("./server/routes/api/novidades");
+const tipoNovidades = require("./server/routes/api/tipoNovidades");
 
 /*
  * Configuração do servidor web
@@ -37,6 +39,8 @@ app.get("/api", (req, res) => {
 
 app.use("/api/orgaos", orgaos);
 app.use("/api/licitacoes", licitacoes);
+app.use("/api/novidades", novidades);
+app.use("/api/tiponovidades", tipoNovidades);
 
 // Define diretório estático (site)
 app.use(express.static("client/build"));
