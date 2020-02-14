@@ -10,7 +10,7 @@ const routerOptions: ExtraOptions = {
 const routes: Routes = [
   {
     path: 'novidades',
-    loadChildren: () => import('./licitacoes/licitacoes.module').then(m => m.LicitacoesModule)
+    loadChildren: () => import('./novidades/novidades.module').then(m => m.NovidadesModule)
   },
   {
     path: '',

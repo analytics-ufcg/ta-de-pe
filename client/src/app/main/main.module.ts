@@ -3,12 +3,10 @@ import { CommonModule } from '@angular/common';
 
 import { MainRoutingModule } from './main-routing.module';
 import { HomeComponent } from './home/home.component';
-import { NovidadesComponent } from './novidades/novidades.component';
 
 @NgModule({
   declarations: [
-    HomeComponent,
-    NovidadesComponent
+    HomeComponent
   ],
   imports: [
     CommonModule,
