@@ -13,6 +13,7 @@
         notFoundText="Município não encontrado..."
         [itemTemplate]="itemTemplateStatic"
         [notFoundTemplate]="notFoundTemplate"
+        (selected)='salvaMunicipio($event)'
       >
       </ng-autocomplete>
 
