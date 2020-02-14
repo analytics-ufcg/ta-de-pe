@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+
+import { Novidade } from 'src/app/shared/models/novidade.model';
 
 @Component({
   selector: 'app-novidade',
@@ -6,6 +8,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./novidade.component.scss']
 })
 export class NovidadeComponent implements OnInit {
+
+  @Input() novidade: Novidade;
 
   constructor() { }
 

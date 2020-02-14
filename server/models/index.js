@@ -35,10 +35,10 @@ if (!global.hasOwnProperty("models")) {
   };
 
   Object.keys(global.models).forEach(modelName => {
-    //console.log(global.models[modelName].associate);
-    // if (global.models[modelName].associate !== undefined) {
-    //   global.models[modelName].associate(global.models);
-    // }
+    console.log(global.models[modelName].associate);
+    if (global.models[modelName].associate !== undefined) {
+      global.models[modelName].associate(global.models);
+    }
   });
   
   sequelize.sync({ force: false }).then(() => {

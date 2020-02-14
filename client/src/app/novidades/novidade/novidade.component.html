@@ -1,7 +1,16 @@
 <div class="card mb-2">
   <div class="card-body">
-    <h5 class="card-title">224/2020</h5>
-    <p class="card-text">Abertura de licitação</p>
-    <h6 class="text-right text-muted">26 de janeiro de 2020</h6>
+    <h5 class="card-title">
+      {{ novidade.licitacaoNovidade.nr_licitacao }}/{{ novidade.licitacaoNovidade.ano_licitacao }}
+    </h5>
+    <p class="card-text">
+      {{ novidade.tipo.texto_evento }} em {{ novidade.nome_municipio }}
+      <br>
+      <strong class="text-muted">
+        {{ novidade.licitacaoNovidade.vl_estimado_licitacao | currency:'R$ ' }}
+      </strong>
+      estimado
+    </p>
+    <h6 class="text-right text-muted">{{ novidade.data | date:'dd-MM-yyyy' }}</h6>
   </div>
 </div>
