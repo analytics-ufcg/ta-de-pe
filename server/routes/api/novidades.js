@@ -10,7 +10,7 @@ const BAD_REQUEST = 400;
 const SUCCESS = 200;
 
 router.get("/", (req, res) => {
-  Novidades.findAll()
+  Novidades.findAll({ limit: 50 })
     .then(novidades => res.status(SUCCESS).json(novidades))
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
