@@ -33,7 +33,10 @@ export class NovidadesComponent implements OnInit, OnDestroy {
   getMunicipio() {
     this.userService.getMunicipioEscolhido()
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(municipio => this.municipioEscolhido = municipio);
+      .subscribe(municipio => {
+        this.municipioEscolhido = municipio;
+        this.getNovidades(this.municipioEscolhido);
+      });
   }
 
   getNovidades(municipio: string) {
