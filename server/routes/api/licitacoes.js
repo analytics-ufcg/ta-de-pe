@@ -25,4 +25,25 @@ router.get("/", (req, res) => {
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
+router.get("/:id", (req, res) => {
+  Licitacao.findOne({
+    attributes: [
+      "id_licitacao",
+      "nm_orgao",
+      "nr_licitacao",
+      "ano_licitacao",
+      "cd_tipo_modalidade",
+      "tp_licitacao",
+      "tipo_licitacao",
+      "data_abertura",
+      "vl_homologado"
+    ],
+    where: {
+      id_licitacao: req.params.id
+    }
+  })
+    .then(licitacao => res.status(SUCCESS).json(licitacao))
+    .catch(err => res.status(BAD_REQUEST).json({ err }));
+});
+
 module.exports = router;
