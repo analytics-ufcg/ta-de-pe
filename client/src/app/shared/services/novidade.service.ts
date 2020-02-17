@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
@@ -16,8 +16,10 @@ export class NovidadeService {
 
   constructor(private http: HttpClient) { }
 
-  getNovidades(): Observable<Novidade[]> {
-    return this.http.get<Novidade[]>(this.url);
+  getNovidadesPorMunicipio(municipio: string): Observable<Novidade[]> {
+    const params = new HttpParams()
+      .set('nome_municipio', municipio);
+    return this.http.get<Novidade[]>(this.url, { params });
   }
 
 }

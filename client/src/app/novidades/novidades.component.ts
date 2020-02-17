@@ -1,3 +1,4 @@
+import { UserService } from './../shared/services/user.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
 import { Subject } from 'rxjs';
@@ -17,15 +18,26 @@ export class NovidadesComponent implements OnInit, OnDestroy {
   private unsubscribe = new Subject();
 
   public novidades: Novidade[];
+  public municipioEscolhido: string;
 
-  constructor(private novidadesServices: NovidadeService) { }
-
-  ngOnInit() {
-    this.getNovidades();
+  constructor(private novidadesServices: NovidadeService,
+              private userService: UserService) {
   }
 
-  getNovidades() {
-    this.novidadesServices.getNovidades()
+  ngOnInit() {
+    this.getMunicipio();
+    this.getNovidades(this.municipioEscolhido);
+  }
+
+
+  getMunicipio() {
+    this.userService.getMunicipioEscolhido()
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(municipio => this.municipioEscolhido = municipio);
+  }
+
+  getNovidades(municipio: string) {
+    this.novidadesServices.getNovidadesPorMunicipio(municipio)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(novidades => this.novidades = novidades);
   }
