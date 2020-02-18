@@ -26,7 +26,6 @@ export class NovidadesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getMunicipio();
-    this.getNovidades(this.municipioEscolhido);
   }
 
 
