@@ -13,6 +13,7 @@ const BAD_REQUEST = 400;
 const SUCCESS = 200;
 
 router.get("/", (req, res) => {
+  
   Novidades.findAll({
     include: [
       {
@@ -28,7 +29,8 @@ router.get("/", (req, res) => {
     where: {
       data: {
         [Sequelize.Op.ne]: null
-      }
+      },
+      nome_municipio: req.param('nome_municipio').toUpperCase()
     },
     limit: 50,
     order: [["data", "DESC"]]
