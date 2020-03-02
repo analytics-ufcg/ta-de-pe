@@ -21,7 +21,7 @@ router.get("/", (req, res) => {
       },
       {
         model: Licitacao,
-        attributes: ["nr_licitacao", "ano_licitacao", "vl_estimado_licitacao"],
+        attributes: ["id_licitacao", "nr_licitacao", "ano_licitacao", "vl_estimado_licitacao"],
         as: "licitacaoNovidade"
       }
     ],
