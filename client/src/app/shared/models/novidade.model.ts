@@ -10,6 +10,7 @@ export interface Novidade {
   data: Date;
   id_original: number;
   nome_municipio: string;
+  texto_novidade: string;
   tipo: TipoNovidade;
   licitacaoNovidade: any;
 }
