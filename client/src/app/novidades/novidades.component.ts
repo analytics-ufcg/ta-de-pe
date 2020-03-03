@@ -18,16 +18,18 @@ export class NovidadesComponent implements OnInit, OnDestroy {
   private unsubscribe = new Subject();
 
   public novidades: Novidade[];
+  public novidadesTipo: Novidade[];
   public municipioEscolhido: string;
 
+  filtro: any;
+
   constructor(private novidadesServices: NovidadeService,
-              private userService: UserService) {
+    private userService: UserService) {
   }
 
   ngOnInit() {
     this.getMunicipio();
   }
-
 
   getMunicipio() {
     this.userService.getMunicipioEscolhido()
@@ -42,6 +44,11 @@ export class NovidadesComponent implements OnInit, OnDestroy {
     this.novidadesServices.getNovidadesPorMunicipio(municipio)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(novidades => this.novidades = novidades);
+  }
+
+  search(filter: any) {
+    this.filtro = JSON.parse(JSON.stringify(filter));
+    this.novidadesServices.search(this.filtro);
   }
 
   ngOnDestroy() {
