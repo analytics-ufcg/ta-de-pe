@@ -5,10 +5,7 @@ import { Observable, BehaviorSubject } from 'rxjs';
 
 import {
   switchMap,
-  map,
-  tap,
-  debounceTime,
-  distinctUntilChanged
+  map
 } from 'rxjs/operators';
 
 import { Novidade } from './../models/novidade.model';
@@ -25,6 +22,9 @@ export class NovidadeService {
 
   private novidadesFiltered = new BehaviorSubject<Array<Novidade>>([]);
   private novidades = new BehaviorSubject<Array<Novidade>>([]);
+
+  private TIPOS_LICITACAO = [1, 2, 3];
+  private TIPOS_EMPENHO = [4, 5, 6, 7, 8, 9];
 
   constructor(private http: HttpClient) {
     this.novidades
@@ -52,19 +52,21 @@ export class NovidadeService {
   }
 
   search(filters: any) {
+    console.log(filters)
     this.searchfilters.next(filters);
   }
 
   filter(novidade: Novidade[], filters: any) {
 
-    const tipo = filters.id_tipo;
+    const licitacao = filters.licitacao;
+    const empenho = filters.licitacao;
 
     return novidade.filter(p => {
       let filtered;
 
-      filtered =
-        tipo ? p.id_tipo === tipo
-          : true;
+      filtered = licitacao && filtered ? this.TIPOS_LICITACAO.includes(p.id_tipo) : true;
+
+      filtered = empenho && filtered ? this.TIPOS_EMPENHO.includes(p.id_tipo) : true;
 
       return filtered;
     });

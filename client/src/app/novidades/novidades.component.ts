@@ -29,6 +29,12 @@ export class NovidadesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getMunicipio();
+    const filtro = {
+      licitacao: false,
+      empenho: false
+    }
+    this.filtro = filtro
+    this.search(this.filtro)
   }
 
   getMunicipio() {
@@ -46,9 +52,8 @@ export class NovidadesComponent implements OnInit, OnDestroy {
       .subscribe(novidades => this.novidades = novidades);
   }
 
-  search(filter: any) {
-    this.filtro = JSON.parse(JSON.stringify(filter));
-    this.novidadesServices.search(this.filtro);
+  search(filtro: any) {
+    this.novidadesServices.search(filtro);
   }
 
   ngOnDestroy() {
