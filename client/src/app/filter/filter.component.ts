@@ -35,6 +35,7 @@ export class FilterComponent implements OnInit, OnDestroy {
 
         this.filtro = {
             licitacao: this.licitacaoSelecionada,
+            empenho: this.empenhoSelecionado,
             default: true
         };
     }
@@ -53,6 +54,7 @@ export class FilterComponent implements OnInit, OnDestroy {
             empenho: this.empenhoSelecionado === 'Sim' ? true : false,
 
         };
+        
         this.updateUrlFiltro(this.filtro);
 
         this.filterChange.emit(this.filtro);
