@@ -3,9 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
 
-import { Licitacao } from '../shared/models/licitacao.model';
 import { LicitacaoService } from '../shared/services/licitacao.service';
 
 @Component({
@@ -22,9 +20,9 @@ export class FilterComponent implements OnDestroy {
     private unsubscribe = new Subject();
 
     licitacaoSelecionada: string;
+    empenhoSelecionado: string;
     // evoluir para:
     contratoSelecionado: string;
-    empenhoSelecionado: string;
 
     constructor(
         private activatedRoute: ActivatedRoute,
@@ -39,6 +37,10 @@ export class FilterComponent implements OnDestroy {
             licitacao: this.licitacaoSelecionada,
             default: true
         };
+    }
+
+    open(content) {
+        this.modalService.open(content, { ariaLabelledBy: 'Filtros para Novidades' });
     }
 
     aplicarFiltro() {
@@ -89,6 +91,5 @@ export class FilterComponent implements OnDestroy {
         this.unsubscribe.next();
         this.unsubscribe.complete();
     }
-
 
 }
