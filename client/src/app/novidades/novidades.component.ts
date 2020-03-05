@@ -29,12 +29,6 @@ export class NovidadesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.getMunicipio();
-    const filtro = {
-      licitacao: false,
-      empenho: false
-    }
-    this.filtro = filtro
-    this.search(this.filtro)
   }
 
   getMunicipio() {

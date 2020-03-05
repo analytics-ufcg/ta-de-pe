@@ -52,21 +52,20 @@ export class NovidadeService {
   }
 
   search(filters: any) {
-    console.log(filters)
     this.searchfilters.next(filters);
   }
 
   filter(novidade: Novidade[], filters: any) {
 
     const licitacao = filters.licitacao;
-    const empenho = filters.licitacao;
+    const empenho = filters.empenho;
 
     return novidade.filter(p => {
       let filtered;
 
-      filtered = licitacao && filtered ? this.TIPOS_LICITACAO.includes(p.id_tipo) : true;
+      filtered = licitacao ? this.TIPOS_LICITACAO.includes(p.id_tipo) : filtered;
 
-      filtered = empenho && filtered ? this.TIPOS_EMPENHO.includes(p.id_tipo) : true;
+      filtered = empenho ? this.TIPOS_EMPENHO.includes(p.id_tipo) : filtered;
 
       return filtered;
     });
