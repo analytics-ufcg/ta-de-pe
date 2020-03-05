@@ -1,16 +1,16 @@
-import { UserService } from "./../shared/services/user.service";
-import { Component, OnInit, OnDestroy } from "@angular/core";
+import { UserService } from './../shared/services/user.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 
-import { Subject } from "rxjs";
-import { takeUntil } from "rxjs/operators";
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
-import { Novidade } from "../shared/models/novidade.model";
-import { NovidadeService } from "../shared/services/novidade.service";
+import { Novidade } from '../shared/models/novidade.model';
+import { NovidadeService } from '../shared/services/novidade.service';
 
 @Component({
-  selector: "app-novidades",
-  templateUrl: "./novidades.component.html",
-  styleUrls: ["./novidades.component.scss"]
+  selector: 'app-novidades',
+  templateUrl: './novidades.component.html',
+  styleUrls: ['./novidades.component.scss']
 })
 export class NovidadesComponent implements OnInit, OnDestroy {
   private unsubscribe = new Subject();
@@ -24,7 +24,7 @@ export class NovidadesComponent implements OnInit, OnDestroy {
   constructor(
     private novidadesServices: NovidadeService,
     private userService: UserService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.getMunicipio();
