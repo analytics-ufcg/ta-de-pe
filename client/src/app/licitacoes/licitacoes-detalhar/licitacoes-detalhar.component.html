@@ -1,10 +1,10 @@
 <div class="container view-container">
-  <h2>{{ licitacao.nr_licitacao }}/{{ licitacao.ano_licitacao }}</h2>
-  <h3>{{ licitacao.nm_orgao }}</h3>
+  <h2>{{ licitacao?.nr_licitacao }}/{{ licitacao?.ano_licitacao }}</h2>
+  <h3>{{ licitacao?.nm_orgao }}</h3>
   <p>
-    <strong>Tipo: </strong> <span class="text-muted">{{ licitacao.tipo_licitacao }}</span>
+    <strong>Tipo: </strong> <span class="text-muted">{{ licitacao?.tipo_licitacao }}</span>
     <br>
-    <strong>Valor homologado: </strong> <span class="text-muted">{{ licitacao.vl_homologado | currency:'R$ ' }}</span>
+    <strong>Valor homologado: </strong> <span class="text-muted">{{ licitacao?.vl_homologado | currency:'R$ ' }}</span>
   </p>
   <br>
   <p>
