@@ -7,30 +7,32 @@ import { takeUntil } from 'rxjs/operators';
 import { Novidade } from '../shared/models/novidade.model';
 import { NovidadeService } from '../shared/services/novidade.service';
 
-
 @Component({
   selector: 'app-novidades',
   templateUrl: './novidades.component.html',
   styleUrls: ['./novidades.component.scss']
 })
 export class NovidadesComponent implements OnInit, OnDestroy {
-
   private unsubscribe = new Subject();
 
   public novidades: Novidade[];
+  public novidadesTipo: Novidade[];
   public municipioEscolhido: string;
 
-  constructor(private novidadesServices: NovidadeService,
-              private userService: UserService) {
-  }
+  filtro: any;
+
+  constructor(
+    private novidadesServices: NovidadeService,
+    private userService: UserService
+  ) { }
 
   ngOnInit() {
     this.getMunicipio();
   }
 
-
   getMunicipio() {
-    this.userService.getMunicipioEscolhido()
+    this.userService
+      .getMunicipioEscolhido()
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(municipio => {
         this.municipioEscolhido = municipio;
@@ -39,14 +41,18 @@ export class NovidadesComponent implements OnInit, OnDestroy {
   }
 
   getNovidades(municipio: string) {
-    this.novidadesServices.getNovidadesPorMunicipio(municipio)
+    this.novidadesServices
+      .getNovidadesPorMunicipio(municipio)
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(novidades => this.novidades = novidades);
+      .subscribe(novidades => (this.novidades = novidades));
+  }
+
+  search(filtro: any) {
+    this.novidadesServices.search(filtro);
   }
 
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
-
 }
