@@ -1,20 +1,18 @@
-import { UserService } from './../shared/services/user.service';
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { UserService } from "./../shared/services/user.service";
+import { Component, OnInit, OnDestroy } from "@angular/core";
 
-import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { Subject } from "rxjs";
+import { takeUntil } from "rxjs/operators";
 
-import { Novidade } from '../shared/models/novidade.model';
-import { NovidadeService } from '../shared/services/novidade.service';
-
+import { Novidade } from "../shared/models/novidade.model";
+import { NovidadeService } from "../shared/services/novidade.service";
 
 @Component({
-  selector: 'app-novidades',
-  templateUrl: './novidades.component.html',
-  styleUrls: ['./novidades.component.scss']
+  selector: "app-novidades",
+  templateUrl: "./novidades.component.html",
+  styleUrls: ["./novidades.component.scss"]
 })
 export class NovidadesComponent implements OnInit, OnDestroy {
-
   private unsubscribe = new Subject();
 
   public novidades: Novidade[];
@@ -23,16 +21,18 @@ export class NovidadesComponent implements OnInit, OnDestroy {
 
   filtro: any;
 
-  constructor(private novidadesServices: NovidadeService,
-    private userService: UserService) {
-  }
+  constructor(
+    private novidadesServices: NovidadeService,
+    private userService: UserService
+  ) {}
 
   ngOnInit() {
     this.getMunicipio();
   }
 
   getMunicipio() {
-    this.userService.getMunicipioEscolhido()
+    this.userService
+      .getMunicipioEscolhido()
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(municipio => {
         this.municipioEscolhido = municipio;
@@ -41,9 +41,10 @@ export class NovidadesComponent implements OnInit, OnDestroy {
   }
 
   getNovidades(municipio: string) {
-    this.novidadesServices.getNovidadesPorMunicipio(municipio)
+    this.novidadesServices
+      .getNovidadesPorMunicipio(municipio)
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(novidades => this.novidades = novidades);
+      .subscribe(novidades => (this.novidades = novidades));
   }
 
   search(filtro: any) {
@@ -54,5 +55,4 @@ export class NovidadesComponent implements OnInit, OnDestroy {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
-
 }
