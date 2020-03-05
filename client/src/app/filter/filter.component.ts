@@ -12,7 +12,7 @@ import { LicitacaoService } from '../shared/services/licitacao.service';
     styleUrls: ['./filter.component.scss']
 })
 
-export class FilterComponent implements OnDestroy {
+export class FilterComponent implements OnInit, OnDestroy {
 
     @Output() filterChange = new EventEmitter<any>();
 
@@ -37,6 +37,10 @@ export class FilterComponent implements OnDestroy {
             licitacao: this.licitacaoSelecionada,
             default: true
         };
+    }
+
+    ngOnInit() {
+      this.aplicarFiltro()
     }
 
     open(content) {

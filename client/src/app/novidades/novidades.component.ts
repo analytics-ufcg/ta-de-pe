@@ -1,3 +1,4 @@
+import { Licitacao } from './../shared/models/licitacao.model';
 import { UserService } from './../shared/services/user.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 
