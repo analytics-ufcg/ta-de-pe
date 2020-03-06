@@ -25,9 +25,9 @@ export class NovidadesComponent implements OnInit, OnDestroy {
   p = 1;
 
   constructor(private novidadesServices: NovidadeService,
-    private userService: UserService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router) {
+              private userService: UserService,
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit() {
