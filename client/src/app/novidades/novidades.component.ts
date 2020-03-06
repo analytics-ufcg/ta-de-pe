@@ -1,9 +1,11 @@
-import { UserService } from './../shared/services/user.service';
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Router, ActivatedRoute, Params } from '@angular/router';
+
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
+import { UserService } from './../shared/services/user.service';
 import { Novidade } from '../shared/models/novidade.model';
 import { NovidadeService } from '../shared/services/novidade.service';
 
@@ -20,14 +22,17 @@ export class NovidadesComponent implements OnInit, OnDestroy {
   public novidades: Novidade[];
   public municipioEscolhido: string;
 
+  p = 1;
+
   constructor(private novidadesServices: NovidadeService,
-              private userService: UserService) {
+    private userService: UserService,
+    private activatedRoute: ActivatedRoute,
+    private router: Router) {
   }
 
   ngOnInit() {
     this.getMunicipio();
   }
-
 
   getMunicipio() {
     this.userService.getMunicipioEscolhido()
@@ -42,6 +47,14 @@ export class NovidadesComponent implements OnInit, OnDestroy {
     this.novidadesServices.getNovidadesPorMunicipio(municipio)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(novidades => this.novidades = novidades);
+  }
+
+  pageChange(p: number) {
+    this.p = p;
+
+    const queryParams: Params = Object.assign({}, this.activatedRoute.snapshot.queryParams);
+    queryParams.page = p;
+    this.router.navigate([], { queryParams });
   }
 
   ngOnDestroy() {

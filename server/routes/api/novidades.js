@@ -32,7 +32,6 @@ router.get("/", (req, res) => {
       },
       nome_municipio: req.param('nome_municipio').toUpperCase()
     },
-    limit: 50,
     order: [["data", "DESC"]]
   })
     .then(novidades => res.status(SUCCESS).json(novidades))
