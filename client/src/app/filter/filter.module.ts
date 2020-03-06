@@ -5,9 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { FilterComponent } from './filter.component';
 
 @NgModule({
-  declarations: [
-    FilterComponent
-  ],
+  declarations: [FilterComponent],
   imports: [
     CommonModule,
     FormsModule

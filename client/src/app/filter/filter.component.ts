@@ -41,7 +41,7 @@ export class FilterComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-      this.aplicarFiltro()
+        this.aplicarFiltro()
     }
 
     open(content) {
@@ -54,7 +54,7 @@ export class FilterComponent implements OnInit, OnDestroy {
             empenho: this.empenhoSelecionado === 'Sim' ? true : false,
 
         };
-        
+
         this.updateUrlFiltro(this.filtro);
 
         this.filterChange.emit(this.filtro);
