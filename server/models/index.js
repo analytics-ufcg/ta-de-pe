@@ -5,7 +5,7 @@ const LicitacaoModel = "./postgres/licitacao.js";
 const NovidadeModel = "./postgres/novidade.js";
 const tipoNovidadeModel = "./postgres/tipoNovidade.js";
 const itensLicitacaoModel = "./postgres/itensLicitacao.js";
-const contratoModel = "./postgres/contratos.js";
+const contratoModel = "./postgres/contrato.js";
 
 if (!global.hasOwnProperty("models")) {
   const db = process.env.POSTGRESURI;
