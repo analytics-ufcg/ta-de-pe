@@ -25,7 +25,7 @@ export class NovidadeService {
 
   private TIPOS_LICITACAO = [1, 2, 3];
   private TIPOS_EMPENHO = [4, 5, 6, 7, 8, 9];
-  private TIPOS_CONTRATO = [10, 11]
+  private TIPOS_CONTRATO = [10, 11];
 
   constructor(private http: HttpClient) {
     this.novidades

@@ -42,7 +42,7 @@ export class FilterComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.aplicarFiltro()
+    this.aplicarFiltro();
   }
 
   open(content) {
