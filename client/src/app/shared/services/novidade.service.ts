@@ -25,6 +25,7 @@ export class NovidadeService {
 
   private TIPOS_LICITACAO = [1, 2, 3];
   private TIPOS_EMPENHO = [4, 5, 6, 7, 8, 9];
+  private TIPOS_CONTRATO = [10, 11]
 
   constructor(private http: HttpClient) {
     this.novidades
@@ -59,6 +60,7 @@ export class NovidadeService {
 
     const licitacao = filters.licitacao;
     const empenho = filters.empenho;
+    const contrato = filters.contrato;
 
     return novidade.filter(p => {
       let filtered;
@@ -66,6 +68,8 @@ export class NovidadeService {
       filtered = licitacao ? this.TIPOS_LICITACAO.includes(p.id_tipo) : filtered;
 
       filtered = empenho ? this.TIPOS_EMPENHO.includes(p.id_tipo) : filtered;
+
+      filtered = contrato ? this.TIPOS_CONTRATO.includes(p.id_tipo) : filtered;
 
       return filtered;
     });
