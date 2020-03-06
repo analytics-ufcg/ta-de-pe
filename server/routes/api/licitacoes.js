@@ -10,18 +10,18 @@ const BAD_REQUEST = 400;
 const SUCCESS = 200;
 
 router.get("/", (req, res) => {
-  Licitacao.findAll({
-    attributes: [
-      "id_licitacao",
-      "nm_orgao",
-      "nr_licitacao",
-      "ano_licitacao",
-      "cd_tipo_modalidade",
-      "tp_licitacao",
-      "tipo_licitacao"
-    ]
-  })
+  Licitacao.findAll()
     .then(licitacoes => res.status(SUCCESS).json(licitacoes))
+    .catch(err => res.status(BAD_REQUEST).json({ err }));
+});
+
+router.get("/:id", (req, res) => {
+  Licitacao.findOne({
+    where: {
+      id_licitacao: req.params.id
+    }
+  })
+    .then(licitacoes => res.json(licitacoes))
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 

@@ -13,6 +13,7 @@ const BAD_REQUEST = 400;
 const SUCCESS = 200;
 
 router.get("/", (req, res) => {
+  
   Novidades.findAll({
     include: [
       {
@@ -21,14 +22,15 @@ router.get("/", (req, res) => {
       },
       {
         model: Licitacao,
-        attributes: ["nr_licitacao", "ano_licitacao", "vl_estimado_licitacao"],
+        attributes: ["id_licitacao", "nr_licitacao", "ano_licitacao", "vl_estimado_licitacao"],
         as: "licitacaoNovidade"
       }
     ],
     where: {
       data: {
         [Sequelize.Op.ne]: null
-      }
+      },
+      nome_municipio: req.param('nome_municipio').toUpperCase()
     },
     limit: 50,
     order: [["data", "DESC"]]

@@ -11,6 +11,18 @@
       </strong>
       estimado
     </p>
-    <h6 class="text-right text-muted">{{ novidade.data | date:'dd-MM-yyyy' }}</h6>
+    <div class="row nogutters">
+      <div class="col">
+        <a
+          [routerLink]="['/licitacoes/' + novidade.licitacaoNovidade.id_licitacao]"
+          class="btn btn-sm btn-primary"
+        >
+          Detalhes
+        </a>
+      </div>
+      <div class="col">
+        <h6 class="text-right text-muted">{{ novidade.data | date:'dd-MM-yyyy' }}</h6>
+      </div>
+    </div>
   </div>
 </div>

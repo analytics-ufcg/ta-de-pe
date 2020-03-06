@@ -6,11 +6,7 @@ import { LicitacoesDetalharComponent } from './licitacoes-detalhar/licitacoes-de
 
 const routes: Routes = [
   {
-    path: '',
-    component: LicitacoesListarComponent
-  },
-  {
-    path: 'detalhar/:id',
+    path: ':id',
     component: LicitacoesDetalharComponent
   }
 ];
