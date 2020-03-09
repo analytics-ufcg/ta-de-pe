@@ -62,15 +62,11 @@ export class NovidadeService {
     const empenho = filters.empenho;
     const contrato = filters.contrato;
 
-    return novidade.filter(p => {
+    return novidade.filter(n => {
       let filtered;
-
-      filtered = licitacao ? this.TIPOS_LICITACAO.includes(p.id_tipo) : filtered;
-
-      filtered = empenho ? this.TIPOS_EMPENHO.includes(p.id_tipo) : filtered;
-
-      filtered = contrato ? this.TIPOS_CONTRATO.includes(p.id_tipo) : filtered;
-
+      filtered = licitacao ? this.TIPOS_LICITACAO.includes(n.id_tipo) : filtered;
+      filtered = empenho ? this.TIPOS_EMPENHO.includes(n.id_tipo) || filtered : filtered;
+      filtered = contrato ? this.TIPOS_CONTRATO.includes(n.id_tipo) || filtered : filtered;
       return filtered;
     });
   }
