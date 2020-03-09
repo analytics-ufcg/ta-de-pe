@@ -5,6 +5,13 @@ const cors = require("cors");
 const compression = require("compression");
 const forceSsl = require("force-ssl-heroku");
 
+const orgaos = require("./server/routes/api/orgaos");
+const licitacoes = require("./server/routes/api/licitacoes");
+const novidades = require("./server/routes/api/novidades");
+const tipoNovidades = require("./server/routes/api/tipoNovidades");
+const itensLicitacoes = require("./server/routes/api/itensLicitacoes");
+const contratos = require("./server/routes/api/contratos");
+
 /*
  * Configuração do servidor web
  */
@@ -31,6 +38,13 @@ const db = require("./server/models/index");
 app.get("/api", (req, res) => {
   res.json({ "status": "OK"});
 });
+
+app.use("/api/orgaos", orgaos);
+app.use("/api/licitacoes", licitacoes);
+app.use("/api/novidades", novidades);
+app.use("/api/tiponovidades", tipoNovidades);
+app.use("/api/itenslicitacoes", itensLicitacoes);
+app.use("/api/contratos", contratos);
 
 // Define diretório estático (site)
 app.use(express.static("client/build"));

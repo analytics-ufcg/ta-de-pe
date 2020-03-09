@@ -1,0 +1,13 @@
+<div class="container view-container">
+  <h2>{{ licitacao?.nr_licitacao }}/{{ licitacao?.ano_licitacao }}</h2>
+  <h3>{{ licitacao?.nm_orgao }}</h3>
+  <p>
+    <strong>Tipo: </strong> <span class="text-muted">{{ licitacao?.tipo_licitacao }}</span>
+    <br>
+    <strong>Valor homologado: </strong> <span class="text-muted">{{ licitacao?.vl_homologado | currency:'R$ ' }}</span>
+  </p>
+  <br>
+  <p>
+    <img src="https://via.placeholder.com/600x350/CCCCCC/000000?text=An%C3%A1lises+sobre+datas,+valores,+itens" alt="Análises" width="100%">
+  </p>
+</div>

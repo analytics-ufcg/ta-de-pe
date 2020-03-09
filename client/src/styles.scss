@@ -1,1 +1,14 @@
-/* You can add global styles to this file, and also import other style files */
+@import url('https://fonts.googleapis.com/css?family=Work+Sans:500,700|Fredoka+One&display=swap');
+@import "../node_modules/bootstrap/scss/functions";
+@import "assets/bootstrap/variables";
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+html,
+body {
+  background-color: $gray;
+}
+
+.view-container {
+  padding-top: 4rem;
+  padding-bottom: 4rem;
+}
