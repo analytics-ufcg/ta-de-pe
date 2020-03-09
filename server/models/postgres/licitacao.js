@@ -33,17 +33,17 @@ module.exports = (sequelize, type) => {
       sourceKey: "id_orgao",
       as: "licitacoesOrgao"
     });
-    licitacao.belongsTo(models.novidade, {
+    licitacao.hasMany(models.novidade, {
       foreignKey: "id_licitacao",
       sourceKey: "id_licitacao",
       as: "licitacaoNovidade"
     });
-    licitacao.belongsTo(models.itensLicitacao, {
+    licitacao.hasMany(models.itensLicitacao, {
       foreignKey: "id_licitacao",
       sourceKey: "id_licitacao",
       as: "licitacaoItensLicitacao"
     });
-    licitacao.belongsTo(models.contrato, {
+    licitacao.hasMany(models.contrato, {
       foreignKey: "id_licitacao",
       sourceKey: "id_licitacao",
       as: "constratosLicitacao"
