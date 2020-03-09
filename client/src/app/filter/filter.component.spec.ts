@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { NovidadesComponent } from './novidades.component';
+import { FilterComponent } from './filter.component';
 
-describe('NovidadesComponent', () => {
-  let component: NovidadesComponent;
-  let fixture: ComponentFixture<NovidadesComponent>;
+describe('FilterComponent', () => {
+  let component: FilterComponent;
+  let fixture: ComponentFixture<FilterComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [NovidadesComponent]
+      declarations: [FilterComponent]
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(NovidadesComponent);
+    fixture = TestBed.createComponent(FilterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
@@ -22,4 +22,5 @@ describe('NovidadesComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
 });

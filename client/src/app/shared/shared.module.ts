@@ -2,18 +2,22 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { BuscaMunicipioModule } from './components/busca-municipio/busca-municipio.module';
+import { FilterModule } from '../filter/filter.module';
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    BuscaMunicipioModule
+    BuscaMunicipioModule,
+    FilterModule
   ],
   providers: [
-    BuscaMunicipioModule
+    BuscaMunicipioModule,
+    FilterModule
   ],
   exports: [
-    BuscaMunicipioModule
+    BuscaMunicipioModule,
+    FilterModule
   ]
 })
 export class SharedModule { }
