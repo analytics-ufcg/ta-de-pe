@@ -15,10 +15,4 @@ router.get("/", (req, res) => {
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
-router.get("/itenslicitacoes", (req, res) => {
-  itensLicitacao.findAll()
-    .then(itensLicitacoes => res.status(SUCCESS).json(itensLicitacoes))
-    .catch(err => res.status(BAD_REQUEST).json({ err }));
-});
-
 module.exports = router;
