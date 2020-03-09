@@ -43,6 +43,11 @@ module.exports = (sequelize, type) => {
       sourceKey: "id_licitacao",
       as: "licitacaoItensLicitacao"
     });
+    licitacao.belongsTo(models.contrato, {
+      foreignKey: "id_licitacao",
+      sourceKey: "id_licitacao",
+      as: "constratosLicitacao"
+    });
   };
   return licitacao;
 };

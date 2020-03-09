@@ -10,6 +10,7 @@ const licitacoes = require("./server/routes/api/licitacoes");
 const novidades = require("./server/routes/api/novidades");
 const tipoNovidades = require("./server/routes/api/tipoNovidades");
 const itensLicitacoes = require("./server/routes/api/itensLicitacoes");
+const contratos = require("./server/routes/api/contratos");
 
 /*
  * Configuração do servidor web
@@ -43,6 +44,7 @@ app.use("/api/licitacoes", licitacoes);
 app.use("/api/novidades", novidades);
 app.use("/api/tiponovidades", tipoNovidades);
 app.use("/api/itenslicitacoes", itensLicitacoes);
+app.use("/api/contratos", contratos);
 
 // Define diretório estático (site)
 app.use(express.static("client/build"));
