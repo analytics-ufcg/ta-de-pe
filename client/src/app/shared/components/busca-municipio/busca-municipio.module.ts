@@ -1,4 +1,3 @@
-import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { NgModule } from '@angular/core';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
@@ -11,7 +10,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
   imports: [
     ReactiveFormsModule,
     FormsModule,
-    AutocompleteLibModule,
     NgbModule
   ],
   exports: [BuscaMunicipioComponent]
