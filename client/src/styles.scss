@@ -2,6 +2,7 @@
 @import "../node_modules/bootstrap/scss/functions";
 @import "assets/bootstrap/variables";
 @import "../node_modules/bootstrap/scss/bootstrap";
+@import "assets/bootstrap/overhide";
 
 html,
 body {
@@ -11,4 +12,14 @@ body {
 .view-container {
   padding-top: 4rem;
   padding-bottom: 4rem;
+}
+
+.card-text {
+  padding: 0;
+  margin: 0;
+}
+
+.btn-corner {
+  border-radius: 0;
+  border-bottom-right-radius: $border-radius;
 }

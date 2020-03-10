@@ -10,10 +10,12 @@ import { Novidade } from 'src/app/shared/models/novidade.model';
 export class NovidadeComponent implements OnInit {
 
   @Input() novidade: Novidade;
+  @Input() showMunicipio: boolean;
 
   constructor() { }
 
   ngOnInit() {
   }
+
 
 }
