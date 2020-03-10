@@ -1,5 +1,15 @@
 <div class="busca-municipio">
-  <input id="typeahead-focus" type="text" class="form-control" placeholder="{{placeholder}}" [(ngModel)]="municipioSelecionado"
-    [ngbTypeahead]="search" (focus)="focus$.next($event.target.value)" (click)="click$.next($event.target.value)"
-    [editable]="false" (selectItem)="salvaMunicipio($event.item)" #instance="ngbTypeahead" />
+  <input
+    id="typeahead-focus"
+    type="text"
+    class="form-control"
+    placeholder="{{placeholder}}"
+    [(ngModel)]="municipioSelecionado"
+    [ngbTypeahead]="search"
+    (focus)="focus$.next($event.target.value)"
+    (click)="click$.next($event.target.value)"
+    [editable]="false"
+    (selectItem)="salvaMunicipio($event.item)"
+    #instance="ngbTypeahead"
+  >
 </div>
