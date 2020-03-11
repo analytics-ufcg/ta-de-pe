@@ -2,6 +2,7 @@
 @import "../node_modules/bootstrap/scss/functions";
 @import "assets/bootstrap/variables";
 @import "../node_modules/bootstrap/scss/bootstrap";
+@import "assets/bootstrap/overhide";
 
 html,
 body {
@@ -17,4 +18,33 @@ body {
 .view-container {
   padding-top: 4rem;
   padding-bottom: 4rem;
+}
+
+.card-text {
+  padding: 0;
+  margin: 0;
+}
+
+.btn-corner {
+  border-radius: 0;
+  border-bottom-right-radius: $border-radius;
+}
+
+.card-callout {
+  border-top: solid 0.25rem;
+
+  &.border-callout-success,
+  &.border-callout-licitacao {
+    border-top-color: $success;
+  }
+
+  &.border-callout-warning,
+  &.border-callout-contrato {
+    border-top-color: $warning;
+  }
+
+  &.border-callout-danger,
+  &.border-callout-empenho {
+    border-top-color: $danger;
+  }
 }
