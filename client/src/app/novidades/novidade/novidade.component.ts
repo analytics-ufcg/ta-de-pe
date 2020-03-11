@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 
 import { Novidade } from 'src/app/shared/models/novidade.model';
+import { NovidadeService } from 'src/app/shared/services/novidade.service';
 
 @Component({
   selector: 'app-novidade',
@@ -10,8 +11,9 @@ import { Novidade } from 'src/app/shared/models/novidade.model';
 export class NovidadeComponent implements OnInit {
 
   @Input() novidade: Novidade;
+  @Input() showMunicipio: boolean;
 
-  constructor() { }
+  constructor(public novidadeService: NovidadeService) { }
 
   ngOnInit() {
   }

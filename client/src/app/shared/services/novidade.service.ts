@@ -64,11 +64,23 @@ export class NovidadeService {
 
     return novidade.filter(n => {
       let filtered;
-      filtered = licitacao ? this.TIPOS_LICITACAO.includes(n.id_tipo) : filtered;
-      filtered = empenho ? this.TIPOS_EMPENHO.includes(n.id_tipo) || filtered : filtered;
-      filtered = contrato ? this.TIPOS_CONTRATO.includes(n.id_tipo) || filtered : filtered;
+      filtered = licitacao ? this.isLicitacao(n.id_tipo) : filtered;
+      filtered = empenho ? this.isEmpenho(n.id_tipo) || filtered : filtered;
+      filtered = contrato ? this.isContrato(n.id_tipo) || filtered : filtered;
       return filtered;
     });
+  }
+
+  isLicitacao(idTipo: number): boolean {
+    return this.TIPOS_LICITACAO.includes(idTipo);
+  }
+
+  isEmpenho(idTipo: number): boolean {
+    return this.TIPOS_EMPENHO.includes(idTipo);
+  }
+
+  isContrato(idTipo: number): boolean {
+    return this.TIPOS_CONTRATO.includes(idTipo);
   }
 
 }

@@ -56,6 +56,10 @@ export class NovidadesComponent implements OnInit, OnDestroy {
     this.novidadesServices.search(filtro);
   }
 
+  naoEscolheuMunicipio(): boolean {
+    return this.municipioEscolhido === '';
+  }
+
   pageChange(p: number) {
     this.p = p;
 
