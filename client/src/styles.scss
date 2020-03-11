@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css?family=Work+Sans:500,700|Fredoka+One&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Work+Sans:500,700|Fredoka+One&display=swap");
 @import "../node_modules/bootstrap/scss/functions";
 @import "assets/bootstrap/variables";
 @import "../node_modules/bootstrap/scss/bootstrap";
@@ -22,4 +22,23 @@ body {
 .btn-corner {
   border-radius: 0;
   border-bottom-right-radius: $border-radius;
+}
+
+.card-callout {
+  border-top: solid 0.25rem;
+
+  &.border-callout-success,
+  &.border-callout-licitacao {
+    border-top-color: $success;
+  }
+
+  &.border-callout-warning,
+  &.border-callout-contrato {
+    border-top-color: $warning;
+  }
+
+  &.border-callout-danger,
+  &.border-callout-empenho {
+    border-top-color: $danger;
+  }
 }
