@@ -53,6 +53,7 @@ export class NovidadesComponent implements OnInit, OnDestroy {
   }
 
   search(filtro: any) {
+    this.p = 1;
     this.novidadesServices.search(filtro);
   }
 
