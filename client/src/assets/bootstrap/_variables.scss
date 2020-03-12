@@ -41,7 +41,7 @@ $yellow:  #f7b24d !default;
 $pink:    #e83e8c !default;
 $teal:    #80a997 !default;
 $cyan:    #549b97 !default;
-// $blue:    #007bff !default;
+$blue:    #37779d !default;
 // $indigo:  #6610f2 !default;
 // $purple:  #6f42c1 !default;
 // $red:     #dc3545 !default;
@@ -55,7 +55,7 @@ $colors: map-merge(
     "pink":       $pink,
     "yellow":     $yellow,
     "cyan":       $cyan,
-    // "blue":       $blue,
+    "blue":       $blue,
     // "indigo":     $indigo,
     // "purple":     $purple,
     // "red":        $red,
