@@ -15,4 +15,14 @@ router.get("/", (req, res) => {
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
+router.get("/:id", (req, res) => {
+  itensLicitacao.findAll({
+    where: {
+      id_licitacao: req.params.id
+    }
+  })
+    .then(licitacoes => res.json(licitacoes))
+    .catch(err => res.status(BAD_REQUEST).json({ err }));
+});
+
 module.exports = router;
