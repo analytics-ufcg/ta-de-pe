@@ -6,6 +6,7 @@ const NovidadeModel = "./postgres/novidade.js";
 const tipoNovidadeModel = "./postgres/tipoNovidade.js";
 const itensLicitacaoModel = "./postgres/itensLicitacao.js";
 const contratoModel = "./postgres/contrato.js";
+const itensContratoModel = "./postgres/itensContrato.js"
 
 if (!global.hasOwnProperty("models")) {
   const db = process.env.POSTGRESURI;
@@ -34,7 +35,8 @@ if (!global.hasOwnProperty("models")) {
     novidade: sequelize.import(NovidadeModel),
     tipoNovidade: sequelize.import(tipoNovidadeModel),
     itensLicitacao: sequelize.import(itensLicitacaoModel),
-    contrato: sequelize.import(contratoModel)
+    contrato: sequelize.import(contratoModel),
+    itensContrato: sequelize.import(itensContratoModel)
     //add your others models here
   };
 
