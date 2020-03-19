@@ -31,13 +31,24 @@ Instale o [docker](https://docs.docker.com/install/) e o [docker-compose](https:
 
 ### Passo 2
 
+Crie um arquivo variables.env e copie o conteúdo do arquivo variables.env.sample para dentro dele. Preencha as variáveis com os valores de sua necessidade.
+
+Se estiver usando o banco local para desenvolvimento uma sugestão é utilizar:
+
+```
+NODE_ENV=development
+POSTGRESURI=postgres://postgres:secret@postgres:5432/tanamesa
+```
+
+### Passo 3
+
 Para levantar os serviços do frontend e backend com as dependência execute:
 
 ```
 docker-compose up
 ```
 
-### Passo 3
+### Passo 4
 
 Acesse o frontend em http://localhost:4200 e o backend (API) em http://localhost:5000/api.
 
