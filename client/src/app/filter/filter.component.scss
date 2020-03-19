@@ -1,20 +1,24 @@
 .filter-body {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-  
-  .temas-wrapper {
-    display: flex;
-    justify-content: center;
-  }
-  
-  .temas-container {
-    display: flex;
-    overflow-x: auto;
-  }
-  
-  .btn-tema-sm {
-    min-height: 86px;
-    width: 118px;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.temas-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.temas-container {
+  display: flex;
+  overflow-x: auto;
+}
+
+.btn-tema-sm {
+  min-height: 86px;
+  width: 118px;
+}
+
+.btn-filter {
+  font-weight: 700;
+}
