@@ -15,7 +15,7 @@ router.get("/", (req, res) => {
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
-router.get("/:id", (req, res) => {
+router.get("/licitacao/:id", (req, res) => {
   itensLicitacao.findAll({
     where: {
       id_licitacao: req.params.id
