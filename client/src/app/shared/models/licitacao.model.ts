@@ -1,3 +1,5 @@
+import { ItensLicitacao } from './itensLicitacao.model';
+
 export interface Licitacao {
   id_licitacao: number;
   nm_orgao: string;
@@ -8,4 +10,6 @@ export interface Licitacao {
   tipo_licitacao: string;
   data_abertura: Date;
   vl_homologado: number;
+  descricao_objeto: string;
+  itensLicitacao: ItensLicitacao;
 }

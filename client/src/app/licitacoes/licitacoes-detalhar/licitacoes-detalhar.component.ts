@@ -5,6 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { Licitacao } from 'src/app/shared/models/licitacao.model';
+import { ItensLicitacao } from 'src/app/shared/models/itensLicitacao.model';
 import { LicitacaoService } from 'src/app/shared/services/licitacao.service';
 
 @Component({
@@ -17,6 +18,7 @@ export class LicitacoesDetalharComponent implements OnInit {
   private unsubscribe = new Subject();
 
   public licitacao: Licitacao;
+  public itens: ItensLicitacao;
 
   constructor(
     private activatedroute: ActivatedRoute,
@@ -30,7 +32,10 @@ export class LicitacoesDetalharComponent implements OnInit {
   getLicitacaoByID(id: string) {
     this.licitacaoService.get(id)
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(licitacao => this.licitacao = licitacao);
+      .subscribe(licitacao => {
+        this.licitacao = licitacao;
+        this.itens = licitacao.itensLicitacao;
+      });
   }
 
 }

@@ -5,6 +5,7 @@ const router = express.Router();
 const models = require("../../models/index");
 
 const Licitacao = models.licitacao;
+const itensLicitacao = models.itensLicitacao;
 
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
@@ -17,6 +18,13 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   Licitacao.findOne({
+    include: [
+      {
+        model: itensLicitacao,
+        attributes: ["ds_item", "qt_itens_licitacao", "sg_unidade_medida", "vl_unitario_estimado", "vl_total_estimado"],
+        as: "itensLicitacao"
+      }
+    ],
     where: {
       id_licitacao: req.params.id
     }
