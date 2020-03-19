@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 import { Licitacao } from 'src/app/shared/models/licitacao.model';
-import { itensLicitacao } from 'src/app/shared/models/itensLicitacao.model';
+import { ItensLicitacao } from 'src/app/shared/models/itensLicitacao.model';
 import { LicitacaoService } from 'src/app/shared/services/licitacao.service';
 
 @Component({
@@ -18,7 +18,7 @@ export class LicitacoesDetalharComponent implements OnInit {
   private unsubscribe = new Subject();
 
   public licitacao: Licitacao;
-  public itens: itensLicitacao;
+  public itens: ItensLicitacao;
 
   constructor(
     private activatedroute: ActivatedRoute,
@@ -35,7 +35,6 @@ export class LicitacoesDetalharComponent implements OnInit {
       .subscribe(licitacao => {
         this.licitacao = licitacao;
         this.itens = licitacao.itensLicitacao;
-        this.qtdItens = licitacao.itensLicitacao.length;
       });
   }
 
