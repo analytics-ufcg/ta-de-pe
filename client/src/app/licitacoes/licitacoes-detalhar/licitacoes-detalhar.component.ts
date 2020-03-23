@@ -29,7 +29,6 @@ export class LicitacoesDetalharComponent implements OnInit, OnDestroy {
   ngOnInit() {
     const id = this.activatedroute.snapshot.paramMap.get('id');
     this.getLicitacaoByID(id);
-    
   }
 
   getLicitacaoByID(id: string) {
