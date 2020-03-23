@@ -18,7 +18,11 @@ export class LicitacoesDetalharComponent implements OnInit {
   private unsubscribe = new Subject();
 
   public licitacao: Licitacao;
-  public itens: ItensLicitacao;
+  public itens: ItensLicitacao[];
+
+  page = 1;
+  pageSize = 8;
+  collectionSize;
 
   constructor(
     private activatedroute: ActivatedRoute,
@@ -35,7 +39,17 @@ export class LicitacoesDetalharComponent implements OnInit {
       .subscribe(licitacao => {
         this.licitacao = licitacao;
         this.itens = licitacao.itensLicitacao;
+        this.collectionSize = this.itens.length;
       });
+  }
+
+  get itensPaginates(): ItensLicitacao[] {
+    if (this.itens) {
+      return this.itens
+      .map((item, i) => ({id: i + 1, ...item}))
+      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+    }
+
   }
 
 }
