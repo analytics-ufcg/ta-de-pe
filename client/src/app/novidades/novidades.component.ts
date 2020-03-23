@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, debounceTime } from 'rxjs/operators';
 
 import { UserService } from './../shared/services/user.service';
 import { Novidade } from '../shared/models/novidade.model';
@@ -38,7 +38,9 @@ export class NovidadesComponent implements OnInit, OnDestroy {
   getMunicipio() {
     this.userService
       .getMunicipioEscolhido()
-      .pipe(takeUntil(this.unsubscribe))
+      .pipe(
+        debounceTime(300),
+        takeUntil(this.unsubscribe))
       .subscribe(municipio => {
         this.municipioEscolhido = municipio;
         this.getNovidades(this.municipioEscolhido);
@@ -49,7 +51,9 @@ export class NovidadesComponent implements OnInit, OnDestroy {
     this.novidadesServices
       .getNovidadesPorMunicipio(municipio)
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(novidades => (this.novidades = novidades));
+      .subscribe(novidades => {
+        this.novidades = novidades;
+      });
   }
 
   search(filtro: any) {

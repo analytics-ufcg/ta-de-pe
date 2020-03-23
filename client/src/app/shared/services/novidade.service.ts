@@ -5,7 +5,8 @@ import { Observable, BehaviorSubject } from 'rxjs';
 
 import {
   switchMap,
-  map
+  map,
+  distinctUntilChanged
 } from 'rxjs/operators';
 
 import { Novidade } from './../models/novidade.model';
@@ -32,6 +33,11 @@ export class NovidadeService {
       .pipe(
         switchMap(novidade =>
           this.searchfilters.pipe(
+            distinctUntilChanged(
+              (p: any, q: any) => {
+                return this.compareFilter(p, q);
+              }
+            ),
             map(filters => this.filter(novidade, filters))
           )
         )
@@ -81,6 +87,18 @@ export class NovidadeService {
 
   isContrato(idTipo: number): boolean {
     return this.TIPOS_CONTRATO.includes(idTipo);
+  }
+
+  /**
+   * Compara se dois filtros são iguais ou não
+   *
+   * @param p Filtro para comparação
+   * @param q Filtro para comparação
+   */
+  private compareFilter(p: any, q: any) {
+    return p.licitacao === q.licitacao &&
+      p.empenho === q.empenho &&
+      p.contrato === q.contrato;
   }
 
 }
