@@ -37,7 +37,7 @@ router.get("/:id", (req, res) => {
           }
         ],
         attributes: ["nr_contrato", "nr_documento_contratado", "vl_contrato"],
-        as: "constratosLicitacao"
+        as: "contratosLicitacao"
       }
     ],
     where: {

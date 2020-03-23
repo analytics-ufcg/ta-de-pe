@@ -41,7 +41,7 @@ module.exports = (sequelize, type) => {
     licitacao.hasMany(models.contrato, {
       foreignKey: "id_licitacao",
       sourceKey: "id_licitacao",
-      as: "constratosLicitacao"
+      as: "contratosLicitacao"
     });
     licitacao.hasMany(models.itensLicitacao, {
       foreignKey: "id_licitacao",
