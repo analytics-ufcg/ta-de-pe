@@ -30,7 +30,7 @@ module.exports = {
         if (data_final === undefined && req.query.data_inicial !== undefined) {
           throw new Error("É preciso definir os parâmetros data_final. Formato: YYYY-MM-DD");
         }
-        if (!(dataF instanceof Date && !isNaN(dataF))) {
+        if (data_final !== undefined && !(dataF instanceof Date && !isNaN(dataF))) {
             throw new Error("Data Final está num formato inválido. Formato correto: YYYY-MM-DD");
         }
         return true;
