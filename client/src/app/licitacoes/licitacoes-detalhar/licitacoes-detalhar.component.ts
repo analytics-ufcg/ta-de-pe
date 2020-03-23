@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Subject } from 'rxjs';
@@ -13,16 +13,14 @@ import { LicitacaoService } from 'src/app/shared/services/licitacao.service';
   templateUrl: './licitacoes-detalhar.component.html',
   styleUrls: ['./licitacoes-detalhar.component.scss']
 })
-export class LicitacoesDetalharComponent implements OnInit {
+export class LicitacoesDetalharComponent implements OnInit, OnDestroy {
 
   private unsubscribe = new Subject();
 
   public licitacao: Licitacao;
-  public itens: ItensLicitacao[];
 
   page = 1;
   pageSize = 8;
-  collectionSize;
 
   constructor(
     private activatedroute: ActivatedRoute,
@@ -31,6 +29,7 @@ export class LicitacoesDetalharComponent implements OnInit {
   ngOnInit() {
     const id = this.activatedroute.snapshot.paramMap.get('id');
     this.getLicitacaoByID(id);
+    
   }
 
   getLicitacaoByID(id: string) {
@@ -38,18 +37,22 @@ export class LicitacoesDetalharComponent implements OnInit {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(licitacao => {
         this.licitacao = licitacao;
-        this.itens = licitacao.itensLicitacao;
-        this.collectionSize = this.itens.length;
+        this.licitacao.itensLicitacao = licitacao.itensLicitacao;
       });
   }
 
-  get itensPaginates(): ItensLicitacao[] {
-    if (this.itens) {
-      return this.itens
+  get itensPaginate(): ItensLicitacao[] {
+    if (this.licitacao.itensLicitacao) {
+      return this.licitacao.itensLicitacao
       .map((item, i) => ({id: i + 1, ...item}))
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
     }
 
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
 }
