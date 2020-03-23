@@ -6,7 +6,7 @@ module.exports = (sequelize, type) => {
         type: type.STRING,
         primaryKey: true
       },
-      id_contrato: type.STRING,
+      id_contrato: type.INTEGER,
       id_orgao: type.INTEGER,
       id_licitacao: type.INTEGER,
       nr_lote: type.INTEGER,
@@ -19,7 +19,8 @@ module.exports = (sequelize, type) => {
       nr_item: type.STRING,
       qt_itens_contrato: type.REAL,
       vl_item_contrato: type.DECIMAL(15, 2),
-      vl_total_item_contrato: type.DECIMAL(15, 2)
+      vl_total_item_contrato: type.DECIMAL(15, 2),
+      ds_item: type.STRING
     },
     {
       freezeTableName: true,
