@@ -1,9 +1,12 @@
 const express = require("express");
 const Sequelize = require("sequelize");
+const { validationResult } = require('express-validator');
 
 const router = express.Router();
 
 const models = require("../../models/index");
+
+const novidadesValidator = require("../../middlewares/novidades.validator.js");
 
 const Novidades = models.novidade;
 const TipoNovidade = models.tipoNovidade;
@@ -12,7 +15,13 @@ const Licitacao = models.licitacao;
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
 
-router.get("/", (req, res) => {
+router.get("/", novidadesValidator.validate, (req, res) => {
+
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    return res.status(400).json({ errors: errors.array() });
+  }
   
   let dataInicial = req.query.data_inicial;
 
@@ -27,9 +36,6 @@ router.get("/", (req, res) => {
     dataFinal = dataFinal.toJSON().slice(0,10); 
     dataInicial = dataInicial.toJSON().slice(0,10);
   }
-
-  console.log(dataInicial);
-  console.log(dataFinal);
 
   Novidades.findAll({
     include: [
