@@ -7,7 +7,6 @@ const models = require("../../models/index");
 const Licitacao = models.licitacao;
 const itensLicitacao = models.itensLicitacao;
 const itensContrato = models.itensContrato;
-
 const Contrato = models.contrato;
 
 const BAD_REQUEST = 400;
