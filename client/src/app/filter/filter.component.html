@@ -7,7 +7,7 @@
           placeholder="Data inicial"
           name="dp1"
           [(ngModel)]="dataInicial"
-          (dateSelect)="aplicarDateChange($event)"
+          (dateSelect)="aplicarDateChange()"
           ngbDatepicker
           #d1="ngbDatepicker"
         >
@@ -27,7 +27,7 @@
           placeholder="Data final"
           name="dp2"
           [(ngModel)]="dataFinal"
-          (dateSelect)="aplicarDateChange($event)"
+          (dateSelect)="aplicarDateChange()"
           ngbDatepicker
           #d2="ngbDatepicker"
         >
