@@ -21,6 +21,7 @@ export class NovidadesComponent implements OnInit, OnDestroy {
   public municipioEscolhido: string;
 
   filtro: any;
+  datas: any;
 
   p = 1;
 
@@ -49,7 +50,7 @@ export class NovidadesComponent implements OnInit, OnDestroy {
 
   getNovidades(municipio: string) {
     this.novidadesServices
-      .getNovidadesPorMunicipio(municipio)
+      .getNovidadesPorMunicipio(municipio, this.datas)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(novidades => {
         this.novidades = novidades;
@@ -59,6 +60,11 @@ export class NovidadesComponent implements OnInit, OnDestroy {
   search(filtro: any) {
     this.p = 1;
     this.novidadesServices.search(filtro);
+  }
+
+  alteraNovidades(datas: any) {
+    this.datas = datas;
+    this.getNovidades(this.municipioEscolhido);
   }
 
   naoEscolheuMunicipio(): boolean {

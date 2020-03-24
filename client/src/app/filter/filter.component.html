@@ -1,5 +1,48 @@
 <div class="filter mb-4">
   <div class="row no-gutters">
+    <div class="col col-lg-3">
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="Data inicial"
+          name="dp1"
+          [(ngModel)]="dataInicial"
+          (dateSelect)="aplicarDateChange($event)"
+          ngbDatepicker
+          #d1="ngbDatepicker"
+        >
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-secondary calendar"
+            (click)="d1.toggle()"
+            type="button"
+          >+</button>
+        </div>
+      </div>
+    </div>
+    <div class="col col-lg-3 ml-2">
+      <div class="input-group">
+        <input
+          class="form-control"
+          placeholder="Data final"
+          name="dp2"
+          [(ngModel)]="dataFinal"
+          (dateSelect)="aplicarDateChange($event)"
+          ngbDatepicker
+          #d2="ngbDatepicker"
+        >
+        <div class="input-group-append">
+          <button
+            class="btn btn-outline-secondary calendar"
+            (click)="d2.toggle()"
+            type="button"
+          >+</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row no-gutters">
+
     <div class="col">
       <button
         class="btn btn-block btn-sm btn-filter"

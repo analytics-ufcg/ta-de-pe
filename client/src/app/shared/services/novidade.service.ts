@@ -47,9 +47,12 @@ export class NovidadeService {
       });
   }
 
-  getNovidadesPorMunicipio(municipio: string): Observable<Novidade[]> {
+  getNovidadesPorMunicipio(municipio: string, datas: any): Observable<Novidade[]> {
     const params = new HttpParams()
-      .set('nome_municipio', municipio);
+      .set('nome_municipio', municipio)
+      .set('data_inicial', datas.dataInicial)
+      .set('data_final', datas.dataFinal);
+
     this.http.get<Novidade[]>(this.url, { params })
       .subscribe(res => {
         this.novidades.next(res);

@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 
 import { UserService } from './shared/services/user.service';
+import { NovidadeService } from './shared/services/novidade.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { UserService } from './shared/services/user.service';
     NgbModule
   ],
   providers: [
-    UserService
+    UserService,
+    NovidadeService
   ],
   bootstrap: [AppComponent]
 })

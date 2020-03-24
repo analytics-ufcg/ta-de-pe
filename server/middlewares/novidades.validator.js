@@ -18,9 +18,6 @@ module.exports = {
         if ((dataI - dataF) > 0) {
             throw new Error("Data inicial não pode ser mais recente que a Data Final.");
         }
-        if ((dataI - dataF) > 0) {
-            throw new Error("Data inicial não pode ser mais recente que a Data Final.");
-        }
 
         return true;
       }),
