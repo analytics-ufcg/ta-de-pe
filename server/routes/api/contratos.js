@@ -15,10 +15,25 @@ router.get("/", (req, res) => {
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
-router.get("/contratos", (req, res) => {
-  Contrato.findAll()
-    .then(contratos => res.status(SUCCESS).json(contratos))
+router.get("/:id", (req, res) => {
+  Contrato.findOne({
+    where: {
+      id_contrato: req.params.id
+    }
+  })
+    .then(contratos => res.json(contratos))
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
+
+router.get("/licitacao/:id", (req, res) => {
+  Contrato.findAll({
+    where: {
+      id_licitacao: req.params.id
+    }
+  })
+    .then(contratos => res.json(contratos))
+    .catch(err => res.status(BAD_REQUEST).json({ err }));
+});
+
 
 module.exports = router;
