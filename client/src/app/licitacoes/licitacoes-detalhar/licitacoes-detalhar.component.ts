@@ -41,7 +41,7 @@ export class LicitacoesDetalharComponent implements OnInit, OnDestroy {
   }
 
   get itensPaginate(): ItensLicitacao[] {
-    if (this.licitacao.itensLicitacao) {
+    if (this.licitacao && this.licitacao.itensLicitacao) {
       return this.licitacao.itensLicitacao
       .map((item, i) => ({id: i + 1, ...item}))
       .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
