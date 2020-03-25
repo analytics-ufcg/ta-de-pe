@@ -8,6 +8,16 @@
     <br>
     <strong>Objeto da licitação: </strong> <span class="text-muted">{{ licitacao?.descricao_objeto }}</span>
   </p>
+  
+  <h4>Eventos</h4>    
+  <p>
+    <strong>Abertura: </strong> <span class="text-muted">{{ licitacao?.data_abertura | date:'dd-MM-yyyy' }}</span>
+    <br>
+    <strong>Adjudicação: </strong> <span class="text-muted">{{ licitacao?.data_adjudicacao | date:'dd-MM-yyyy' }}</span>
+    <br>
+    <strong>Homologação: </strong> <span class="text-muted">{{ licitacao?.data_homologacao | date:'dd-MM-yyyy' }}</span>
+  </p>
+    
   <br>
   <div>
     <h5>Itens da Licitação</h5>
