@@ -36,7 +36,6 @@ export class LicitacoesDetalharComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(licitacao => {
         this.licitacao = licitacao;
-        this.licitacao.itensLicitacao = licitacao.itensLicitacao;
       });
   }
 
