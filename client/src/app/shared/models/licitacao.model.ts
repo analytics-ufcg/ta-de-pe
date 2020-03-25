@@ -11,5 +11,6 @@ export interface Licitacao {
   data_abertura: Date;
   vl_homologado: number;
   descricao_objeto: string;
-  itensLicitacao: ItensLicitacao;
+  itensLicitacao: ItensLicitacao[];
+  contratosLicitacao: any;
 }
