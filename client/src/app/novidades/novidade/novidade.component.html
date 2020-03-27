@@ -11,7 +11,7 @@
 >
   <div class="card-body">
     <h6>
-      {{ novidade.tipo.texto_evento }}
+      {{ novidadeService.getTextoNovidade(novidade) }}
       <span *ngIf="showMunicipio">em {{ novidade.nome_municipio }}</span>
     </h6>
     <p class="card-text text-muted text-right">
