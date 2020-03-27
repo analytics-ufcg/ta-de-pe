@@ -1,27 +1,21 @@
 <div
+  tabindex="0"
+  role="link"
   class="card card-callout mb-2"
+  (click)="handleClick()"
   [ngClass]="{
     'border-callout-licitacao': novidadeService.isLicitacao(novidade.id_tipo),
     'border-callout-empenho': novidadeService.isEmpenho(novidade.id_tipo),
     'border-callout-contrato': novidadeService.isContrato(novidade.id_tipo)
-  }">
+  }"
+>
   <div class="card-body">
     <h6>
-      Licitação {{ novidade.licitacaoNovidade.nr_licitacao }}/<small>{{ novidade.licitacaoNovidade.ano_licitacao }}</small>
+      {{ novidade.tipo.texto_evento }}
+      <span *ngIf="showMunicipio">em {{ novidade.nome_municipio }}</span>
     </h6>
-    <p class="card-text">
-      {{ novidade.tipo.texto_evento }} <span *ngIf="showMunicipio">em {{ novidade.nome_municipio }}</span>
+    <p class="card-text text-muted text-right">
+      {{ novidade.data | date: "dd-MM-yyyy" }}
     </p>
-    <p class="card-text text-muted">{{ novidade.data | date:'dd-MM-yyyy' }}</p>
-  </div>
-  <div class="card-footer">
-    <div class="text-right">
-      <a
-        [routerLink]="['/licitacoes/' + novidade.licitacaoNovidade.id_licitacao]"
-        class="btn btn-sm btn-primary btn-corner"
-      >
-        Detalhes
-      </a>
-    </div>
   </div>
 </div>

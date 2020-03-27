@@ -22,3 +22,12 @@
 .btn-filter {
   font-weight: 700;
 }
+
+.btn-filter-wrapper {
+  margin-top: 1rem;
+  text-align: right;
+  @media (min-width: 576px) {
+    margin-top: 0;
+    text-align: left;
+  }
+}

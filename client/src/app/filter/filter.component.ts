@@ -1,5 +1,7 @@
 import { Component, EventEmitter, OnInit, Output, OnDestroy } from '@angular/core';
 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { Subject } from 'rxjs';
 
 @Component({
@@ -23,7 +25,7 @@ export class FilterComponent implements OnInit, OnDestroy {
   dataInicial: any;
   dataFinal: any;
 
-  constructor() {
+  constructor(private modalService: NgbModal) {
     this.licitacaoSelecionada = true;
     this.empenhoSelecionado = true;
     this.contratoSelecionado = true;
@@ -84,6 +86,7 @@ export class FilterComponent implements OnInit, OnDestroy {
   }
 
   aplicarDateChange() {
+    this.modalService.dismissAll();
     const inicio = this.dataInicial.year + '-' + this.dataInicial.month + '-' + this.dataInicial.day;
     const final = this.dataFinal.year + '-' + this.dataFinal.month + '-' + this.dataFinal.day;
 
@@ -93,6 +96,10 @@ export class FilterComponent implements OnInit, OnDestroy {
     };
 
     this.dateChange.emit(datas);
+  }
+
+  open(content) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-filter'}) ;
   }
 
   ngOnDestroy() {

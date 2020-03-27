@@ -1,0 +1,90 @@
+<div>
+  <h4>Contratos</h4>
+
+  <ngb-accordion
+    #acc="ngbAccordion"
+    activeIds="ngb-panel-0"
+    [closeOthers]="true">
+    <ngb-panel
+      [title]="'Contrato ' + contrato.nr_contrato"
+      *ngFor="let contrato of licitacao?.contratosLicitacao; index as i">
+      <ng-template ngbPanelContent>
+
+        <div class="dados-grupo">
+          <div class="dados-linha">
+            <strong>Contrato:&nbsp;</strong>
+            <span class="text-muted">{{ contrato?.nr_contrato }}</span>
+          </div>
+          <div class="dados-linha">
+            <strong>Valor:&nbsp;</strong>
+            <span class="text-muted">
+              {{ contrato?.vl_contrato | currency: "R$ " }}
+            </span>
+          </div>
+          <div class="dados-linha">
+            <strong>Documento:&nbsp;</strong>
+            <span class="text-muted">{{ contrato?.nr_documento_contratado }}</span>
+          </div>
+        </div>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Item</th>
+                <th scope="col">Quantidade de itens</th>
+                <th scope="col">Valor unitário</th>
+                <th scope="col">Valor toal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of contrato.itensContrato; index as i">
+                <th scope="row">{{ i + 1 }}</th>
+                <td>
+                  <button
+                    class="btn btn-link btn-item"
+                    (click)="open(content, item.ds_item)">
+                    {{ getDescricaoResumida(item.ds_item) }}
+                    <span class="icon-arrow-right"></span>
+                  </button>
+                </td>
+                <td class="text-center numero">{{ item.qt_itens_contrato }}</td>
+                <td class="text-right numero">
+                  {{ item.vl_item_contrato | currency: "R$ " }}
+                </td>
+                <td class="text-right numero">
+                  {{ item.vl_total_item_contrato | currency: "R$ " }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </ng-template>
+    </ngb-panel>
+  </ngb-accordion>
+</div>
+
+<ng-template
+  #content
+  let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Descrição completa</h5>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Fechar"
+      (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">{{ descricao }}</div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="modal.close('Fechar')">
+      Fechar
+    </button>
+  </div>
+</ng-template>

@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Work+Sans:500,700|Fredoka+One&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Work+Sans:500,700|Fredoka+One|Roboto+Mono&display=swap");
 
 @import "../node_modules/bootstrap/scss/functions";
 @import "assets/bootstrap/variables";
@@ -73,4 +73,17 @@ body {
 .btn-disabled,
 .btn-disabled:hover {
   color: $gray-500;
+}
+
+.icon-md {
+  font-size: 1.5rem;
+}
+
+.dados-grupo {
+  margin-bottom: 1rem;
+}
+
+.numero {
+  font-family: 'Roboto Mono', monospace;
+  white-space: nowrap;
 }
