@@ -1,8 +1,19 @@
 .busca-municipio {
-  margin-bottom: 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  background-color: #549b97;
+  color: #fff;
+  padding: 0.5rem;
 }
 
-::ng-deep.dropdown-menu.show {  
+::ng-deep.dropdown-menu.show {
   max-height: 70vh;
   overflow-y: auto;
+}
+
+.input-hidden {
+  background-color: transparent;
+  border: none;
+  color: #fff;
 }

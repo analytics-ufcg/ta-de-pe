@@ -1,7 +1,14 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 
 import { Observable, Subject, merge } from 'rxjs';
-import { debounceTime, distinctUntilChanged, takeUntil, take, map, filter } from 'rxjs/operators';
+import {
+  debounceTime,
+  distinctUntilChanged,
+  takeUntil,
+  take,
+  map,
+  filter
+} from 'rxjs/operators';
 
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 
@@ -13,9 +20,7 @@ import { UserService } from '../../services/user.service';
   templateUrl: './busca-municipio.component.html',
   styleUrls: ['./busca-municipio.component.scss']
 })
-
 export class BuscaMunicipioComponent implements OnInit, OnDestroy {
-
   @ViewChild('instance', { static: true }) instance: NgbTypeahead;
 
   private unsubscribe = new Subject();
@@ -29,7 +34,8 @@ export class BuscaMunicipioComponent implements OnInit, OnDestroy {
 
   constructor(
     private buscaMunicipioService: MunicipioService,
-    private userService: UserService) {
+    private userService: UserService
+  ) {
     this.municipios = [];
   }
 
@@ -39,7 +45,8 @@ export class BuscaMunicipioComponent implements OnInit, OnDestroy {
   }
 
   getMunicipios() {
-    this.buscaMunicipioService.getMunicipios()
+    this.buscaMunicipioService
+      .getMunicipios()
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(municipios => {
         this.municipios = municipios.map(e => e.nome_municipio).sort();
@@ -47,25 +54,41 @@ export class BuscaMunicipioComponent implements OnInit, OnDestroy {
   }
 
   getMunicipioSalvo() {
-    this.userService.getMunicipioEscolhido()
-    .pipe(take(1))
-    .subscribe(municipio => {
-      this.municipioSelecionado = municipio;
-    });
+    this.userService
+      .getMunicipioEscolhido()
+      .pipe(take(1))
+      .subscribe(municipio => {
+        this.municipioSelecionado = municipio;
+      });
   }
 
-  salvaMunicipio(municipio: string) {
+  salvarMunicipio(municipio: string) {
     this.userService.setMunicipioEscolhido(municipio);
   }
 
+  removerMunicipio() {
+    this.municipioSelecionado = '';
+    this.userService.setMunicipioEscolhido(null);
+  }
+
   search = (text$: Observable<string>) => {
-    const debouncedText$ = text$.pipe(debounceTime(200), distinctUntilChanged());
-    const clicksWithClosedPopup$ = this.click$.pipe(filter(() => !this.instance.isPopupOpen()));
+    const debouncedText$ = text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged()
+    );
+    const clicksWithClosedPopup$ = this.click$.pipe(
+      filter(() => !this.instance.isPopupOpen())
+    );
     const inputFocus$ = this.focus$;
 
     return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
-      map(term => (term === '' ? this.municipios
-        : this.municipios.filter(v => v.toLowerCase().indexOf(term.toLowerCase()) > -1)))
+      map(term =>
+        term === ''
+          ? this.municipios
+          : this.municipios.filter(
+              v => v.toLowerCase().indexOf(term.toLowerCase()) > -1
+            )
+      )
     );
   }
 
@@ -73,5 +96,4 @@ export class BuscaMunicipioComponent implements OnInit, OnDestroy {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
-
 }
