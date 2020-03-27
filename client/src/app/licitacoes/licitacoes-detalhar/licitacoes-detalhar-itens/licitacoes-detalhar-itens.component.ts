@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { takeUntil, take } from 'rxjs/operators';
 
@@ -18,11 +19,13 @@ export class LicitacoesDetalharItensComponent implements OnInit, OnDestroy {
   private unsubscribe = new Subject();
 
   public licitacao: Licitacao;
-  page = 1;
-  pageSize = 20;
+  public descricao: string;
+  public page = 1;
+  public pageSize = 20;
 
   constructor(
     private activatedroute: ActivatedRoute,
+    private modalService: NgbModal,
     private licitacaoService: LicitacaoService) { }
 
   ngOnInit() {
@@ -53,6 +56,11 @@ export class LicitacoesDetalharItensComponent implements OnInit, OnDestroy {
 
   getDescricaoResumida(descricao: string): string {
     return descricao.split(/\s+|:/)[0];
+  }
+
+  open(content, descricao: string): void {
+    this.descricao = descricao;
+    this.modalService.open(content, { ariaLabelledBy: 'modal-descricao'});
   }
 
   ngOnDestroy() {
