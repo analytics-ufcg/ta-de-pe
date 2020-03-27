@@ -1,99 +1,137 @@
-<div class="container view-container">
-  <h2>{{ licitacao?.nr_licitacao }}/{{ licitacao?.ano_licitacao }}</h2>
-  <h3>{{ licitacao?.nm_orgao }}</h3>
-  <p>
-    <strong>Tipo: </strong> <span class="text-muted">{{ licitacao?.tipo_licitacao }}</span>
-    <br>
-    <strong>Valor homologado: </strong> <span class="text-muted">{{ licitacao?.vl_homologado | currency:'R$ ' }}</span>
-    <br>
-    <strong>Objeto da licitação: </strong> <span class="text-muted">{{ licitacao?.descricao_objeto }}</span>
-  </p>
-  
-  <h4>Eventos</h4>    
-  <p>
-    <strong>Abertura: </strong> <span class="text-muted">{{ licitacao?.data_abertura | date:'dd-MM-yyyy' }}</span>
-    <br>
-    <strong>Adjudicação: </strong> <span class="text-muted">{{ licitacao?.data_adjudicacao | date:'dd-MM-yyyy' }}</span>
-    <br>
-    <strong>Homologação: </strong> <span class="text-muted">{{ licitacao?.data_homologacao | date:'dd-MM-yyyy' }}</span>
-  </p>
-    
-  <br>
-  <div>
-    <h5>Itens da Licitação</h5>
-    <table class="table table-striped">
-      <thead>
-        <tr>
-          <th scope="col">#</th>
-          <th scope="col">Item</th>
-          <th scope="col">Quantidade de itens</th>
-          <th scope="col">Unidade</th>
-          <th scope="col">Valor unitário estimado</th>
-          <th scope="col">Valor toal estimado</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let item of itensPaginate; index as i">
-          <th scope="row">{{ i + 1 }}</th>
-          <td>
-            {{ item.ds_item }}
-          </td>
-          <td>{{ item.qt_itens_licitacao  }}</td>
-          <td>{{ item.sg_unidade_medida }}</td>
-          <td>{{ item.vl_unitario_estimado | currency:'R$ ' }}</td>
-          <td>{{ item.vl_total_estimado | currency:'R$ ' }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <div class="d-flex justify-content-center">
-      <ngb-pagination [collectionSize]="licitacao?.itensLicitacao?.length" [(page)]="page" [pageSize]="pageSize">
-      </ngb-pagination>
+<div class="view-container">
+  <div class="licitacao-titulo py-4">
+    <div class="container">
+      <h2>
+        <a [routerLink]="['/novidades']">
+          <span class="small icon-arrow-left"></span>
+        </a>
+        <span [hidden]="!licitacao">
+          Licitação
+          {{ licitacao?.nr_licitacao }}/{{ licitacao?.ano_licitacao }}
+        </span>
+      </h2>
     </div>
   </div>
-  <br>
-  <div>
-    <h5>Contratos</h5>
-    <div class="card" *ngFor="let contrato of licitacao?.contratosLicitacao ; index as i;">
-      <div class="card-header">
-        <strong> Contrato: </strong> <span class="text-muted">{{ contrato?.nr_contrato }}</span>
+  <div class="container">
+    <div [hidden]="!licitacao">
+      <h4>{{ licitacao?.nm_orgao }}</h4>
+      <p>
+        <strong>Tipo: </strong>
+        <span class="text-muted">{{ licitacao?.tipo_licitacao }}</span>
         <br>
-        <strong> Valor do contrato: </strong> <span
-          class="text-muted">{{ contrato?.vl_contrato | currency:'R$ ' }}</span>
+        <strong>Valor homologado: </strong>
+        <span class="text-muted">{{
+          licitacao?.vl_homologado | currency: "R$ "
+        }}</span>
+      </p>
+      <p>
+        <strong>Objeto da licitação: </strong>
         <br>
-        <strong> Documento: </strong> <span class="text-muted">{{ contrato?.nr_documento_contratado }}</span>
+        <span class="text-muted">{{ licitacao?.descricao_objeto }}</span>
+
+      <h4>Eventos</h4>
+      <p>
+        <strong>Abertura: </strong>
+        <span class="text-muted">{{
+          licitacao?.data_abertura | date: "dd-MM-yyyy"
+        }}</span>
+        <br />
+        <strong>Adjudicação: </strong>
+        <span class="text-muted">{{
+          licitacao?.data_adjudicacao | date: "dd-MM-yyyy"
+        }}</span>
+        <br>
+        <strong>Homologação: </strong>
+        <span class="text-muted">{{
+          licitacao?.data_homologacao | date: "dd-MM-yyyy"
+        }}</span>
+      </p>
+
+      <div>
+        <h5>Itens da Licitação</h5>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th scope="col">#</th>
+              <th scope="col">Item</th>
+              <th scope="col">Quantidade de itens</th>
+              <th scope="col">Unidade</th>
+              <th scope="col">Valor unitário estimado</th>
+              <th scope="col">Valor toal estimado</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of itensPaginate; index as i">
+              <th scope="row">{{ i + 1 }}</th>
+              <td>
+                {{ item.ds_item }}
+              </td>
+              <td>{{ item.qt_itens_licitacao }}</td>
+              <td>{{ item.sg_unidade_medida }}</td>
+              <td>{{ item.vl_unitario_estimado | currency: "R$ " }}</td>
+              <td>{{ item.vl_total_estimado | currency: "R$ " }}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="d-flex justify-content-center">
+          <ngb-pagination
+            [collectionSize]="licitacao?.itensLicitacao?.length"
+            [(page)]="page"
+            [pageSize]="pageSize"
+          >
+          </ngb-pagination>
+        </div>
       </div>
-      <div class="card-body">
-        <h6>Itens do contrato</h6>
-        <blockquote class="blockquote mb-0">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th scope="col">#</th>
-                <th scope="col">Item</th>
-                <th scope="col">Quantidade de itens</th>
-                <th scope="col">Valor unitário</th>
-                <th scope="col">Valor toal</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let item of contrato.itensContrato; index as i">
-                <th scope="row">{{ i + 1 }}</th>
-                <td>
-                  {{ item.ds_item }}
-                </td>
-                <td>{{ item.qt_itens_contrato  }}</td>
-                <td>{{ item.vl_item_contrato | currency:'R$ ' }}</td>
-                <td>{{ item.vl_total_item_contrato | currency:'R$ ' }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </blockquote>
+      <br />
+      <div>
+        <h5>Contratos</h5>
+        <div
+          class="card"
+          *ngFor="let contrato of licitacao?.contratosLicitacao; index as i"
+        >
+          <div class="card-header">
+            <strong> Contrato: </strong>
+            <span class="text-muted">{{ contrato?.nr_contrato }}</span>
+            <br />
+            <strong> Valor do contrato: </strong>
+            <span class="text-muted">{{
+              contrato?.vl_contrato | currency: "R$ "
+            }}</span>
+            <br />
+            <strong> Documento: </strong>
+            <span class="text-muted">{{
+              contrato?.nr_documento_contratado
+            }}</span>
+          </div>
+          <div class="card-body">
+            <h6>Itens do contrato</h6>
+            <blockquote class="blockquote mb-0">
+              <table class="table table-striped">
+                <thead>
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Item</th>
+                    <th scope="col">Quantidade de itens</th>
+                    <th scope="col">Valor unitário</th>
+                    <th scope="col">Valor toal</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of contrato.itensContrato; index as i">
+                    <th scope="row">{{ i + 1 }}</th>
+                    <td>
+                      {{ item.ds_item }}
+                    </td>
+                    <td>{{ item.qt_itens_contrato }}</td>
+                    <td>{{ item.vl_item_contrato | currency: "R$ " }}</td>
+                    <td>{{ item.vl_total_item_contrato | currency: "R$ " }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </blockquote>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-  <br>
-  <p>
-    <img src="https://via.placeholder.com/600x350/CCCCCC/000000?text=An%C3%A1lises+sobre+datas,+valores,+itens"
-      alt="Análises" width="100%">
-  </p>
 </div>
