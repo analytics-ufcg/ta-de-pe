@@ -55,7 +55,7 @@ router.get("/", novidadesValidator.validate, (req, res) => {
       },
       nome_municipio: req.query.nome_municipio.toUpperCase()
     },
-    order: [["data", "DESC"]]
+    order: [["data", "DESC"], ["id_licitacao", "DESC"]]
   })
     .then(novidades => res.status(SUCCESS).json(novidades))
     .catch(err => res.status(BAD_REQUEST).json({ error: err.message }));
