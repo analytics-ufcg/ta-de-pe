@@ -1,35 +1,47 @@
 <div>
   <h5>Itens da Licitação</h5>
-  <table class="table table-striped">
-    <thead>
-      <tr>
-        <th scope="col">#</th>
-        <th scope="col">Item</th>
-        <th scope="col">Quantidade de itens</th>
-        <th scope="col">Unidade</th>
-        <th scope="col">Valor unitário estimado</th>
-        <th scope="col">Valor toal estimado</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let item of itensPaginate; index as i">
-        <th scope="row">{{ i + 1 }}</th>
-        <td>
-          {{ item.ds_item }}
-        </td>
-        <td>{{ item.qt_itens_licitacao }}</td>
-        <td>{{ item.sg_unidade_medida }}</td>
-        <td>{{ item.vl_unitario_estimado | currency: "R$ " }}</td>
-        <td>{{ item.vl_total_estimado | currency: "R$ " }}</td>
-      </tr>
-    </tbody>
-  </table>
   <div class="d-flex justify-content-center">
     <ngb-pagination
       [collectionSize]="licitacao?.itensLicitacao?.length"
       [(page)]="page"
-      [pageSize]="pageSize"
-    >
+      [pageSize]="pageSize">
+    </ngb-pagination>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Item</th>
+          <th scope="col">Quantidade de itens</th>
+          <th scope="col">Unidade</th>
+          <th scope="col">Valor unitário estimado</th>
+          <th scope="col">Valor total estimado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of itensPaginate; index as i">
+          <th scope="row">{{ getIndice(i) }}</th>
+          <td>
+            {{ getDescricaoResumida(item.ds_item) }}
+          </td>
+          <td class="text-center numero">{{ item.qt_itens_licitacao }}</td>
+          <td class="text-center">{{ item.sg_unidade_medida }}</td>
+          <td class="text-right numero">
+            {{ item.vl_unitario_estimado | currency: "R$ " }}
+          </td>
+          <td class="text-right numero">
+            {{ item.vl_total_estimado | currency: "R$ " }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="d-flex justify-content-center">
+    <ngb-pagination
+      [collectionSize]="licitacao?.itensLicitacao?.length"
+      [(page)]="page"
+      [pageSize]="pageSize">
     </ngb-pagination>
   </div>
 </div>

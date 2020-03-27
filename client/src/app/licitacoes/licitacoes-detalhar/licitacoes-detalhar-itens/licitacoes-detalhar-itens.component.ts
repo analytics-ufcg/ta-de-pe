@@ -19,7 +19,7 @@ export class LicitacoesDetalharItensComponent implements OnInit, OnDestroy {
 
   public licitacao: Licitacao;
   page = 1;
-  pageSize = 8;
+  pageSize = 20;
 
   constructor(
     private activatedroute: ActivatedRoute,
@@ -42,10 +42,17 @@ export class LicitacoesDetalharItensComponent implements OnInit, OnDestroy {
   get itensPaginate(): ItensLicitacao[] {
     if (this.licitacao && this.licitacao.itensLicitacao) {
       return this.licitacao.itensLicitacao
-      .map((item, i) => ({id: i + 1, ...item}))
-      .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
+        .map((item, i) => ({ id: i + 1, ...item }))
+        .slice((this.page - 1) * this.pageSize, (this.page - 1) * this.pageSize + this.pageSize);
     }
+  }
 
+  getIndice(index: number) {
+    return (this.pageSize * (this.page - 1)) + index + 1;
+  }
+
+  getDescricaoResumida(descricao: string): string {
+    return descricao.split(/\s+|:/)[0];
   }
 
   ngOnDestroy() {
