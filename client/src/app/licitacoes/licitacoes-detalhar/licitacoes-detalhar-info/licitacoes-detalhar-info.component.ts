@@ -2,17 +2,17 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, take } from 'rxjs/operators';
 
 import { Licitacao } from 'src/app/shared/models/licitacao.model';
 import { LicitacaoService } from 'src/app/shared/services/licitacao.service';
 
 @Component({
-  selector: 'app-licitacoes-detalhar',
-  templateUrl: './licitacoes-detalhar.component.html',
-  styleUrls: ['./licitacoes-detalhar.component.scss']
+  selector: 'app-licitacoes-detalhar-info',
+  templateUrl: './licitacoes-detalhar-info.component.html',
+  styleUrls: ['./licitacoes-detalhar-info.component.scss']
 })
-export class LicitacoesDetalharComponent implements OnInit, OnDestroy {
+export class LicitacoesDetalharInfoComponent implements OnInit, OnDestroy {
 
   private unsubscribe = new Subject();
 
@@ -23,8 +23,9 @@ export class LicitacoesDetalharComponent implements OnInit, OnDestroy {
     private licitacaoService: LicitacaoService) { }
 
   ngOnInit() {
-    const id = this.activatedroute.snapshot.paramMap.get('id');
-    this.getLicitacaoByID(id);
+    this.activatedroute.parent.params.pipe(take(1)).subscribe(params => {
+      this.getLicitacaoByID(params.id);
+    });
   }
 
   getLicitacaoByID(id: string) {

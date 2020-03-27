@@ -1,0 +1,33 @@
+<h4>{{ licitacao?.nm_orgao }}</h4>
+<p>
+  <strong>Tipo: </strong>
+  <span class="text-muted">{{ licitacao?.tipo_licitacao }}</span>
+  <br>
+  <strong>Valor homologado: </strong>
+  <span class="text-muted">
+    {{ licitacao?.vl_homologado | currency: "R$ " }}
+  </span>
+</p>
+<p>
+  <strong>Objeto da licitação: </strong>
+  <br>
+  <span class="text-muted">{{ licitacao?.descricao_objeto }}</span>
+
+</p>
+<h4>Eventos</h4>
+<p>
+  <strong>Abertura:</strong>
+  <span class="text-muted">
+    {{ licitacao?.data_abertura | date: "dd-MM-yyyy" }}
+  </span>
+  <br>
+  <strong>Adjudicação:</strong>
+  <span class="text-muted">
+    {{ licitacao?.data_adjudicacao | date: "dd-MM-yyyy"}}
+  </span>
+  <br>
+  <strong>Homologação:</strong>
+  <span class="text-muted">
+    {{licitacao?.data_homologacao | date: "dd-MM-yyyy"}}
+  </span>
+</p>
