@@ -1,6 +1,6 @@
 <div class="container view-container">
   <app-busca-municipio></app-busca-municipio>
-  <app-filter (filterChange)="search($event)"></app-filter>
+  <app-filter (filterChange)="search($event)" (dateChange)="alteraNovidades($event)"></app-filter>
 
   <div>
     <pagination-template
