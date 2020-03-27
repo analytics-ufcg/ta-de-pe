@@ -17,6 +17,7 @@ module.exports = (sequelize, type) => {
       vl_estimado_licitacao: type.DECIMAL(15, 2),
       data_abertura: type.DATE,
       data_homologacao: type.DATE,
+      data_adjudicacao: type.DATE,
       vl_homologado: type.DECIMAL(15, 2),
       tp_licitacao: type.STRING,
       tipo_licitacao: type.STRING

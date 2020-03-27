@@ -9,6 +9,8 @@ export interface Licitacao {
   tp_licitacao: string;
   tipo_licitacao: string;
   data_abertura: Date;
+  data_homologacao: Date;
+  data_adjudicacao: Date;
   vl_homologado: number;
   descricao_objeto: string;
   itensLicitacao: ItensLicitacao[];
