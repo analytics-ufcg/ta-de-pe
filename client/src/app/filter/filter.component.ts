@@ -25,6 +25,9 @@ export class FilterComponent implements OnInit, OnDestroy {
   dataInicial: any;
   dataFinal: any;
 
+  minDate: any;
+  maxDate: any;
+
   constructor(private modalService: NgbModal) {
     this.licitacaoSelecionada = true;
     this.empenhoSelecionado = true;
@@ -71,6 +74,17 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   startDatas() {
     const hoje = new Date();
+
+    // Data mínima para o filro
+    this.minDate = { year: 2018, month: 1, day: 1 };
+
+    // Data máxima para o filtro
+    this.maxDate = {
+      year: hoje.getFullYear() + 1,
+      month: 12,
+      day: 31
+    };
+
     this.dataFinal = {
       year: hoje.getFullYear(),
       month: hoje.getMonth() + 1,
@@ -99,7 +113,7 @@ export class FilterComponent implements OnInit, OnDestroy {
   }
 
   open(content) {
-    this.modalService.open(content, {ariaLabelledBy: 'modal-filter'}) ;
+    this.modalService.open(content, { ariaLabelledBy: 'modal-filter' });
   }
 
   ngOnDestroy() {
