@@ -1,7 +1,9 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
 
 import { Observable, BehaviorSubject } from 'rxjs';
+import { sprintf } from 'sprintf-js';
 
 import {
   switchMap,
@@ -28,7 +30,9 @@ export class NovidadeService {
   private TIPOS_EMPENHO = [4, 5, 6, 7, 8, 9];
   private TIPOS_CONTRATO = [10, 11];
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private currencyPipe: CurrencyPipe) {
     this.novidades
       .pipe(
         switchMap(novidade =>
@@ -90,6 +94,22 @@ export class NovidadeService {
 
   isContrato(idTipo: number): boolean {
     return this.TIPOS_CONTRATO.includes(idTipo);
+  }
+
+  getTextoNovidade(novidade: Novidade): string {
+    if (this.isLicitacao(novidade.id_tipo)) {
+      return sprintf(novidade.tipo.texto_evento,
+        novidade.licitacaoNovidade.nr_licitacao + '/' + novidade.licitacaoNovidade.ano_licitacao);
+    } else if (this.isEmpenho(novidade.id_tipo)) {
+      return sprintf(novidade.tipo.texto_evento,
+        this.currencyPipe.transform(novidade.texto_novidade, 'R$ '),
+        novidade.licitacaoNovidade.nr_licitacao + '/' + novidade.licitacaoNovidade.ano_licitacao);
+    } else if (this.isContrato(novidade.id_tipo)) {
+      return sprintf(novidade.tipo.texto_evento,
+        novidade.texto_novidade,
+        novidade.licitacaoNovidade.nr_licitacao + '/' + novidade.licitacaoNovidade.ano_licitacao);
+    }
+    return novidade.tipo.texto_evento;
   }
 
   /**
