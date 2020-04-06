@@ -1,7 +1,9 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, LOCALE_ID } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { CurrencyPipe } from '@angular/common';
+import { registerLocaleData } from '@angular/common';
+import localePt from '@angular/common/locales/pt';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
@@ -11,6 +13,8 @@ import { SharedModule } from './shared/shared.module';
 
 import { UserService } from './shared/services/user.service';
 import { NovidadeService } from './shared/services/novidade.service';
+
+registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
@@ -25,6 +29,7 @@ import { NovidadeService } from './shared/services/novidade.service';
   ],
   providers: [
     CurrencyPipe,
+    { provide: LOCALE_ID, useValue: 'pt'},
     UserService,
     NovidadeService
   ],

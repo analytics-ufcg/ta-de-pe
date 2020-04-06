@@ -79,6 +79,9 @@
           placeholder="Data inicial"
           name="dp1"
           [(ngModel)]="dataInicial"
+          firstDayOfWeek="0"
+          [minDate]="minDate"
+          [maxDate]="maxDate"
           ngbDatepicker
           #d1="ngbDatepicker"
         />
@@ -102,6 +105,9 @@
           placeholder="Data final"
           name="dp2"
           [(ngModel)]="dataFinal"
+          firstDayOfWeek="0"
+          [minDate]="minDate"
+          [maxDate]="maxDate"
           ngbDatepicker
           #d2="ngbDatepicker"
         />
