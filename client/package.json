@@ -24,6 +24,7 @@
     "@angular/platform-browser-dynamic": "~8.2.12",
     "@angular/router": "~8.2.12",
     "@ng-bootstrap/ng-bootstrap": "^5.0.0",
+    "@types/sprintf-js": "^1.1.2",
     "bootstrap": "^4.4.1",
     "ngx-pagination": "^5.0.0",
     "rxjs": "~6.4.0",

@@ -1,10 +1,8 @@
-import { Component, EventEmitter, OnInit, Output, OnDestroy, Input } from '@angular/core';
-import { Router, ActivatedRoute, Params } from '@angular/router';
+import { Component, EventEmitter, OnInit, Output, OnDestroy } from '@angular/core';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject } from 'rxjs';
 
-import { LicitacaoService } from '../shared/services/licitacao.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-filter',
@@ -15,23 +13,25 @@ import { LicitacaoService } from '../shared/services/licitacao.service';
 export class FilterComponent implements OnInit, OnDestroy {
 
   @Output() filterChange = new EventEmitter<any>();
+  @Output() dateChange = new EventEmitter<any>();
 
   filtro: any;
   private unsubscribe = new Subject();
 
-  licitacaoSelecionada: string;
-  empenhoSelecionado: string;
-  contratoSelecionado: string;
+  licitacaoSelecionada: boolean;
+  empenhoSelecionado: boolean;
+  contratoSelecionado: boolean;
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private router: Router,
-    private modalService: NgbModal,
-    private licitacaoService: LicitacaoService
-  ) {
-    this.licitacaoSelecionada = 'Sim';
-    this.empenhoSelecionado = 'Sim';
-    this.contratoSelecionado = 'Sim';
+  dataInicial: any;
+  dataFinal: any;
+
+  minDate: any;
+  maxDate: any;
+
+  constructor(private modalService: NgbModal) {
+    this.licitacaoSelecionada = true;
+    this.empenhoSelecionado = true;
+    this.contratoSelecionado = true;
 
     this.filtro = {
       licitacao: this.licitacaoSelecionada,
@@ -39,72 +39,81 @@ export class FilterComponent implements OnInit, OnDestroy {
       contrato: this.contratoSelecionado,
       default: true
     };
+
+    this.startDatas();
   }
 
   ngOnInit() {
     this.aplicarFiltro();
+    this.aplicarDateChange();
   }
 
-  open(content) {
-    this.modalService.open(content, { ariaLabelledBy: 'Filtros para Novidades' });
+  toggleFiltroLicitacao() {
+    this.licitacaoSelecionada = !this.licitacaoSelecionada;
+    this.aplicarFiltro();
+  }
+
+  toggleFiltroEmpenho() {
+    this.empenhoSelecionado = !this.empenhoSelecionado;
+    this.aplicarFiltro();
+  }
+
+  toggleFiltroContrato() {
+    this.contratoSelecionado = !this.contratoSelecionado;
+    this.aplicarFiltro();
   }
 
   aplicarFiltro() {
     this.filtro = {
-      licitacao: this.licitacaoSelecionada === 'Sim' ? true : false,
-      empenho: this.empenhoSelecionado === 'Sim' ? true : false,
-      contrato: this.contratoSelecionado === 'Sim' ? true : false,
+      licitacao: this.licitacaoSelecionada,
+      empenho: this.empenhoSelecionado,
+      contrato: this.contratoSelecionado
+    };
+    this.filterChange.emit(this.filtro);
+  }
 
+  startDatas() {
+    const hoje = new Date();
+
+    // Data mínima para o filro
+    this.minDate = { year: 2018, month: 1, day: 1 };
+
+    // Data máxima para o filtro
+    this.maxDate = {
+      year: hoje.getFullYear() + 1,
+      month: 12,
+      day: 31
     };
 
-    this.updateUrlFiltro(this.filtro);
+    this.dataFinal = {
+      year: hoje.getFullYear(),
+      month: hoje.getMonth() + 1,
+      day: hoje.getDate()
+    };
+    const doisAnosAtras = new Date(hoje.setFullYear(new Date().getFullYear() - 2)); // dois anos atrás
 
-    this.filterChange.emit(this.filtro);
+    this.dataInicial = {
+      year: doisAnosAtras.getFullYear(),
+      month: doisAnosAtras.getMonth() + 1,
+      day: doisAnosAtras.getDate()
+    };
+  }
+
+  aplicarDateChange() {
     this.modalService.dismissAll();
+    const inicio = this.dataInicial.year + '-' + this.dataInicial.month + '-' + this.dataInicial.day;
+    const final = this.dataFinal.year + '-' + this.dataFinal.month + '-' + this.dataFinal.day;
+
+    const datas = {
+      dataInicial: inicio,
+      dataFinal: final
+    };
+
+    this.dateChange.emit(datas);
   }
 
-  limparFiltro() {
-    this.licitacaoSelecionada = 'Sim';
-    this.empenhoSelecionado = 'Sim';
-    this.contratoSelecionado = 'Sim';
-    this.aplicarFiltro();
-  }
-
-  limparFiltroLicitacao() {
-    this.licitacaoSelecionada = 'Sim';
-    this.aplicarFiltro();
-  }
-
-  limparFiltroEmpenho() {
-    this.empenhoSelecionado = 'Sim';
-    this.aplicarFiltro();
-  }
-
-  limparFiltroContrato() {
-    this.contratoSelecionado = 'Sim';
-    this.aplicarFiltro();
-  }
-
-  private updateUrlFiltro(filtro: any) {
-    const queryParams: Params = Object.assign({}, this.activatedRoute.snapshot.queryParams);
-
-    if (filtro.licitacao !== 'Sim') {
-      queryParams.licitacao = filtro.licitacao;
-    } else {
-      delete queryParams.licitacao;
-    }
-
-    if (filtro.empenho !== 'Sim') {
-      queryParams.empenho = filtro.empenho;
-    } else {
-      delete queryParams.empenho;
-    }
-
-    if (filtro.contrato !== 'Sim') {
-      queryParams.contrato = filtro.contrato;
-    } else {
-      delete queryParams.contrato;
-    }
+  open(content) {
+    this.modalService.open(content, { ariaLabelledBy: 'modal-filter' });
   }
 
   ngOnDestroy() {

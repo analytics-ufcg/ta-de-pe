@@ -1,0 +1,77 @@
+<div>
+  <h4>Itens da Licitação</h4>
+  <div class="d-flex justify-content-center">
+    <ngb-pagination
+      [collectionSize]="licitacao?.itensLicitacao?.length"
+      [(page)]="page"
+      [pageSize]="pageSize">
+    </ngb-pagination>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Item</th>
+          <th scope="col">Quantidade de itens</th>
+          <th scope="col">Unidade</th>
+          <th scope="col">Valor unitário estimado</th>
+          <th scope="col">Valor total estimado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of itensPaginate; index as i">
+          <th scope="row">{{ getIndice(i) }}</th>
+          <td>
+            <button
+              class="btn btn-link btn-item"
+              (click)="open(content, item.ds_item)">
+              {{ getDescricaoResumida(item.ds_item) }}
+              <span class="icon-arrow-right"></span>
+            </button>
+          </td>
+          <td class="text-center numero">{{ item.qt_itens_licitacao }}</td>
+          <td class="text-center">{{ item.sg_unidade_medida }}</td>
+          <td class="text-right numero">
+            {{ item.vl_unitario_estimado | currency: "R$ " }}
+          </td>
+          <td class="text-right numero">
+            {{ item.vl_total_estimado | currency: "R$ " }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="d-flex justify-content-center">
+    <ngb-pagination
+      [collectionSize]="licitacao?.itensLicitacao?.length"
+      [(page)]="page"
+      [pageSize]="pageSize">
+    </ngb-pagination>
+  </div>
+</div>
+
+<ng-template
+  #content
+  let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title">Descrição completa</h5>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="modal"
+      aria-label="Fechar"
+      (click)="modal.dismiss()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">{{ descricao }}</div>
+  <div class="modal-footer">
+    <button
+      type="button"
+      class="btn btn-primary"
+      (click)="modal.close('Fechar')">
+      Fechar
+    </button>
+  </div>
+</ng-template>

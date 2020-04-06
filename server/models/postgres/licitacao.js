@@ -17,6 +17,7 @@ module.exports = (sequelize, type) => {
       vl_estimado_licitacao: type.DECIMAL(15, 2),
       data_abertura: type.DATE,
       data_homologacao: type.DATE,
+      data_adjudicacao: type.DATE,
       vl_homologado: type.DECIMAL(15, 2),
       tp_licitacao: type.STRING,
       tipo_licitacao: type.STRING
@@ -38,15 +39,20 @@ module.exports = (sequelize, type) => {
       sourceKey: "id_licitacao",
       as: "licitacaoNovidade"
     });
-    licitacao.hasMany(models.itensLicitacao, {
-      foreignKey: "id_licitacao",
-      sourceKey: "id_licitacao",
-      as: "licitacaoItensLicitacao"
-    });
     licitacao.hasMany(models.contrato, {
       foreignKey: "id_licitacao",
       sourceKey: "id_licitacao",
-      as: "constratosLicitacao"
+      as: "contratosLicitacao"
+    });
+    licitacao.hasMany(models.itensLicitacao, {
+      foreignKey: "id_licitacao",
+      sourceKey: "id_licitacao",
+      as: "itensLicitacao"
+    });
+    licitacao.hasMany(models.itensContrato, {
+      foreignKey: "id_licitacao",
+      sourceKey: "id_licitacao",
+      as: "itensContratoLicitacao"
     });
   };
   return licitacao;

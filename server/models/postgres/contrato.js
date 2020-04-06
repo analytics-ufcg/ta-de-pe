@@ -3,7 +3,7 @@ module.exports = (sequelize, type) => {
       "contrato",
       {
         id_contrato: {
-          type: type.STRING,
+          type: type.INTEGER,
           primaryKey: true
         },
         id_licitacao: type.INTEGER,
@@ -47,6 +47,11 @@ module.exports = (sequelize, type) => {
         sourceKey: "id_licitacao",
         as: "contratosLicitacao"
       }); 
+      contrato.hasMany(models.itensContrato, {
+        foreignKey: "id_contrato",
+        sourceKey: "id_contrato",
+        as: "itensContrato"
+      });
     };
     return contrato;
   };

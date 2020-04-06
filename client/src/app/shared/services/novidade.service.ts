@@ -1,11 +1,14 @@
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CurrencyPipe } from '@angular/common';
 
 import { Observable, BehaviorSubject } from 'rxjs';
+import { sprintf } from 'sprintf-js';
 
 import {
   switchMap,
-  map
+  map,
+  distinctUntilChanged
 } from 'rxjs/operators';
 
 import { Novidade } from './../models/novidade.model';
@@ -27,11 +30,18 @@ export class NovidadeService {
   private TIPOS_EMPENHO = [4, 5, 6, 7, 8, 9];
   private TIPOS_CONTRATO = [10, 11];
 
-  constructor(private http: HttpClient) {
+  constructor(
+    private http: HttpClient,
+    private currencyPipe: CurrencyPipe) {
     this.novidades
       .pipe(
         switchMap(novidade =>
           this.searchfilters.pipe(
+            distinctUntilChanged(
+              (p: any, q: any) => {
+                return this.compareFilter(p, q);
+              }
+            ),
             map(filters => this.filter(novidade, filters))
           )
         )
@@ -41,9 +51,12 @@ export class NovidadeService {
       });
   }
 
-  getNovidadesPorMunicipio(municipio: string): Observable<Novidade[]> {
+  getNovidadesPorMunicipio(municipio: string, datas: any): Observable<Novidade[]> {
     const params = new HttpParams()
-      .set('nome_municipio', municipio);
+      .set('nome_municipio', municipio)
+      .set('data_inicial', datas.dataInicial)
+      .set('data_final', datas.dataFinal);
+
     this.http.get<Novidade[]>(this.url, { params })
       .subscribe(res => {
         this.novidades.next(res);
@@ -81,6 +94,34 @@ export class NovidadeService {
 
   isContrato(idTipo: number): boolean {
     return this.TIPOS_CONTRATO.includes(idTipo);
+  }
+
+  getTextoNovidade(novidade: Novidade): string {
+    if (this.isLicitacao(novidade.id_tipo)) {
+      return sprintf(novidade.tipo.texto_evento,
+        novidade.licitacaoNovidade.nr_licitacao + '/' + novidade.licitacaoNovidade.ano_licitacao);
+    } else if (this.isEmpenho(novidade.id_tipo)) {
+      return sprintf(novidade.tipo.texto_evento,
+        this.currencyPipe.transform(novidade.texto_novidade, 'R$ '),
+        novidade.licitacaoNovidade.nr_licitacao + '/' + novidade.licitacaoNovidade.ano_licitacao);
+    } else if (this.isContrato(novidade.id_tipo)) {
+      return sprintf(novidade.tipo.texto_evento,
+        novidade.texto_novidade,
+        novidade.licitacaoNovidade.nr_licitacao + '/' + novidade.licitacaoNovidade.ano_licitacao);
+    }
+    return novidade.tipo.texto_evento;
+  }
+
+  /**
+   * Compara se dois filtros são iguais ou não
+   *
+   * @param p Filtro para comparação
+   * @param q Filtro para comparação
+   */
+  private compareFilter(p: any, q: any) {
+    return p.licitacao === q.licitacao &&
+      p.empenho === q.empenho &&
+      p.contrato === q.contrato;
   }
 
 }
