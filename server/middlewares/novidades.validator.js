@@ -31,12 +31,6 @@ module.exports = {
             throw new Error("Data Final está num formato inválido. Formato correto: YYYY-MM-DD");
         }
         return true;
-      }),
-      check('nome_municipio').custom((nome_municipio) => {
-        if (nome_municipio === undefined || nome_municipio === "") {
-          throw new Error("O parâmetro nome_municipio não pode ser vazio.");
-        }
-        return true;
       })
     ]  
 };
