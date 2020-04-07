@@ -17,7 +17,7 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
 
   private unsubscribe = new Subject();
 
-  public contratoLicitacao: ContratoLicitacao;
+  public contratoLicitacao: ContratoLicitacao[];
   public descricao: string;
 
   constructor(

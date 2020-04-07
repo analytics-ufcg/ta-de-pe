@@ -23,8 +23,8 @@ export class LicitacaoService {
   }
 
   // Recupera contratos de uma licitação
-  getContratos(id: string): Observable<ContratoLicitacao> {
-    return this.http.get<ContratoLicitacao>(this.urlContratos + '/licitacao/' + id);
+  getContratos(id: string): Observable<ContratoLicitacao[]> {
+    return this.http.get<ContratoLicitacao[]>(this.urlContratos + '/licitacao/' + id);
   }
 
 }
