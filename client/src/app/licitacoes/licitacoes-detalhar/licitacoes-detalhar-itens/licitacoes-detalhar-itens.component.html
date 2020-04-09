@@ -14,9 +14,9 @@
           <th scope="col">#</th>
           <th scope="col">Item</th>
           <th scope="col">Quantidade de itens</th>
-          <th scope="col">Unidade</th>
           <th scope="col">Valor unitário estimado</th>
-          <th scope="col">Valor total estimado</th>
+          <th scope="col">Valor unitário contratado</th>
+          <th scope="col">Diferença</th>
         </tr>
       </thead>
       <tbody>
@@ -30,14 +30,22 @@
               <span class="icon-arrow-right"></span>
             </button>
           </td>
-          <td class="text-center numero">{{ item.qt_itens_licitacao }}</td>
-          <td class="text-center">{{ item.sg_unidade_medida }}</td>
-          <td class="text-right numero">
-            {{ item.vl_unitario_estimado | currency: "R$ " }}
+          <td class="text-center numero">{{ item.qt_itens_licitacao }} {{ item.sg_unidade_medida }}</td>
+          <td class="text-center numero">
+            {{ item.vl_unitario_estimado | currency: "R$" }}
           </td>
-          <td class="text-right numero">
-            {{ item.vl_total_estimado | currency: "R$ " }}
+          <td class="text-center numero">
+            {{ item.itensLicitacaoContrato.vl_item_contrato | currency: "R$" }}
           </td>
+          <td  id="negative" class="text-center numero" *ngIf="item.vl_unitario_estimado - item.itensLicitacaoContrato.vl_item_contrato > 0">
+            {{ item.itensLicitacaoContrato.vl_item_contrato - item.vl_unitario_estimado  | currency: "R$" }}
+          </td>
+          <td  id="positive" class="text-center numero" *ngIf="item.vl_unitario_estimado - item.itensLicitacaoContrato.vl_item_contrato < 0">
+            +{{ item.itensLicitacaoContrato.vl_item_contrato - item.vl_unitario_estimado | currency: "R$" }}
+          </td>
+          <td class="text-center numero" *ngIf="item.vl_unitario_estimado - item.itensLicitacaoContrato.vl_item_contrato == 0">
+            {{ item.itensLicitacaoContrato.vl_item_contrato - item.vl_unitario_estimado | currency: "R$" }}
+          </td>             
         </tr>
       </tbody>
     </table>

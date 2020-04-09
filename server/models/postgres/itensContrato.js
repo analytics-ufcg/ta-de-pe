@@ -9,6 +9,7 @@ module.exports = (sequelize, type) => {
       id_contrato: type.INTEGER,
       id_orgao: type.INTEGER,
       id_licitacao: type.INTEGER,
+      id_item_licitacao: type.INTEGER,
       nr_lote: type.INTEGER,
       nr_licitacao: type.INTEGER,
       ano_licitacao: type.INTEGER,
@@ -43,6 +44,11 @@ module.exports = (sequelize, type) => {
       foreignKey: "id_licitacao",
       sourceKey: "id_licitacao",
       as: "itensContratoLicitacao"
+    });
+    itensContrato.belongsTo(models.itensLicitacao, {
+      foreignKey: "id_item_licitacao",
+      sourceKey: "id_item",
+      as: "itensLicitacaoItensContrato"
     });
   };
   return itensContrato;
