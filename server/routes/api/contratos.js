@@ -50,4 +50,31 @@ router.get("/licitacao/:id", (req, res) => {
 });
 
 
+router.get("/licitacao/:id/fornecedores", (req, res) => {
+  Fornecedor.findAll({
+    attributes: ["nr_documento", "nm_pessoa", "tp_pessoa"],
+    include: [
+      {
+        attributes: ["nr_contrato", "ano_contrato", "vl_contrato"],
+        model: Contrato,
+        as: "fornecedorContratos",
+        where: {
+          id_licitacao: req.params.id
+        }
+      }
+    ],
+  })
+    .then(fornecedores => {
+      fornecedores = fornecedores.map(f => f.get({ plain: true }));
+
+      fornecedores.forEach((value) => {        
+        value.total_contratado = value.fornecedorContratos
+          .reduce((a, b) => a + (b["vl_contrato"] || 0), 0);
+      });
+
+      res.status(SUCCESS).json(fornecedores)
+    })
+    .catch(err => res.status(BAD_REQUEST).json({ err: err.message }));
+});
+
 module.exports = router;
