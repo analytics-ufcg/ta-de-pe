@@ -1,0 +1,26 @@
+<div class="row gutters-sm mb-3">
+  <div class="col-sm-8 mb-3">
+    <input
+      id="typeahead-focus"
+      type="text"
+      [ngClass]="{'form-control': true, 'input-hidden': municipioSelecionado}"
+      placeholder="{{placeholder}}"
+      [(ngModel)]="municipioSelecionado"
+      [ngbTypeahead]="search"
+      [editable]="false"
+      (selectItem)="salvarMunicipio($event.item)"
+      #instance="ngbTypeahead">
+  </div>
+  <div class="col-sm-4">
+    <button
+      class="btn btn-block"
+      [ngClass]="{'btn-secondary': !municipioSelecionado, 'btn-primary': municipioSelecionado}"
+      (click)="buscarOnClick()">
+      Buscar
+      <span class="icon-search"></span>
+    </button>
+  </div>
+</div>
+    <p *ngIf="!municipioSelecionado">
+      Escolha um município
+    </p>

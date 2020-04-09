@@ -2,9 +2,56 @@
   "metadata": {
     "name": "ta-na-mesa",
     "lastOpened": 0,
-    "created": 1585277691784
+    "created": 1586222545273
   },
   "iconSets": [
+    {
+      "selection": [
+        {
+          "order": 1,
+          "id": 0,
+          "name": "search",
+          "prevSize": 24,
+          "code": 59662,
+          "tempChar": ""
+        }
+      ],
+      "id": 6,
+      "metadata": {
+        "name": "Feather (subset)",
+        "importSize": {
+          "width": 24,
+          "height": 24
+        },
+        "url": "https://feathericons.com/",
+        "designer": "Cole Bemis",
+        "designerURL": "http://colebemis.com/",
+        "license": "MIT",
+        "licenseURL": "https://github.com/feathericons/feather/blob/master/LICENSE",
+        "iconsHash": 555821689
+      },
+      "height": 1024,
+      "prevSize": 24,
+      "icons": [
+        {
+          "id": 0,
+          "paths": [
+            "M684.416 676.523c-1.451 1.109-2.859 2.347-4.224 3.712s-2.56 2.731-3.712 4.224c-53.675 51.755-126.677 83.541-207.147 83.541-82.475 0-157.099-33.365-211.2-87.467s-87.467-128.725-87.467-211.2 33.365-157.099 87.467-211.2 128.725-87.467 211.2-87.467 157.099 33.365 211.2 87.467 87.467 128.725 87.467 211.2c0 80.469-31.787 153.472-83.584 207.189zM926.165 865.835l-156.8-156.8c52.523-65.707 83.968-149.035 83.968-239.701 0-106.027-43.008-202.069-112.469-271.531s-165.504-112.469-271.531-112.469-202.069 43.008-271.531 112.469-112.469 165.504-112.469 271.531 43.008 202.069 112.469 271.531 165.504 112.469 271.531 112.469c90.667 0 173.995-31.445 239.701-83.968l156.8 156.8c16.683 16.683 43.691 16.683 60.331 0s16.683-43.691 0-60.331z"
+          ],
+          "attrs": [
+            {}
+          ],
+          "isMulticolor": false,
+          "isMulticolor2": false,
+          "tags": [
+            "search"
+          ],
+          "grid": 24
+        }
+      ],
+      "invisible": false,
+      "colorThemes": []
+    },
     {
       "selection": [
         {
@@ -13,7 +60,7 @@
           "prevSize": 24,
           "code": 59657,
           "name": "arrow-left",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "id": 23,
@@ -21,7 +68,7 @@
           "prevSize": 24,
           "code": 59658,
           "name": "arrow-right",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "id": 24,
@@ -29,7 +76,7 @@
           "prevSize": 24,
           "code": 59659,
           "name": "arrow-down",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "id": 25,
@@ -37,7 +84,7 @@
           "prevSize": 24,
           "code": 59660,
           "name": "arrow-up",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "id": 26,
@@ -45,7 +92,7 @@
           "prevSize": 24,
           "code": 59651,
           "name": "bell",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "id": 27,
@@ -53,7 +100,7 @@
           "prevSize": 24,
           "code": 59652,
           "name": "bell-off",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "id": 28,
@@ -61,7 +108,7 @@
           "prevSize": 24,
           "code": 59653,
           "name": "calendar",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "id": 29,
@@ -69,7 +116,7 @@
           "prevSize": 24,
           "code": 59654,
           "name": "check",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "id": 30,
@@ -77,7 +124,7 @@
           "prevSize": 24,
           "code": 59655,
           "name": "git-commit",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "id": 31,
@@ -85,7 +132,7 @@
           "prevSize": 24,
           "code": 59656,
           "name": "sliders",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "id": 32,
@@ -93,7 +140,7 @@
           "prevSize": 24,
           "code": 59648,
           "name": "chevron-left",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "id": 33,
@@ -101,7 +148,7 @@
           "prevSize": 24,
           "code": 59649,
           "name": "chevron-right",
-          "tempChar": ""
+          "tempChar": ""
         },
         {
           "order": 30,
@@ -109,7 +156,7 @@
           "prevSize": 28,
           "code": 59650,
           "name": "circle",
-          "tempChar": ""
+          "tempChar": ""
         }
       ],
       "id": 5,
@@ -310,50 +357,6 @@
           "defaultCode": 59650
         }
       ],
-      "colorThemes": []
-    },
-    {
-      "selection": [],
-      "id": 4,
-      "metadata": {
-        "name": "Untitled Set 2"
-      },
-      "height": 1024,
-      "prevSize": 24,
-      "icons": [],
-      "colorThemes": []
-    },
-    {
-      "selection": [],
-      "id": 3,
-      "metadata": {
-        "name": "Untitled Set"
-      },
-      "height": 1024,
-      "prevSize": 24,
-      "icons": [],
-      "colorThemes": []
-    },
-    {
-      "selection": [],
-      "id": 2,
-      "metadata": {
-        "name": "Font Awesome (subset)",
-        "url": "https://github.com/FortAwesome/Font-Awesome",
-        "designer": "Dave Gandy",
-        "designerURL": "https://github.com/davegandy",
-        "license": "Custom",
-        "licenseURL": "https://github.com/FortAwesome/Font-Awesome#license",
-        "iconsHash": 309851062,
-        "importSize": {
-          "width": 24,
-          "height": 28
-        }
-      },
-      "height": 1024,
-      "prevSize": 28,
-      "icons": [],
-      "invisible": false,
       "colorThemes": []
     }
   ],

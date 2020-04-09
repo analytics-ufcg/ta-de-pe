@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { Observable, Subject, merge } from 'rxjs';
 import {
@@ -16,11 +17,11 @@ import { MunicipioService } from '../../services/municipio.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
-  selector: 'app-busca-municipio',
-  templateUrl: './busca-municipio.component.html',
-  styleUrls: ['./busca-municipio.component.scss']
+  selector: 'app-escolher-municipio',
+  templateUrl: './escolher-municipio.component.html',
+  styleUrls: ['./escolher-municipio.component.scss']
 })
-export class BuscaMunicipioComponent implements OnInit, OnDestroy {
+export class EscolherMunicipioComponent implements OnInit, OnDestroy {
   @ViewChild('instance', { static: true }) instance: NgbTypeahead;
 
   private unsubscribe = new Subject();
@@ -33,6 +34,7 @@ export class BuscaMunicipioComponent implements OnInit, OnDestroy {
   click$ = new Subject<string>();
 
   constructor(
+    private router: Router,
     private buscaMunicipioService: MunicipioService,
     private userService: UserService
   ) {
@@ -56,6 +58,7 @@ export class BuscaMunicipioComponent implements OnInit, OnDestroy {
   getMunicipioSalvo() {
     this.userService
       .getMunicipioEscolhido()
+      .pipe(take(1))
       .subscribe(municipio => {
         this.municipioSelecionado = municipio;
       });
@@ -91,8 +94,17 @@ export class BuscaMunicipioComponent implements OnInit, OnDestroy {
     );
   }
 
+  buscarOnClick() {
+    console.log(this.municipioSelecionado);
+
+    if (this.municipioSelecionado !== '' && typeof this.municipioSelecionado !== 'undefined') {
+      this.router.navigate(['novidades']);
+    }
+  }
+
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
+
 }
