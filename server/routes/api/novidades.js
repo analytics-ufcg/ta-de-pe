@@ -22,19 +22,35 @@ router.get("/", novidadesValidator.validate, (req, res) => {
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  
+
   let dataInicial = req.query.data_inicial;
 
   let dataFinal = req.query.data_final;
-  
+
   if (dataInicial === undefined && dataFinal === undefined) {
     dataFinal = new Date()
     dataInicial = new Date(dataFinal.getTime());
     dataInicial.setFullYear(dataInicial.getFullYear() - 2) // dois anos atrás
 
     // convertendo para formato do BD
-    dataFinal = dataFinal.toJSON().slice(0,10); 
-    dataInicial = dataInicial.toJSON().slice(0,10);
+    dataFinal = dataFinal.toJSON().slice(0, 10);
+    dataInicial = dataInicial.toJSON().slice(0, 10);
+  }
+
+  let whereClause = {
+    data: {
+      [Sequelize.Op.between]: [dataInicial, dataFinal]
+    }
+  }
+
+  // Limite de novidades para quando não há município selecionado
+  let limitClause = 1000
+
+  const municipio = req.query.nome_municipio
+
+  if (municipio !== undefined && municipio !== "") {
+    whereClause.nome_municipio = municipio.toUpperCase()
+    limitClause = null
   }
 
   Novidades.findAll({
@@ -49,12 +65,8 @@ router.get("/", novidadesValidator.validate, (req, res) => {
         as: "licitacaoNovidade"
       }
     ],
-    where: {
-      data: {
-        [Sequelize.Op.between]: [dataInicial, dataFinal]
-      },
-      nome_municipio: req.query.nome_municipio.toUpperCase()
-    },
+    where: whereClause,
+    limit: limitClause,
     order: [["data", "DESC"], ["id_licitacao", "DESC"]]
   })
     .then(novidades => res.status(SUCCESS).json(novidades))
