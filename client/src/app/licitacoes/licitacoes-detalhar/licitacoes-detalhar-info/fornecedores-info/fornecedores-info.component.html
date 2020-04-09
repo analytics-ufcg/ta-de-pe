@@ -1,48 +1,55 @@
 <div *ngIf="fornecedores?.length > 0">
-    <h4>Fornecedores</h4>
-    <div class="d-flex justify-content-center">
-        <ngb-pagination
-            [collectionSize]="fornecedores?.length"
-            [(page)]="page"
-            [pageSize]="pageSize"
-            [hidden]="fornecedores?.length <= 20"
-        >
-        </ngb-pagination>
-    </div>
-    <div class="table-responsive">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Documento</th>
-                    <th scope="col">Nome</th>
-                    <th scope="col">Tipo de Fornecedor</th>
-                    <th scope="col">Valor Total Contratado</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let item of itensPaginate; index as i">
-                    <th scope="row">{{ getIndice(i) }}</th>
-                    <td>{{ item.nr_documento }}</td>
-                    <td>{{ item.nm_pessoa }}</td>
-                    <td class="text-center">{{ item.tp_pessoa }}</td>
-                    <td class="text-right numero">
-                        {{ item.total_contratado | currency: "R$ " }}
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    <div class="d-flex justify-content-center">
-        <ngb-pagination
-            [collectionSize]="fornecedores?.length"
-            [(page)]="page"
-            [pageSize]="pageSize"
-            [hidden]="fornecedores?.length <= 20"
-        >
-        </ngb-pagination>
-    </div>
+  <h4>Fornecedores</h4>
+  <div class="d-flex justify-content-center">
+    <ngb-pagination
+      [collectionSize]="fornecedores?.length"
+      [(page)]="page"
+      [pageSize]="pageSize"
+      [hidden]="fornecedores?.length <= 20">
+    </ngb-pagination>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th scope="col">#</th>
+          <th scope="col">Documento</th>
+          <th scope="col">Nome</th>
+          <th scope="col">Valor Total Contratado</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of itensPaginate; index as i">
+          <th scope="row">{{ getIndice(i) }}</th>
+          <td>{{ item.nr_documento }}</td>
+          <td>
+            <span
+              *ngIf="item.nm_pessoa"
+              class="text-muted">
+              {{ item.nm_pessoa }}
+            </span>
+            <span
+              *ngIf="!item.nm_pessoa"
+              class="text-muted">
+              (Nome não encontrado)
+            </span>
+          </td>
+          <td class="text-right numero">
+            {{ item.total_contratado | currency: "R$ " }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="d-flex justify-content-center">
+    <ngb-pagination
+      [collectionSize]="fornecedores?.length"
+      [(page)]="page"
+      [pageSize]="pageSize"
+      [hidden]="fornecedores?.length <= 20">
+    </ngb-pagination>
+  </div>
 </div>
 <div *ngIf="fornecedores?.length === 0">
-    Sem dados de fornecedores com contratos para esta licitação.
+  Sem dados de fornecedores com contratos para esta licitação.
 </div>
