@@ -6,8 +6,8 @@
     activeIds="ngb-panel-0"
     [closeOthers]="true">
     <ngb-panel
-      [title]="'Contrato ' + contrato.nr_contrato"
-      *ngFor="let contrato of licitacao?.contratosLicitacao; index as i">
+      [title]="contrato?.contratoFornecedor?.nm_pessoa !== null ? 'Contrato ' + contrato?.nr_contrato + ' - ' + contrato?.contratoFornecedor?.nm_pessoa : 'Contrato ' + contrato?.nr_contrato"
+      *ngFor="let contrato of contratoLicitacao; index as i">
       <ng-template ngbPanelContent>
 
         <div class="dados-grupo">
@@ -22,8 +22,15 @@
             </span>
           </div>
           <div class="dados-linha">
-            <strong>Documento:&nbsp;</strong>
-            <span class="text-muted">{{ contrato?.nr_documento_contratado }}</span>
+            <strong>Fornecedor:&nbsp;</strong>
+            <span *ngIf="contrato?.contratoFornecedor?.nm_pessoa !== null" class="text-muted">
+              {{ contrato?.nr_documento_contratado }} - {{ contrato?.contratoFornecedor?.nm_pessoa }}</span>
+            <span *ngIf="contrato?.contratoFornecedor?.nm_pessoa === null" class="text-muted">
+              {{ contrato?.nr_documento_contratado }} (Nome não encontrado)</span>
+          </div>
+          <div class="dados-linha">
+            <strong>Tipo de Fornecedor:&nbsp;</strong>
+            <span class="text-muted">{{ getTipoFornecedor(contrato?.contratoFornecedor?.tp_pessoa) }}</span>
           </div>
         </div>
         <div class="table-responsive">
@@ -38,7 +45,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of contrato.itensContrato; index as i">
+              <tr *ngFor="let item of contrato?.itensContrato; index as i">
                 <th scope="row">{{ i + 1 }}</th>
                 <td>
                   <button

@@ -5,7 +5,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { takeUntil, take } from 'rxjs/operators';
 
-import { Licitacao } from 'src/app/shared/models/licitacao.model';
+import { ContratoLicitacao } from 'src/app/shared/models/contratoLicitacao.model';
 import { LicitacaoService } from 'src/app/shared/services/licitacao.service';
 
 @Component({
@@ -17,7 +17,7 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
 
   private unsubscribe = new Subject();
 
-  public licitacao: Licitacao;
+  public contratoLicitacao: ContratoLicitacao[];
   public descricao: string;
 
   constructor(
@@ -27,15 +27,15 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.activatedroute.parent.params.pipe(take(1)).subscribe(params => {
-      this.getLicitacaoByID(params.id);
+      this.getContratosLicitacaoByID(params.id);
     });
   }
 
-  getLicitacaoByID(id: string) {
-    this.licitacaoService.get(id)
+  getContratosLicitacaoByID(id: string) {
+    this.licitacaoService.getContratos(id)
       .pipe(takeUntil(this.unsubscribe))
-      .subscribe(licitacao => {
-        this.licitacao = licitacao;
+      .subscribe(contratosLicitacao => {
+        this.contratoLicitacao = contratosLicitacao;
       });
   }
 
@@ -43,9 +43,20 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
     return descricao.split(/\s+|:/)[0];
   }
 
+  getTipoFornecedor(tipoFornecedor: string): string {
+    if (tipoFornecedor === 'J') {
+      return 'Pessoa Jurídica';
+    } else if (tipoFornecedor === 'F') {
+      return 'Pessoa Física';
+    } else if (tipoFornecedor === 'C') {
+      return 'Consórcio';
+    }
+    return 'Outros';
+  }
+
   open(content, descricao: string): void {
     this.descricao = descricao;
-    this.modalService.open(content, { ariaLabelledBy: 'modal-descricao'});
+    this.modalService.open(content, { ariaLabelledBy: 'modal-descricao' });
   }
 
   ngOnDestroy() {
