@@ -37,22 +37,21 @@
           <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">Item</th>
-                <th scope="col">Quantidade de itens</th>
-                <th scope="col">Valor unitário</th>
-                <th scope="col">Valor toal</th>
+                <th scope="col" class="text-center">#</th>
+                <th scope="col" class="text-center">Item</th>
+                <th scope="col" class="text-center">Quantidade de itens</th>
+                <th scope="col" class="text-center">Valor unitário</th>
+                <th scope="col" class="text-center">Valor total</th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of contrato?.itensContrato; index as i">
-                <th scope="row">{{ i + 1 }}</th>
+                <th scope="row" class="text-center">{{ i + 1 }}</th>
                 <td>
                   <button
                     class="btn btn-link btn-item"
                     (click)="open(content, item.ds_item)">
-                    {{ getDescricaoResumida(item.ds_item) }}
-                    <span class="icon-arrow-right"></span>
+                    {{ getDescricaoResumida(item.ds_item) }}...
                   </button>
                 </td>
                 <td class="text-center numero">{{ item.qt_itens_contrato }}</td>
