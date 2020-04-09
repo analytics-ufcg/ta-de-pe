@@ -11,6 +11,7 @@ import { LicitacoesDetalharInfoComponent } from './licitacoes-detalhar/licitacoe
 import { LicitacoesDetalharItensComponent } from './licitacoes-detalhar/licitacoes-detalhar-itens/licitacoes-detalhar-itens.component';
 // tslint:disable-next-line: max-line-length
 import { LicitacoesDetalharContratosComponent } from './licitacoes-detalhar/licitacoes-detalhar-contratos/licitacoes-detalhar-contratos.component';
+import { FornecedoresInfoComponent } from './licitacoes-detalhar/licitacoes-detalhar-info/fornecedores-info/fornecedores-info.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { LicitacoesDetalharContratosComponent } from './licitacoes-detalhar/lici
     LicitacoesDetalharNavComponent,
     LicitacoesDetalharInfoComponent,
     LicitacoesDetalharItensComponent,
-    LicitacoesDetalharContratosComponent],
+    LicitacoesDetalharContratosComponent,
+    FornecedoresInfoComponent],
   imports: [
     CommonModule,
     NgbModule,

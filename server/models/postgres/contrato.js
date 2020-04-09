@@ -46,6 +46,11 @@ module.exports = (sequelize, type) => {
         foreignKey: "id_licitacao",
         sourceKey: "id_licitacao",
         as: "contratosLicitacao"
+      });
+      contrato.belongsTo(models.fornecedor, {
+        foreignKey: "nr_documento_contratado",
+        sourceKey: "nr_documento",
+        as: "contratoFornecedor"
       }); 
       contrato.hasMany(models.itensContrato, {
         foreignKey: "id_contrato",
