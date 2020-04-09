@@ -36,6 +36,11 @@ module.exports = (sequelize, type) => {
             sourceKey: "id_licitacao",
             as: "licitacaoItensLicitacao"
         });
+        itensLicitacao.hasOne(models.itensContrato, {
+            foreignKey: "id_item_licitacao",
+            targetKey: "id_item",
+            as: "itensLicitacaoContrato"
+        });
     };
     return itensLicitacao;
 }
