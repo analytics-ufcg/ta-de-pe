@@ -3,18 +3,20 @@ import { CommonModule } from '@angular/common';
 
 import { NgxPaginationModule } from 'ngx-pagination';
 
-import { NovidadesComponent } from './novidades.component';
 import { NovidadesRoutingModule } from './novidades-routing.module';
-import { SharedModule } from '../shared/shared.module';
+import { FilterModule } from '../filter/filter.module';
+import { NovidadesComponent } from './novidades.component';
 import { NovidadeComponent } from './novidade/novidade.component';
 
 @NgModule({
-  declarations: [NovidadesComponent, NovidadeComponent],
+  declarations: [
+    NovidadesComponent, NovidadeComponent
+  ],
   imports: [
     CommonModule,
+    NgxPaginationModule,
     NovidadesRoutingModule,
-    SharedModule,
-    NgxPaginationModule
+    FilterModule
   ]
 })
 export class NovidadesModule { }
