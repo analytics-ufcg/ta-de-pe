@@ -1,4 +1,5 @@
 import { ItensLicitacao } from './itensLicitacao.model';
+import { Novidade } from './novidade.model';
 
 export interface Licitacao {
   id_licitacao: number;
@@ -14,4 +15,5 @@ export interface Licitacao {
   vl_homologado: number;
   descricao_objeto: string;
   itensLicitacao: ItensLicitacao[];
+  licitacaoNovidade: Novidade[];
 }

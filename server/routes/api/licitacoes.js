@@ -32,6 +32,16 @@ router.get("/:id", (req, res) => {
         ],
         attributes: ["ds_item", "qt_itens_licitacao", "sg_unidade_medida", "vl_unitario_estimado", "vl_total_estimado"],
         as: "itensLicitacao"
+      },
+      {
+        model: novidade,
+        as: "licitacaoNovidade",
+        include: [
+          {
+            model: tipoNovidade,
+            as: "tipo"
+          }
+        ]
       }
     ],
     where: {

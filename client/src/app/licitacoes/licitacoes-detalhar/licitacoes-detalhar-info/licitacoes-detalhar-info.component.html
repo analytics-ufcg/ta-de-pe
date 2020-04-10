@@ -32,7 +32,7 @@
   <h4>Eventos</h4>
 
   <div class="dados-grupo">
-    <div class="dados-linha">
+    <!-- <div class="dados-linha">
       <span class="icon-git-commit icon-md"></span>
       <strong>
         {{ licitacao?.data_abertura | date: "dd-MM-yyyy" }}
@@ -52,6 +52,13 @@
         {{licitacao?.data_homologacao | date: "dd-MM-yyyy"}}
       </strong>
       <span class="text-muted">Homologação</span>
+    </div> -->
+    <div class="dados-linha" *ngFor="let novidade of licitacao?.licitacaoNovidade">
+      <span class="icon-git-commit icon-md"></span>
+      <strong class="numero">
+        {{ novidade.data | date: "dd-MM-yyy" }}
+      </strong>
+      <span class="text-muted">{{ novidade.tipo.texto_evento }}</span>
     </div>
   </div>
 
