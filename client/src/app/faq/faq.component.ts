@@ -3,8 +3,8 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
-import { Faq } from '../shared/models/faq.model';
-import { FaqService } from '../shared/services/faq.service';
+import { Faq } from 'src/app/shared/models/faq.model';
+import { FaqService } from 'src/app/shared/services/faq.service';
 
 @Component({
   selector: 'app-faq',
