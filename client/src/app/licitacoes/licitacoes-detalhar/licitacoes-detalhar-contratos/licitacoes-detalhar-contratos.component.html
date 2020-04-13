@@ -32,6 +32,14 @@
             <strong>Tipo de Fornecedor:&nbsp;</strong>
             <span class="text-muted">{{ getTipoFornecedor(contrato?.contratoFornecedor?.tp_pessoa) }}</span>
           </div>
+          <div class="dados-linha">
+            <strong>Início do contrato:&nbsp;</strong>
+            <span class="text-muted">{{ contrato?.dt_inicio_vigencia | date: "dd-MM-yyyy" }}</span>
+          </div>
+          <div class="dados-linha">
+            <strong>Fim do contrato:&nbsp;</strong>
+            <span class="text-muted">{{ contrato?.dt_final_vigencia | date: "dd-MM-yyyy" }}</span>
+          </div>
         </div>
         <div class="table-responsive">
           <table class="table table-striped">
