@@ -24,9 +24,9 @@
           <div class="dados-linha">
             <strong>Fornecedor:&nbsp;</strong>
             <span *ngIf="contrato?.contratoFornecedor?.nm_pessoa !== null" class="text-muted">
-              {{ contrato?.nr_documento_contratado }} - {{ contrato?.contratoFornecedor?.nm_pessoa }}</span>
+              {{ contrato?.nr_documento_contratado | formatCpfCnpj }} - {{ contrato?.contratoFornecedor?.nm_pessoa }}</span>
             <span *ngIf="contrato?.contratoFornecedor?.nm_pessoa === null" class="text-muted">
-              {{ contrato?.nr_documento_contratado }} (Nome não encontrado)</span>
+              {{ contrato?.nr_documento_contratado | formatCpfCnpj }} (Nome não encontrado)</span>
           </div>
           <div class="dados-linha">
             <strong>Tipo de Fornecedor:&nbsp;</strong>
