@@ -2,6 +2,8 @@ import { ItensContrato } from './itensContrato.model';
 import { Fornecedor } from './fornecedor.model';
 
 export interface ContratoLicitacao {
+  valor_contratado: number;
+  valor_estimado: number;
   nr_contrato: number;
   nr_documento_contratatado: string;
   vl_contrato: number;
