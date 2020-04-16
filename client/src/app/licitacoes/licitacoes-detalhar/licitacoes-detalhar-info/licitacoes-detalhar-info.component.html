@@ -19,6 +19,20 @@
         [hidden]="licitacao?.vl_homologado">
         --
       </span>
+
+    </div>
+    <div class="dados-linha">
+      <strong>Valor contratado:&nbsp;</strong>
+      <span
+        class="text-muted"
+        [hidden]="!valorContratado">
+        {{ valorContratado | currency: "R$ " }}
+      </span>
+      <span
+        class="text-muted"
+        [hidden]="valorContratado">
+        --
+      </span>
     </div>
   </div>
   <div class="dados-grupo">
