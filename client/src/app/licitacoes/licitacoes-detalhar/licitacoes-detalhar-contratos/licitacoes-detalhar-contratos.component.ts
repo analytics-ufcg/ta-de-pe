@@ -36,6 +36,14 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(contratosLicitacao => {
         this.contratoLicitacao = contratosLicitacao;
+        this.contratoLicitacao.map(contrato => {
+          contrato.valor_contratado = contrato.itensContrato.reduce((sum, item) => {
+            return sum + (item.vl_item_contrato * item.qt_itens_contrato);
+          }, 0);
+          contrato.valor_estimado = contrato.itensContrato.reduce((sum, item) => {
+            return sum + (item.itensLicitacaoItensContrato.vl_unitario_estimado * item.qt_itens_contrato);
+          }, 0);
+        });
       });
   }
 

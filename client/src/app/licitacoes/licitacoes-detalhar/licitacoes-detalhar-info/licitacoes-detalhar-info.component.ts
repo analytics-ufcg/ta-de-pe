@@ -18,6 +18,8 @@ export class LicitacoesDetalharInfoComponent implements OnInit, OnDestroy {
 
   public licitacao: Licitacao;
 
+  valorContratado: number;
+
   constructor(
     private activatedroute: ActivatedRoute,
     private licitacaoService: LicitacaoService) { }
@@ -33,6 +35,9 @@ export class LicitacoesDetalharInfoComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(licitacao => {
         this.licitacao = licitacao;
+        this.valorContratado = licitacao.contratosLicitacao.reduce((sum, contrato) => {
+          return sum + contrato.vl_contrato;
+        }, 0);
       });
   }
 
