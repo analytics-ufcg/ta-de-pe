@@ -1,62 +1,15 @@
-<div class="filter mb-4">
-  <div class="row no-gutters">
-    <div class="col">
-      <button
-        class="btn btn-block btn-sm btn-filter"
-        [ngClass]="{ 'btn-disabled': !licitacaoSelecionada }"
-        (click)="toggleFiltroLicitacao()"
-      >
-        <span
-          class="icon-circle"
-          [ngClass]="{
-            'text-licitacao': licitacaoSelecionada,
-            'text-disabled': !licitacaoSelecionada
-          }"
-        ></span>
-        Licitações
-      </button>
-    </div>
-    <div class="col">
-      <button
-        class="btn btn-block btn-sm btn-filter"
-        [ngClass]="{ 'btn-disabled': !empenhoSelecionado }"
-        (click)="toggleFiltroEmpenho()"
-      >
-        <span
-          class="icon-circle"
-          [ngClass]="{
-            'text-empenho': empenhoSelecionado,
-            'text-disabled': !empenhoSelecionado
-          }"
-        ></span>
-        Empenhos
-      </button>
-    </div>
-    <div class="col">
-      <button
-        class="btn btn-block btn-sm btn-filter"
-        [ngClass]="{ 'btn-disabled': !contratoSelecionado }"
-        (click)="toggleFiltroContrato()"
-      >
-        <span
-          class="icon-circle"
-          [ngClass]="{
-            'text-contrato': contratoSelecionado,
-            'text-disabled': !contratoSelecionado
-          }"
-        ></span>
-        Contratos
-      </button>
-    </div>
-    <div class="col-12 col-sm btn-filter-wrapper">
-      <button class="btn btn-secondary" (click)="open(content)">
-        <span class="icon-sliders"></span> Filtros
-      </button>
-    </div>
-  </div>
+<div class="filter text-right mb-4">
+  <button
+    class="btn btn-secondary"
+    (click)="open(content)">
+    <span class="icon-sliders"></span>
+    Filtros
+  </button>
 </div>
 
-<ng-template #content let-modal>
+<ng-template
+  #content
+  let-modal>
   <div class="modal-header">
     <h5 class="modal-title">Filtrar</h5>
     <button
@@ -64,12 +17,56 @@
       class="close"
       data-dismiss="modal"
       aria-label="Fechar"
-      (click)="modal.dismiss()"
-    >
+      (click)="modal.dismiss()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body filter-body">
+    <label>Tipo de novidade:</label>
+    <div class="row no-gutters">
+      <div class="col-md">
+        <button
+          class="btn btn-block btn-sm btn-filter"
+          [ngClass]="{ 'btn-disabled': !licitacaoSelecionada }"
+          (click)="toggleFiltroLicitacao()">
+          <span
+            class="icon-circle"
+            [ngClass]="{
+              'text-licitacao': licitacaoSelecionada,
+              'text-disabled': !licitacaoSelecionada
+            }"></span>
+          Licitações
+        </button>
+      </div>
+      <div class="col-md">
+        <button
+          class="btn btn-block btn-sm btn-filter"
+          [ngClass]="{ 'btn-disabled': !empenhoSelecionado }"
+          (click)="toggleFiltroEmpenho()">
+          <span
+            class="icon-circle"
+            [ngClass]="{
+              'text-empenho': empenhoSelecionado,
+              'text-disabled': !empenhoSelecionado
+            }"></span>
+          Empenhos
+        </button>
+      </div>
+      <div class="col-md">
+        <button
+          class="btn btn-block btn-sm btn-filter"
+          [ngClass]="{ 'btn-disabled': !contratoSelecionado }"
+          (click)="toggleFiltroContrato()">
+          <span
+            class="icon-circle"
+            [ngClass]="{
+              'text-contrato': contratoSelecionado,
+              'text-disabled': !contratoSelecionado
+            }"></span>
+          Contratos
+        </button>
+      </div>
+    </div>
     <div class="form-group">
       <label for="dataInicial">De</label>
       <div class="input-group">
@@ -83,14 +80,12 @@
           [minDate]="minDate"
           [maxDate]="maxDate"
           ngbDatepicker
-          #d1="ngbDatepicker"
-        />
+          #d1="ngbDatepicker">
         <div class="input-group-append">
           <button
             class="btn btn-outline-secondary"
             (click)="d1.toggle()"
-            type="button"
-          >
+            type="button">
             <span class="icon-calendar"></span>
           </button>
         </div>
@@ -109,14 +104,12 @@
           [minDate]="minDate"
           [maxDate]="maxDate"
           ngbDatepicker
-          #d2="ngbDatepicker"
-        />
+          #d2="ngbDatepicker">
         <div class="input-group-append">
           <button
             class="btn btn-outline-secondary"
             (click)="d2.toggle()"
-            type="button"
-          >
+            type="button">
             <span class="icon-calendar"></span>
           </button>
         </div>
@@ -124,7 +117,9 @@
     </div>
 
     <div class="text-right mt-4">
-      <button class="btn btn-primary" (click)="aplicarDateChange()">
+      <button
+        class="btn btn-primary"
+        (click)="aplicarDateChange()">
         Aplicar
       </button>
     </div>

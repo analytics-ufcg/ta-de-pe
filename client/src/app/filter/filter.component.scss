@@ -21,6 +21,10 @@
 
 .btn-filter {
   font-weight: 700;
+  text-align: left;
+  @media (min-width: 576px) {
+    text-align: center;
+  }
 }
 
 .btn-filter-wrapper {
