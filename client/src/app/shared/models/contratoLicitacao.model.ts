@@ -7,6 +7,8 @@ export interface ContratoLicitacao {
   nr_contrato: number;
   nr_documento_contratatado: string;
   vl_contrato: number;
+  dt_inicio_vigencia: Date;
+  dt_final_vigencia: Date;
   contratoFornecedor: Fornecedor;
   itensContrato: ItensContrato[];
 }
