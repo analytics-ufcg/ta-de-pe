@@ -29,7 +29,7 @@ router.get("/:id", (req, res) => {
 
 router.get("/licitacao/:id", (req, res) => {
   Contrato.findAll({
-    attributes: ["nr_contrato", "nr_documento_contratado", "vl_contrato"],
+    attributes: ["nr_contrato", "nr_documento_contratado", "vl_contrato", "dt_inicio_vigencia", "dt_final_vigencia"],
     include: [
       {
         model: Fornecedor,
@@ -56,7 +56,7 @@ router.get("/licitacao/:id", (req, res) => {
             as: "itensSemelhantes"
           }
         ],
-        attributes: ["qt_itens_contrato", "vl_item_contrato", "vl_total_item_contrato", "ds_item", "categoria"],
+        attributes: ["qt_itens_contrato", "vl_item_contrato", "vl_total_item_contrato", "ds_item", "categoria", "ano_licitacao"],
         as: "itensContrato"
       }
     ],

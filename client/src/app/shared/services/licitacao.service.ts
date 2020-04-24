@@ -25,6 +25,7 @@ export class LicitacaoService {
 
   // Recupera contratos de uma licitação
   getContratos(id: string): Observable<ContratoLicitacao[]> {
+    console.log(this.http.get<ContratoLicitacao[]>(this.urlContratos + '/licitacao/' + id))
     return this.http.get<ContratoLicitacao[]>(this.urlContratos + '/licitacao/' + id);
   }
 

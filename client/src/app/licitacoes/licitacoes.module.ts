@@ -13,6 +13,8 @@ import { LicitacoesDetalharItensComponent } from './licitacoes-detalhar/licitaco
 import { LicitacoesDetalharContratosComponent } from './licitacoes-detalhar/licitacoes-detalhar-contratos/licitacoes-detalhar-contratos.component';
 import { FornecedoresInfoComponent } from './licitacoes-detalhar/licitacoes-detalhar-info/fornecedores-info/fornecedores-info.component';
 
+import { FormatCpfCnpjPipe } from '../shared/pipes/format-cpf-cnpj.pipe';
+
 @NgModule({
   declarations: [
     LicitacoesListarComponent,
@@ -21,7 +23,9 @@ import { FornecedoresInfoComponent } from './licitacoes-detalhar/licitacoes-deta
     LicitacoesDetalharInfoComponent,
     LicitacoesDetalharItensComponent,
     LicitacoesDetalharContratosComponent,
-    FornecedoresInfoComponent],
+    FornecedoresInfoComponent,
+    FormatCpfCnpjPipe
+  ],
   imports: [
     CommonModule,
     NgbModule,

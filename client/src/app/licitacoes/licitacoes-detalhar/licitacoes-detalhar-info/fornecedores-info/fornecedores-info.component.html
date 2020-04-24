@@ -21,7 +21,7 @@
       <tbody>
         <tr *ngFor="let item of itensPaginate; index as i">
           <th scope="row">{{ getIndice(i) }}</th>
-          <td>{{ item.nr_documento }}</td>
+          <td>{{ item.nr_documento | formatCpfCnpj }}</td>
           <td>
             <span
               *ngIf="item.nm_pessoa"
@@ -34,8 +34,8 @@
               (Nome não encontrado)
             </span>
           </td>
-          <td >
-            {{ item.total_contratado | currency: "R$ " }}
+          <td class="text-right numero">
+            {{ item.total_contratado | currency: "R$" }}
           </td>
         </tr>
       </tbody>
