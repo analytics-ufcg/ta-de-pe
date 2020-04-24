@@ -46,12 +46,12 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
           contrato.itensContrato.map(item => {
             item.media_valor = item.itensSemelhantes.filter(d => {
               return d.ano_licitacao === item.ano_licitacao;
-            }).reduce((sum, item_b) => {
-              return sum + item_b.vl_item_contrato / item.itensSemelhantes.filter(d => {
+            }).reduce((sum, itemB) => {
+              return sum + itemB.vl_item_contrato / item.itensSemelhantes.filter(d => {
                 return d.ano_licitacao === item.ano_licitacao;
               }).length;
             }, 0);
-          })
+          });
         });
       });
   }
