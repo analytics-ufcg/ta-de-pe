@@ -21,7 +21,8 @@ module.exports = (sequelize, type) => {
       qt_itens_contrato: type.REAL,
       vl_item_contrato: type.DECIMAL(15, 2),
       vl_total_item_contrato: type.DECIMAL(15, 2),
-      ds_item: type.STRING
+      ds_item: type.STRING,
+      categoria: type.INTEGER
     },
     {
       freezeTableName: true,
@@ -49,6 +50,11 @@ module.exports = (sequelize, type) => {
       foreignKey: "id_item_licitacao",
       sourceKey: "id_item",
       as: "itensLicitacaoItensContrato"
+    });
+    itensContrato.hasMany(itensContrato, {
+      foreignKey: "categoria",
+      sourceKey: "categoria",
+      as: 'itensSemelhantes'
     });
   };
   return itensContrato;

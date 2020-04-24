@@ -6,6 +6,7 @@ const models = require("../../models/index");
 
 const Contrato = models.contrato;
 const Fornecedor = models.fornecedor;
+const Orgao = models.orgao;
 
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
@@ -42,9 +43,20 @@ router.get("/licitacao/:id", (req, res) => {
             model: itensLicitacao,
             attributes: ["vl_unitario_estimado", "sg_unidade_medida"],
             as: "itensLicitacaoItensContrato"
+          },
+          {
+            model: itensContrato,
+            include: [{
+              model: Orgao,
+              as: "itensContratoOrgao"
+            }, {
+              model: Contrato,
+              as: "itensContratoContrato"
+            }],
+            as: "itensSemelhantes"
           }
         ],
-        attributes: ["qt_itens_contrato", "vl_item_contrato", "vl_total_item_contrato", "ds_item"],
+        attributes: ["qt_itens_contrato", "vl_item_contrato", "vl_total_item_contrato", "ds_item", "categoria"],
         as: "itensContrato"
       }
     ],
