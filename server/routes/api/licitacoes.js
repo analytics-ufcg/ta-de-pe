@@ -42,6 +42,11 @@ router.get("/:id", (req, res) => {
             as: "tipo"
           }
         ]
+      },
+      {
+        model: Contrato,
+        attributes: ["vl_contrato"],
+        as: "contratosLicitacao"
       }
     ],
     where: {

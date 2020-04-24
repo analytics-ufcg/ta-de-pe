@@ -102,7 +102,7 @@ export class NovidadeService {
         novidade.licitacaoNovidade.nr_licitacao + '/' + novidade.licitacaoNovidade.ano_licitacao);
     } else if (this.isEmpenho(novidade.id_tipo)) {
       return sprintf(novidade.tipo.texto_evento,
-        this.currencyPipe.transform(novidade.texto_novidade, 'R$ '),
+        this.currencyPipe.transform(novidade.texto_novidade, 'R$'),
         novidade.licitacaoNovidade.nr_licitacao + '/' + novidade.licitacaoNovidade.ano_licitacao);
     } else if (this.isContrato(novidade.id_tipo)) {
       return sprintf(novidade.tipo.texto_evento,

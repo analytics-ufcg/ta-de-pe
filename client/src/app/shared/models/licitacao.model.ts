@@ -1,5 +1,6 @@
 import { ItensLicitacao } from './itensLicitacao.model';
 import { Novidade } from './novidade.model';
+import { ContratoLicitacao } from './contratoLicitacao.model';
 
 export interface Licitacao {
   id_licitacao: number;
@@ -16,4 +17,5 @@ export interface Licitacao {
   descricao_objeto: string;
   itensLicitacao: ItensLicitacao[];
   licitacaoNovidade: Novidade[];
+  contratosLicitacao: ContratoLicitacao[];
 }

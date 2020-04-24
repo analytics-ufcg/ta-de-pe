@@ -19,7 +19,8 @@ export class LicitacoesDetalharInfoComponent implements OnInit, OnDestroy {
   private unsubscribe = new Subject();
 
   public licitacao: Licitacao;
-  public timeline: any;
+  public valorContratado: number;
+  public timeline: any[];
 
   constructor(
     private activatedroute: ActivatedRoute,
@@ -37,6 +38,11 @@ export class LicitacoesDetalharInfoComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(licitacao => {
         this.licitacao = licitacao;
+
+        this.valorContratado = licitacao.contratosLicitacao.reduce((sum, contrato) => {
+          return sum + contrato.vl_contrato;
+        }, 0);
+
         const timeline = nest()
           .key((d: any) => d.data)
           .key((d: any) => d.id_tipo)
@@ -52,13 +58,11 @@ export class LicitacoesDetalharInfoComponent implements OnInit, OnDestroy {
             return {
               total: valorTotal,
               texto: novidades[0].tipo.texto_evento
-            };
+            } as any;
           })
           .entries(this.licitacao.licitacaoNovidade);
 
         this.timeline = timeline;
-        console.log(this.timeline);
-
       });
   }
 
