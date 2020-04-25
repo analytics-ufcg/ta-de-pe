@@ -6,11 +6,13 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { EscolherMunicipioComponent } from './escolher-municipio/escolher-municipio.component';
 import { BuscaMunicipioComponent } from './busca-municipio/busca-municipio.component';
+import { SpinnerComponent } from './spinner/spinner.component';
 
 @NgModule({
   declarations: [
     EscolherMunicipioComponent,
-    BuscaMunicipioComponent
+    BuscaMunicipioComponent,
+    SpinnerComponent
   ],
   imports: [
     CommonModule,
@@ -19,7 +21,8 @@ import { BuscaMunicipioComponent } from './busca-municipio/busca-municipio.compo
   ],
   exports: [
     EscolherMunicipioComponent,
-    BuscaMunicipioComponent
+    BuscaMunicipioComponent,
+    SpinnerComponent
   ]
 })
 export class SharedModule { }
