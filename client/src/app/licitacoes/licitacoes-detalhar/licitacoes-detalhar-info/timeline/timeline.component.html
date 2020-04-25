@@ -16,8 +16,7 @@
     <div
       class="timeline-content"
       *ngFor="let tipo of evento.values">
-      <span class="text-muted">{{ tipo.value.texto }}</span>
-      <span *ngIf="novidadeService.isEmpenho(+tipo.key)">{{ tipo.value.total | currency: "R$" }}</span>
+      <span class="text-muted">{{ novidadeService.getTextoResumo(tipo.value.novidade, tipo.value.total) }}</span>
     </div>
   </div>
 

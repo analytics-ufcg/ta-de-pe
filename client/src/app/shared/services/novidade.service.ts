@@ -112,6 +112,15 @@ export class NovidadeService {
     return novidade.tipo.texto_evento;
   }
 
+  getTextoResumo(novidade: Novidade, total: number): string {
+    if (this.isEmpenho(novidade.id_tipo)) {
+      return sprintf(novidade.tipo.texto_resumo, this.currencyPipe.transform(total, 'R$'));
+    } else if (this.isContrato(novidade.id_tipo)) {
+      return sprintf(novidade.tipo.texto_resumo, novidade.texto_novidade);
+    }
+    return novidade.tipo.texto_resumo;
+  }
+
   /**
    * Compara se dois filtros são iguais ou não
    *

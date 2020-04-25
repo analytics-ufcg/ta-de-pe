@@ -57,7 +57,7 @@ export class LicitacoesDetalharInfoComponent implements OnInit, OnDestroy {
             }, 0);
             return {
               total: valorTotal,
-              texto: novidades[0].tipo.texto_evento
+              novidade: novidades[0]
             } as any;
           })
           .entries(this.licitacao.licitacaoNovidade);

@@ -6,8 +6,8 @@ module.exports = (sequelize, type) => {
         type: type.INTEGER,
         primaryKey: true
       },
-
-      texto_evento: type.STRING
+      texto_evento: type.STRING,
+      texto_resumo: type.STRING
     },
     {
       freezeTableName: true,

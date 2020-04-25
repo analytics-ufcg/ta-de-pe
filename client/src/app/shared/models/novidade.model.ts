@@ -1,6 +1,7 @@
 export interface TipoNovidade {
   id_tipo: number;
   texto_evento: string;
+  texto_resumo: string;
 }
 
 export interface Novidade {
