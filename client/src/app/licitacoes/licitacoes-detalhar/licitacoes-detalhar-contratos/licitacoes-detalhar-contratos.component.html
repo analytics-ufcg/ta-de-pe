@@ -3,9 +3,10 @@
 
   <ngb-accordion
     #acc="ngbAccordion"
-    activeIds="ngb-panel-0"
+    [activeIds]="activeIds"
     [closeOthers]="true">
     <ngb-panel
+      id="panel-{{ contrato?.id_contrato }}"
       [title]="contrato?.contratoFornecedor?.nm_pessoa !== null ? 'Contrato ' + contrato?.nr_contrato + ' - ' + contrato?.contratoFornecedor?.nm_pessoa : 'Contrato ' + contrato?.nr_contrato"
       *ngFor="let contrato of contratoLicitacao; index as i">
       <ng-template ngbPanelContent>

@@ -28,7 +28,7 @@ router.get("/:id", (req, res) => {
 
 router.get("/licitacao/:id", (req, res) => {
   Contrato.findAll({
-    attributes: ["nr_contrato", "nr_documento_contratado", "vl_contrato", "dt_inicio_vigencia", "dt_final_vigencia"],
+    attributes: ["id_contrato", "nr_contrato", "nr_documento_contratado", "vl_contrato", "dt_inicio_vigencia", "dt_final_vigencia"],
     include: [
       {
         model: Fornecedor,
