@@ -17,7 +17,17 @@ export class NovidadeComponent {
   constructor(private router: Router, public novidadeService: NovidadeService) { }
 
   handleClick() {
-    this.router.navigate(['/licitacoes/' + this.novidade.licitacaoNovidade.id_licitacao]);
+    if (this.novidadeService.isContrato(this.novidade.id_tipo)) {
+      this.router.navigate(['/licitacoes/' + this.novidade.licitacaoNovidade.id_licitacao + '/contratos'],
+        { queryParams: { id: this.novidade.id_original }
+      });
+    } else if (this.novidadeService.isEmpenho(this.novidade.id_tipo)) {
+      this.router.navigate(['/licitacoes/' + this.novidade.licitacaoNovidade.id_licitacao + '/info'],
+        { queryParams: { id: this.novidade.id_original }
+      });
+    } else {
+      this.router.navigate(['/licitacoes/' + this.novidade.licitacaoNovidade.id_licitacao]);
+    }
   }
 
 }
