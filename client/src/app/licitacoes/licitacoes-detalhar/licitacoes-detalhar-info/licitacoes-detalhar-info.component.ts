@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Subject } from 'rxjs';
+import { Subject, forkJoin } from 'rxjs';
 import { takeUntil, take } from 'rxjs/operators';
 import { nest } from 'd3-collection';
 
@@ -34,12 +34,14 @@ export class LicitacoesDetalharInfoComponent implements OnInit, OnDestroy {
   }
 
   getLicitacaoByID(id: string) {
-    this.licitacaoService.get(id)
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe(licitacao => {
-        this.licitacao = licitacao;
+    forkJoin(
+      this.licitacaoService.get(id),
+      this.licitacaoService.getNovidades(id)
+    ).pipe(takeUntil(this.unsubscribe)).subscribe(data => {
+        this.licitacao = data[0];
+        const novidadesLicitacao = data[1];
 
-        this.valorContratado = licitacao.contratosLicitacao.reduce((sum, contrato) => {
+        this.valorContratado = data[0].contratosLicitacao.reduce((sum, contrato) => {
           return sum + contrato.vl_contrato;
         }, 0);
 
@@ -60,7 +62,7 @@ export class LicitacoesDetalharInfoComponent implements OnInit, OnDestroy {
               novidade: novidades[0]
             } as any;
           })
-          .entries(this.licitacao.licitacaoNovidade);
+          .entries(novidadesLicitacao);
 
         this.timeline = timeline;
       });

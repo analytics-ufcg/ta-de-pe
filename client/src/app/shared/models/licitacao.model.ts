@@ -16,6 +16,5 @@ export interface Licitacao {
   vl_homologado: number;
   descricao_objeto: string;
   itensLicitacao: ItensLicitacao[];
-  licitacaoNovidade: Novidade[];
   contratosLicitacao: ContratoLicitacao[];
 }
