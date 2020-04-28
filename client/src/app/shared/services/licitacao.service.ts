@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Licitacao } from '../models/licitacao.model';
 import { ContratoLicitacao } from '../models/contratoLicitacao.model';
 import { FornecedorLicitacao } from '../models/fornecedorLicitacao.model';
+import { Novidade } from '../models/novidade.model';
 
 import { environment } from '../../../environments/environment';
 
@@ -16,6 +17,7 @@ export class LicitacaoService {
 
   private url = environment.apiUrl + 'licitacoes';
   private urlContratos = environment.apiUrl + 'contratos';
+  private urlNovidades = environment.apiUrl + 'novidades';
 
   constructor(private http: HttpClient) { }
 
@@ -31,6 +33,10 @@ export class LicitacaoService {
   // Recupera fornecedores com contratos associados a uma licitação
   getFornecedores(id: string): Observable<FornecedorLicitacao[]> {
     return this.http.get<FornecedorLicitacao[]>(this.urlContratos + '/licitacao/' + id + '/fornecedores');
+  }
+
+  getNovidades(id: string): Observable<Novidade[]> {
+    return this.http.get<Novidade[]>(this.urlNovidades + '/licitacao/' + id);
   }
 
 }

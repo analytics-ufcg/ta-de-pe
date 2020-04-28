@@ -1,0 +1,23 @@
+<h4>Eventos</h4>
+
+<div class="timeline mb-4">
+
+  <div
+    class="timeline-event"
+    *ngFor="let evento of timeline">
+    <div class="timeline-event-title">
+      <div class="timeline-marker">
+        <span class="timeline-marker-icon"></span>
+      </div>
+      <div class="timeline-date">
+        <strong class="numero">{{ evento.key | date: "dd-MM-yyy" }}</strong>
+      </div>
+    </div>
+    <div
+      class="timeline-content"
+      *ngFor="let tipo of evento.values">
+      <span class="text-muted">{{ novidadeService.getTextoResumo(tipo.value.novidade, tipo.value.total) }}</span>
+    </div>
+  </div>
+
+</div>

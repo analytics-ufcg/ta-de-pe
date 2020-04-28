@@ -1,4 +1,5 @@
 import { ItensLicitacao } from './itensLicitacao.model';
+import { Novidade } from './novidade.model';
 import { ContratoLicitacao } from './contratoLicitacao.model';
 
 export interface Licitacao {

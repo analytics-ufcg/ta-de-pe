@@ -1,73 +1,37 @@
 <div
   class="licitacoes-info"
   [hidden]="!licitacao">
-  <h4>{{ licitacao?.nm_orgao }}</h4>
-  <div class="dados-grupo">
-    <div class="dados-linha">
-      <strong>Tipo:&nbsp;</strong>
-      <span class="text-muted">{{ licitacao?.tipo_licitacao }}</span>
+  <div class="mb-4">
+    <h4>{{ licitacao?.nm_orgao }}</h4>
+    <div class="dados-grupo">
+      <div class="dados-linha">
+        <strong>Tipo:&nbsp;</strong>
+        <span class="text-muted">{{ licitacao?.tipo_licitacao }}</span>
+      </div>
+      <div class="dados-linha">
+        <strong>Valor homologado:&nbsp;</strong>
+        <span
+          class="text-muted"
+          [hidden]="!licitacao?.vl_homologado">
+          {{ licitacao?.vl_homologado | currency: "R$" }}
+        </span>
+        <span
+          class="text-muted"
+          [hidden]="licitacao?.vl_homologado">
+          --
+        </span>
+      </div>
     </div>
-    <div class="dados-linha">
-      <strong>Valor homologado:&nbsp;</strong>
-      <span
-        class="text-muted"
-        [hidden]="!licitacao?.vl_homologado">
-        {{ licitacao?.vl_homologado | currency: "R$" }}
-      </span>
-      <span
-        class="text-muted"
-        [hidden]="licitacao?.vl_homologado">
-        --
-      </span>
-
-    </div>
-    <div class="dados-linha">
-      <strong>Valor contratado:&nbsp;</strong>
-      <span
-        class="text-muted"
-        [hidden]="!valorContratado">
-        {{ valorContratado | currency: "R$ " }}
-      </span>
-      <span
-        class="text-muted"
-        [hidden]="valorContratado">
-        --
-      </span>
-    </div>
-  </div>
-  <div class="dados-grupo">
-    <div class="dados-linha">
-      <strong>Objeto da licitação:</strong>
-      <br>
-      <span class="text-muted">{{ licitacao?.descricao_objeto }}</span>
+    <div class="dados-grupo">
+      <div class="dados-linha">
+        <strong>Objeto da licitação:</strong>
+        <br>
+        <span class="text-muted">{{ licitacao?.descricao_objeto }}</span>
+      </div>
     </div>
   </div>
 
-  <h4>Eventos</h4>
-
-  <div class="dados-grupo">
-    <div class="dados-linha">
-      <span class="icon-git-commit icon-md"></span>
-      <strong>
-        {{ licitacao?.data_abertura | date: "dd-MM-yyyy" }}
-      </strong>
-      <span class="text-muted">Abertura</span>
-    </div>
-    <div class="dados-linha">
-      <span class="icon-git-commit icon-md"></span>
-      <strong>
-        {{ licitacao?.data_adjudicacao | date: "dd-MM-yyyy"}}
-      </strong>
-      <span class="text-muted">Adjudicação</span>
-    </div>
-    <div class="dados-linha">
-      <span class="icon-git-commit icon-md"></span>
-      <strong>
-        {{licitacao?.data_homologacao | date: "dd-MM-yyyy"}}
-      </strong>
-      <span class="text-muted">Homologação</span>
-    </div>
-  </div>
+  <app-timeline [timeline]="timeline"></app-timeline>
 
   <app-fornecedores-info [idLicitacao]="licitacao?.id_licitacao"></app-fornecedores-info>
 
