@@ -34,16 +34,6 @@ router.get("/:id", (req, res) => {
         as: "itensLicitacao"
       },
       {
-        model: novidade,
-        as: "licitacaoNovidade",
-        include: [
-          {
-            model: tipoNovidade,
-            as: "tipo"
-          }
-        ]
-      },
-      {
         model: Contrato,
         attributes: ["vl_contrato"],
         as: "contratosLicitacao"
