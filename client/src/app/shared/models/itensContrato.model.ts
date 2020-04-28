@@ -1,6 +1,6 @@
 export interface ItensContrato {
   ano_licitacao: any;
-  itensSemelhantes: any;
+  itensSemelhantes: any[];
   media_valor: number;
   itensLicitacaoItensContrato: any;
   qt_itens_contrato: number;
