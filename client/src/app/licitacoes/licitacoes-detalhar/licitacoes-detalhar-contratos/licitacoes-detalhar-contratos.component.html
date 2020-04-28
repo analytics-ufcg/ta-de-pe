@@ -64,6 +64,7 @@
                 <th scope="col" class="text-left">Item</th>
                 <th scope="col" class="text-center">Quantidade de itens</th>
                 <th scope="col" class="text-center">Valor unitário contratado</th>
+                <th scope="col" class="text-center">Desvio de preço (Média estadual)</th>
                 <th scope="col" class="text-center">Estimado x Contratado (Unitária)</th>
                 <th scope="col" class="text-center">Estimado x Contratado (Total)</th>
               </tr>
@@ -81,6 +82,15 @@
                 <td class="text-center numero">{{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida }}</td>
                 <td class="text-center numero">
                   {{ item.vl_item_contrato | currency: "R$" }}
+                </td>
+                <td class="text-center numero">
+                  <span *ngIf="item.vl_item_contrato - item.media_valor === 0">--</span>
+                  <span *ngIf="item.vl_item_contrato - item.media_valor < 0" class="positivo">
+                    {{ item.vl_item_contrato - item.media_valor | currency: "R$" }}
+                  </span>
+                  <span *ngIf="item.vl_item_contrato - item.media_valor > 0" class="negativo">
+                    +{{ item.vl_item_contrato - item.media_valor | currency: "R$" }}
+                  </span>
                 </td>
                 <td class="text-center numero">
                   <span *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado === 0">--</span>

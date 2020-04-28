@@ -47,6 +47,15 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
           contrato.valor_estimado = contrato.itensContrato.reduce((sum, item) => {
             return sum + (item.itensLicitacaoItensContrato.vl_unitario_estimado * item.qt_itens_contrato);
           }, 0);
+          contrato.itensContrato.map(item => {
+            item.media_valor = item.itensSemelhantes.filter(d => {
+              return d.ano_licitacao === item.ano_licitacao;
+            }).reduce((sum, itemB) => {
+              return sum + itemB.vl_item_contrato / item.itensSemelhantes.filter(d => {
+                return d.ano_licitacao === item.ano_licitacao;
+              }).length;
+            }, 0);
+          });
         });
       });
   }
