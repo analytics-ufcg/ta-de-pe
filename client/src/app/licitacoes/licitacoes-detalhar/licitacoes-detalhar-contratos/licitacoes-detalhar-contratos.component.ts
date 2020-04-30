@@ -50,7 +50,7 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
             return sum + (item.itensLicitacaoItensContrato.vl_unitario_estimado * item.qt_itens_contrato);
           }, 0);
           contrato.itensContrato.map(item => {
-            let tituloItem = item.ds_item.split(/\s+|:|-/).slice(0, 3).map(palavra => {
+            const tituloItem = item.ds_item.split(/\s+|:|-/).slice(0, 3).map(palavra => {
               return palavra.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
             }).filter(i => i !== '').join(' & ');
             this.getMediaItensSemelhantes(tituloItem, item.ano_licitacao).then(media => {
