@@ -73,4 +73,21 @@ router.get("/", novidadesValidator.validate, (req, res) => {
     .catch(err => res.status(BAD_REQUEST).json({ error: err.message }));
 });
 
+// Recupera novidades a partir do id da licitação
+router.get("/licitacao/:id", (req, res) => {
+  novidade.findAll({
+    include: [
+      {
+        model: tipoNovidade,
+        as: "tipo"
+      }
+    ],
+    where: {
+      id_licitacao: req.params.id
+    }
+  })
+    .then(novidades => res.json(novidades))
+    .catch(err => res.status(BAD_REQUEST).json({ err }));
+});
+
 module.exports = router;

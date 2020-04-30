@@ -12,6 +12,9 @@ import { LicitacoesDetalharItensComponent } from './licitacoes-detalhar/licitaco
 // tslint:disable-next-line: max-line-length
 import { LicitacoesDetalharContratosComponent } from './licitacoes-detalhar/licitacoes-detalhar-contratos/licitacoes-detalhar-contratos.component';
 import { FornecedoresInfoComponent } from './licitacoes-detalhar/licitacoes-detalhar-info/fornecedores-info/fornecedores-info.component';
+import { TimelineComponent } from './licitacoes-detalhar/licitacoes-detalhar-info/timeline/timeline.component';
+import { FormatCpfCnpjPipe } from '../shared/pipes/format-cpf-cnpj.pipe';
+import { SharedModule } from '../shared/components/shared.module';
 
 @NgModule({
   declarations: [
@@ -21,11 +24,15 @@ import { FornecedoresInfoComponent } from './licitacoes-detalhar/licitacoes-deta
     LicitacoesDetalharInfoComponent,
     LicitacoesDetalharItensComponent,
     LicitacoesDetalharContratosComponent,
-    FornecedoresInfoComponent],
+    FornecedoresInfoComponent,
+    TimelineComponent,
+    FormatCpfCnpjPipe
+  ],
   imports: [
     CommonModule,
     NgbModule,
-    LicitacoesRoutingModule
+    LicitacoesRoutingModule,
+    SharedModule
   ]
 })
 export class LicitacoesModule { }

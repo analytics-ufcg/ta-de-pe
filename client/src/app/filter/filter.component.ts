@@ -45,22 +45,18 @@ export class FilterComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.aplicarFiltro();
-    this.aplicarDateChange();
   }
 
   toggleFiltroLicitacao() {
     this.licitacaoSelecionada = !this.licitacaoSelecionada;
-    this.aplicarFiltro();
   }
 
   toggleFiltroEmpenho() {
     this.empenhoSelecionado = !this.empenhoSelecionado;
-    this.aplicarFiltro();
   }
 
   toggleFiltroContrato() {
     this.contratoSelecionado = !this.contratoSelecionado;
-    this.aplicarFiltro();
   }
 
   aplicarFiltro() {
@@ -70,6 +66,16 @@ export class FilterComponent implements OnInit, OnDestroy {
       contrato: this.contratoSelecionado
     };
     this.filterChange.emit(this.filtro);
+
+    const inicio = this.dataInicial.year + '-' + this.dataInicial.month + '-' + this.dataInicial.day;
+    const final = this.dataFinal.year + '-' + this.dataFinal.month + '-' + this.dataFinal.day;
+
+    const datas = {
+      dataInicial: inicio,
+      dataFinal: final
+    };
+
+    this.dateChange.emit(datas);
   }
 
   startDatas() {
@@ -99,17 +105,9 @@ export class FilterComponent implements OnInit, OnDestroy {
     };
   }
 
-  aplicarDateChange() {
+  fecharFiltro() {
+    this.aplicarFiltro();
     this.modalService.dismissAll();
-    const inicio = this.dataInicial.year + '-' + this.dataInicial.month + '-' + this.dataInicial.day;
-    const final = this.dataFinal.year + '-' + this.dataFinal.month + '-' + this.dataFinal.day;
-
-    const datas = {
-      dataInicial: inicio,
-      dataFinal: final
-    };
-
-    this.dateChange.emit(datas);
   }
 
   open(content) {

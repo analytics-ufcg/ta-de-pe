@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
-import { Subject } from 'rxjs';
-import { takeUntil, debounceTime } from 'rxjs/operators';
+import { Subject, BehaviorSubject } from 'rxjs';
+import { takeUntil, debounceTime, take, skip } from 'rxjs/operators';
 
 import { UserService } from './../shared/services/user.service';
 import { Novidade } from '../shared/models/novidade.model';
 import { NovidadeService } from '../shared/services/novidade.service';
+import { indicate } from '../shared/functions/indicate.function';
 
 @Component({
   selector: 'app-novidades',
@@ -19,11 +20,11 @@ export class NovidadesComponent implements OnInit, OnDestroy {
   public novidades: Novidade[];
   public novidadesTipo: Novidade[];
   public municipioEscolhido: string;
+  public loading$ = new BehaviorSubject<boolean>(true);
 
-  filtro: any;
-  datas: any;
-
-  p = 1;
+  public filtro: any;
+  public datas: any;
+  public p = 1;
 
   constructor(
     private novidadesServices: NovidadeService,
@@ -51,9 +52,14 @@ export class NovidadesComponent implements OnInit, OnDestroy {
   getNovidades(municipio: string) {
     this.novidadesServices
       .getNovidadesPorMunicipio(municipio, this.datas)
-      .pipe(takeUntil(this.unsubscribe))
+      .pipe(
+        skip(1),
+        indicate(this.loading$),
+        takeUntil(this.unsubscribe)
+        )
       .subscribe(novidades => {
         this.novidades = novidades;
+        this.loading$.next(false);
       });
   }
 

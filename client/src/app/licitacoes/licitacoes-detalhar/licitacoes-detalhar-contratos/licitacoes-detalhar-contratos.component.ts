@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal, NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { takeUntil, take } from 'rxjs/operators';
 
@@ -19,6 +19,8 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
 
   public contratoLicitacao: ContratoLicitacao[];
   public descricao: string;
+  public activeIds: string[] = [];
+  public isLoading = true;
 
   constructor(
     private activatedroute: ActivatedRoute,
@@ -29,6 +31,9 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
     this.activatedroute.parent.params.pipe(take(1)).subscribe(params => {
       this.getContratosLicitacaoByID(params.id);
     });
+    this.activatedroute.queryParams.pipe(take(1)).subscribe(params => {
+      this.activeIds = ['panel-' + params.id];
+    });
   }
 
   getContratosLicitacaoByID(id: string) {
@@ -36,6 +41,24 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(contratosLicitacao => {
         this.contratoLicitacao = contratosLicitacao;
+        this.contratoLicitacao.map(contrato => {
+          contrato.valor_contratado = contrato.itensContrato.reduce((sum, item) => {
+            return sum + (item.vl_item_contrato * item.qt_itens_contrato);
+          }, 0);
+          contrato.valor_estimado = contrato.itensContrato.reduce((sum, item) => {
+            return sum + (item.itensLicitacaoItensContrato.vl_unitario_estimado * item.qt_itens_contrato);
+          }, 0);
+          contrato.itensContrato.map(item => {
+            item.media_valor = item.itensSemelhantes.filter(d => {
+              return d.ano_licitacao === item.ano_licitacao;
+            }).reduce((sum, itemB) => {
+              return sum + itemB.vl_item_contrato / item.itensSemelhantes.filter(d => {
+                return d.ano_licitacao === item.ano_licitacao;
+              }).length;
+            }, 0);
+          });
+        });
+        this.isLoading = false;
       });
   }
 

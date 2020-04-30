@@ -102,7 +102,7 @@ export class NovidadeService {
         novidade.licitacaoNovidade.nr_licitacao + '/' + novidade.licitacaoNovidade.ano_licitacao);
     } else if (this.isEmpenho(novidade.id_tipo)) {
       return sprintf(novidade.tipo.texto_evento,
-        this.currencyPipe.transform(novidade.texto_novidade, 'R$ '),
+        this.currencyPipe.transform(novidade.texto_novidade, 'R$'),
         novidade.licitacaoNovidade.nr_licitacao + '/' + novidade.licitacaoNovidade.ano_licitacao);
     } else if (this.isContrato(novidade.id_tipo)) {
       return sprintf(novidade.tipo.texto_evento,
@@ -110,6 +110,15 @@ export class NovidadeService {
         novidade.licitacaoNovidade.nr_licitacao + '/' + novidade.licitacaoNovidade.ano_licitacao);
     }
     return novidade.tipo.texto_evento;
+  }
+
+  getTextoResumo(novidade: Novidade, total: number): string {
+    if (this.isEmpenho(novidade.id_tipo)) {
+      return sprintf(novidade.tipo.texto_resumo, this.currencyPipe.transform(total, 'R$'));
+    } else if (this.isContrato(novidade.id_tipo)) {
+      return sprintf(novidade.tipo.texto_resumo, novidade.texto_novidade);
+    }
+    return novidade.tipo.texto_resumo;
   }
 
   /**
