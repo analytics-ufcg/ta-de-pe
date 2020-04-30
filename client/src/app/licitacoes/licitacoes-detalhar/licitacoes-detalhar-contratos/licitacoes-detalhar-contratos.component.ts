@@ -49,10 +49,10 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
           contrato.valor_estimado = contrato.itensContrato.reduce((sum, item) => {
             return sum + (item.itensLicitacaoItensContrato.vl_unitario_estimado * item.qt_itens_contrato);
           }, 0);
-          contrato.itensContrato.map(item => { 
-            let tituloItem = item.ds_item.split(/\s+|:|-/).slice(0,3).map(palavra => {
-              return palavra.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
-            }).filter(i => i !== "").join(" & ");
+          contrato.itensContrato.map(item => {
+            let tituloItem = item.ds_item.split(/\s+|:|-/).slice(0, 3).map(palavra => {
+              return palavra.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
+            }).filter(i => i !== '').join(' & ');
             this.getMediaItensSemelhantes(tituloItem, item.ano_licitacao).then(media => {
               item.media_valor = media;
             });
@@ -61,8 +61,8 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
       });
   }
 
-  getMediaItensSemelhantes(ds_item: string, ano: number) {
-    return this.itensService.getItensSimilares(ds_item, ano);
+  getMediaItensSemelhantes(dsItem: string, ano: number) {
+    return this.itensService.getItensSimilares(dsItem, ano);
   }
 
   getDescricaoResumida(descricao: string): string {
