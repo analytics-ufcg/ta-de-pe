@@ -13,67 +13,98 @@
       *ngFor="let contrato of contratoLicitacao; index as i">
       <ng-template ngbPanelContent>
 
-        <div class="dados-grupo">
-          <div class="dados-linha">
-            <strong>Contrato:&nbsp;</strong>
-            <span class="text-muted">{{ contrato?.nr_contrato }}</span>
-          </div>
-          <div class="dados-linha">
-            <strong>Valor:&nbsp;</strong>
-            <span class="text-muted">
+        <h3 *ngIf="contrato?.contratoFornecedor?.nm_pessoa !== null">
+          {{ contrato?.nr_documento_contratado | formatCpfCnpj }} - {{ contrato?.contratoFornecedor?.nm_pessoa }}
+        </h3>
+        <h3 *ngIf="contrato?.contratoFornecedor?.nm_pessoa === null">
+          {{ contrato?.nr_documento_contratado | formatCpfCnpj }} (Nome não encontrado)
+        </h3>
+
+        <div class="row mt-4">
+          <div class="col-sm-6 col-md-3 col-lg-2 mb-4">
+            <div class="dados-linha">
+              <strong>Valor</strong>
+            </div>
+            <div class="dados-linha">
               {{ contrato?.vl_contrato | currency: "R$" }}
-            </span>
+            </div>
           </div>
-          <div class="dados-linha">
-            <strong>Estimado x Contratado:&nbsp;</strong>
-            <span *ngIf="contrato?.valor_contratado - contrato?.valor_estimado === 0">--</span>
-            <span
-              *ngIf="contrato?.valor_contratado - contrato?.valor_estimado < 0"
-              class="positivo">
-              {{ contrato?.valor_contratado - contrato?.valor_estimado  | currency: "R$" }}
-            </span>
-            <span
-              *ngIf="contrato?.valor_contratado - contrato?.valor_estimado > 0"
-              class="negativo">
-              {{ contrato?.valor_contratado - contrato?.valor_estimado  | currency: "+R$" }}
-            </span>
+          <div class="col-sm-6 col-md-5 col-lg-3 mb-4">
+            <div class="dados-linha">
+              <strong>Estimado x Contratado</strong>
+            </div>
+            <div class="dados-linha">
+              <span *ngIf="contrato?.valor_contratado - contrato?.valor_estimado === 0">--</span>
+              <span
+                *ngIf="contrato?.valor_contratado - contrato?.valor_estimado < 0"
+                class="positivo">
+                {{ contrato?.valor_contratado - contrato?.valor_estimado  | currency: "R$" }}
+              </span>
+              <span
+                *ngIf="contrato?.valor_contratado - contrato?.valor_estimado > 0"
+                class="negativo">
+                {{ contrato?.valor_contratado - contrato?.valor_estimado  | currency: "+R$" }}
+              </span>
+            </div>
           </div>
-          <div class="dados-linha">
-            <strong>Fornecedor:&nbsp;</strong>
-            <span *ngIf="contrato?.contratoFornecedor?.nm_pessoa !== null" class="text-muted">
-              {{ contrato?.nr_documento_contratado | formatCpfCnpj }} - {{ contrato?.contratoFornecedor?.nm_pessoa }}</span>
-            <span *ngIf="contrato?.contratoFornecedor?.nm_pessoa === null" class="text-muted">
-              {{ contrato?.nr_documento_contratado | formatCpfCnpj }} (Nome não encontrado)</span>
-          </div>
-          <div class="dados-linha">
-            <strong>Tipo de Fornecedor:&nbsp;</strong>
-            <span class="text-muted">{{ getTipoFornecedor(contrato?.contratoFornecedor?.tp_pessoa) }}</span>
-          </div>
-          <div class="dados-linha">
-            <strong>Início do contrato:&nbsp;</strong>
-            <span class="text-muted">{{ contrato?.dt_inicio_vigencia | date: "dd-MM-yyyy" }}</span>
-          </div>
-          <div class="dados-linha">
-            <strong>Fim do contrato:&nbsp;</strong>
-            <span class="text-muted">{{ contrato?.dt_final_vigencia | date: "dd-MM-yyyy" }}</span>
+          <div class="col-sm-6 col-md-4 col-lg-7 mb-4">
+            <div class="dados-linha">
+              <strong>Vigência</strong>
+            </div>
+            <div class="dados-linha">
+              {{ contrato?.dt_inicio_vigencia | date: "dd/MM/yyyy" }} à {{ contrato?.dt_final_vigencia | date: "dd/MM/yyyy" }}
+            </div>
           </div>
         </div>
+
         <div class="table-responsive">
           <table class="table table-striped">
             <thead>
               <tr>
-                <th scope="col" class="text-left">#</th>
-                <th scope="col" class="text-left">Item</th>
-                <th scope="col" class="text-center">Quantidade de itens</th>
-                <th scope="col" class="text-center">Valor unitário contratado</th>
-                <th scope="col" class="text-center">Desvio de preço (Média estadual)</th>
-                <th scope="col" class="text-center">Estimado x Contratado (Unitária)</th>
-                <th scope="col" class="text-center">Estimado x Contratado (Total)</th>
+                <th
+                  scope="col"
+                  class="text-left">
+                  #
+                </th>
+                <th
+                  scope="col"
+                  class="text-left">
+                  Item
+                </th>
+                <th
+                  scope="col"
+                  class="text-center">
+                  Quantidade de itens
+                </th>
+                <th
+                  scope="col"
+                  class="text-center">
+                  Valor unitário contratado
+                </th>
+                <th
+                  scope="col"
+                  class="text-center">
+                  Desvio de preço (Média estadual)
+                </th>
+                <th
+                  scope="col"
+                  class="text-center">
+                  Estimado x Contratado (Unitária)
+                </th>
+                <th
+                  scope="col"
+                  class="text-center">
+                  Estimado x Contratado (Total)
+                </th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of contrato?.itensContrato; index as i">
-                <th scope="row" class="text-left">{{ i + 1 }}</th>
+                <th
+                  scope="row"
+                  class="text-left">
+                  {{ i + 1 }}
+                </th>
                 <td>
                   <button
                     class="btn btn-link btn-item"
@@ -81,16 +112,22 @@
                     {{ getDescricaoResumida(item.ds_item) }}...
                   </button>
                 </td>
-                <td class="text-center numero">{{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida }}</td>
+                <td class="text-center numero">
+                  {{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida }}
+                </td>
                 <td class="text-center numero">
                   {{ item.vl_item_contrato | currency: "R$" }}
                 </td>
                 <td class="text-center numero">
                   <span *ngIf="item.vl_item_contrato - item.media_valor === 0">--</span>
-                  <span *ngIf="item.vl_item_contrato - item.media_valor < 0" class="positivo">
+                  <span
+                    *ngIf="item.vl_item_contrato - item.media_valor < 0"
+                    class="positivo">
                     {{ item.vl_item_contrato - item.media_valor | currency: "R$" }}
                   </span>
-                  <span *ngIf="item.vl_item_contrato - item.media_valor > 0" class="negativo">
+                  <span
+                    *ngIf="item.vl_item_contrato - item.media_valor > 0"
+                    class="negativo">
                     +{{ item.vl_item_contrato - item.media_valor | currency: "R$" }}
                   </span>
                 </td>
