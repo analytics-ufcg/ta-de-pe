@@ -63,8 +63,14 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
   }
 
   getDescricaoResumida(descricao: string): string {
-    // return descricao;
-    return descricao.split(/\s+|:/)[0];
+    const split = descricao.split(/\s+|:|,/);
+    let str = '';
+    let i = 0;
+    do {
+      str += split[i] + ' ';
+      i++;
+    } while (str.length < 20 && typeof split[i] !== 'undefined');
+    return str.substr(0, str.length - 1);
   }
 
   getTipoFornecedor(tipoFornecedor: string): string {
