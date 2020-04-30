@@ -3,10 +3,11 @@ import { ActivatedRoute } from '@angular/router';
 
 import { NgbModal, NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
-import { takeUntil, take } from 'rxjs/operators';
+import { takeUntil, take, map } from 'rxjs/operators';
 
 import { ContratoLicitacao } from 'src/app/shared/models/contratoLicitacao.model';
 import { LicitacaoService } from 'src/app/shared/services/licitacao.service';
+import { ItensService } from 'src/app/shared/services/itens.service';
 
 @Component({
   selector: 'app-licitacoes-detalhar-contratos',
@@ -24,7 +25,8 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
   constructor(
     private activatedroute: ActivatedRoute,
     private modalService: NgbModal,
-    private licitacaoService: LicitacaoService) { }
+    private licitacaoService: LicitacaoService,
+    private itensService: ItensService) { }
 
   ngOnInit() {
     this.activatedroute.parent.params.pipe(take(1)).subscribe(params => {
@@ -47,17 +49,20 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
           contrato.valor_estimado = contrato.itensContrato.reduce((sum, item) => {
             return sum + (item.itensLicitacaoItensContrato.vl_unitario_estimado * item.qt_itens_contrato);
           }, 0);
-          contrato.itensContrato.map(item => {
-            item.media_valor = item.itensSemelhantes.filter(d => {
-              return d.ano_licitacao === item.ano_licitacao;
-            }).reduce((sum, itemB) => {
-              return sum + itemB.vl_item_contrato / item.itensSemelhantes.filter(d => {
-                return d.ano_licitacao === item.ano_licitacao;
-              }).length;
-            }, 0);
+          contrato.itensContrato.map(item => { 
+            let tituloItem = item.ds_item.split(/\s+|:|-/).slice(0,3).map(palavra => {
+              return palavra.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g,"");
+            }).filter(i => i !== "").join(" & ");
+            this.getMediaItensSemelhantes(tituloItem, item.ano_licitacao).then(media => {
+              item.media_valor = media;
+            });
           });
         });
       });
+  }
+
+  getMediaItensSemelhantes(ds_item: string, ano: number) {
+    return this.itensService.getItensSimilares(ds_item, ano);
   }
 
   getDescricaoResumida(descricao: string): string {
