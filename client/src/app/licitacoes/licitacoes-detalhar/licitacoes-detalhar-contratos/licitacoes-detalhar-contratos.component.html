@@ -58,104 +58,97 @@
         </div>
 
         <div class="table-responsive">
-          <table class="table table-striped">
+          <table class="table table-sm table-hover">
             <thead>
               <tr>
                 <th
                   scope="col"
-                  class="text-left">
-                  #
-                </th>
-                <th
-                  scope="col"
-                  class="text-left">
+                  class="text-left align-middle">
                   Item
                 </th>
                 <th
                   scope="col"
-                  class="text-center">
-                  Quantidade de itens
+                  class="table-th-monospace text-right">
+                  Valor<br>total
                 </th>
                 <th
                   scope="col"
-                  class="text-center">
-                  Valor unitário contratado
+                  class="table-th-monospace text-right">
+                  Por<br>unidade
                 </th>
                 <th
                   scope="col"
-                  class="text-center">
-                  Desvio de preço (Média estadual)
+                  class="table-th-monospace text-right">
+                  vs<br>Estado
                 </th>
                 <th
                   scope="col"
-                  class="text-center">
-                  Estimado x Contratado (Unitária)
+                  class="table-th-monospace text-right">
+                  vs<br>estimado
                 </th>
                 <th
                   scope="col"
-                  class="text-center">
-                  Estimado x Contratado (Total)
+                  class="table-th-monospace text-right">
+                  vs<br>estimado total
                 </th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of contrato?.itensContrato; index as i">
-                <th
-                  scope="row"
-                  class="text-left">
-                  {{ i + 1 }}
-                </th>
-                <td>
+                <td class="text-nowrap">
                   <button
-                    class="btn btn-link btn-item"
+                    class="btn btn-sm btn-link btn-item"
                     (click)="open(content, item.ds_item)">
                     {{ getDescricaoResumida(item.ds_item) }}...
                   </button>
+                  <span class="text-muted">
+                    ({{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida }})
+                  </span>
                 </td>
-                <td class="text-center numero">
-                  {{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida }}
+                <td class="numero">
+                  {{ item.vl_total_item_contrato | currency:'':'' }}
                 </td>
-                <td class="text-center numero">
-                  {{ item.vl_item_contrato | currency: "R$" }}
+                <td class="numero">
+                  {{ item.vl_item_contrato | currency:'':'' }}/{{ item.itensLicitacaoItensContrato.sg_unidade_medida }}
                 </td>
-                <td class="text-center numero">
+                <td class="numero">
                   <span *ngIf="item.vl_item_contrato - item.media_valor === 0">--</span>
                   <span
                     *ngIf="item.vl_item_contrato - item.media_valor < 0"
                     class="positivo">
-                    {{ item.vl_item_contrato - item.media_valor | currency: "R$" }}
+                    {{ item.vl_item_contrato - item.media_valor | currency:'':'' }}
                   </span>
                   <span
                     *ngIf="item.vl_item_contrato - item.media_valor > 0"
                     class="negativo">
-                    +{{ item.vl_item_contrato - item.media_valor | currency: "R$" }}
+                    +{{ item.vl_item_contrato - item.media_valor | currency:'':'' }}
                   </span>
                 </td>
-                <td class="text-center numero">
+                <td class="numero">
                   <span *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado === 0">--</span>
                   <span
                     *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado < 0"
                     class="positivo">
-                    {{  (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado)  | currency: "R$" }}
+                    {{  (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado) | currency:'':'' }}
                   </span>
                   <span
                     *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado > 0"
                     class="negativo">
-                    {{ (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado)  | currency: "+R$" }}
+                    {{ (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado) | currency:'':'' }}
                   </span>
 
                 </td>
-                <td class="text-center numero">
+                <td class="numero">
                   <span *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado === 0">--</span>
                   <span
                     *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado < 0"
                     class="positivo">
-                    {{ item.qt_itens_contrato * (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado)  | currency: "R$" }}
+                    {{ item.qt_itens_contrato * (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado) | currency:'':'' }}
                   </span>
                   <span
                     *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado > 0"
                     class="negativo">
-                    {{ item.qt_itens_contrato * (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado)  | currency: "+R$" }}
+                    +{{ item.qt_itens_contrato * (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado) | currency:'':'' }}
                   </span>
 
                 </td>

@@ -87,3 +87,13 @@ body {
   font-family: 'Roboto Mono', monospace;
   white-space: nowrap;
 }
+
+td.numero {
+  text-align: right;
+}
+
+.table-th-monospace {
+  width: 120px;
+  font-weight: normal;
+  font-size: 0.9rem;
+}
