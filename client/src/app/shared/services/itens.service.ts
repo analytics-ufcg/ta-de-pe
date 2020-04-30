@@ -18,19 +18,8 @@ export class ItensService {
 
     constructor(private http: HttpClient) { }
 
-    getItensSimilares(nomeItem: string, ano: number): Observable<ItensContrato[]> {
+    getItensSimilares(nomeItem: string): Observable<ItensContrato[]> {
         return this.http.post<ItensContrato[]>(this.url + '/similares', { termo: nomeItem })
-            .pipe(take(1),
-                map(item => {
-                    return item.filter(d => {
-                        return d.ano_licitacao === ano;
-                    }).reduce((sum, itemB) => {
-                        return sum + itemB.vl_item_contrato / item.filter(d => {
-                            return d.ano_licitacao === ano;
-                        }).length;
-                    }, 0);
-                })
-            ).toPromise();
     }
 
 }

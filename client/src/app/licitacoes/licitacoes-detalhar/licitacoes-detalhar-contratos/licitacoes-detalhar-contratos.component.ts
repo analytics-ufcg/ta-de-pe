@@ -62,7 +62,18 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
   }
 
   getMediaItensSemelhantes(dsItem: string, ano: number) {
-    return this.itensService.getItensSimilares(dsItem, ano);
+    return this.itensService.getItensSimilares(dsItem)
+      .pipe(take(1),
+        map(item => {
+          return item.filter(d => {
+            return d.ano_licitacao === ano;
+          }).reduce((sum, itemB) => {
+            return sum + itemB.vl_item_contrato / item.filter(d => {
+              return d.ano_licitacao === ano;
+            }).length;
+          }, 0);
+        })
+      ).toPromise();;
   }
 
   getDescricaoResumida(descricao: string): string {
