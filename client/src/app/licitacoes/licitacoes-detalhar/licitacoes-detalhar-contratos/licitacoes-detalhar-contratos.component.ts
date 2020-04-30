@@ -63,6 +63,7 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
   }
 
   getDescricaoResumida(descricao: string): string {
+    // return descricao;
     return descricao.split(/\s+|:/)[0];
   }
 

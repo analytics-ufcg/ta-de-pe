@@ -95,7 +95,7 @@
             </thead>
             <tbody>
               <tr *ngFor="let item of contrato?.itensContrato; index as i">
-                <td class="text-nowrap">
+                <td class="text-nowrap align-middle">
                   <button
                     class="btn btn-sm btn-link btn-item"
                     (click)="open(content, item.ds_item)">
@@ -105,13 +105,13 @@
                     ({{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida }})
                   </span>
                 </td>
-                <td class="numero">
+                <td class="numero align-middle">
                   {{ item.vl_total_item_contrato | currency:'':'' }}
                 </td>
-                <td class="numero">
+                <td class="numero align-middle">
                   {{ item.vl_item_contrato | currency:'':'' }}/{{ item.itensLicitacaoItensContrato.sg_unidade_medida }}
                 </td>
-                <td class="numero">
+                <td class="numero align-middle">
                   <span *ngIf="item.vl_item_contrato - item.media_valor === 0">--</span>
                   <span
                     *ngIf="item.vl_item_contrato - item.media_valor < 0"
@@ -124,7 +124,7 @@
                     +{{ item.vl_item_contrato - item.media_valor | currency:'':'' }}
                   </span>
                 </td>
-                <td class="numero">
+                <td class="numero align-middle">
                   <span *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado === 0">--</span>
                   <span
                     *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado < 0"
@@ -138,7 +138,7 @@
                   </span>
 
                 </td>
-                <td class="numero">
+                <td class="numero align-middle">
                   <span *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado === 0">--</span>
                   <span
                     *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado < 0"
