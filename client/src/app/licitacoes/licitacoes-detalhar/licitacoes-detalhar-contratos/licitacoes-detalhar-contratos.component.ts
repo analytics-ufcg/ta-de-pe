@@ -73,7 +73,7 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
             }).length;
           }, 0);
         })
-      ).toPromise();;
+      ).toPromise();
   }
 
   getDescricaoResumida(descricao: string): string {
