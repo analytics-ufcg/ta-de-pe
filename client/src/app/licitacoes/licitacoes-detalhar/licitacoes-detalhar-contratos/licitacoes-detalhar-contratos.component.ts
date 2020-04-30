@@ -20,6 +20,7 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
   public contratoLicitacao: ContratoLicitacao[];
   public descricao: string;
   public activeIds: string[] = [];
+  public isLoading = true;
 
   constructor(
     private activatedroute: ActivatedRoute,
@@ -57,6 +58,7 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
             }, 0);
           });
         });
+        this.isLoading = false;
       });
   }
 

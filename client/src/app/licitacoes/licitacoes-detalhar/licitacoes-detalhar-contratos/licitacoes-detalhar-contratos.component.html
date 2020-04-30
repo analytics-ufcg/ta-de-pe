@@ -1,6 +1,8 @@
 <div>
   <h4>Contratos</h4>
 
+  <app-spinner *ngIf="isLoading"></app-spinner>
+
   <ngb-accordion
     #acc="ngbAccordion"
     [activeIds]="activeIds"

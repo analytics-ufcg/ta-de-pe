@@ -2,7 +2,9 @@
   <h1>Novidades</h1>
   <app-filter (filterChange)="search($event)" (dateChange)="alteraNovidades($event)"></app-filter>
 
-  <div>
+  <app-spinner *ngIf="loading$ | async"></app-spinner>
+
+  <div [hidden]="!novidades?.length">
     <pagination-template
       #pag="paginationApi"
       maxSize="5"
