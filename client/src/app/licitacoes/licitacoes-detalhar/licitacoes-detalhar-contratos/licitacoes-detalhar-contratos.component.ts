@@ -1,12 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { NgbModal, NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { takeUntil, take } from 'rxjs/operators';
 
 import { ContratoLicitacao } from 'src/app/shared/models/contratoLicitacao.model';
 import { LicitacaoService } from 'src/app/shared/services/licitacao.service';
+import { ItensContrato } from 'src/app/shared/models/itensContrato.model';
 
 @Component({
   selector: 'app-licitacoes-detalhar-contratos',
@@ -18,7 +19,7 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
   private unsubscribe = new Subject();
 
   public contratoLicitacao: ContratoLicitacao[];
-  public descricao: string;
+  public itemSelecionado: ItensContrato;
   public activeIds: string[] = [];
   public isLoading = true;
 
@@ -84,9 +85,9 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
     return 'Outros';
   }
 
-  open(content, descricao: string): void {
-    this.descricao = descricao;
-    this.modalService.open(content, { ariaLabelledBy: 'modal-descricao' });
+  open(content, item: ItensContrato): void {
+    this.itemSelecionado = item;
+    this.modalService.open(content, { ariaLabelledBy: 'modal-descricao', size: 'xl' });
   }
 
   ngOnDestroy() {

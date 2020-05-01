@@ -69,38 +69,47 @@
                 <th
                   scope="col"
                   class="table-th-monospace text-right">
-                  Valor<br>total
+                  Valor
+                  <br>
+                  total
                 </th>
                 <th
                   scope="col"
                   class="table-th-monospace text-right">
-                  Por<br>unidade
+                  Por
+                  <br>
+                  unidade
                 </th>
                 <th
                   scope="col"
                   class="table-th-monospace text-right">
-                  vs<br>Estado
+                  vs
+                  <br>
+                  Estado
                 </th>
                 <th
                   scope="col"
                   class="table-th-monospace text-right">
-                  vs<br>estimado
+                  vs
+                  <br>
+                  estimado
                 </th>
                 <th
                   scope="col"
                   class="table-th-monospace text-right">
-                  vs<br>estimado total
+                  vs
+                  <br>
+                  estimado total
                 </th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let item of contrato?.itensContrato; index as i">
+              <tr
+                *ngFor="let item of contrato?.itensContrato; index as i"
+                class="table-item"
+                (click)="open(content, item)">
                 <td class="text-nowrap align-middle">
-                  <button
-                    class="btn btn-sm btn-link btn-item"
-                    (click)="open(content, item.ds_item)">
-                    {{ getDescricaoResumida(item.ds_item) }}...
-                  </button>
+                  {{ getDescricaoResumida(item.ds_item) }}...
                   <span class="text-muted">
                     ({{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida }})
                   </span>
@@ -175,7 +184,78 @@
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
-  <div class="modal-body">{{ descricao }}</div>
+  <div class="modal-body">
+
+    <div class="table-responsive">
+      <table class="table table-sm table-hover">
+        <thead>
+          <tr>
+            <th
+              scope="col"
+              class="text-left align-middle">
+              Item
+            </th>
+            <th
+              scope="col"
+              class="table-th-monospace text-right">
+              Por
+              <br>
+              unidade
+            </th>
+            <th
+              scope="col"
+              class="table-th-monospace text-right">
+              &nbsp;
+            </th>
+            <th
+              scope="col"
+              class="table-th-monospace text-right">
+              &nbsp;
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="table-item-strong">
+            <td class="align-middle">{{ itemSelecionado.ds_item }}</td>
+            <td class="numero align-middle">
+              {{ itemSelecionado.vl_item_contrato | currency:'':'' }}
+            </td>
+            <td class="numero align-middle">&nbsp;</td>
+            <td class="numero align-middle">&nbsp;</td>
+          </tr>
+          <tr
+            *ngFor="let item of itemSelecionado?.itensSemelhantes; index as i"
+            class>
+            <td class="align-middle">{{ item.ds_item }}</td>
+            <td class="numero align-middle">
+              {{ item.vl_item_contrato | currency:'':'' }}
+            </td>
+            <td class="numero align-middle">
+              <span *ngIf="item.vl_item_contrato - itemSelecionado.vl_item_contrato === 0">--</span>
+              <span
+                *ngIf="item.vl_item_contrato - itemSelecionado.vl_item_contrato < 0"
+                class="positivo">
+                {{ item.vl_item_contrato - itemSelecionado.vl_item_contrato | currency:'':'' }}
+              </span>
+              <span
+                *ngIf="item.vl_item_contrato - itemSelecionado.vl_item_contrato > 0"
+                class="negativo">
+                +{{ item.vl_item_contrato - itemSelecionado.vl_item_contrato | currency:'':'' }}
+              </span>
+            </td>
+            <td class="align-middle">
+              <a
+                [routerLink]="['/licitacoes/' + item.id_licitacao + '/contratos', { queryParams: item.id_contrato }]"
+                target="_blank">
+                <span class="icon-arrow-right"></span>
+              </a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
   <div class="modal-footer">
     <button
       type="button"
