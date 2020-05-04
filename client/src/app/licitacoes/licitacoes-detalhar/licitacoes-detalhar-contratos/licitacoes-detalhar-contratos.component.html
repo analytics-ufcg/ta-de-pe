@@ -63,32 +63,22 @@
               <tr>
                 <th class="head-controls">&nbsp;</th>
                 <th
-                  class="head-controls text-center"
+                  class="head-controls text-right"
                   colspan="3">
                   <form [formGroup]="radioGroupForm">
-                    <div
-                      class="btn-group btn-group-toggle"
-                      ngbRadioGroup
-                      name="radioBasic"
-                      formControlName="showTotal">
+                    <div class="toggle-wrapper toggle-wrapper-right">
+                      <span class="toggle-label">Unidade</span>
+                      <input
+                        class="toggle toggle-flat"
+                        id="cb4"
+                        type="checkbox"
+                        formControlName="showTotal"
+                        [value]="true"
+                        checked>
                       <label
-                        ngbButtonLabel
-                        class="btn-primary">
-                        <input
-                          ngbButton
-                          type="radio"
-                          [value]="false">
-                        Unidade
-                      </label>
-                      <label
-                        ngbButtonLabel
-                        class="btn-primary">
-                        <input
-                          ngbButton
-                          type="radio"
-                          [value]="true">
-                        Total
-                      </label>
+                        class="toggle-btn"
+                        for="cb4"></label>
+                      <span class="toggle-label">Total</span>
                     </div>
                   </form>
                 </th>
