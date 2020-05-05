@@ -22,18 +22,6 @@ router.get("/:id", (req, res) => {
   Licitacao.findOne({
     include: [
       {
-        model: itensLicitacao,
-        include: [
-          {
-            model: itensContrato,
-            attributes: ["vl_item_contrato"],
-            as: "itensLicitacaoContrato"
-          }
-        ],
-        attributes: ["ds_item", "qt_itens_licitacao", "sg_unidade_medida", "vl_unitario_estimado", "vl_total_estimado"],
-        as: "itensLicitacao"
-      },
-      {
         model: Contrato,
         attributes: ["vl_contrato"],
         as: "contratosLicitacao"
