@@ -51,7 +51,7 @@ export class EscolherMunicipioComponent implements OnInit, OnDestroy {
       .getMunicipios()
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(municipios => {
-        this.municipios = municipios.map(e => e.nome_municipio).sort();
+        this.municipios = municipios.map(e => e.nome_municipio).sort().slice(0, 10);
       });
   }
 
