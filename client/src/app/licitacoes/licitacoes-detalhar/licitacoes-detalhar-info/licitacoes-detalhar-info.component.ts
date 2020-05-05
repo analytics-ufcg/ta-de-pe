@@ -70,6 +70,13 @@ export class LicitacoesDetalharInfoComponent implements OnInit, OnDestroy {
       });
   }
 
+  isOrgaoPrefeitura(nomeOrgao: string): boolean {
+    if (typeof nomeOrgao === 'undefined' || !nomeOrgao) {
+      return false;
+    }
+    return  (nomeOrgao.substr(0, 5) === 'PM DE');
+  }
+
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();

@@ -5,7 +5,7 @@
   <app-spinner *ngIf="isLoading"></app-spinner>
 
   <div class="mb-4">
-    <h4>{{ licitacao?.nm_orgao }}</h4>
+    <h4 *ngIf="!isOrgaoPrefeitura(licitacao?.nm_orgao)">{{ licitacao?.nm_orgao }}</h4>
 
     <div class="dados-grupo">
       <div class="dados-linha">
