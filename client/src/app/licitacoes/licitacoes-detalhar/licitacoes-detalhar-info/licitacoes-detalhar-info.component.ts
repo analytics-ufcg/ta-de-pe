@@ -39,42 +39,49 @@ export class LicitacoesDetalharInfoComponent implements OnInit, OnDestroy {
       this.licitacaoService.get(id),
       this.licitacaoService.getNovidades(id)
     ).pipe(takeUntil(this.unsubscribe)).subscribe(data => {
-        this.licitacao = data[0];
-        const novidadesLicitacao = data[1];
+      this.licitacao = data[0];
+      const novidadesLicitacao = data[1];
 
-        this.valorContratado = data[0].contratosLicitacao.reduce((sum, contrato) => {
-          return sum + contrato.vl_contrato;
-        }, 0);
+      this.valorContratado = data[0].contratosLicitacao.reduce((sum, contrato) => {
+        return sum + contrato.vl_contrato;
+      }, 0);
 
-        const timeline = nest()
-          .key((d: any) => d.data)
-          .key((d: any) => d.id_tipo)
-          .rollup((novidades: any[]) => {
-            const valorTotal = novidades.reduce((acumulador, novidade) => {
-              if (this.novidadeService.isEmpenho(novidade.id_tipo)) {
-                const valor = +novidade.texto_novidade;
-                return acumulador + valor;
-              } else {
-                return 0;
-              }
-            }, 0);
-            return {
-              total: valorTotal,
-              novidade: novidades[0]
-            } as any;
-          })
-          .entries(novidadesLicitacao);
+      const timeline = nest()
+        .key((d: any) => d.data)
+        .key((d: any) => d.id_tipo)
+        .rollup((novidades: any[]) => {
+          const valorTotal = novidades.reduce((acumulador, novidade) => {
+            if (this.novidadeService.isEmpenho(novidade.id_tipo)) {
+              const valor = +novidade.texto_novidade;
+              return acumulador + valor;
+            } else {
+              return 0;
+            }
+          }, 0);
+          return {
+            total: valorTotal,
+            novidade: novidades[0]
+          } as any;
+        })
+        .entries(novidadesLicitacao);
 
-        this.timeline = timeline;
-        this.isLoading = false;
+      timeline.sort((a, b) => {
+        const i = new Date(a.key).getTime();
+        const j = new Date(b.key).getTime();
+
+        return j > i ? 1 : -1;
       });
+
+      this.timeline = timeline;
+      this.isLoading = false;
+    });
   }
 
   isOrgaoPrefeitura(nomeOrgao: string): boolean {
     if (typeof nomeOrgao === 'undefined' || !nomeOrgao) {
       return false;
     }
-    return  (nomeOrgao.substr(0, 5) === 'PM DE');
+    return (nomeOrgao.substr(0, 5) === 'PM DE');
   }
 
   ngOnDestroy() {
