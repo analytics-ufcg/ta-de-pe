@@ -15,6 +15,7 @@ import { FornecedoresInfoComponent } from './licitacoes-detalhar/licitacoes-deta
 import { TimelineComponent } from './licitacoes-detalhar/licitacoes-detalhar-info/timeline/timeline.component';
 import { FormatCpfCnpjPipe } from '../shared/pipes/format-cpf-cnpj.pipe';
 import { SharedModule } from '../shared/components/shared.module';
+import { InitialCasePipe } from '../shared/pipes/initial-case.pipe';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { SharedModule } from '../shared/components/shared.module';
     LicitacoesDetalharContratosComponent,
     FornecedoresInfoComponent,
     TimelineComponent,
-    FormatCpfCnpjPipe
+    FormatCpfCnpjPipe,
+    InitialCasePipe
   ],
   imports: [
     CommonModule,

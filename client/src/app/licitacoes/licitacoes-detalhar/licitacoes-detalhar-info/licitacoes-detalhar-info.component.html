@@ -10,7 +10,7 @@
     <div class="dados-grupo">
       <div class="dados-linha">
         <strong>Tipo:&nbsp;</strong>
-        <span class="text-muted">{{ licitacao?.tipo_licitacao }}</span>
+        <span class="text-muted">{{ licitacao?.tipo_licitacao | initialcase }}</span>
       </div>
       <div class="dados-linha">
         <strong>Valor homologado:&nbsp;</strong>
@@ -30,7 +30,7 @@
       <div class="dados-linha">
         <strong>Objeto da licitação:</strong>
         <br>
-        <span class="text-muted">{{ licitacao?.descricao_objeto }}</span>
+        <span class="text-muted">{{ licitacao?.descricao_objeto | initialcase }}</span>
       </div>
     </div>
   </div>
