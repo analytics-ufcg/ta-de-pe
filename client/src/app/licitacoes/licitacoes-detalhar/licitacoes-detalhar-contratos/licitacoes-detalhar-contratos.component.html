@@ -9,15 +9,12 @@
     [closeOthers]="true">
     <ngb-panel
       id="panel-{{ contrato?.id_contrato }}"
-      [title]="contrato?.contratoFornecedor?.nm_pessoa !== null ? 'Contrato ' + contrato?.nr_contrato + ' - ' + contrato?.contratoFornecedor?.nm_pessoa : 'Contrato ' + contrato?.nr_contrato"
+      [title]="contrato?.contratoFornecedor?.nm_pessoa !== null ? 'Contrato ' + contrato?.nr_contrato + '/' + contrato?.itensContrato[0].ano_licitacao + ' - ' + contrato?.contratoFornecedor?.nm_pessoa : 'Contrato ' + contrato?.nr_contrato"
       *ngFor="let contrato of contratoLicitacao; index as i">
       <ng-template ngbPanelContent>
 
-        <h3 *ngIf="contrato?.contratoFornecedor?.nm_pessoa !== null">
-          {{ contrato?.nr_documento_contratado | formatCpfCnpj }} - {{ contrato?.contratoFornecedor?.nm_pessoa }}
-        </h3>
-        <h3 *ngIf="contrato?.contratoFornecedor?.nm_pessoa === null">
-          {{ contrato?.nr_documento_contratado | formatCpfCnpj }} (Nome não encontrado)
+        <h3>
+          {{ contrato?.nr_documento_contratado | formatCpfCnpj }}
         </h3>
 
         <div class="row mt-4">
@@ -69,27 +66,37 @@
                 <th
                   scope="col"
                   class="table-th-monospace text-right">
-                  Valor<br>total
+                  Valor
+                  <br>
+                  total
                 </th>
                 <th
                   scope="col"
                   class="table-th-monospace text-right">
-                  Por<br>unidade
+                  Por
+                  <br>
+                  unidade
                 </th>
                 <th
                   scope="col"
                   class="table-th-monospace text-right">
-                  vs<br>Estado
+                  vs
+                  <br>
+                  Estado
                 </th>
                 <th
                   scope="col"
                   class="table-th-monospace text-right">
-                  vs<br>estimado
+                  vs
+                  <br>
+                  estimado
                 </th>
                 <th
                   scope="col"
                   class="table-th-monospace text-right">
-                  vs<br>estimado total
+                  vs
+                  <br>
+                  estimado total
                 </th>
               </tr>
             </thead>
@@ -102,7 +109,7 @@
                     {{ getDescricaoResumida(item.ds_item) }}...
                   </button>
                   <span class="text-muted">
-                    ({{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida }})
+                    ({{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida | lowercase }})
                   </span>
                 </td>
                 <td class="numero align-middle">

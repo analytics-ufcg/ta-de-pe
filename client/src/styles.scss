@@ -84,7 +84,7 @@ body {
 }
 
 .numero {
-  font-family: 'Roboto Mono', monospace;
+  font-family: "Roboto Mono", monospace;
   white-space: nowrap;
 }
 
@@ -96,4 +96,18 @@ td.numero {
   width: 120px;
   font-weight: normal;
   font-size: 0.9rem;
+}
+
+.accordion {
+  > .card {
+    > .card-header {
+      > .btn-link {
+        color: $yiq-text-dark;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        font-size: 1.1rem;
+        text-align: left;
+      }
+    }
+  }
 }
