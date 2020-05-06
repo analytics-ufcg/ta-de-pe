@@ -7,32 +7,36 @@
   <div class="mb-4">
     <h4 *ngIf="!isOrgaoPrefeitura(licitacao?.nm_orgao)">{{ licitacao?.nm_orgao }}</h4>
 
-    <div class="dados-grupo">
-      <div class="dados-linha">
-        <strong>Tipo:&nbsp;</strong>
-        <span class="text-muted">{{ licitacao?.tipo_licitacao | initialcase }}</span>
+    <div class="row mt-4">
+      <div class="col-sm-6 col-md-3 col-lg-2 mb-4">
+        <div class="dados-linha">
+          <strong>Valor homologado</strong>
+        </div>
+        <div class="dados-linha text-muted">
+          <span [hidden]="!licitacao?.vl_homologado">
+            {{ licitacao?.vl_homologado | currency: "R$" }}
+          </span>
+          <span [hidden]="licitacao?.vl_homologado">--</span>
+        </div>
       </div>
-      <div class="dados-linha">
-        <strong>Valor homologado:&nbsp;</strong>
-        <span
-          class="text-muted"
-          [hidden]="!licitacao?.vl_homologado">
-          {{ licitacao?.vl_homologado | currency: "R$" }}
-        </span>
-        <span
-          class="text-muted"
-          [hidden]="licitacao?.vl_homologado">
-          --
-        </span>
+      <div class="col-sm-6 col-md-3 col-lg-2 mb-4">
+        <div class="dados-linha">
+          <strong>Tipo</strong>
+        </div>
+        <div class="dados-linha text-muted">
+          {{ licitacao?.tipo_licitacao | initialcase }}
+        </div>
+      </div>
+      <div class="col-12">
+        <div class="dados-linha">
+          <strong>Objeto da licitação</strong>
+        </div>
+        <div class="dados-linha text-muted">
+          {{ licitacao?.descricao_objeto | initialcase }}
+        </div>
       </div>
     </div>
-    <div class="dados-grupo">
-      <div class="dados-linha">
-        <strong>Objeto da licitação:</strong>
-        <br>
-        <span class="text-muted">{{ licitacao?.descricao_objeto | initialcase }}</span>
-      </div>
-    </div>
+
   </div>
 
   <app-timeline [timeline]="timeline"></app-timeline>
