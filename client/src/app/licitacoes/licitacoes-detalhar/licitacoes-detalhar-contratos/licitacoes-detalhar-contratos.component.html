@@ -1,5 +1,5 @@
 <div>
-  <h4>Contratos</h4>
+  <h4 class="titulo-sessao">Contratos</h4>
 
   <app-spinner *ngIf="isLoading"></app-spinner>
 
@@ -9,15 +9,12 @@
     [closeOthers]="true">
     <ngb-panel
       id="panel-{{ contrato?.id_contrato }}"
-      [title]="contrato?.contratoFornecedor?.nm_pessoa !== null ? 'Contrato ' + contrato?.nr_contrato + ' - ' + contrato?.contratoFornecedor?.nm_pessoa : 'Contrato ' + contrato?.nr_contrato"
+      [title]="contrato?.contratoFornecedor?.nm_pessoa !== null ? 'Contrato ' + contrato?.nr_contrato + '/' + contrato?.itensContrato[0].ano_licitacao + ' - ' + contrato?.contratoFornecedor?.nm_pessoa : 'Contrato ' + contrato?.nr_contrato"
       *ngFor="let contrato of contratoLicitacao; index as i">
       <ng-template ngbPanelContent>
 
-        <h3 *ngIf="contrato?.contratoFornecedor?.nm_pessoa !== null">
-          {{ contrato?.nr_documento_contratado | formatCpfCnpj }} - {{ contrato?.contratoFornecedor?.nm_pessoa }}
-        </h3>
-        <h3 *ngIf="contrato?.contratoFornecedor?.nm_pessoa === null">
-          {{ contrato?.nr_documento_contratado | formatCpfCnpj }} (Nome não encontrado)
+        <h3>
+          {{ contrato?.nr_documento_contratado | formatCpfCnpj }}
         </h3>
 
         <div class="row mt-4">
@@ -152,7 +149,7 @@
                     {{ getDescricaoResumida(item.ds_item) }}...
                   </button>
                   <span class="text-muted">
-                    ({{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida }})
+                    ({{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida | lowercase }})
                   </span>
                 </td>
                 <td
@@ -232,7 +229,6 @@
       </ng-template>
     </ngb-panel>
   </ngb-accordion>
-</div>
 
 <ng-template
   #content

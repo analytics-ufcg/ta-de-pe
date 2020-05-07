@@ -27,6 +27,10 @@ body {
   margin: 0;
 }
 
+.titulo-sessao {
+  margin-bottom: 1.5rem;
+}
+
 .btn-corner {
   border-radius: 0;
   border-bottom-right-radius: $border-radius;
@@ -96,6 +100,20 @@ td.numero {
   width: 120px;
   font-weight: normal;
   font-size: 0.9rem;
+}
+
+.accordion {
+  > .card {
+    > .card-header {
+      > .btn-link {
+        color: $yiq-text-dark;
+        padding-top: 1rem;
+        padding-bottom: 1rem;
+        font-size: 1.1rem;
+        text-align: left;
+      }
+    }
+  }
 }
 
 .toggle-wrapper {
