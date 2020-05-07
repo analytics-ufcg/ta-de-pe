@@ -1,5 +1,6 @@
 const express = require("express");
 const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 const router = express.Router();
 
@@ -22,7 +23,12 @@ router.get("/municipios", (req, res) => {
         Sequelize.fn("DISTINCT", Sequelize.col("nome_municipio")),
         "nome_municipio"
       ]
-    ]
+    ],
+    where: {
+      nome_municipio: {
+        [Op.ne]: null
+      }
+    }
   })
     .then(municipios => res.status(SUCCESS).json(municipios))
     .catch(err => res.status(BAD_REQUEST).json({ err }));
