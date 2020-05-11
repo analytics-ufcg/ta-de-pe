@@ -1,5 +1,5 @@
 <div class="container view-container">
-  <h1>Novidades</h1>
+  <h1>Últimos acontecimentos</h1>
   <app-filter (filterChange)="search($event)" (dateChange)="alteraNovidades($event)"></app-filter>
 
   <app-spinner *ngIf="loading$ | async"></app-spinner>

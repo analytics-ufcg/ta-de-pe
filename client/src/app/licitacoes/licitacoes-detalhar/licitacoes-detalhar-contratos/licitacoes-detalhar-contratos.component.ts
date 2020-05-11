@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { NgbModal, NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
@@ -22,9 +23,12 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
   public descricao: string;
   public activeIds: string[] = [];
   public isLoading = true;
+  public radioGroupForm: FormGroup;
+  public showTotal = false;
 
   constructor(
     private activatedroute: ActivatedRoute,
+    private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private licitacaoService: LicitacaoService,
     private itensService: ItensService) { }
@@ -35,6 +39,9 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
     });
     this.activatedroute.queryParams.pipe(take(1)).subscribe(params => {
       this.activeIds = ['panel-' + params.id];
+    });
+    this.radioGroupForm = this.formBuilder.group({
+      showTotal: false
     });
   }
 
@@ -78,7 +85,14 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
   }
 
   getDescricaoResumida(descricao: string): string {
-    return descricao.split(/\s+|:/)[0];
+    const split = descricao.split(/\s+|:|,/);
+    let str = '';
+    let i = 0;
+    do {
+      str += split[i] + ' ';
+      i++;
+    } while (str.length < 20 && typeof split[i] !== 'undefined');
+    return str.substr(0, str.length - 1);
   }
 
   getTipoFornecedor(tipoFornecedor: string): string {

@@ -1,5 +1,5 @@
 <div>
-  <h4>Contratos</h4>
+  <h4 class="titulo-sessao">Contratos</h4>
 
   <app-spinner *ngIf="isLoading"></app-spinner>
 
@@ -9,118 +9,218 @@
     [closeOthers]="true">
     <ngb-panel
       id="panel-{{ contrato?.id_contrato }}"
-      [title]="contrato?.contratoFornecedor?.nm_pessoa !== null ? 'Contrato ' + contrato?.nr_contrato + ' - ' + contrato?.contratoFornecedor?.nm_pessoa : 'Contrato ' + contrato?.nr_contrato"
+      [title]="contrato?.contratoFornecedor?.nm_pessoa !== null ? 'Contrato ' + contrato?.nr_contrato + '/' + contrato?.itensContrato[0].ano_licitacao + ' - ' + contrato?.contratoFornecedor?.nm_pessoa : 'Contrato ' + contrato?.nr_contrato"
       *ngFor="let contrato of contratoLicitacao; index as i">
       <ng-template ngbPanelContent>
 
-        <div class="dados-grupo">
-          <div class="dados-linha">
-            <strong>Contrato:&nbsp;</strong>
-            <span class="text-muted">{{ contrato?.nr_contrato }}</span>
-          </div>
-          <div class="dados-linha">
-            <strong>Valor:&nbsp;</strong>
-            <span class="text-muted">
+        <h3>
+          {{ contrato?.nr_documento_contratado | formatCpfCnpj }}
+        </h3>
+
+        <div class="row mt-4">
+          <div class="col-sm-6 col-md-3 col-lg-2 mb-4">
+            <div class="dados-linha">
+              <strong>Valor</strong>
+            </div>
+            <div class="dados-linha">
               {{ contrato?.vl_contrato | currency: "R$" }}
-            </span>
+            </div>
           </div>
-          <div class="dados-linha">
-            <strong>Estimado x Contratado:&nbsp;</strong>
-            <span *ngIf="contrato?.valor_contratado - contrato?.valor_estimado === 0">--</span>
-            <span
-              *ngIf="contrato?.valor_contratado - contrato?.valor_estimado < 0"
-              class="positivo">
-              {{ contrato?.valor_contratado - contrato?.valor_estimado  | currency: "R$" }}
-            </span>
-            <span
-              *ngIf="contrato?.valor_contratado - contrato?.valor_estimado > 0"
-              class="negativo">
-              {{ contrato?.valor_contratado - contrato?.valor_estimado  | currency: "+R$" }}
-            </span>
+          <div class="col-sm-6 col-md-5 col-lg-3 mb-4">
+            <div class="dados-linha">
+              <strong>Estimado vs Contratado</strong>
+            </div>
+            <div class="dados-linha">
+              <span *ngIf="contrato?.valor_contratado - contrato?.valor_estimado === 0">--</span>
+              <span
+                *ngIf="contrato?.valor_contratado - contrato?.valor_estimado < 0"
+                class="positivo">
+                {{ contrato?.valor_contratado - contrato?.valor_estimado  | currency: "R$" }}
+              </span>
+              <span
+                *ngIf="contrato?.valor_contratado - contrato?.valor_estimado > 0"
+                class="negativo">
+                {{ contrato?.valor_contratado - contrato?.valor_estimado  | currency: "+R$" }}
+              </span>
+            </div>
           </div>
-          <div class="dados-linha">
-            <strong>Fornecedor:&nbsp;</strong>
-            <span *ngIf="contrato?.contratoFornecedor?.nm_pessoa !== null" class="text-muted">
-              {{ contrato?.nr_documento_contratado | formatCpfCnpj }} - {{ contrato?.contratoFornecedor?.nm_pessoa }}</span>
-            <span *ngIf="contrato?.contratoFornecedor?.nm_pessoa === null" class="text-muted">
-              {{ contrato?.nr_documento_contratado | formatCpfCnpj }} (Nome não encontrado)</span>
-          </div>
-          <div class="dados-linha">
-            <strong>Tipo de Fornecedor:&nbsp;</strong>
-            <span class="text-muted">{{ getTipoFornecedor(contrato?.contratoFornecedor?.tp_pessoa) }}</span>
-          </div>
-          <div class="dados-linha">
-            <strong>Início do contrato:&nbsp;</strong>
-            <span class="text-muted">{{ contrato?.dt_inicio_vigencia | date: "dd-MM-yyyy" }}</span>
-          </div>
-          <div class="dados-linha">
-            <strong>Fim do contrato:&nbsp;</strong>
-            <span class="text-muted">{{ contrato?.dt_final_vigencia | date: "dd-MM-yyyy" }}</span>
+          <div class="col-sm-6 col-md-4 col-lg-7 mb-4">
+            <div class="dados-linha">
+              <strong>Vigência</strong>
+            </div>
+            <div class="dados-linha">
+              {{ contrato?.dt_inicio_vigencia | date: "dd/MM/yyyy" }} à {{ contrato?.dt_final_vigencia | date: "dd/MM/yyyy" }}
+            </div>
           </div>
         </div>
+
         <div class="table-responsive">
-          <table class="table table-striped">
+          <table class="table table-sm table-hover">
             <thead>
               <tr>
-                <th scope="col" class="text-left">#</th>
-                <th scope="col" class="text-left">Item</th>
-                <th scope="col" class="text-center">Quantidade de itens</th>
-                <th scope="col" class="text-center">Valor unitário contratado</th>
-                <th scope="col" class="text-center">Desvio de preço (Mediana estadual)</th>
-                <th scope="col" class="text-center">Estimado x Contratado (Unitária)</th>
-                <th scope="col" class="text-center">Estimado x Contratado (Total)</th>
+                <th class="head-controls">&nbsp;</th>
+                <th
+                  class="head-controls text-right"
+                  colspan="3">
+                  <form [formGroup]="radioGroupForm">
+                    <div class="toggle-wrapper toggle-wrapper-right">
+                      <span class="toggle-label">Unidade</span>
+                      <input
+                        class="toggle toggle-flat"
+                        id="cb4"
+                        type="checkbox"
+                        formControlName="showTotal"
+                        [value]="true"
+                        checked>
+                      <label
+                        class="toggle-btn"
+                        for="cb4"></label>
+                      <span class="toggle-label">Total</span>
+                    </div>
+                  </form>
+                </th>
+              </tr>
+              <tr>
+                <th
+                  scope="col"
+                  class="text-left align-middle">
+                  Item
+                </th>
+                <th
+                  scope="col"
+                  class="table-th-monospace text-right"
+                  *ngIf="!radioGroupForm.value['showTotal']">
+                  Valor por
+                  <br>
+                  unidade (R$)
+                </th>
+                <th
+                  scope="col"
+                  class="table-th-monospace text-right"
+                  *ngIf="!radioGroupForm.value['showTotal']">
+                  vs
+                  estado
+                  <br>
+                  (R$)
+                </th>
+                <th
+                  scope="col"
+                  class="table-th-monospace text-right"
+                  *ngIf="!radioGroupForm.value['showTotal']">
+                  vs
+                  estimado
+                  <br>
+                  (R$)
+                </th>
+                <th
+                  scope="col"
+                  class="table-th-monospace text-right"
+                  *ngIf="radioGroupForm.value['showTotal']">
+                  Valor
+                  <br>
+                  total (R$)
+                </th>
+                <th
+                  scope="col"
+                  class="table-th-monospace text-right"
+                  *ngIf="radioGroupForm.value['showTotal']">
+                  vs
+                  estado
+                  <br>
+                  (R$)
+                </th>
+                <th
+                  scope="col"
+                  class="table-th-monospace text-right"
+                  *ngIf="radioGroupForm.value['showTotal']">
+                  vs
+                  estimado
+                  <br>
+                  (R$)
+                </th>
               </tr>
             </thead>
             <tbody>
               <tr *ngFor="let item of contrato?.itensContrato; index as i">
-                <th scope="row" class="text-left">{{ i + 1 }}</th>
-                <td>
+                <td class="text-nowrap align-middle">
                   <button
-                    class="btn btn-link btn-item"
+                    class="btn btn-sm btn-link btn-item"
                     (click)="open(content, item.ds_item)">
                     {{ getDescricaoResumida(item.ds_item) }}...
                   </button>
+                  <span class="text-muted">
+                    ({{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida | lowercase }})
+                  </span>
                 </td>
-                <td class="text-center numero">{{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida }}</td>
-                <td class="text-center numero">
-                  {{ item.vl_item_contrato | currency: "R$" }}
+                <td
+                  class="numero align-middle"
+                  *ngIf="!radioGroupForm.value['showTotal']">
+                  {{ item.vl_item_contrato | currency:'':'' }}
                 </td>
-                <td class="text-center numero">
+                <td
+                  class="numero align-middle"
+                  *ngIf="!radioGroupForm.value['showTotal']">
                   <span *ngIf="item.vl_item_contrato - item.mediana_valor === 0">--</span>
-                  <span *ngIf="item.vl_item_contrato - item.mediana_valor < 0" class="positivo">
-                    {{ item.vl_item_contrato - item.mediana_valor | currency: "R$" }}
+                  <span
+                    *ngIf="item.vl_item_contrato - item.mediana_valor < 0"
+                    class="positivo">
+                    {{ item.vl_item_contrato - item.mediana_valor | currency:'':'' }}
                   </span>
-                  <span *ngIf="item.vl_item_contrato - item.mediana_valor > 0" class="negativo">
-                    +{{ item.vl_item_contrato - item.mediana_valor | currency: "R$" }}
+                  <span
+                    *ngIf="item.vl_item_contrato - item.mediana_valor > 0"
+                    class="negativo">
+                    +{{ item.vl_item_contrato - item.mediana_valor | currency:'':'' }}
                   </span>
                 </td>
-                <td class="text-center numero">
+                <td
+                  class="numero align-middle"
+                  *ngIf="!radioGroupForm.value['showTotal']">
                   <span *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado === 0">--</span>
                   <span
                     *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado < 0"
                     class="positivo">
-                    {{  (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado)  | currency: "R$" }}
+                    {{  (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado) | currency:'':'' }}
                   </span>
                   <span
                     *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado > 0"
                     class="negativo">
-                    {{ (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado)  | currency: "+R$" }}
+                    {{ (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado) | currency:'':'' }}
                   </span>
-
                 </td>
-                <td class="text-center numero">
+                <td
+                  class="numero align-middle"
+                  *ngIf="radioGroupForm.value['showTotal']">
+                  {{ item.vl_total_item_contrato | currency:'':'' }}
+                </td>
+                <td
+                  class="numero align-middle"
+                  *ngIf="radioGroupForm.value['showTotal']">
+                  <span *ngIf="item.vl_total_item_contrato - (item.mediana_valor * item.qt_itens_contrato) === 0">--</span>
+                  <span
+                    *ngIf="item.vl_total_item_contrato - (item.mediana_valor * item.qt_itens_contrato) < 0"
+                    class="positivo">
+                    {{ item.vl_total_item_contrato - (item.mediana_valor * item.qt_itens_contrato) | currency:'':'' }}
+                  </span>
+                  <span
+                    *ngIf="item.vl_total_item_contrato - (item.mediana_valor * item.qt_itens_contrato) > 0"
+                    class="negativo">
+                    +{{ item.vl_total_item_contrato - (item.mediana_valor * item.qt_itens_contrato) | currency:'':'' }}
+                  </span>
+                </td>
+                <td
+                  class="numero align-middle"
+                  *ngIf="radioGroupForm.value['showTotal']">
                   <span *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado === 0">--</span>
                   <span
                     *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado < 0"
                     class="positivo">
-                    {{ item.qt_itens_contrato * (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado)  | currency: "R$" }}
+                    {{ item.qt_itens_contrato * (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado) | currency:'':'' }}
                   </span>
                   <span
                     *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado > 0"
                     class="negativo">
-                    {{ item.qt_itens_contrato * (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado)  | currency: "+R$" }}
+                    +{{ item.qt_itens_contrato * (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado) | currency:'':'' }}
                   </span>
-
                 </td>
               </tr>
             </tbody>
@@ -129,7 +229,6 @@
       </ng-template>
     </ngb-panel>
   </ngb-accordion>
-</div>
 
 <ng-template
   #content
