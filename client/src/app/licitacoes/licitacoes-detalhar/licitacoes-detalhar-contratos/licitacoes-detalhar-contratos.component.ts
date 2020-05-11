@@ -71,14 +71,16 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
   }
 
   getMediaItensSemelhantes(dsItem: string[], ano: number) {
-    let termos = [dsItem[0], dsItem.slice(0, 2).join(" & "), dsItem.join(" & ")];
+    const termos = [dsItem[0], dsItem.slice(0, 2).join(' & '), dsItem.join(' & ')];
     return this.itensService.getItensSimilares(termos)
       .pipe(take(1),
         map(item => {
-          let itensOrdenados = item.filter(d => {
+          const itensOrdenados = item.filter(d => {
             return d.ano_licitacao === ano;
           }).slice(0, 21).sort((a, b) => a.vl_item_contrato - b.vl_item_contrato);
-          let mediana = (itensOrdenados[(itensOrdenados.length - 1) >> 1].vl_item_contrato + itensOrdenados[itensOrdenados.length >> 1].vl_item_contrato) / 2;
+          const meioInf = Math.floor((itensOrdenados.length - 1) / 2);
+          const meioSup = Math.ceil((itensOrdenados.length - 1) / 2);
+          const mediana = (itensOrdenados[meioInf].vl_item_contrato + itensOrdenados[meioSup].vl_item_contrato) / 2;
           return mediana;
         })
       ).toPromise();
