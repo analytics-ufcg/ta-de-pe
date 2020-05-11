@@ -14,6 +14,7 @@ import { LicitacoesDetalharContratosComponent } from './licitacoes-detalhar/lici
 import { FornecedoresInfoComponent } from './licitacoes-detalhar/licitacoes-detalhar-info/fornecedores-info/fornecedores-info.component';
 import { TimelineComponent } from './licitacoes-detalhar/licitacoes-detalhar-info/timeline/timeline.component';
 import { FormatCpfCnpjPipe } from '../shared/pipes/format-cpf-cnpj.pipe';
+import { SharedModule } from '../shared/components/shared.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { FormatCpfCnpjPipe } from '../shared/pipes/format-cpf-cnpj.pipe';
   imports: [
     CommonModule,
     NgbModule,
-    LicitacoesRoutingModule
+    LicitacoesRoutingModule,
+    SharedModule
   ]
 })
 export class LicitacoesModule { }

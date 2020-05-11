@@ -21,6 +21,7 @@ export class LicitacoesDetalharInfoComponent implements OnInit, OnDestroy {
   public licitacao: Licitacao;
   public valorContratado: number;
   public timeline: any[];
+  public isLoading = true;
 
   constructor(
     private activatedroute: ActivatedRoute,
@@ -65,6 +66,7 @@ export class LicitacoesDetalharInfoComponent implements OnInit, OnDestroy {
           .entries(novidadesLicitacao);
 
         this.timeline = timeline;
+        this.isLoading = false;
       });
   }
 

@@ -1,8 +1,12 @@
 <div
   class="licitacoes-info"
   [hidden]="!licitacao">
+
+  <app-spinner *ngIf="isLoading"></app-spinner>
+
   <div class="mb-4">
     <h4>{{ licitacao?.nm_orgao }}</h4>
+
     <div class="dados-grupo">
       <div class="dados-linha">
         <strong>Tipo:&nbsp;</strong>

@@ -21,6 +21,7 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
   public contratoLicitacao: ContratoLicitacao[];
   public descricao: string;
   public activeIds: string[] = [];
+  public isLoading = true;
 
   constructor(
     private activatedroute: ActivatedRoute,
@@ -52,26 +53,26 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
           contrato.itensContrato.map(item => {
             const tituloItem = item.ds_item.split(/\s+|:|-/).slice(0, 3).map(palavra => {
               return palavra.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
-            }).filter(i => i !== '').join(' & ');
-            this.getMediaItensSemelhantes(tituloItem, item.ano_licitacao).then(media => {
-              item.media_valor = media;
+            }).filter(i => i !== '');
+            this.getMediaItensSemelhantes(tituloItem, item.ano_licitacao).then(mediana => {
+              item.mediana_valor = mediana;
             });
           });
         });
+        this.isLoading = false;
       });
   }
 
-  getMediaItensSemelhantes(dsItem: string, ano: number) {
-    return this.itensService.getItensSimilares(dsItem)
+  getMediaItensSemelhantes(dsItem: string[], ano: number) {
+    let termos = [dsItem[0], dsItem.slice(0, 2).join(" & "), dsItem.join(" & ")];
+    return this.itensService.getItensSimilares(termos)
       .pipe(take(1),
         map(item => {
-          return item.filter(d => {
+          let itensOrdenados = item.filter(d => {
             return d.ano_licitacao === ano;
-          }).reduce((sum, itemB) => {
-            return sum + itemB.vl_item_contrato / item.filter(d => {
-              return d.ano_licitacao === ano;
-            }).length;
-          }, 0);
+          }).slice(0, 21).sort((a, b) => a.vl_item_contrato - b.vl_item_contrato);
+          let mediana = (itensOrdenados[(itensOrdenados.length - 1) >> 1].vl_item_contrato + itensOrdenados[itensOrdenados.length >> 1].vl_item_contrato) / 2;
+          return mediana;
         })
       ).toPromise();
   }

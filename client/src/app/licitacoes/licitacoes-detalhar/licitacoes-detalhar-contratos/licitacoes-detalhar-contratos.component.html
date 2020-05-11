@@ -1,6 +1,8 @@
 <div>
   <h4>Contratos</h4>
 
+  <app-spinner *ngIf="isLoading"></app-spinner>
+
   <ngb-accordion
     #acc="ngbAccordion"
     [activeIds]="activeIds"
@@ -64,7 +66,7 @@
                 <th scope="col" class="text-left">Item</th>
                 <th scope="col" class="text-center">Quantidade de itens</th>
                 <th scope="col" class="text-center">Valor unitário contratado</th>
-                <th scope="col" class="text-center">Desvio de preço (Média estadual)</th>
+                <th scope="col" class="text-center">Desvio de preço (Mediana estadual)</th>
                 <th scope="col" class="text-center">Estimado x Contratado (Unitária)</th>
                 <th scope="col" class="text-center">Estimado x Contratado (Total)</th>
               </tr>
@@ -84,12 +86,12 @@
                   {{ item.vl_item_contrato | currency: "R$" }}
                 </td>
                 <td class="text-center numero">
-                  <span *ngIf="item.vl_item_contrato - item.media_valor === 0">--</span>
-                  <span *ngIf="item.vl_item_contrato - item.media_valor < 0" class="positivo">
-                    {{ item.vl_item_contrato - item.media_valor | currency: "R$" }}
+                  <span *ngIf="item.vl_item_contrato - item.mediana_valor === 0">--</span>
+                  <span *ngIf="item.vl_item_contrato - item.mediana_valor < 0" class="positivo">
+                    {{ item.vl_item_contrato - item.mediana_valor | currency: "R$" }}
                   </span>
-                  <span *ngIf="item.vl_item_contrato - item.media_valor > 0" class="negativo">
-                    +{{ item.vl_item_contrato - item.media_valor | currency: "R$" }}
+                  <span *ngIf="item.vl_item_contrato - item.mediana_valor > 0" class="negativo">
+                    +{{ item.vl_item_contrato - item.mediana_valor | currency: "R$" }}
                   </span>
                 </td>
                 <td class="text-center numero">

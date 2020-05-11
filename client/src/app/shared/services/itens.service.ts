@@ -18,7 +18,7 @@ export class ItensService {
 
     constructor(private http: HttpClient) { }
 
-    getItensSimilares(nomeItem: string): Observable<ItensContrato[]> {
+    getItensSimilares(nomeItem: string[]): Observable<ItensContrato[]> {
         return this.http.post<ItensContrato[]>(this.url + '/similares', { termo: nomeItem });
     }
 

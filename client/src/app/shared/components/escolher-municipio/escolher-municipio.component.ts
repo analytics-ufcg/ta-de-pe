@@ -95,8 +95,6 @@ export class EscolherMunicipioComponent implements OnInit, OnDestroy {
   }
 
   buscarOnClick() {
-    console.log(this.municipioSelecionado);
-
     if (this.municipioSelecionado !== '' && typeof this.municipioSelecionado !== 'undefined') {
       this.router.navigate(['novidades']);
     }
