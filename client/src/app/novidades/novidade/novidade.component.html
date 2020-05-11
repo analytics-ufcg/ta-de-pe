@@ -4,9 +4,8 @@
   class="card card-callout mb-2"
   (click)="handleClick()"
   [ngClass]="{
-    'border-callout-licitacao': novidadeService.isLicitacao(novidade.id_tipo),
-    'border-callout-empenho': novidadeService.isEmpenho(novidade.id_tipo),
-    'border-callout-contrato': novidadeService.isContrato(novidade.id_tipo)
+    'border-callout-contratacao': novidadeService.isFaseContratacao(novidade.id_tipo),
+    'border-callout-pagamento': novidadeService.isFasePagamento(novidade.id_tipo)
   }"
 >
   <div class="card-body">

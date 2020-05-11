@@ -18,9 +18,8 @@ export class FilterComponent implements OnInit, OnDestroy {
   filtro: any;
   private unsubscribe = new Subject();
 
-  licitacaoSelecionada: boolean;
-  empenhoSelecionado: boolean;
-  contratoSelecionado: boolean;
+  faseContratacaoSelecionada: boolean;
+  fasePagamentoSelecionada: boolean;
 
   dataInicial: any;
   dataFinal: any;
@@ -29,14 +28,12 @@ export class FilterComponent implements OnInit, OnDestroy {
   maxDate: any;
 
   constructor(private modalService: NgbModal) {
-    this.licitacaoSelecionada = true;
-    this.empenhoSelecionado = true;
-    this.contratoSelecionado = true;
+    this.faseContratacaoSelecionada = true;
+    this.fasePagamentoSelecionada = true;
 
     this.filtro = {
-      licitacao: this.licitacaoSelecionada,
-      empenho: this.empenhoSelecionado,
-      contrato: this.contratoSelecionado,
+      contratacao: this.faseContratacaoSelecionada,
+      pagamento: this.fasePagamentoSelecionada,
       default: true
     };
 
@@ -47,23 +44,18 @@ export class FilterComponent implements OnInit, OnDestroy {
     this.aplicarFiltro();
   }
 
-  toggleFiltroLicitacao() {
-    this.licitacaoSelecionada = !this.licitacaoSelecionada;
+  toggleFiltroContratacao() {
+    this.faseContratacaoSelecionada = !this.faseContratacaoSelecionada;
   }
 
-  toggleFiltroEmpenho() {
-    this.empenhoSelecionado = !this.empenhoSelecionado;
-  }
-
-  toggleFiltroContrato() {
-    this.contratoSelecionado = !this.contratoSelecionado;
+  toggleFiltroPagamento() {
+    this.fasePagamentoSelecionada = !this.fasePagamentoSelecionada;
   }
 
   aplicarFiltro() {
     this.filtro = {
-      licitacao: this.licitacaoSelecionada,
-      empenho: this.empenhoSelecionado,
-      contrato: this.contratoSelecionado
+      contratacao: this.faseContratacaoSelecionada,
+      pagamento: this.fasePagamentoSelecionada
     };
     this.filterChange.emit(this.filtro);
 
