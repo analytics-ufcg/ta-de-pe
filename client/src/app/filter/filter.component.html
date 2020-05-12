@@ -27,43 +27,29 @@
       <div class="col-md">
         <button
           class="btn btn-block btn-sm btn-filter"
-          [ngClass]="{ 'btn-disabled': !licitacaoSelecionada }"
-          (click)="toggleFiltroLicitacao()">
+          [ngClass]="{ 'btn-disabled': !faseContratacaoSelecionada }"
+          (click)="toggleFiltroContratacao()">
           <span
             class="icon-circle"
             [ngClass]="{
-              'text-licitacao': licitacaoSelecionada,
-              'text-disabled': !licitacaoSelecionada
+              'text-contratacao': faseContratacaoSelecionada,
+              'text-disabled': !faseContratacaoSelecionada
             }"></span>
-          Licitações
+          Contratação
         </button>
       </div>
       <div class="col-md">
         <button
           class="btn btn-block btn-sm btn-filter"
-          [ngClass]="{ 'btn-disabled': !empenhoSelecionado }"
-          (click)="toggleFiltroEmpenho()">
+          [ngClass]="{ 'btn-disabled': !fasePagamentoSelecionada }"
+          (click)="toggleFiltroPagamento()">
           <span
             class="icon-circle"
             [ngClass]="{
-              'text-empenho': empenhoSelecionado,
-              'text-disabled': !empenhoSelecionado
+              'text-pagamento': fasePagamentoSelecionada,
+              'text-disabled': !fasePagamentoSelecionada
             }"></span>
-          Empenhos
-        </button>
-      </div>
-      <div class="col-md">
-        <button
-          class="btn btn-block btn-sm btn-filter"
-          [ngClass]="{ 'btn-disabled': !contratoSelecionado }"
-          (click)="toggleFiltroContrato()">
-          <span
-            class="icon-circle"
-            [ngClass]="{
-              'text-contrato': contratoSelecionado,
-              'text-disabled': !contratoSelecionado
-            }"></span>
-          Contratos
+          Pagamento
         </button>
       </div>
     </div>

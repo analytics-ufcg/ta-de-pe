@@ -40,12 +40,11 @@ body {
   border-top: solid 0.25rem;
 
   &.border-callout-success,
-  &.border-callout-licitacao {
+  &.border-callout-contratacao {
     border-top-color: $success;
   }
 
-  &.border-callout-warning,
-  &.border-callout-contrato {
+  &.border-callout-warning {
     border-top-color: $warning;
   }
 
@@ -53,20 +52,16 @@ body {
     border-top-color: $danger;
   }
 
-  &.border-callout-empenho {
+  &.border-callout-pagamento {
     border-top-color: $blue;
   }
 }
 
-.text-licitacao {
+.text-contratacao {
   color: $success;
 }
 
-.text-contrato {
-  color: $warning;
-}
-
-.text-empenho {
+.text-pagamento {
   color: $blue;
 }
 
