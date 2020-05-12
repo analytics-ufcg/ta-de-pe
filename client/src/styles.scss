@@ -42,6 +42,11 @@ body {
   }
 }
 
+a.link-light:link,
+a.link-light:visited {
+  color: $white;
+}
+
 .btn-corner {
   border-radius: 0;
   border-bottom-right-radius: $border-radius;
