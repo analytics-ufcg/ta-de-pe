@@ -1,20 +1,20 @@
 <div class="container view-container">
 
-  <h1>Dúvidas frequentes</h1>
+  <section class="sessao-texto">
+    <h1>Dúvidas frequentes</h1>
 
-  <div class="mt-4">
-    <ngb-accordion
-      #acc="ngbAccordion"
-      activeIds="ngb-panel-0"
-      [closeOthers]="true"
-    >
-      <ngb-panel
-        [title]="faq.titulo"
-        *ngFor="let faq of faqs"
-      >
-        <ng-template ngbPanelContent>{{ faq.texto }}</ng-template>
-      </ngb-panel>
-    </ngb-accordion>
-  </div>
+    <div class="mt-4">
+      <ngb-accordion
+        #acc="ngbAccordion"
+        activeIds="ngb-panel-0"
+        [closeOthers]="true">
+        <ngb-panel
+          [title]="faq.titulo"
+          *ngFor="let faq of faqs">
+          <ng-template ngbPanelContent>{{ faq.texto }}</ng-template>
+        </ngb-panel>
+      </ngb-accordion>
+    </div>
+  </section>
 
 </div>

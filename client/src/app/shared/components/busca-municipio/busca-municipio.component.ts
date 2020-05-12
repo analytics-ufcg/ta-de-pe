@@ -14,6 +14,7 @@ import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 
 import { MunicipioService } from '../../services/municipio.service';
 import { UserService } from '../../services/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-busca-municipio',
@@ -28,11 +29,14 @@ export class BuscaMunicipioComponent implements OnInit, OnDestroy {
   public placeholder = 'Escolha um município';
   public municipios: any[];
   public municipioSelecionado: string;
+  public municipioDisplay: string;
+  public show = false;
 
   focus$ = new Subject<string>();
   click$ = new Subject<string>();
 
   constructor(
+    private router: Router,
     private buscaMunicipioService: MunicipioService,
     private userService: UserService
   ) {
@@ -58,10 +62,12 @@ export class BuscaMunicipioComponent implements OnInit, OnDestroy {
       .getMunicipioEscolhido()
       .subscribe(municipio => {
         this.municipioSelecionado = municipio;
+        this.municipioDisplay = municipio;
       });
   }
 
   salvarMunicipio(municipio: string) {
+    this.show = false;
     this.userService.setMunicipioEscolhido(municipio);
   }
 
@@ -85,10 +91,18 @@ export class BuscaMunicipioComponent implements OnInit, OnDestroy {
         term === ''
           ? this.municipios
           : this.municipios.filter(
-              v => v.toLowerCase().indexOf(term.toLowerCase()) > -1
-            )
+            v => v.toLowerCase().indexOf(term.toLowerCase()) > -1
+          )
       )
     );
+  }
+
+  onClick() {
+    this.router.navigate(['novidades']);
+  }
+
+  toggleShow() {
+    this.show = !this.show;
   }
 
   ngOnDestroy() {

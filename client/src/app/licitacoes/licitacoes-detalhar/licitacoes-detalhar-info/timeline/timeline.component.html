@@ -16,7 +16,7 @@
     <div
       class="timeline-content"
       *ngFor="let tipo of evento.values">
-      <span class="text-muted">{{ novidadeService.getTextoResumo(tipo.value.novidade, tipo.value.total) }}</span>
+      <span>{{ novidadeService.getTextoResumo(tipo.value.novidade, tipo.value.total) }}</span>
     </div>
   </div>
 

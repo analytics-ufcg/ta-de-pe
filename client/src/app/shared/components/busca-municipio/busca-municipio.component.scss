@@ -5,6 +5,12 @@
   background-color: #549b97;
   color: #fff;
   padding: 0.5rem;
+  transition: opacity ease-in-out .5s;
+  opacity: 1;
+}
+
+.hide-busca {
+  opacity: 0;
 }
 
 ::ng-deep.dropdown-menu.show {
@@ -12,8 +18,9 @@
   overflow-y: auto;
 }
 
-.input-hidden {
-  background-color: transparent;
-  border: none;
-  color: #fff;
+.nome {
+  display: inline-block;
+  margin-right: 1rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }

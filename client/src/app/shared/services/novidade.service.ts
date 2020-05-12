@@ -30,6 +30,9 @@ export class NovidadeService {
   private TIPOS_EMPENHO = [4, 5, 6, 7, 8, 9];
   private TIPOS_CONTRATO = [10, 11];
 
+  private TIPOS_FASE_CONTRATACAO = this.TIPOS_LICITACAO.concat(this.TIPOS_CONTRATO);
+  private TIPOS_FASE_PAGAMENTO = this.TIPOS_EMPENHO;
+
   constructor(
     private http: HttpClient,
     private currencyPipe: CurrencyPipe) {
@@ -71,15 +74,13 @@ export class NovidadeService {
 
   filter(novidade: Novidade[], filters: any) {
 
-    const licitacao = filters.licitacao;
-    const empenho = filters.empenho;
-    const contrato = filters.contrato;
+    const contratacao = filters.contratacao;
+    const pagamento = filters.pagamento;
 
     return novidade.filter(n => {
       let filtered;
-      filtered = licitacao ? this.isLicitacao(n.id_tipo) : filtered;
-      filtered = empenho ? this.isEmpenho(n.id_tipo) || filtered : filtered;
-      filtered = contrato ? this.isContrato(n.id_tipo) || filtered : filtered;
+      filtered = contratacao ? this.isFaseContratacao(n.id_tipo) : filtered;
+      filtered = pagamento ? this.isFasePagamento(n.id_tipo) || filtered : filtered;
       return filtered;
     });
   }
@@ -94,6 +95,14 @@ export class NovidadeService {
 
   isContrato(idTipo: number): boolean {
     return this.TIPOS_CONTRATO.includes(idTipo);
+  }
+
+  isFaseContratacao(idTipo: number): boolean {
+    return this.TIPOS_FASE_CONTRATACAO.includes(idTipo);
+  }
+
+  isFasePagamento(idTipo: number): boolean {
+    return this.TIPOS_FASE_PAGAMENTO.includes(idTipo);
   }
 
   getTextoNovidade(novidade: Novidade): string {
@@ -128,9 +137,8 @@ export class NovidadeService {
    * @param q Filtro para comparação
    */
   private compareFilter(p: any, q: any) {
-    return p.licitacao === q.licitacao &&
-      p.empenho === q.empenho &&
-      p.contrato === q.contrato;
+    return p.contratacao === q.contratacao &&
+      p.pagamento === q.pagamento;
   }
 
 }
