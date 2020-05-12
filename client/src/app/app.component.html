@@ -1,6 +1,4 @@
-<nav
-  class="navbar navbar-expand-lg navbar-dark bg-dark"
-  (click)="toggleNavbar()">
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
     <a
       class="navbar-brand"
@@ -19,7 +17,8 @@
       data-target="#navbarNav"
       aria-controls="navbarNav"
       aria-expanded="false"
-      aria-label="Toggle navigation">
+      aria-label="Toggle navigation"
+      (click)="toggleNavbar()">
       <span class="icon-menu"></span>
     </button>
     <div
@@ -31,7 +30,8 @@
           <a
             class="nav-link"
             href="#"
-            routerLink="/sobre">
+            routerLink="/sobre"
+            (click)="toggleNavbar()">
             Sobre
           </a>
         </li>
@@ -39,7 +39,8 @@
           <a
             class="nav-link"
             href="#"
-            routerLink="/duvidas">
+            routerLink="/duvidas"
+            (click)="toggleNavbar()">
             Dúvidas
           </a>
         </li>
