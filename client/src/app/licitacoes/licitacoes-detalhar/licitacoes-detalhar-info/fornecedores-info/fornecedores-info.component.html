@@ -1,5 +1,6 @@
 <div *ngIf="fornecedores?.length > 0">
-  <h4>Fornecedores</h4>
+  <h4 class="titulo-sessao">Fornecedores</h4>
+
   <div class="d-flex justify-content-center">
     <ngb-pagination
       [collectionSize]="fornecedores?.length"
@@ -9,31 +10,29 @@
     </ngb-pagination>
   </div>
   <div class="table-responsive">
-    <table class="table table-striped">
+    <table class="table">
       <thead>
         <tr>
           <th scope="col">#</th>
-          <th scope="col">Documento</th>
           <th scope="col">Nome</th>
-          <th scope="col">Valor Total Contratado</th>
+          <th scope="col">Documento</th>
+          <th scope="col" class="text-right">Valor contratado</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let item of itensPaginate; index as i">
           <th scope="row">{{ getIndice(i) }}</th>
-          <td>{{ item.nr_documento | formatCpfCnpj }}</td>
           <td>
             <span
-              *ngIf="item.nm_pessoa"
-              class="text-muted">
+              *ngIf="item.nm_pessoa">
               {{ item.nm_pessoa }}
             </span>
             <span
-              *ngIf="!item.nm_pessoa"
-              class="text-muted">
+              *ngIf="!item.nm_pessoa">
               (Nome não encontrado)
             </span>
           </td>
+          <td>{{ item.nr_documento | formatCpfCnpj }}</td>
           <td class="text-right numero">
             {{ item.total_contratado | currency: "R$" }}
           </td>

@@ -1,10 +1,27 @@
 <div class="busca-municipio">
   <div class="container">
+    <span class="nome">
+      <a
+        [routerLink]="['/novidades']"
+        class="link-light">
+        <span class="icon-map-pin"></span>
+        {{ municipioDisplay }}
+      </a>
+    </span>
+    <button
+      class="btn btn-sm btn-info"
+      (click)="toggleShow()">
+      <span class="icon-repeat"></span>
+    </button>
+  </div>
+  <div
+    class="container mt-2"
+    [hidden]="!show">
     <div class="input-group">
       <input
         id="typeahead-focus"
         type="text"
-        [ngClass]="{'form-control': true, 'input-hidden': municipioSelecionado}"
+        class="form-control"
         placeholder="{{placeholder}}"
         [(ngModel)]="municipioSelecionado"
         [ngbTypeahead]="search"
@@ -12,8 +29,7 @@
         (click)="click$.next($event.target.value)"
         [editable]="false"
         (selectItem)="salvarMunicipio($event.item)"
-        #instance="ngbTypeahead"
-      />
+        #instance="ngbTypeahead">
     </div>
   </div>
 </div>

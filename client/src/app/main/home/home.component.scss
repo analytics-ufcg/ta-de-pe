@@ -1,8 +1,13 @@
 .app-container {
-  height: 80vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  margin-top: 3rem;
+
+  @media (min-width: 576px) {
+    height: 80vh;
+    margin-top: 0;
+  }
 }
 
 .subtitle {
@@ -11,11 +16,15 @@
 }
 
 .call-to-action {
-  padding-top: 4rem;
-  padding-bottom: 4rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  @media (min-width: 576px) {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
 }
 
 .headline {
-  font-family: 'Fredoka One', cursive;
+  font-family: "Fredoka One", cursive;
   text-transform: uppercase;
 }

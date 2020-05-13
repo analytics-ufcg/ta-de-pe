@@ -1,4 +1,4 @@
-<h4>Eventos</h4>
+<h4 class="titulo-sessao">Eventos</h4>
 
 <div class="timeline mb-4">
 
@@ -16,7 +16,7 @@
     <div
       class="timeline-content"
       *ngFor="let tipo of evento.values">
-      <span class="text-muted">{{ novidadeService.getTextoResumo(tipo.value.novidade, tipo.value.total) }}</span>
+      <span>{{ novidadeService.getTextoResumo(tipo.value.novidade, tipo.value.total) }}</span>
     </div>
   </div>
 

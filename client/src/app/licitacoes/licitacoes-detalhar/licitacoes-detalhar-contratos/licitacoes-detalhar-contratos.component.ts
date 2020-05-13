@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
@@ -22,9 +23,12 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
   public itemSelecionado: ItensContrato;
   public activeIds: string[] = [];
   public isLoading = true;
+  public radioGroupForm: FormGroup;
+  public showTotal = false;
 
   constructor(
     private activatedroute: ActivatedRoute,
+    private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private licitacaoService: LicitacaoService) { }
 
@@ -34,6 +38,9 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
     });
     this.activatedroute.queryParams.pipe(take(1)).subscribe(params => {
       this.activeIds = ['panel-' + params.id];
+    });
+    this.radioGroupForm = this.formBuilder.group({
+      showTotal: false
     });
   }
 
@@ -50,13 +57,13 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
             return sum + (item.itensLicitacaoItensContrato.vl_unitario_estimado * item.qt_itens_contrato);
           }, 0);
           contrato.itensContrato.map(item => {
-            item.media_valor = item.itensSemelhantes.filter(d => {
-              return d.ano_licitacao === item.ano_licitacao;
-            }).reduce((sum, itemB) => {
-              return sum + itemB.vl_item_contrato / item.itensSemelhantes.filter(d => {
-                return d.ano_licitacao === item.ano_licitacao;
-              }).length;
-            }, 0);
+            item.media_valor = item.itensSemelhantes
+              .filter(d => d.ano_licitacao === item.ano_licitacao)
+              .reduce((sum, itemB) => {
+                return sum + itemB.vl_item_contrato / item.itensSemelhantes.filter(d => {
+                  return d.ano_licitacao === item.ano_licitacao;
+                }).length;
+              }, 0);
           });
         });
         this.isLoading = false;
