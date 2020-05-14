@@ -40,11 +40,11 @@ router.get("/licitacao/:id", (req, res) => {
 });
 
 router.post("/similares", (req, res) => {
-  let first_part = "SELECT * FROM ( SELECT *, setweight(to_tsvector(item_contrato.language :: regconfig,item_contrato.ds_1),'A') || setweight(to_tsvector(item_contrato.language :: regconfig,item_contrato.ds_2),'C') || setweight(to_tsvector(item_contrato.language :: regconfig,item_contrato.ds_3),'D') || setweight(to_tsvector(item_contrato.language :: regconfig,item_contrato.ds_item),'D') AS document FROM item_contrato) p_search WHERE   p_search.document @@ to_tsquery('portuguese','";
+  let first_part = "SELECT ano_licitacao, id_item_contrato, id_licitacao, vl_item_contrato, vl_total_item_contrato, ds_item FROM ( SELECT *, setweight(to_tsvector(item_contrato.language :: regconfig,item_contrato.ds_1),'A') || setweight(to_tsvector(item_contrato.language :: regconfig,item_contrato.ds_2),'C') || setweight(to_tsvector(item_contrato.language :: regconfig,item_contrato.ds_3),'D') || setweight(to_tsvector(item_contrato.language :: regconfig,item_contrato.ds_item),'D') AS document FROM item_contrato) p_search WHERE   p_search.document @@ to_tsquery('portuguese','";
   let ranking = "') ORDER BY ts_rank(p_search.document, to_tsquery('portuguese','";
-  let end = "')) DESC;";
+  let end = "')) DESC LIMIT 100;";
   
-  models.sequelize.query(first_part.concat(req.body.termo.join(' | '), ranking, req.body.termo[2], end), {
+  models.sequelize.query(first_part.concat(req.body.termo.join(' | '), ranking, req.body.termo[0], end), {
     model: itensContrato,
     mapToModel: true
   }).then(itensContrato => res.status(SUCCESS).json(itensContrato))
