@@ -1,5 +1,3 @@
-import { ItensLicitacao } from './itensLicitacao.model';
-import { Novidade } from './novidade.model';
 import { ContratoLicitacao } from './contratoLicitacao.model';
 
 export interface Licitacao {
@@ -15,6 +13,6 @@ export interface Licitacao {
   data_adjudicacao: Date;
   vl_homologado: number;
   descricao_objeto: string;
-  itensLicitacao: ItensLicitacao[];
+  merenda: boolean;
   contratosLicitacao: ContratoLicitacao[];
 }

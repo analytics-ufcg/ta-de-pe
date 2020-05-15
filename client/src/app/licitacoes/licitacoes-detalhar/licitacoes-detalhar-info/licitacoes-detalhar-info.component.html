@@ -12,7 +12,7 @@
         <div class="dados-linha">
           <strong>Valor homologado</strong>
         </div>
-        <div class="dados-linha text-muted">
+        <div class="dados-linha">
           <span [hidden]="!licitacao?.vl_homologado">
             {{ licitacao?.vl_homologado | currency: "R$" }}
           </span>
@@ -23,7 +23,7 @@
         <div class="dados-linha">
           <strong>Tipo</strong>
         </div>
-        <div class="dados-linha text-muted">
+        <div class="dados-linha">
           {{ licitacao?.tipo_licitacao | initialcase }}
         </div>
       </div>
@@ -31,16 +31,20 @@
         <div class="dados-linha">
           <strong>Objeto da licitação</strong>
         </div>
-        <div class="dados-linha text-muted">
+        <div class="dados-linha">
           {{ licitacao?.descricao_objeto | initialcase }}
+        </div>
+        <div
+          *ngIf="!licitacao?.merenda"
+          class="dados-linha text-muted ml-3">
+          <strong>Atenção!</strong>
+          Não temos certeza se essa licitação inclui merenda. É necessário checar no Licitacon.
         </div>
       </div>
     </div>
 
   </div>
 
-  <app-timeline [timeline]="timeline"></app-timeline>
-
   <app-fornecedores-info [idLicitacao]="licitacao?.id_licitacao"></app-fornecedores-info>
-
+  <app-timeline [timeline]="timeline"></app-timeline>
 </div>

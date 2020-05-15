@@ -1,4 +1,7 @@
 .navbar-brand {
   font-family: 'Fredoka One', cursive;
-  font-size: 0.8rem;
+
+  > small {
+    font-size: 0.8rem;
+  }
 }

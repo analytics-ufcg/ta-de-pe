@@ -4,11 +4,12 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
-import { takeUntil, take } from 'rxjs/operators';
+import { takeUntil, take, map } from 'rxjs/operators';
 
 import { ContratoLicitacao } from 'src/app/shared/models/contratoLicitacao.model';
 import { LicitacaoService } from 'src/app/shared/services/licitacao.service';
 import { ItensContrato } from 'src/app/shared/models/itensContrato.model';
+import { ItensService } from 'src/app/shared/services/itens.service';
 
 @Component({
   selector: 'app-licitacoes-detalhar-contratos',
@@ -30,7 +31,8 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
     private activatedroute: ActivatedRoute,
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
-    private licitacaoService: LicitacaoService) { }
+    private licitacaoService: LicitacaoService,
+    private itensService: ItensService) { }
 
   ngOnInit() {
     this.activatedroute.parent.params.pipe(take(1)).subscribe(params => {
@@ -57,17 +59,31 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
             return sum + (item.itensLicitacaoItensContrato.vl_unitario_estimado * item.qt_itens_contrato);
           }, 0);
           contrato.itensContrato.map(item => {
-            item.media_valor = item.itensSemelhantes
-              .filter(d => d.ano_licitacao === item.ano_licitacao)
-              .reduce((sum, itemB) => {
-                return sum + itemB.vl_item_contrato / item.itensSemelhantes.filter(d => {
-                  return d.ano_licitacao === item.ano_licitacao;
-                }).length;
-              }, 0);
+            const tituloItem = item.ds_item.split(/\s+|:|-/).slice(0, 3).map(palavra => {
+              return palavra.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
+            }).filter(i => i !== '');
+            this.getMediaItensSemelhantes(tituloItem, item.dt_inicio_vigencia)
+              .then(mediana => {
+                item.mediana_valor = mediana;
+              });
           });
         });
         this.isLoading = false;
       });
+  }
+
+  getMediaItensSemelhantes(dsItem: string[], dataInicioContrato: Date) {
+    const termos = [dsItem[0], dsItem.slice(0, 2).join(' & '), dsItem.join(' & ')];
+    return this.itensService.getItensSimilares(termos, dataInicioContrato)
+      .pipe(take(1),
+        map(item => {
+          const itensOrdenados = item.slice(0, 21).sort((a, b) => a.vl_item_contrato - b.vl_item_contrato);
+          const meioInf = Math.floor((itensOrdenados.length - 1) / 2);
+          const meioSup = Math.ceil((itensOrdenados.length - 1) / 2);
+          const mediana = (itensOrdenados[meioInf].vl_item_contrato + itensOrdenados[meioSup].vl_item_contrato) / 2;
+          return mediana;
+        })
+      ).toPromise();
   }
 
   getDescricaoResumida(descricao: string): string {
