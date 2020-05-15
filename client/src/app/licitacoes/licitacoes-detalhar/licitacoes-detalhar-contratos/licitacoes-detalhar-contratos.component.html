@@ -160,16 +160,16 @@
                 <td
                   class="numero align-middle"
                   *ngIf="!radioGroupForm.value['showTotal']">
-                  <span *ngIf="item.vl_item_contrato - item.media_valor === 0">--</span>
+                  <span *ngIf="item.vl_item_contrato - item.mediana_valor === 0">--</span>
                   <span
-                    *ngIf="item.vl_item_contrato - item.media_valor < 0"
+                    *ngIf="item.vl_item_contrato - item.mediana_valor < 0"
                     class="positivo">
-                    {{ item.vl_item_contrato - item.media_valor | currency:'':'' }}
+                    {{ item.vl_item_contrato - item.mediana_valor | currency:'':'' }}
                   </span>
                   <span
-                    *ngIf="item.vl_item_contrato - item.media_valor > 0"
+                    *ngIf="item.vl_item_contrato - item.mediana_valor > 0"
                     class="negativo">
-                    +{{ item.vl_item_contrato - item.media_valor | currency:'':'' }}
+                    +{{ item.vl_item_contrato - item.mediana_valor | currency:'':'' }}
                   </span>
                 </td>
                 <td
@@ -195,16 +195,16 @@
                 <td
                   class="numero align-middle"
                   *ngIf="radioGroupForm.value['showTotal']">
-                  <span *ngIf="item.vl_total_item_contrato - (item.media_valor * item.qt_itens_contrato) === 0">--</span>
+                  <span *ngIf="item.vl_total_item_contrato - (item.mediana_valor * item.qt_itens_contrato) === 0">--</span>
                   <span
-                    *ngIf="item.vl_total_item_contrato - (item.media_valor * item.qt_itens_contrato) < 0"
+                    *ngIf="item.vl_total_item_contrato - (item.mediana_valor * item.qt_itens_contrato) < 0"
                     class="positivo">
-                    {{ item.vl_total_item_contrato - (item.media_valor * item.qt_itens_contrato) | currency:'':'' }}
+                    {{ item.vl_total_item_contrato - (item.mediana_valor * item.qt_itens_contrato) | currency:'':'' }}
                   </span>
                   <span
-                    *ngIf="item.vl_total_item_contrato - (item.media_valor * item.qt_itens_contrato) > 0"
+                    *ngIf="item.vl_total_item_contrato - (item.mediana_valor * item.qt_itens_contrato) > 0"
                     class="negativo">
-                    +{{ item.vl_total_item_contrato - (item.media_valor * item.qt_itens_contrato) | currency:'':'' }}
+                    +{{ item.vl_total_item_contrato - (item.mediana_valor * item.qt_itens_contrato) | currency:'':'' }}
                   </span>
                 </td>
                 <td

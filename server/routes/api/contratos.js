@@ -56,7 +56,7 @@ router.get("/licitacao/:id", (req, res) => {
             as: "itensSemelhantes"
           }
         ],
-        attributes: ["qt_itens_contrato", "vl_item_contrato", "vl_total_item_contrato", "ds_item", "categoria", "ano_licitacao"],
+        attributes: ["qt_itens_contrato", "vl_item_contrato", "vl_total_item_contrato", "ds_item", "categoria", "ano_licitacao", "dt_inicio_vigencia"],
         as: "itensContrato"
       }
     ],
