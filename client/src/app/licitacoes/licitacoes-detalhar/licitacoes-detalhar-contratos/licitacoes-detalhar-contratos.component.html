@@ -229,98 +229,125 @@
     </ngb-panel>
   </ngb-accordion>
 
-<ng-template
-  #content
-  let-modal>
-  <div class="modal-header">
-    <h5 class="modal-title">Descrição completa</h5>
-    <button
-      type="button"
-      class="close"
-      data-dismiss="modal"
-      aria-label="Fechar"
-      (click)="modal.dismiss()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-
-    <div class="table-responsive">
-      <table class="table table-sm table-hover">
-        <thead>
-          <tr>
-            <th
-              scope="col"
-              class="text-left align-middle">
-              Item
-            </th>
-            <th
-              scope="col"
-              class="table-th-monospace text-right">
-              Por
-              <br>
-              unidade
-            </th>
-            <th
-              scope="col"
-              class="table-th-monospace text-right">
-              &nbsp;
-            </th>
-            <th
-              scope="col"
-              class="table-th-monospace text-right">
-              &nbsp;
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr class="table-item-strong">
-            <td class="align-middle">{{ itemSelecionado.ds_item }}</td>
-            <td class="numero align-middle">
-              {{ itemSelecionado.vl_item_contrato | currency:'':'' }}
-            </td>
-            <td class="numero align-middle">&nbsp;</td>
-            <td class="numero align-middle">&nbsp;</td>
-          </tr>
-          <tr
-            *ngFor="let item of itemSelecionado?.itensSemelhantes; index as i"
-            class>
-            <td class="align-middle">{{ item.ds_item }}</td>
-            <td class="numero align-middle">
-              {{ item.vl_item_contrato | currency:'':'' }}
-            </td>
-            <td class="numero align-middle">
-              <span *ngIf="item.vl_item_contrato - itemSelecionado.vl_item_contrato === 0">--</span>
-              <span
-                *ngIf="item.vl_item_contrato - itemSelecionado.vl_item_contrato < 0"
-                class="positivo">
-                {{ item.vl_item_contrato - itemSelecionado.vl_item_contrato | currency:'':'' }}
-              </span>
-              <span
-                *ngIf="item.vl_item_contrato - itemSelecionado.vl_item_contrato > 0"
-                class="negativo">
-                +{{ item.vl_item_contrato - itemSelecionado.vl_item_contrato | currency:'':'' }}
-              </span>
-            </td>
-            <td class="align-middle">
-              <a
-                [routerLink]="['/licitacoes/' + item.id_licitacao + '/contratos', { queryParams: item.id_contrato }]"
-                target="_blank">
-                <span class="icon-arrow-right"></span>
-              </a>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+  <ng-template
+    #content
+    let-modal>
+    <div class="modal-header">
+      <h5 class="modal-title">Detalhes do item</h5>
+      <button
+        type="button"
+        class="close"
+        data-dismiss="modal"
+        aria-label="Fechar"
+        (click)="modal.dismiss()">
+        <span aria-hidden="true">&times;</span>
+      </button>
     </div>
+    <div class="modal-body">
 
-  </div>
-  <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-primary"
-      (click)="modal.close('Fechar')">
-      Fechar
-    </button>
-  </div>
-</ng-template>
+      <div class="dados-linha">
+        <strong>Descrição</strong>
+      </div>
+      <div class="dados-linha">
+        {{ itemSelecionado.ds_item }}
+      </div>
+
+      <div class="row mt-4">
+        <div class="col-sm-6 col-md-3 col-lg-2 mb-4">
+          <div class="dados-linha">
+            <strong>Valor por unidade</strong>
+          </div>
+          <div class="dados-linha">
+            {{ itemSelecionado.vl_item_contrato | currency:'R$' }}
+          </div>
+        </div>
+        <div class="col-sm-6 col-md-3 col-lg-2 mb-4">
+          <div class="dados-linha">
+            <strong>Mediana</strong>
+          </div>
+          <div class="dados-linha">
+            {{ itemSelecionado.mediana_valor | currency:'R$' }}
+          </div>
+        </div>
+      </div>
+
+      <h4>Comparação do item com seus similares</h4>
+
+      <div class="table-responsive">
+        <table class="table table-sm table-hover">
+          <thead>
+            <tr>
+              <th
+                scope="col"
+                class="text-left align-middle">
+                Itens similares
+              </th>
+              <th
+                scope="col"
+                class="table-th-monospace text-right">
+                Valor por
+                <br>
+                unidade (R$)
+              </th>
+              <th
+                scope="col"
+                class="table-th-monospace text-right">
+                vs item
+                <br>
+                (R$)
+              </th>
+              <th
+                scope="col"
+                class="table-th-monospace text-right">
+                &nbsp;
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              *ngFor="let item of itemSelecionado?.itensSemelhantes; index as i"
+              class>
+              <td class="align-middle">{{ getDescricaoResumida(item.ds_item) }}</td>
+              <td class="numero align-middle">
+                {{ item.vl_item_contrato | currency:'':'' }}
+              </td>
+              <td class="numero align-middle">
+                <span *ngIf="item.vl_item_contrato - itemSelecionado.vl_item_contrato === 0">--</span>
+                <span
+                  *ngIf="item.vl_item_contrato - itemSelecionado.vl_item_contrato < 0"
+                  class="positivo">
+                  {{ item.vl_item_contrato - itemSelecionado.vl_item_contrato | currency:'':'' }}
+                </span>
+                <span
+                  *ngIf="item.vl_item_contrato - itemSelecionado.vl_item_contrato > 0"
+                  class="negativo">
+                  +{{ item.vl_item_contrato - itemSelecionado.vl_item_contrato | currency:'':'' }}
+                </span>
+              </td>
+              <td class="align-middle">
+                <div class="ml-2">
+                  <a
+                    [routerLink]="['/licitacoes/' + item.id_licitacao + '/contratos']"
+                    [queryParams]="{ id: '12' }"
+                    target="_blank"
+                    class="btn btn-light btn-sm text-nowrap">
+                    <span class="icon-arrow-right"></span> Ver contrato
+                  </a>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+    <div class="modal-footer">
+      <button
+        type="button"
+        class="btn btn-primary"
+        (click)="modal.close('Fechar')">
+        Fechar
+      </button>
+    </div>
+  </ng-template>
+</div>

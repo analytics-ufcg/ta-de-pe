@@ -63,8 +63,9 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
               return palavra.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
             }).filter(i => i !== '');
             this.getMediaItensSemelhantes(tituloItem, item.dt_inicio_vigencia)
-              .then(mediana => {
-                item.mediana_valor = mediana;
+              .then(res => {
+                item.mediana_valor = res.mediana;
+                item.itensSemelhantes = res.itensOrdenados;
               });
           });
         });
@@ -76,12 +77,12 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
     const termos = [dsItem[0], dsItem.slice(0, 2).join(' & '), dsItem.join(' & ')];
     return this.itensService.getItensSimilares(termos, dataInicioContrato)
       .pipe(take(1),
-        map(item => {
-          const itensOrdenados = item.slice(0, 21).sort((a, b) => a.vl_item_contrato - b.vl_item_contrato);
+        map(itens => {
+          const itensOrdenados = itens.slice(0, 21).sort((a, b) => a.vl_item_contrato - b.vl_item_contrato);
           const meioInf = Math.floor((itensOrdenados.length - 1) / 2);
           const meioSup = Math.ceil((itensOrdenados.length - 1) / 2);
           const mediana = (itensOrdenados[meioInf].vl_item_contrato + itensOrdenados[meioSup].vl_item_contrato) / 2;
-          return mediana;
+          return { mediana, itensOrdenados };
         })
       ).toPromise();
   }
