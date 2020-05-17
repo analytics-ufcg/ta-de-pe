@@ -245,29 +245,50 @@
     </div>
     <div class="modal-body">
 
-      <div class="dados-linha">
-        <strong>Descrição</strong>
-      </div>
-      <div class="dados-linha">
-        {{ itemSelecionado.ds_item }}
-      </div>
-
-      <div class="row mt-4">
-        <div class="col-sm-6 col-md-3 col-lg-2 mb-4">
-          <div class="dados-linha">
-            <strong>Valor por unidade</strong>
-          </div>
-          <div class="dados-linha">
-            {{ itemSelecionado.vl_item_contrato | currency:'R$' }}
-          </div>
+      <div class="row item-destaque-wrapper">
+        <div class="col-12">
+          <strong>Descrição</strong>
         </div>
-        <div class="col-sm-6 col-md-3 col-lg-2 mb-4">
-          <div class="dados-linha">
-            <strong>Mediana</strong>
+        <div class="col-lg-7 pb-4">{{ itemSelecionado.ds_item }}</div>
+        <div class="col-lg-5">
+
+          <div class="row">
+            <div class="col-md-6">
+
+              <div>
+                <strong>Valor por unidade</strong>
+              </div>
+              <div class="numero numero-destaque">
+                {{ itemSelecionado.vl_item_contrato | currency:'R$' }}
+              </div>
+              <div *ngIf="itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor !== 0">
+                <span
+                  *ngIf="itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor < 0"
+                  class="positivo">
+                  {{ itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor | currency:'':'' }}
+                    ({{ (itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor) / itemSelecionado.mediana_valor | percent:'2.1' }})
+                </span>
+                <span
+                  *ngIf="itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor > 0"
+                  class="negativo">
+                  +{{ itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor | currency:'':'' }}
+                    ({{ (itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor) / itemSelecionado.mediana_valor | percent:'2.1' }})
+                </span>
+              </div>
+
+            </div>
+            <div class="col-md-6">
+
+              <div>
+                <strong>Mediana do estado</strong>
+              </div>
+              <div class="numero numero-destaque">
+                {{ itemSelecionado.mediana_valor | currency:'R$' }}
+              </div>
+
+            </div>
           </div>
-          <div class="dados-linha">
-            {{ itemSelecionado.mediana_valor | currency:'R$' }}
-          </div>
+
         </div>
       </div>
 
@@ -307,7 +328,9 @@
             <tr
               *ngFor="let item of itemSelecionado?.itensSemelhantes; index as i"
               class>
-              <td class="align-middle">{{ getDescricaoResumida(item.ds_item) }}</td>
+              <td class="align-middle">
+                {{ getDescricaoResumida(item.ds_item) }}
+              </td>
               <td class="numero align-middle">
                 {{ item.vl_item_contrato | currency:'':'' }}
               </td>
@@ -331,7 +354,8 @@
                     [queryParams]="{ id: item.id_contrato }"
                     target="_blank"
                     class="btn btn-light btn-sm text-nowrap">
-                    <span class="icon-arrow-right"></span> Ver contrato
+                    <span class="icon-arrow-right"></span>
+                    Ver contrato
                   </a>
                 </div>
               </td>
