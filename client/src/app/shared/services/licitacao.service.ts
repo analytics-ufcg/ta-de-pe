@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
@@ -35,8 +35,16 @@ export class LicitacaoService {
     return this.http.get<FornecedorLicitacao[]>(this.urlContratos + '/licitacao/' + id + '/fornecedores');
   }
 
+  // Recupera novidades de uma licitação
   getNovidades(id: string): Observable<Novidade[]> {
     return this.http.get<Novidade[]>(this.urlNovidades + '/licitacao/' + id);
+  }
+
+  // Recupera licitacoes abertas (sem data de homologação)
+  getAbertas(municipio: string): Observable<Licitacao[]> {
+    const params = new HttpParams().set('nome_municipio', municipio);
+
+    return this.http.get<Licitacao[]>(this.url + '/abertas', { params });
   }
 
 }
