@@ -1,4 +1,6 @@
 const express = require("express");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 const router = express.Router();
 
@@ -13,6 +15,31 @@ const SUCCESS = 200;
 
 router.get("/", (req, res) => {
   Contrato.findAll()
+    .then(contratos => res.status(SUCCESS).json(contratos))
+    .catch(err => res.status(BAD_REQUEST).json({ err }));
+});
+
+router.get("/vigentes", (req, res) => {
+  const municipio = req.query.nome_municipio;
+
+  Contrato.findAll({
+    include: {
+      model: Orgao,
+      as: "contratosOrgao",
+      where: {
+        nome_municipio: municipio
+      }
+    },
+    where: {
+      dt_inicio_vigencia: {
+        [Op.lte]: new Date()
+      },
+      dt_final_vigencia: {
+        [Op.gt]: new Date()
+      },
+    },
+    order: [["dt_inicio_vigencia", "DESC"]]
+  })
     .then(contratos => res.status(SUCCESS).json(contratos))
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
