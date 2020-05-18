@@ -2,12 +2,13 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
-import { NgbModal, NgbAccordion } from '@ng-bootstrap/ng-bootstrap';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Subject } from 'rxjs';
 import { takeUntil, take, map } from 'rxjs/operators';
 
 import { ContratoLicitacao } from 'src/app/shared/models/contratoLicitacao.model';
 import { LicitacaoService } from 'src/app/shared/services/licitacao.service';
+import { ItensContrato } from 'src/app/shared/models/itensContrato.model';
 import { ItensService } from 'src/app/shared/services/itens.service';
 
 @Component({
@@ -20,7 +21,7 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
   private unsubscribe = new Subject();
 
   public contratoLicitacao: ContratoLicitacao[];
-  public descricao: string;
+  public itemSelecionado: ItensContrato;
   public activeIds: string[] = [];
   public isLoading = true;
   public radioGroupForm: FormGroup;
@@ -62,8 +63,9 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
               return palavra.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
             }).filter(i => i !== '');
             this.getMediaItensSemelhantes(tituloItem, item.dt_inicio_vigencia)
-              .then(mediana => {
-                item.mediana_valor = mediana;
+              .then(res => {
+                item.mediana_valor = res.mediana;
+                item.itensSemelhantes = res.itensOrdenados;
               });
           });
         });
@@ -75,12 +77,12 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
     const termos = [dsItem[0], dsItem.slice(0, 2).join(' & '), dsItem.join(' & ')];
     return this.itensService.getItensSimilares(termos, dataInicioContrato)
       .pipe(take(1),
-        map(item => {
-          const itensOrdenados = item.slice(0, 21).sort((a, b) => a.vl_item_contrato - b.vl_item_contrato);
+        map(itens => {
+          const itensOrdenados = itens.slice(0, 21).sort((a, b) => a.vl_item_contrato - b.vl_item_contrato);
           const meioInf = Math.floor((itensOrdenados.length - 1) / 2);
           const meioSup = Math.ceil((itensOrdenados.length - 1) / 2);
           const mediana = (itensOrdenados[meioInf].vl_item_contrato + itensOrdenados[meioSup].vl_item_contrato) / 2;
-          return mediana;
+          return { mediana, itensOrdenados };
         })
       ).toPromise();
   }
@@ -107,9 +109,9 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
     return 'Outros';
   }
 
-  open(content, descricao: string): void {
-    this.descricao = descricao;
-    this.modalService.open(content, { ariaLabelledBy: 'modal-descricao' });
+  open(content, item: ItensContrato): void {
+    this.itemSelecionado = item;
+    this.modalService.open(content, { ariaLabelledBy: 'modal-descricao', size: 'xl' });
   }
 
   ngOnDestroy() {

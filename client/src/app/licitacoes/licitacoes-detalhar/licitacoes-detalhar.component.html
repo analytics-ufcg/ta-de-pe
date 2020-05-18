@@ -1,5 +1,5 @@
 <div class="view-container">
-  <div class="licitacao-titulo py-4">
+  <div class="licitacao-titulo pt-4 pb-2">
     <div class="container">
       <h2>
         <a [routerLink]="['/novidades']">
@@ -10,6 +10,7 @@
           {{ licitacao?.nr_licitacao }}/{{ licitacao?.ano_licitacao }}
         </span>
       </h2>
+      <p>{{ licitacao?.nm_orgao }}</p>
     </div>
   </div>
 

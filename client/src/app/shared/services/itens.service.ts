@@ -3,10 +3,7 @@ import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
 
-import { take, map } from 'rxjs/operators';
-
 import { ItensContrato } from '../models/itensContrato.model';
-
 import { environment } from '../../../environments/environment';
 
 @Injectable({

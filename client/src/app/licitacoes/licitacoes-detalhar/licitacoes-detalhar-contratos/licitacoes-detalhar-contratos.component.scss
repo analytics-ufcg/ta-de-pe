@@ -9,6 +9,41 @@
   color: #0c7b93;
 }
 
+.table-item {
+  cursor: pointer;
+}
+
+.table-item-strong {
+  font-weight: bold;
+}
+
 .head-controls {
   border: none;
+}
+
+.numero-destaque {
+  font-size: 1.4rem;
+}
+
+.item-destaque-wrapper {
+  max-width: 990px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
+  margin-bottom: 2rem;
+  border-radius: 0.2rem;
+  background-color: #f2f7f3;
+}
+
+.table-th-dividido {
+  border-bottom: none;
+}
+
+.table-th-dividido-up {
+  border-top: none
+}
+
+.table-th-percent {
+  width: 80px;
 }
