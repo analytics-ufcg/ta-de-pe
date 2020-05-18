@@ -266,13 +266,13 @@
                   *ngIf="itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor < 0"
                   class="positivo">
                   {{ itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor | currency:'':'' }}
-                    ({{ (itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor) / itemSelecionado.mediana_valor | percent:'2.1' }})
+                    ({{ (itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor) / itemSelecionado.mediana_valor | percent:'1.1' }})
                 </span>
                 <span
                   *ngIf="itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor > 0"
                   class="negativo">
                   +{{ itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor | currency:'':'' }}
-                    ({{ (itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor) / itemSelecionado.mediana_valor | percent:'2.1' }})
+                    ({{ (itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor) / itemSelecionado.mediana_valor | percent:'1.1' }})
                 </span>
               </div>
 
@@ -329,7 +329,10 @@
               *ngFor="let item of itemSelecionado?.itensSemelhantes; index as i"
               class>
               <td class="align-middle">
-                {{ getDescricaoResumida(item.ds_item) }}
+                <details>
+                  <summary>{{ getDescricaoResumida(item.ds_item) }}...</summary>
+                  <p>{{ item.ds_item }}</p>
+                </details>
               </td>
               <td class="numero align-middle">
                 {{ item.vl_item_contrato | currency:'':'' }}
