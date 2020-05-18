@@ -55,11 +55,11 @@ router.post("/similares", (req, res) => {
   dataFinal = dataFinal.toJSON().slice(0, 10);
     
   let query = `SELECT ano_licitacao, id_item_contrato, id_contrato, id_licitacao, vl_item_contrato, \
-                      vl_total_item_contrato, ds_item, dt_inicio_vigencia FROM \
-                      item_search WHERE item_search.document @@ to_tsquery('portuguese', '${termo}') AND \
+                      vl_total_item_contrato, ds_item, dt_inicio_vigencia \ 
+                      FROM item_search WHERE item_search.document @@ to_tsquery('portuguese', '${termo}') AND \
                       dt_inicio_vigencia >= '${dataInicial}' AND dt_inicio_vigencia <= '${dataFinal}'\
-                      ORDER BY ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}'))\
-                      DESC LIMIT 100;`
+                      ORDER BY ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) DESC, id_item_contrato ASC \
+                      LIMIT 100;`
   
   models.sequelize.query(query, {
     model: itensContrato,
