@@ -43,7 +43,7 @@ router.post("/similares", (req, res) => {
 
   const dataInicioContrato = req.body.data;
   const termo = req.body.termo.join(' | ')
-  const termoRanking = req.body.termo[0]
+  const termoRanking = req.body.termo[2]
 
   dataInicial = new Date(dataInicioContrato);
   dataInicial.setMonth(dataInicial.getMonth() - 6);
