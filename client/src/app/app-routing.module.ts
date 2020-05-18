@@ -9,6 +9,10 @@ const routerOptions: ExtraOptions = {
 
 const routes: Routes = [
   {
+    path: 'municipio',
+    loadChildren: () => import('./municipio/municipio.module').then(m => m.MunicipioModule)
+  },
+  {
     path: 'novidades',
     loadChildren: () => import('./novidades/novidades.module').then(m => m.NovidadesModule)
   },
