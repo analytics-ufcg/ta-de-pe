@@ -1,1 +1,5 @@
-<p>contratos-vigentes works!</p>
+<h4>Contratos vigentes</h4>
+<div *ngFor="let contrato of contratos">
+  {{ contrato.nr_contrato }}/{{ contrato.ano_contrato }} {{ contrato.dt_inicio_vigencia | date: "dd-MM-yyy" }}
+  {{ contrato.dt_final_vigencia | date: "dd-MM-yyy" }}
+</div>
