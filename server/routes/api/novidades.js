@@ -1,5 +1,7 @@
 const express = require("express");
 const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
+
 const { validationResult } = require('express-validator');
 
 const router = express.Router();
@@ -83,7 +85,10 @@ router.get("/licitacao/:id", (req, res) => {
       }
     ],
     where: {
-      id_licitacao: req.params.id
+      id_licitacao: req.params.id,
+      data: {
+        [Op.ne]: null
+      }
     }
   })
     .then(novidades => res.json(novidades))

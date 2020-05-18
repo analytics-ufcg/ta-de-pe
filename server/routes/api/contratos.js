@@ -74,7 +74,7 @@ router.get("/licitacao/:id/fornecedores", (req, res) => {
     attributes: ["nr_documento", "nm_pessoa", "tp_pessoa"],
     include: [
       {
-        attributes: ["nr_contrato", "ano_contrato", "vl_contrato"],
+        attributes: ["nr_contrato", "ano_contrato", "vl_contrato", "id_contrato"],
         model: Contrato,
         as: "fornecedorContratos",
         where: {
