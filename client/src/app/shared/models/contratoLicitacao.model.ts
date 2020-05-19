@@ -11,4 +11,5 @@ export interface ContratoLicitacao {
   dt_final_vigencia: Date;
   contratoFornecedor: Fornecedor;
   itensContrato: ItensContrato[];
+  ano_contrato: number;
 }
