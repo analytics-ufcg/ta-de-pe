@@ -18,6 +18,7 @@ export class LicitacoesAbertasComponent implements OnInit {
 
   public municipioEscolhido: string;
   public licitacoesAbertas: Licitacao[];
+  public isLoading = true;
 
   constructor(
     private userService: UserService,
@@ -43,6 +44,7 @@ export class LicitacoesAbertasComponent implements OnInit {
     this.licitacaoService.getAbertas(municipio)
       .pipe(takeUntil(this.unsubscribe)).subscribe(licitacoes => {
         this.licitacoesAbertas = licitacoes;
+        this.isLoading = false;
       });
   }
 

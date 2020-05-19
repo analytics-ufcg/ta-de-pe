@@ -18,6 +18,7 @@ export class ContratosVigentesComponent implements OnInit {
 
   public municipioEscolhido: string;
   public contratosVigentes: ContratoLicitacao[];
+  public isLoading = true;
 
   constructor(
     private userService: UserService,
@@ -43,6 +44,7 @@ export class ContratosVigentesComponent implements OnInit {
     this.contratoService.getVigentes(municipio)
       .pipe(takeUntil(this.unsubscribe)).subscribe(contratos => {
         this.contratosVigentes = contratos;
+        this.isLoading = false;
       });
   }
 

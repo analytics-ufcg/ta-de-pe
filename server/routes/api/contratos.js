@@ -23,12 +23,18 @@ router.get("/vigentes", (req, res) => {
   const municipio = req.query.nome_municipio;
 
   Contrato.findAll({
+    attributes: ["id_contrato", "id_licitacao", "nr_contrato", "nr_documento_contratado", "vl_contrato", "dt_inicio_vigencia", "dt_final_vigencia"],
     include: {
       model: Orgao,
       as: "contratosOrgao",
       where: {
         nome_municipio: municipio
       }
+    },
+    include: {
+      model: Fornecedor,
+      attributes: ["nm_pessoa", "tp_pessoa"],
+      as: "contratoFornecedor"
     },
     where: {
       dt_inicio_vigencia: {
@@ -38,7 +44,8 @@ router.get("/vigentes", (req, res) => {
         [Op.gt]: new Date()
       },
     },
-    order: [["dt_inicio_vigencia", "DESC"]]
+    order: [["dt_inicio_vigencia", "DESC"]],
+    limit: 50
   })
     .then(contratos => res.status(SUCCESS).json(contratos))
     .catch(err => res.status(BAD_REQUEST).json({ err }));

@@ -1,6 +1,10 @@
 <h4 class="mb-4">Licitações abertas</h4>
 
-<table class="table">
+<p [hidden]="licitacoesAbertas?.length > 0 || isLoading">Não há licitações abertas neste momento.</p>
+
+<app-spinner *ngIf="isLoading"></app-spinner>
+
+<table class="table" [hidden]="licitacoesAbertas?.length == 0 || isLoading">
   <thead>
     <tr>
       <th scope="col">Objeto da licitação</th>
@@ -8,11 +12,6 @@
         scope="col"
         class="text-center">
         Data de abertura
-      </th>
-      <th
-        scope="col"
-        class="text-center">
-        Modalidade
       </th>
       <th>&nbsp;</th>
     </tr>
@@ -25,7 +24,6 @@
       <td class="text-center">
         {{ licitacao.data_abertura | date: "dd-MM-yyyy" }}
       </td>
-      <td class="text-center">{{ licitacao.cd_tipo_modalidade }}</td>
       <td class="text-center">
         <a
           [routerLink]="['/licitacoes/' + licitacao.id_licitacao + '/info']"
