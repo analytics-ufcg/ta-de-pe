@@ -22,6 +22,7 @@
               class="text-right">
               Valor contratado
             </th>
+            <th>&nbsp;</th>
           </tr>
         </thead>
         <tbody>
@@ -34,6 +35,15 @@
             <td>{{ item.nr_documento | formatCpfCnpj }}</td>
             <td class="text-right numero">
               {{ item.total_contratado | currency: "R$" }}
+            </td>
+            <td class="text-center">
+              <a
+                [routerLink]="['/licitacoes/' + idLicitacao + '/contratos']"
+                [queryParams]="{ id: item.fornecedorContratos[0].id_contrato }"
+                class="btn btn-sm btn-primary">
+                <span class="icon-arrow-right"></span>
+                Ver contrato
+              </a>
             </td>
           </tr>
         </tbody>

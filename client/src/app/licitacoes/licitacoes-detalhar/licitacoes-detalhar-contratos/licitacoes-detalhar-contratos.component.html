@@ -1,6 +1,8 @@
 <div>
   <h4 class="titulo-sessao">Contratos</h4>
 
+  <p [hidden]="contratoLicitacao?.length > 0 || isLoading">Ainda não há contratos para essa licitação.</p>
+
   <app-spinner *ngIf="isLoading"></app-spinner>
 
   <ngb-accordion
