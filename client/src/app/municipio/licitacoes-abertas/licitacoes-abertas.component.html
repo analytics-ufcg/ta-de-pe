@@ -1,4 +1,39 @@
-<h4>Licitações abertas</h4>
-<div *ngFor="let licitacao of licitacoesAbertas">
-  {{ licitacao.nr_licitacao }}/{{ licitacao.ano_licitacao }}
-</div>
+<h4 class="mb-4">Licitações abertas</h4>
+
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">Objeto da licitação</th>
+      <th
+        scope="col"
+        class="text-center">
+        Data de abertura
+      </th>
+      <th
+        scope="col"
+        class="text-center">
+        Modalidade
+      </th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let licitacao of licitacoesAbertas">
+      <td>
+        {{ licitacao.descricao_objeto | initialcase }}
+      </td>
+      <td class="text-center">
+        {{ licitacao.data_abertura | date: "dd-MM-yyyy" }}
+      </td>
+      <td class="text-center">{{ licitacao.cd_tipo_modalidade }}</td>
+      <td class="text-center">
+        <a
+          [routerLink]="['/licitacoes/' + licitacao.id_licitacao + '/info']"
+          class="btn btn-sm btn-primary">
+          <span class="icon-arrow-right"></span>
+          Ver detalhes
+        </a>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -13,9 +13,8 @@ import { LicitacoesDetalharInfoComponent } from './licitacoes-detalhar/licitacoe
 import { LicitacoesDetalharContratosComponent } from './licitacoes-detalhar/licitacoes-detalhar-contratos/licitacoes-detalhar-contratos.component';
 import { FornecedoresInfoComponent } from './licitacoes-detalhar/licitacoes-detalhar-info/fornecedores-info/fornecedores-info.component';
 import { TimelineComponent } from './licitacoes-detalhar/licitacoes-detalhar-info/timeline/timeline.component';
-import { FormatCpfCnpjPipe } from '../shared/pipes/format-cpf-cnpj.pipe';
 import { SharedModule } from '../shared/components/shared.module';
-import { InitialCasePipe } from '../shared/pipes/initial-case.pipe';
+import { PipesModule } from '../shared/pipes/pipes.module';
 
 @NgModule({
   declarations: [
@@ -25,16 +24,15 @@ import { InitialCasePipe } from '../shared/pipes/initial-case.pipe';
     LicitacoesDetalharInfoComponent,
     LicitacoesDetalharContratosComponent,
     FornecedoresInfoComponent,
-    TimelineComponent,
-    FormatCpfCnpjPipe,
-    InitialCasePipe
+    TimelineComponent
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     NgbModule,
     LicitacoesRoutingModule,
-    SharedModule
+    SharedModule,
+    PipesModule
   ]
 })
 export class LicitacoesModule { }
