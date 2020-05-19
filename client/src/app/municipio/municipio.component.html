@@ -1,4 +1,24 @@
 <div class="container view-container">
-  <app-licitacoes-abertas [licitacoes]="licitacoesAbertas"></app-licitacoes-abertas>
-  <app-contratos-vigentes [contratos]="contratosVigentes"></app-contratos-vigentes>
+  <div class="licitacoes-detalhar-nav">
+    <ul class="nav nav-pills nav-fill">
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['./licitacoes']"
+          routerLinkActive="active">
+          Licitações abertas
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['./contratos']"
+          routerLinkActive="active">
+          Contratos vigentes
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <router-outlet></router-outlet>
 </div>

@@ -1,5 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Licitacao } from 'src/app/shared/models/licitacao.model';
+import { Component, OnInit } from '@angular/core';
+
+import { Subject } from 'rxjs';
+import { takeUntil, debounceTime } from 'rxjs/operators';
+
+import { UserService } from '../../shared/services/user.service';
+import { LicitacaoService } from '../../shared/services/licitacao.service';
+import { Licitacao } from '../../shared/models/licitacao.model';
 
 @Component({
   selector: 'app-licitacoes-abertas',
@@ -8,11 +14,36 @@ import { Licitacao } from 'src/app/shared/models/licitacao.model';
 })
 export class LicitacoesAbertasComponent implements OnInit {
 
-  @Input() licitacoes: Licitacao[];
+  private unsubscribe = new Subject();
 
-  constructor() { }
+  public municipioEscolhido: string;
+  public licitacoesAbertas: Licitacao[];
+
+  constructor(
+    private userService: UserService,
+    private licitacaoService: LicitacaoService) { }
 
   ngOnInit() {
+    this.getMunicipio();
+  }
+
+  getMunicipio() {
+    this.userService
+      .getMunicipioEscolhido()
+      .pipe(
+        debounceTime(300),
+        takeUntil(this.unsubscribe))
+      .subscribe(municipio => {
+        this.municipioEscolhido = municipio;
+        this.getLicitacoesAbertas(this.municipioEscolhido);
+      });
+  }
+
+  getLicitacoesAbertas(municipio: string) {
+    this.licitacaoService.getAbertas(municipio)
+      .pipe(takeUntil(this.unsubscribe)).subscribe(licitacoes => {
+        this.licitacoesAbertas = licitacoes;
+      });
   }
 
 }
