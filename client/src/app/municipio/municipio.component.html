@@ -1,0 +1,34 @@
+<div class="container view-container">
+  <h2 class="mb-4">{{ municipioEscolhido | titlecase }}</h2>
+
+  <div class="licitacoes-detalhar-nav">
+    <ul class="nav nav-pills nav-fill">
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['./licitacoes']"
+          routerLinkActive="active">
+          Licitações abertas
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['./contratos']"
+          routerLinkActive="active">
+          Contratos vigentes
+        </a>
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['./acontecimentos']"
+          routerLinkActive="active">
+          Acontecimentos
+        </a>
+      </li>
+    </ul>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

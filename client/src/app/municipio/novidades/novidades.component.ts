@@ -2,12 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import { Subject, BehaviorSubject } from 'rxjs';
-import { takeUntil, debounceTime, take, skip } from 'rxjs/operators';
+import { takeUntil, debounceTime, skip } from 'rxjs/operators';
 
-import { UserService } from './../shared/services/user.service';
-import { Novidade } from '../shared/models/novidade.model';
-import { NovidadeService } from '../shared/services/novidade.service';
-import { indicate } from '../shared/functions/indicate.function';
+import { UserService } from '../../shared/services/user.service';
+import { Novidade } from '../../shared/models/novidade.model';
+import { NovidadeService } from '../../shared/services/novidade.service';
+import { indicate } from '../../shared/functions/indicate.function';
 
 @Component({
   selector: 'app-novidades',

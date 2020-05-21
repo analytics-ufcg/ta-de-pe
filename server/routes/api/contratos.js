@@ -1,4 +1,6 @@
 const express = require("express");
+const Sequelize = require("sequelize");
+const Op = Sequelize.Op;
 
 const router = express.Router();
 
@@ -17,6 +19,38 @@ router.get("/", (req, res) => {
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
+router.get("/vigentes", (req, res) => {
+  const municipio = req.query.nome_municipio;
+
+  Contrato.findAll({
+    attributes: ["id_contrato", "id_licitacao", "nr_contrato", "nr_documento_contratado", "vl_contrato", "dt_inicio_vigencia", "dt_final_vigencia"],
+    include: {
+      model: Orgao,
+      as: "contratosOrgao",
+      where: {
+        nome_municipio: municipio
+      }
+    },
+    include: {
+      model: Fornecedor,
+      attributes: ["nm_pessoa", "tp_pessoa"],
+      as: "contratoFornecedor"
+    },
+    where: {
+      dt_inicio_vigencia: {
+        [Op.lte]: new Date()
+      },
+      dt_final_vigencia: {
+        [Op.gt]: new Date()
+      },
+    },
+    order: [["dt_inicio_vigencia", "DESC"]],
+    limit: 50
+  })
+    .then(contratos => res.status(SUCCESS).json(contratos))
+    .catch(err => res.status(BAD_REQUEST).json({ err }));
+});
+
 router.get("/:id", (req, res) => {
   Contrato.findOne({
     where: {
@@ -29,7 +63,7 @@ router.get("/:id", (req, res) => {
 
 router.get("/licitacao/:id", (req, res) => {
   Contrato.findAll({
-    attributes: ["id_contrato", "nr_contrato", "nr_documento_contratado", "vl_contrato", "dt_inicio_vigencia", "dt_final_vigencia"],
+    attributes: ["id_contrato", "nr_contrato", "nr_documento_contratado", "vl_contrato", "dt_inicio_vigencia", "dt_final_vigencia", "ano_contrato"],
     include: [
       {
         model: Fornecedor,
