@@ -21,7 +21,8 @@ module.exports = (sequelize, type) => {
       vl_homologado: type.DECIMAL(15, 2),
       tp_licitacao: type.STRING,
       merenda: type.BOOLEAN,
-      tipo_licitacao: type.STRING
+      tipo_licitacao: type.STRING,
+      tipo_modalidade_licitacao: type.STRING
     },
     {
       freezeTableName: true,

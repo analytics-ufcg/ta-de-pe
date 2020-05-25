@@ -19,12 +19,12 @@
           <span [hidden]="licitacao?.vl_homologado">--</span>
         </div>
       </div>
-      <div class="col-sm-6 col-md-3 col-lg-2 mb-4">
+      <div class="col-sm-6 col-md-3 col-lg-4 mb-4">
         <div class="dados-linha">
           <strong>Tipo</strong>
         </div>
         <div class="dados-linha">
-          {{ licitacao?.tipo_licitacao | initialcase }}
+          {{ licitacao?.cd_tipo_modalidade}} - {{ licitacao?.tipo_modalidade_licitacao | initialcase }}
         </div>
       </div>
       <div class="col-12">

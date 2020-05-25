@@ -8,6 +8,7 @@ export interface Licitacao {
   cd_tipo_modalidade: string;
   tp_licitacao: string;
   tipo_licitacao: string;
+  tipo_modalidade_licitacao: string;
   data_abertura: Date;
   data_homologacao: Date;
   data_adjudicacao: Date;
