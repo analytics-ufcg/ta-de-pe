@@ -23,13 +23,17 @@ router.get("/abertas", (req, res) => {
   const municipio = req.query.nome_municipio;
 
   Licitacao.findAll({
-    include: {
-      model: Orgao,
-      as: "licitacoesOrgao",
-      where: {
-        nome_municipio: municipio
+    include: [
+      {
+        attributes: ["nome_municipio"],
+        model: Orgao,
+        as: "licitacoesOrgao",
+        where: {
+          nome_municipio: municipio
+        },
+        required: true
       }
-    },
+    ],
     where: {
       data_homologacao: {
         [Op.eq]: null

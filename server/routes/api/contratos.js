@@ -24,18 +24,22 @@ router.get("/vigentes", (req, res) => {
 
   Contrato.findAll({
     attributes: ["id_contrato", "id_licitacao", "nr_contrato", "nr_documento_contratado", "vl_contrato", "dt_inicio_vigencia", "dt_final_vigencia"],
-    include: {
-      model: Orgao,
-      as: "contratosOrgao",
-      where: {
-        nome_municipio: municipio
+    include: [
+      {
+        attributes: ["nome_municipio"],
+        model: Orgao,
+        as: "contratosOrgao",
+        where: {
+          nome_municipio: municipio
+        },
+        required: true
+      },
+      {
+        model: Fornecedor,
+        attributes: ["nm_pessoa", "tp_pessoa"],
+        as: "contratoFornecedor"
       }
-    },
-    include: {
-      model: Fornecedor,
-      attributes: ["nm_pessoa", "tp_pessoa"],
-      as: "contratoFornecedor"
-    },
+    ],
     where: {
       dt_inicio_vigencia: {
         [Op.lte]: new Date()
@@ -120,7 +124,7 @@ router.get("/licitacao/:id/fornecedores", (req, res) => {
     .then(fornecedores => {
       fornecedores = fornecedores.map(f => f.get({ plain: true }));
 
-      fornecedores.forEach((value) => {        
+      fornecedores.forEach((value) => {
         value.total_contratado = value.fornecedorContratos
           .reduce((a, b) => a + (b["vl_contrato"] || 0), 0);
       });
