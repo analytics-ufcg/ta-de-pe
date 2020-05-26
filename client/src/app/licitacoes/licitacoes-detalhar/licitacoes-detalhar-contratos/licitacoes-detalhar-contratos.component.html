@@ -197,7 +197,7 @@
                 class="table-item"
                 (click)="open(content, item)">
                 <td class="text-nowrap align-middle">
-                  {{ getDescricaoResumida(item.ds_item) }}...
+                  {{ item.ds_item | resumirTexto }}...
                   <span class="text-muted">
                     ({{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida | lowercase }})
                   </span>
@@ -449,7 +449,7 @@
               class>
               <td class="align-middle">
                 <details>
-                  <summary>{{ getDescricaoResumida(item.ds_item) }}...</summary>
+                  <summary>{{ item.ds_item | resumirTexto }}...</summary>
                   <p>{{ item.ds_item }}</p>
                 </details>
               </td>
