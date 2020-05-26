@@ -69,6 +69,7 @@ export class BuscaMunicipioComponent implements OnInit, OnDestroy {
   salvarMunicipio(municipio: string) {
     this.show = false;
     this.userService.setMunicipioEscolhido(municipio);
+    this.router.navigate(['/municipio']);
   }
 
   removerMunicipio() {
