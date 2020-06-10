@@ -30,7 +30,7 @@
           </div>
           <div class="col-sm-6 col-md-5 col-lg-3 mb-4">
             <div class="dados-linha">
-              <strong>Estimado vs Contratado</strong>
+              <strong>Contratado vs Estimado</strong>
             </div>
             <div class="dados-linha">
               <span *ngIf="contrato?.valor_contratado - contrato?.valor_estimado === 0">--</span>
@@ -136,9 +136,9 @@
                 <th
                   scope="col"
                   class="table-th-monospace table-th-percent table-th-dividido-up text-right">
-                  Pago vs
+                  Contratado
                   <br>
-                  estimado
+                  vs estimado
                   <br>
                   (%)
                 </th>
@@ -164,17 +164,7 @@
                   class="numero align-middle"
                   *ngIf="!radioGroupForm.value['showTotal']"
                   [title]="item.mediana_valor">
-                  <span *ngIf="item.vl_item_contrato - item.mediana_valor === 0">--</span>
-                  <span
-                    *ngIf="item.vl_item_contrato - item.mediana_valor < 0"
-                    class="positivo">
-                    {{ item.vl_item_contrato - item.mediana_valor | currency:'':'' }}
-                  </span>
-                  <span
-                    *ngIf="item.vl_item_contrato - item.mediana_valor > 0"
-                    class="negativo">
-                    +{{ item.vl_item_contrato - item.mediana_valor | currency:'':'' }}
-                  </span>
+                  {{ item.mediana_valor | currency:'':'' }}
                 </td>
                 <td
                   class="numero align-middle"
@@ -189,24 +179,14 @@
                   <span
                     *ngIf="item.vl_item_contrato - item.mediana_valor > 0"
                     class="negativo">
-                    {{ (item.vl_item_contrato - item.mediana_valor) / item.mediana_valor | percent:'1.1' }}
+                    +{{ (item.vl_item_contrato - item.mediana_valor) / item.mediana_valor | percent:'1.1' }}
                   </span>
                 </td>
                 <td
                   class="numero align-middle"
                   *ngIf="!radioGroupForm.value['showTotal']"
                   [title]="item.itensLicitacaoItensContrato.vl_unitario_estimado">
-                  <span *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado === 0">--</span>
-                  <span
-                    *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado < 0"
-                    class="positivo">
-                    {{ (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado) | currency:'':'' }}
-                  </span>
-                  <span
-                    *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado > 0"
-                    class="negativo">
-                    +{{ (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado) | currency:'':'' }}
-                  </span>
+                  {{ item.itensLicitacaoItensContrato.vl_unitario_estimado | currency:'':'' }}
                 </td>
                 <td
                   class="numero align-middle"
@@ -221,7 +201,7 @@
                   <span
                     *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado > 0"
                     class="negativo">
-                    {{ (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado) / item.itensLicitacaoItensContrato.vl_unitario_estimado | percent:'1.1' }}
+                    +{{ (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado) / item.itensLicitacaoItensContrato.vl_unitario_estimado | percent:'1.1' }}
                   </span>
                 </td>
                 <td
@@ -233,17 +213,7 @@
                   class="numero align-middle"
                   *ngIf="radioGroupForm.value['showTotal']"
                   [title]="item.mediana_valor * item.qt_itens_contrato">
-                  <span *ngIf="item.vl_total_item_contrato - (item.mediana_valor * item.qt_itens_contrato) === 0">--</span>
-                  <span
-                    *ngIf="item.vl_total_item_contrato - (item.mediana_valor * item.qt_itens_contrato) < 0"
-                    class="positivo">
-                    {{ item.vl_total_item_contrato - (item.mediana_valor * item.qt_itens_contrato) | currency:'':'' }}
-                  </span>
-                  <span
-                    *ngIf="item.vl_total_item_contrato - (item.mediana_valor * item.qt_itens_contrato) > 0"
-                    class="negativo">
-                    +{{ item.vl_total_item_contrato - (item.mediana_valor * item.qt_itens_contrato) | currency:'':'' }}
-                  </span>
+                  {{ item.mediana_valor * item.qt_itens_contrato | currency:'':'' }}
                 </td>
                 <td
                   class="numero align-middle"
@@ -258,24 +228,14 @@
                   <span
                     *ngIf="item.vl_total_item_contrato - (item.mediana_valor * item.qt_itens_contrato) > 0"
                     class="negativo">
-                    {{ (item.vl_total_item_contrato - (item.mediana_valor * item.qt_itens_contrato)) / (item.mediana_valor * item.qt_itens_contrato) | percent:'1.1' }}
+                    +{{ (item.vl_total_item_contrato - (item.mediana_valor * item.qt_itens_contrato)) / (item.mediana_valor * item.qt_itens_contrato) | percent:'1.1' }}
                   </span>
                 </td>
                 <td
                   class="numero align-middle"
                   *ngIf="radioGroupForm.value['showTotal']"
                   [title]="item.itensLicitacaoItensContrato.vl_unitario_estimado * item.qt_itens_contrato">
-                  <span *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado === 0">--</span>
-                  <span
-                    *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado < 0"
-                    class="positivo">
-                    {{ item.qt_itens_contrato * (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado) | currency:'':'' }}
-                  </span>
-                  <span
-                    *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado > 0"
-                    class="negativo">
-                    +{{ item.qt_itens_contrato * (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado) | currency:'':'' }}
-                  </span>
+                  {{ item.qt_itens_contrato * item.itensLicitacaoItensContrato.vl_unitario_estimado | currency:'':'' }}
                 </td>
                 <td
                   class="numero align-middle"
@@ -290,7 +250,7 @@
                   <span
                     *ngIf="item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado > 0"
                     class="negativo">
-                    {{ (item.qt_itens_contrato * (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado)) / (item.itensLicitacaoItensContrato.vl_unitario_estimado * item.qt_itens_contrato) | percent:'1.1' }}
+                    +{{ (item.qt_itens_contrato * (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado)) / (item.itensLicitacaoItensContrato.vl_unitario_estimado * item.qt_itens_contrato) | percent:'1.1' }}
                   </span>
                 </td>
               </tr>
