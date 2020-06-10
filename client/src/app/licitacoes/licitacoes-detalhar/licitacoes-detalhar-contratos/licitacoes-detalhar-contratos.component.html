@@ -85,108 +85,61 @@
               <tr>
                 <th
                   scope="col"
-                  rowspan="2"
-                  class="text-left align-middle">
-                  Item
+                  class="text-left table-th-dividido-up align-middle">
+                Item
                 </th>
                 <th
                   scope="col"
-                  rowspan="2"
-                  class="table-th-monospace text-right"
+                  class="table-th-monospace table-th-dividido-up text-right"
                   *ngIf="!radioGroupForm.value['showTotal']">
                   Valor por
                   <br>
-                  unidade (R$)
+                  unidade
+                  <br>
+                  (R$)
                 </th>
                 <th
                   scope="col"
-                  colspan="2"
-                  class="table-th-monospace table-th-dividido text-right"
-                  *ngIf="!radioGroupForm.value['showTotal']">
-                  vs
-                  estado
-                </th>
-                <th
-                  scope="col"
-                  colspan="2"
-                  class="table-th-monospace table-th-dividido text-right"
-                  *ngIf="!radioGroupForm.value['showTotal']">
-                  vs
-                  estimado
-                </th>
-                <th
-                  scope="col"
-                  rowspan="2"
-                  class="table-th-monospace text-right"
+                  class="table-th-monospace table-th-dividido-up text-right"
                   *ngIf="radioGroupForm.value['showTotal']">
+                  Valor total
+                  <br>
+                  (R$)
+                </th>
+                <th
+                  scope="col"
+                  class="table-th-monospace table-th-dividido-up text-right">
+                  Valor médio
+                  <br>
+                  no estado
+                  <br>
+                  (R$)
+                </th>
+                <th
+                  scope="col"
+                  class="table-th-monospace table-th-percent table-th-dividido-up text-right">
+                  Contrato
+                  <br>
+                  vs estado
+                  <br>
+                  (%)
+                </th>
+                <th
+                  scope="col"
+                  class="table-th-monospace table-th-dividido-up text-right">
                   Valor
                   <br>
-                  total (R$)
-                </th>
-                <th
-                  scope="col"
-                  colspan="2"
-                  class="table-th-monospace table-th-dividido text-right"
-                  *ngIf="radioGroupForm.value['showTotal']">
-                  vs
-                  estado
-                </th>
-                <th
-                  scope="col"
-                  colspan="2"
-                  class="table-th-monospace table-th-dividido text-right"
-                  *ngIf="radioGroupForm.value['showTotal']">
-                  vs
                   estimado
-                </th>
-              </tr>
-              <tr>
-                <th
-                  scope="col"
-                  class="table-th-monospace table-th-dividido-up text-right"
-                  *ngIf="!radioGroupForm.value['showTotal']">
+                  <br>
                   (R$)
                 </th>
                 <th
                   scope="col"
-                  class="table-th-monospace table-th-percent table-th-dividido-up text-right"
-                  *ngIf="!radioGroupForm.value['showTotal']">
-                  (%)
-                </th>
-                <th
-                  scope="col"
-                  class="table-th-monospace table-th-dividido-up text-right"
-                  *ngIf="!radioGroupForm.value['showTotal']">
-                  (R$)
-                </th>
-                <th
-                  scope="col"
-                  class="table-th-monospace table-th-percent table-th-dividido-up text-right"
-                  *ngIf="!radioGroupForm.value['showTotal']">
-                  (%)
-                </th>
-                <th
-                  scope="col"
-                  class="table-th-monospace table-th-dividido-up text-right"
-                  *ngIf="radioGroupForm.value['showTotal']">
-                  (R$)
-                </th>
-                <th
-                  scope="col"
-                  class="table-th-monospace table-th-dividido-up table-th-percent text-right"
-                  *ngIf="radioGroupForm.value['showTotal']">
-                  (%)
-                </th>
-                <th
-                  scope="col"
-                  class="table-th-monospace table-th-dividido-up text-right"
-                  *ngIf="radioGroupForm.value['showTotal']">
-                  (R$)
-                </th>
-                <th
-                  scope="col"
-                  class="table-th-monospace table-th-dividido-up table-th-percent text-right"
-                  *ngIf="radioGroupForm.value['showTotal']">
+                  class="table-th-monospace table-th-percent table-th-dividido-up text-right">
+                  Pago vs
+                  <br>
+                  estimado
+                  <br>
                   (%)
                 </th>
               </tr>
