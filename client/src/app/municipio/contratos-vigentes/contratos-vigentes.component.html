@@ -7,6 +7,7 @@
 <table class="table" [hidden]="contratosVigentes?.length == 0 || isLoading">
   <thead>
     <tr>
+      <th scope="col">Número do contrato</th>
       <th scope="col">Nome</th>
       <th scope="col">CPF/CNPJ</th>
       <th
@@ -14,11 +15,14 @@
         class="text-right">
         Valor contratado
       </th>
+      <th scope="col">Início da vigência</th>
+      <th scope="col">Fim da vigência</th>
       <th>&nbsp;</th>
     </tr>
   </thead>
   <tbody>
     <tr *ngFor="let contrato of contratosVigentes">
+      <td>{{ contrato.nr_contrato }}</td>
       <td>
         <span *ngIf="contrato.contratoFornecedor.nm_pessoa">{{ contrato.contratoFornecedor.nm_pessoa }}</span>
         <span *ngIf="!contrato.contratoFornecedor.nm_pessoa">(Nome não encontrado)</span>
@@ -27,6 +31,8 @@
       <td class="text-right numero">
         {{ contrato.vl_contrato | currency: "R$" }}
       </td>
+      <td>{{ contrato.dt_inicio_vigencia | date:'LLL/y' }}</td>
+      <td>{{ contrato.dt_final_vigencia | date:'LLL/y' }}</td>
       <td class="text-center">
         <a
           [routerLink]="['/licitacoes/' + contrato.id_licitacao + '/contratos']"
