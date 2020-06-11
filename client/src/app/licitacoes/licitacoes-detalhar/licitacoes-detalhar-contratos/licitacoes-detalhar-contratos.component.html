@@ -180,8 +180,8 @@
                 <td
                   class="numero align-middle"
                   [title]="item.mediana_valor"
-                  [style.background-color]="defineCor(item.percentual_vs_estado)"
-                  [style.color]="item.percentual_vs_estado > 1.5 ? 'white' : 'black'">
+                  [style.background-color]="defineCorFundo(item.percentual_vs_estado)"
+                  [style.color]="defineCor(item.percentual_vs_estado)">
                   <span *ngIf="item.percentual_vs_estado > 0">+</span>{{ item.percentual_vs_estado | percent:'1.1' }}
                 </td>
                 <td
@@ -199,8 +199,8 @@
                 <td
                   class="numero align-middle"
                   [title]="item.itensLicitacaoItensContrato.vl_unitario_estimado"
-                  [style.background-color]="defineCor(item.percentual_vs_estimado)"
-                  [style.color]="item.percentual_vs_estimado > 1.5 ? 'white' : 'black'">
+                  [style.background-color]="defineCorFundo(item.percentual_vs_estimado)"
+                  [style.color]="defineCor(item.percentual_vs_estimado)">
                   <span
                     *ngIf="item.percentual_vs_estimado > 0">
                   +</span>{{ item.percentual_vs_estimado | percent:'1.1' }}

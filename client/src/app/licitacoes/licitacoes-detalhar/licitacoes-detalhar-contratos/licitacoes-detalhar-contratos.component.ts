@@ -103,11 +103,15 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
     return 'Outros';
   }
 
-  defineCor(valor: number): string {
+  defineCorFundo(valor: number): string {
     const cor: any = d3.scaleLinear()
     .domain([-1, 0, 1])
     .range(['#72a5b6', '#ffffff', '#d7856c']);
     return cor(valor);
+  }
+
+  defineCor(valor: number): string {
+    return (valor >= 1 || valor <= -1) ? 'white' : 'black';
   }
 
   open(content, item: ItensContrato): void {
