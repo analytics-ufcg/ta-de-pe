@@ -8,9 +8,9 @@
   <table class="table table-hover" [hidden]="contratosVigentes?.length == 0 || isLoading">
     <thead>
       <tr>
-        <th scope="col">Contrato</th>
-        <th scope="col">Nome</th>
-        <th scope="col">CPF/CNPJ</th>
+        <th scope="col" class="text-center">Contrato</th>
+        <th scope="col" class="th-espacoso">Nome</th>
+        <th scope="col" class="th-espacoso text-center">CPF/CNPJ</th>
         <th
           scope="col"
           class="text-right">
@@ -23,7 +23,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let contrato of contratosVigentes">
-        <td>{{ contrato.nr_contrato }}</td>
+        <td class="text-center">{{ contrato.nr_contrato }}</td>
         <td>
           <span *ngIf="contrato.contratoFornecedor.nm_pessoa">{{ contrato.contratoFornecedor.nm_pessoa }}</span>
           <span *ngIf="!contrato.contratoFornecedor.nm_pessoa">(Nome não encontrado)</span>
