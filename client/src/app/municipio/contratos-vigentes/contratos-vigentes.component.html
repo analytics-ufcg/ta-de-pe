@@ -4,44 +4,46 @@
 
 <app-spinner *ngIf="isLoading"></app-spinner>
 
-<table class="table" [hidden]="contratosVigentes?.length == 0 || isLoading">
-  <thead>
-    <tr>
-      <th scope="col">Número do contrato</th>
-      <th scope="col">Nome</th>
-      <th scope="col">CPF/CNPJ</th>
-      <th
-        scope="col"
-        class="text-right">
-        Valor contratado
-      </th>
-      <th scope="col">Início da vigência</th>
-      <th scope="col">Fim da vigência</th>
-      <th>&nbsp;</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let contrato of contratosVigentes">
-      <td>{{ contrato.nr_contrato }}</td>
-      <td>
-        <span *ngIf="contrato.contratoFornecedor.nm_pessoa">{{ contrato.contratoFornecedor.nm_pessoa }}</span>
-        <span *ngIf="!contrato.contratoFornecedor.nm_pessoa">(Nome não encontrado)</span>
-      </td>
-      <td>{{ contrato.nr_documento_contratado | formatCpfCnpj }}</td>
-      <td class="text-right numero">
-        {{ contrato.vl_contrato | currency: "R$" }}
-      </td>
-      <td>{{ contrato.dt_inicio_vigencia | date:'LLL/y' }}</td>
-      <td>{{ contrato.dt_final_vigencia | date:'LLL/y' }}</td>
-      <td class="text-center">
-        <a
-          [routerLink]="['/licitacoes/' + contrato.id_licitacao + '/contratos']"
-          [queryParams]="{ id: contrato.id_contrato }"
-          class="btn btn-sm btn-primary">
-          <span class="icon-arrow-right"></span>
-          Ver contrato
-        </a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table class="table table-hover" [hidden]="contratosVigentes?.length == 0 || isLoading">
+    <thead>
+      <tr>
+        <th scope="col">Contrato</th>
+        <th scope="col">Nome</th>
+        <th scope="col">CPF/CNPJ</th>
+        <th
+          scope="col"
+          class="text-right">
+          Valor contratado
+        </th>
+        <th scope="col">Início da vigência</th>
+        <th scope="col">Fim da vigência</th>
+        <th>&nbsp;</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contrato of contratosVigentes">
+        <td>{{ contrato.nr_contrato }}</td>
+        <td>
+          <span *ngIf="contrato.contratoFornecedor.nm_pessoa">{{ contrato.contratoFornecedor.nm_pessoa }}</span>
+          <span *ngIf="!contrato.contratoFornecedor.nm_pessoa">(Nome não encontrado)</span>
+        </td>
+        <td>{{ contrato.nr_documento_contratado | formatCpfCnpj }}</td>
+        <td class="text-right numero">
+          {{ contrato.vl_contrato | currency: "R$" }}
+        </td>
+        <td>{{ contrato.dt_inicio_vigencia | date:'LLL/y' }}</td>
+        <td>{{ contrato.dt_final_vigencia | date:'LLL/y' }}</td>
+        <td class="text-center">
+          <a
+            [routerLink]="['/licitacoes/' + contrato.id_licitacao + '/contratos']"
+            [queryParams]="{ id: contrato.id_contrato }"
+            class="btn btn-sm btn-primary">
+            <span class="icon-arrow-right"></span>
+            Ver contrato
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
