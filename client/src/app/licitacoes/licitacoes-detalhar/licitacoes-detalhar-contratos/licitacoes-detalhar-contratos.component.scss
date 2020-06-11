@@ -9,10 +9,6 @@
   color: #0c7b93;
 }
 
-.table-item {
-  cursor: pointer;
-}
-
 .table-item-strong {
   font-weight: bold;
 }
@@ -46,4 +42,11 @@
 
 .table-th-percent {
   width: 80px;
+}
+
+.item-link {
+  border: 0px;
+  background-color: transparent;
+  color: #0066CC;
+  cursor: pointer;
 }

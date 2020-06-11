@@ -194,13 +194,14 @@
             <tbody>
               <tr
                 *ngFor="let item of contrato?.itensContrato; index as i"
-                class="table-item"
-                (click)="open(content, item)">
+                class="table-item">
                 <td class="text-nowrap align-middle">
-                  {{ item.ds_item | resumirTexto }}...
+                  <button (click)="open(content, item)" class="item-link">
+                    {{ item.ds_item | resumirTexto }}...
+                  </button>
                   <span class="text-muted">
-                    ({{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida | lowercase }})
-                  </span>
+                      ({{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida | lowercase }})
+                    </span>
                 </td>
                 <td
                   class="numero align-middle"
