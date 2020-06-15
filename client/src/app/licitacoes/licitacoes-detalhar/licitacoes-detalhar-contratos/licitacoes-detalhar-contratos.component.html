@@ -151,13 +151,15 @@
             <tbody>
               <tr
                 *ngFor="let item of contrato?.itensContrato; index as i"
-                class="table-item"
-                (click)="open(content, item)">
+                class="table-item">
                 <td class="text-nowrap align-middle">
-                  {{ item.ds_item | resumirTexto }}...
+                  {{ item.ds_item | resumirTexto }}
                   <span class="text-muted">
-                    ({{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida | lowercase }})
+                      ({{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida | lowercase }})
                   </span>
+                  <button (click)="open(content, item)" class="btn btn-secondary btn-sm">
+                  ...
+                  </button>
                 </td>
                 <td
                   class="numero align-middle"
