@@ -10,7 +10,7 @@
       <tr>
         <th scope="col" class="text-center">Contrato</th>
         <th scope="col" class="th-espacoso">Nome</th>
-        <th scope="col" class="th-espacoso text-center">CPF/CNPJ</th>
+        <th scope="col" class="text-center">CPF/CNPJ</th>
         <th
           scope="col"
           class="text-right">
@@ -28,7 +28,7 @@
           <span *ngIf="contrato.contratoFornecedor.nm_pessoa">{{ contrato.contratoFornecedor.nm_pessoa }}</span>
           <span *ngIf="!contrato.contratoFornecedor.nm_pessoa">(Nome não encontrado)</span>
         </td>
-        <td>{{ contrato.nr_documento_contratado | formatCpfCnpj }}</td>
+        <td class="text-right numero">{{ contrato.nr_documento_contratado | formatCpfCnpj }}</td>
         <td class="text-right numero">
           {{ contrato.vl_contrato | currency: "R$" }}
         </td>
