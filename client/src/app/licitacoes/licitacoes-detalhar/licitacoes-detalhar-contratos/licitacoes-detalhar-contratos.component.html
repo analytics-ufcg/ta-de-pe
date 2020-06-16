@@ -419,8 +419,13 @@
             <tr>
               <th
                 scope="col"
-                class="text-left align-middle">
+                class="align-middle">
                 Itens similares
+              </th>
+              <th
+                scope="col"
+                class="table-th-monospace">
+                Município
               </th>
               <th
                 scope="col"
@@ -452,6 +457,9 @@
                   <summary>{{ item.ds_item | resumirTexto }}...</summary>
                   <p>{{ item.ds_item }}</p>
                 </details>
+              </td>
+              <td class="align-middle">
+                {{ item.nome_municipio }}
               </td>
               <td class="numero align-middle">
                 {{ item.vl_item_contrato | currency:'':'' }}
