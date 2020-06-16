@@ -17,6 +17,14 @@
           <span [hidden]="licitacao?.vl_homologado">--</span>
         </div>
       </div>
+      <div class="col-sm-6 col-md-3 col-lg-2 mb-4" [hidden]="quantContratos == 0">
+        <div class="dados-linha">
+          <strong>Contratos</strong>
+        </div>
+        <div class="dados-linha">
+          {{ quantContratos }}
+        </div>
+      </div>
       <div class="col-sm-6 col-md-3 col-lg-4 mb-4">
         <div class="dados-linha">
           <strong>Tipo</strong>

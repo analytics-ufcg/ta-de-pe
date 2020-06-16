@@ -20,6 +20,7 @@ export class LicitacoesDetalharInfoComponent implements OnInit, OnDestroy {
 
   public licitacao: Licitacao;
   public valorContratado: number;
+  public quantContratos: number;
   public timeline: any[];
   public isLoading = true;
 
@@ -45,6 +46,8 @@ export class LicitacoesDetalharInfoComponent implements OnInit, OnDestroy {
       this.valorContratado = data[0].contratosLicitacao.reduce((sum, contrato) => {
         return sum + contrato.vl_contrato;
       }, 0);
+
+      this.quantContratos = data[0].contratosLicitacao.length;
 
       const timeline = nest()
         .key((d: any) => d.data)
