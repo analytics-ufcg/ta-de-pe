@@ -58,6 +58,7 @@ router.post("/similares", (req, res) => {
                       vl_total_item_contrato, ds_item, dt_inicio_vigencia \ 
                       FROM item_search WHERE item_search.document @@ to_tsquery('portuguese', '${termo}') AND \
                       dt_inicio_vigencia >= '${dataInicial}' AND dt_inicio_vigencia <= '${dataFinal}'\
+                      AND ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) >= 0.6\
                       ORDER BY ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) DESC, id_item_contrato ASC \
                       LIMIT 100;`
   
