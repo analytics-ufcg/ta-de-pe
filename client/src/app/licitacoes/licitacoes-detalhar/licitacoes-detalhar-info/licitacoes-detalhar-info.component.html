@@ -5,9 +5,10 @@
   <app-spinner *ngIf="isLoading"></app-spinner>
 
   <div class="mb-4">
-    <div [hidden]="licitacao.data_homologacao" class="row mt-4">
+    <div class="row mt-4">
       <div class="col">
-        <span class="badge badge-info">Licitação aberta</span>
+        <span [hidden]="licitacao.data_homologacao" class="badge badge-info">Licitação aberta</span>
+        <span [hidden]="!licitacao.data_homologacao" class="badge badge-danger">Licitação encerrada</span>
       </div>
     </div>
     <div class="row mt-4">
