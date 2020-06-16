@@ -11,7 +11,6 @@ import { LicitacoesDetalharNavComponent } from './licitacoes-detalhar/licitacoes
 import { LicitacoesDetalharInfoComponent } from './licitacoes-detalhar/licitacoes-detalhar-info/licitacoes-detalhar-info.component';
 // tslint:disable-next-line: max-line-length
 import { LicitacoesDetalharContratosComponent } from './licitacoes-detalhar/licitacoes-detalhar-contratos/licitacoes-detalhar-contratos.component';
-import { FornecedoresInfoComponent } from './licitacoes-detalhar/licitacoes-detalhar-info/fornecedores-info/fornecedores-info.component';
 import { TimelineComponent } from './licitacoes-detalhar/licitacoes-detalhar-info/timeline/timeline.component';
 import { SharedModule } from '../shared/components/shared.module';
 import { PipesModule } from '../shared/pipes/pipes.module';
@@ -23,7 +22,6 @@ import { PipesModule } from '../shared/pipes/pipes.module';
     LicitacoesDetalharNavComponent,
     LicitacoesDetalharInfoComponent,
     LicitacoesDetalharContratosComponent,
-    FornecedoresInfoComponent,
     TimelineComponent
   ],
   imports: [
