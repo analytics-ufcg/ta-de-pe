@@ -9,6 +9,9 @@ const models = require("../../models/index");
 const Contrato = models.contrato;
 const Fornecedor = models.fornecedor;
 const Orgao = models.orgao;
+const Licitacao = models.licitacao;
+const Novidade = models.novidade;
+const sequelize = models.sequelize;
 
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
@@ -57,12 +60,49 @@ router.get("/vigentes", (req, res) => {
 
 router.get("/:id", (req, res) => {
   Contrato.findOne({
+    attributes: ["id_contrato", "nr_contrato", "nr_documento_contratado", "vl_contrato", "dt_inicio_vigencia", "dt_final_vigencia", "ano_contrato"],
+    include: [
+      {
+        model: Fornecedor,
+        attributes: ["nm_pessoa", "tp_pessoa"],
+        as: "contratoFornecedor"
+      },
+      {
+        model: Licitacao,
+        attributes: ["id_licitacao"],
+        as: "contratosLicitacao",
+        required: true,
+        include: [
+          {
+            model: Novidade,
+            attributes: ["id_tipo", [sequelize.literal('CAST(texto_novidade as REAL)'), 'valor']],
+            as: "licitacaoNovidade",
+            where: {
+              id_tipo: {
+                [Op.or]: [6, 9] // 6 (novidade de pagamento) e 9 (novidade de empenho)
+              }
+            }
+          }
+        ]
+      }
+    ],
     where: {
       id_contrato: req.params.id
     }
   })
-    .then(contratos => res.json(contratos))
-    .catch(err => res.status(BAD_REQUEST).json({ err }));
+    .then(contratos => {
+      contratos = contratos.get({ plain: true });
+
+      contratos.total_pago = contratos.contratosLicitacao.licitacaoNovidade
+        .map(item => item.valor)
+        .reduce((prev, next) => prev + next);
+
+      res.json(contratos)
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(BAD_REQUEST).json({ err })
+    });
 });
 
 router.get("/licitacao/:id", (req, res) => {
@@ -81,29 +121,64 @@ router.get("/licitacao/:id", (req, res) => {
             model: itensLicitacao,
             attributes: ["vl_unitario_estimado", "sg_unidade_medida"],
             as: "itensLicitacaoItensContrato"
-          },
-          {
-            model: itensContrato,
-            include: [{
-              model: Orgao,
-              as: "itensContratoOrgao"
-            }, {
-              model: Contrato,
-              as: "itensContratoContrato"
-            }],
-            as: "itensSemelhantes"
           }
         ],
         attributes: ["qt_itens_contrato", "vl_item_contrato", "vl_total_item_contrato", "ds_item", "categoria", "ano_licitacao", "dt_inicio_vigencia"],
         as: "itensContrato"
+      },
+      {
+        model: Licitacao,
+        attributes: ["id_licitacao"],
+        as: "contratosLicitacao",
+        required: true,
+        include: [
+          {
+            model: Novidade,
+            attributes: ["id_tipo", [sequelize.literal('CAST(texto_novidade as REAL)'), 'valor']],
+            as: "licitacaoNovidade",
+            where: {
+              id_tipo: {
+                [Op.or]: [6, 9] // 6 (novidade de pagamento) e 9 (novidade de empenho)
+              }
+            }
+          }
+        ]
       }
     ],
     where: {
       id_licitacao: req.params.id
     }
   })
-    .then(contratos => res.json(contratos))
-    .catch(err => res.status(BAD_REQUEST).json({ err }));
+    .then(contratos => {
+
+      //Solução 1
+      const data = contratos.map(contrato =>
+        contrato.get({ plain: true })
+      );
+
+      data.forEach(contrato => {
+        contrato.total_pago = contrato.contratosLicitacao.licitacaoNovidade
+          .map(item => item.valor)
+          .reduce((prev, next) => prev + next);
+      });
+
+      // Solução 2
+      // contratos = contratos.map(contrato => {
+      //   let data = contrato.toJSON();
+
+      //   data.total_pago = data.contratosLicitacao.licitacaoNovidade
+      //     .map(item => item.valor)
+      //     .reduce((prev, next) => prev + next);
+
+      //   return data;
+      // })
+
+      res.json(data)
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(BAD_REQUEST).json({ err })
+    });
 });
 
 

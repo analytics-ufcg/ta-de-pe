@@ -12,4 +12,7 @@ export interface ContratoLicitacao {
   contratoFornecedor: Fornecedor;
   itensContrato: ItensContrato[];
   ano_contrato: number;
+  id_contrato: string;
+  total_pago: number;
+  contratosLicitacao: any;
 }
