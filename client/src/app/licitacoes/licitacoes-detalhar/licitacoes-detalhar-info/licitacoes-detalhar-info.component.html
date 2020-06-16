@@ -5,6 +5,11 @@
   <app-spinner *ngIf="isLoading"></app-spinner>
 
   <div class="mb-4">
+    <div [hidden]="licitacao.data_homologacao" class="row mt-4">
+      <div class="col">
+        <span class="badge badge-info">Licitação aberta</span>
+      </div>
+    </div>
     <div class="row mt-4">
       <div class="col-sm-6 col-md-3 col-lg-2 mb-4">
         <div class="dados-linha">
