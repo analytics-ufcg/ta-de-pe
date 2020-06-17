@@ -1,1 +1,244 @@
-<p>info-contrato works!</p>
+<div class="view-container">
+  <div class="contrato-titulo pt-4 pb-2">
+    <div class="container">
+      <h2>
+        <a [routerLink]="['/municipio']">
+          <span class="small icon-arrow-left"></span>
+        </a>
+        <span>
+          Contrato
+          {{ contrato?.nr_contrato }}/{{ contrato?.ano_contrato }}
+        </span>
+      </h2>
+      <p>{{ contrato?.nm_orgao }}</p>
+    </div>
+  </div>
+
+  <div class="container contrato-corpo">
+
+    <div class="row mt-4">
+      <div class="col-sm-6 col-md-3 col-lg-3 mb-4">
+        <div class="dados-linha">
+          <strong>Licitação</strong>
+        </div>
+        <div class="dados-linha">
+          <a href="/licitacoes/{{ contrato?.id_licitacao }}/contratos?id={{ contrato?.id_contrato }}">{{ contrato?.nr_licitacao }}/{{ contrato?.ano_licitacao }}</a>
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3 col-lg-3 mb-4">
+        <div class="dados-linha">
+          <strong>CPF/CNPJ</strong>
+        </div>
+        <div class="dados-linha">
+          {{ contrato?.nr_documento_contratado | formatCpfCnpj }}
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
+        <div class="dados-linha">
+          <strong>Fornecedor</strong>
+        </div>
+        <div class="dados-linha">
+          {{ contrato?.contratoFornecedor.nm_pessoa }}
+        </div>
+      </div>
+       <div class="col-sm-6 col-md-3 col-lg-3 mb-4">
+        <div class="dados-linha">
+          <strong>Vigência</strong>
+        </div>
+        <div class="dados-linha">
+          {{ contrato?.dt_inicio_vigencia | date: "dd/MM/yyyy" }} à {{ contrato?.dt_final_vigencia | date: "dd/MM/yyyy" }}
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-3 col-lg-3 mb-4">
+        <div class="dados-linha">
+          <strong>Valor</strong>
+        </div>
+        <div class="dados-linha">
+          {{ contrato?.vl_contrato | currency: "R$" }}
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
+        <div class="dados-linha">
+          <strong>Contratado vs Estimado</strong>
+        </div>
+        <div class="dados-linha">
+          <span *ngIf="contrato?.valor_contratado - contrato?.valor_estimado === 0">--</span>
+          <span
+            *ngIf="contrato?.valor_contratado - contrato?.valor_estimado < 0"
+            class="positivo">
+            {{ contrato?.valor_contratado - contrato?.valor_estimado  | currency: "R$" }}
+          </span>
+          <span
+            *ngIf="contrato?.valor_contratado - contrato?.valor_estimado > 0"
+            class="negativo">
+            {{ contrato?.valor_contratado - contrato?.valor_estimado  | currency: "+R$" }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-sm">
+        <thead>
+          <tr>
+            <th class="head-controls">&nbsp;</th>
+            <th
+              class="head-controls text-right"
+              colspan="6">
+              <form [formGroup]="radioGroupForm">
+                <div class="toggle-wrapper toggle-wrapper-right">
+                  <span class="toggle-label">Unidade</span>
+                  <input
+                    class="toggle toggle-flat"
+                    id="cb4"
+                    type="checkbox"
+                    formControlName="showTotal"
+                    [value]="true"
+                    checked>
+                  <label
+                    class="toggle-btn"
+                    for="cb4"></label>
+                  <span class="toggle-label">Total</span>
+                </div>
+              </form>
+            </th>
+          </tr>
+          <tr>
+            <th
+              scope="col"
+              class="text-left table-th-dividido-up align-middle">
+              Item
+            </th>
+            <th
+              scope="col"
+              class="table-th-monospace table-th-dividido-up text-right"
+              *ngIf="!radioGroupForm.value['showTotal']">
+              <span class="nowrap">Valor por</span>
+              <br>
+              unidade
+              <br>
+              (R$)
+            </th>
+            <th
+              scope="col"
+              class="table-th-monospace table-th-dividido-up text-right"
+              *ngIf="radioGroupForm.value['showTotal']">
+              <span class="nowrap">Valor total</span>
+              <br>
+              (R$)
+            </th>
+            <th
+              scope="col"
+              class="table-th-monospace table-th-dividido-up text-right">
+              Mediana
+              <br>
+              <span class="nowrap">no estado</span>
+              <br>
+              (R$)
+              <app-tooltip-ajuda [descricao]="'Mediana do preço de produtos similares contratados em municípios do estado seis meses antes ou depois da data do contrato'"></app-tooltip-ajuda>
+            </th>
+            <th
+              scope="col"
+              class="table-th-monospace table-th-dividido-up text-right">
+              Diferença
+              <br>
+              <span class="nowrap">c/ estado</span>
+              <br>
+              (%)
+              <app-tooltip-ajuda [descricao]="'Diferença percentual entre o valor contratado e o valor mediano de produtos similares contratados em municípios do estado'"></app-tooltip-ajuda>
+            </th>
+            <th
+              scope="col"
+              class="table-th-monospace table-th-dividido-up text-right">
+              Valor
+              <br>
+              estimado
+              <br>
+              (R$)
+              <app-tooltip-ajuda [descricao]="'Valor de referência obtido através de orçamentos feitos pelo ente público; uma previsão de quanto será gasto no contrato'"></app-tooltip-ajuda>
+            </th>
+            <th
+              scope="col"
+              class="table-th-monospace table-th-dividido-up text-right">
+              Diferença
+              <br>
+              <span class="nowrap">c/ estimado</span>
+              <br>
+              (%)
+              <app-tooltip-ajuda
+                [posicao]="'left'"
+                [descricao]="'Diferença percentual entre o valor contratado e o valor estimado'"></app-tooltip-ajuda>
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let item of contrato?.itensContrato; index as i"
+            class="table-item">
+            <td class="text-nowrap align-middle">
+              {{ item.ds_item | resumirTexto }}
+              <span class="text-muted">
+                ({{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida | lowercase }})
+              </span>
+              <button
+                (click)="open(content, item)"
+                class="btn btn-secondary btn-sm">
+                ...
+              </button>
+            </td>
+            <td
+              class="numero align-middle"
+              *ngIf="!radioGroupForm.value['showTotal']">
+              {{ item.vl_item_contrato | currency:'':'' }}
+            </td>
+            <td
+              class="numero align-middle"
+              *ngIf="radioGroupForm.value['showTotal']">
+              {{ item.vl_total_item_contrato | currency:'':'' }}
+            </td>
+            <td
+              class="numero align-middle"
+              *ngIf="!radioGroupForm.value['showTotal']"
+              [title]="item.mediana_valor">
+              {{ item.mediana_valor | currency:'':'' }}
+            </td>
+            <td
+              class="numero align-middle"
+              *ngIf="radioGroupForm.value['showTotal']"
+              [title]="item.mediana_valor * item.qt_itens_contrato">
+              {{ item.mediana_valor * item.qt_itens_contrato | currency:'':'' }}
+            </td>
+            <td
+              class="numero align-middle"
+              [title]="item.mediana_valor"
+              [style.background-color]="defineCorFundo(item.percentual_vs_estado)"
+              [style.color]="defineCor(item.percentual_vs_estado)">
+              <span *ngIf="item.percentual_vs_estado > 0">+</span>
+              {{ item.percentual_vs_estado | percent:'1.1' }}
+            </td>
+            <td
+              class="numero align-middle"
+              *ngIf="!radioGroupForm.value['showTotal']"
+              [title]="item.itensLicitacaoItensContrato.vl_unitario_estimado">
+              {{ item.itensLicitacaoItensContrato.vl_unitario_estimado | currency:'':'' }}
+            </td>
+            <td
+              class="numero align-middle"
+              *ngIf="radioGroupForm.value['showTotal']"
+              [title]="item.itensLicitacaoItensContrato.vl_unitario_estimado * item.qt_itens_contrato">
+              {{ item.qt_itens_contrato * item.itensLicitacaoItensContrato.vl_unitario_estimado | currency:'':'' }}
+            </td>
+            <td
+              class="numero align-middle"
+              [title]="item.itensLicitacaoItensContrato.vl_unitario_estimado"
+              [style.background-color]="defineCorFundo(item.percentual_vs_estimado)"
+              [style.color]="defineCor(item.percentual_vs_estimado)">
+              <span *ngIf="item.percentual_vs_estimado > 0">+</span>
+              {{ item.percentual_vs_estimado | percent:'1.1' }}
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
