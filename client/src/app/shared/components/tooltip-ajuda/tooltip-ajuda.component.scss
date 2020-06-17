@@ -1,4 +1,9 @@
 .help-tooltip {
-  border: solid gray 1px;
+  border-radius: 100%;
+  background-color: #6c757d;
+  color: white;
+  padding-left: 4px;
+  padding-right: 4px;
+  font-size: .8rem;
   cursor: pointer;
 }
