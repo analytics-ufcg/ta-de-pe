@@ -4,7 +4,7 @@ Fiscalize os recursos para merenda de escolas públicas perto de você e pressio
 
 ## Sobre este repositório
 
-Aqui encontra-se o frontend e backend da aplicação Tá de Pé Merenda (antiga ta-na-mesa) que funcionam em conjunto com o banco de dados fornecido por [este outro repositório](https://github.com/analytics-ufcg/ta-na-mesa-dados).
+Aqui encontra-se o frontend e backend da aplicação Tá de Pé - Merenda que funcionam em conjunto com o banco de dados fornecido por [este outro repositório](https://github.com/analytics-ufcg/ta-na-mesa-dados).
 
 ### Frontend
 
