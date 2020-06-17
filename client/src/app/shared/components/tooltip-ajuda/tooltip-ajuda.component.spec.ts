@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { FornecedoresInfoComponent } from './fornecedores-info.component';
+import { TooltipAjudaComponent } from './tooltip-ajuda.component';
 
-describe('FornecedoresInfoComponent', () => {
-  let component: FornecedoresInfoComponent;
-  let fixture: ComponentFixture<FornecedoresInfoComponent>;
+describe('TooltipAjudaComponent', () => {
+  let component: TooltipAjudaComponent;
+  let fixture: ComponentFixture<TooltipAjudaComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FornecedoresInfoComponent ]
+      declarations: [ TooltipAjudaComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(FornecedoresInfoComponent);
+    fixture = TestBed.createComponent(TooltipAjudaComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

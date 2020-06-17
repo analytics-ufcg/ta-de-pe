@@ -11,6 +11,8 @@ import { LicitacaoService } from 'src/app/shared/services/licitacao.service';
 import { ItensContrato } from 'src/app/shared/models/itensContrato.model';
 import { ItensService } from 'src/app/shared/services/itens.service';
 
+import * as d3 from 'd3';
+
 @Component({
   selector: 'app-licitacoes-detalhar-contratos',
   templateUrl: './licitacoes-detalhar-contratos.component.html',
@@ -66,6 +68,9 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
               .then(res => {
                 item.mediana_valor = res.mediana;
                 item.itensSemelhantes = res.itensOrdenados;
+                item.percentual_vs_estado = (item.vl_item_contrato - res.mediana) / res.mediana;
+                item.percentual_vs_estimado = (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado)
+                                              / item.itensLicitacaoItensContrato.vl_unitario_estimado;
               });
           });
         });
@@ -96,6 +101,17 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
       return 'Consórcio';
     }
     return 'Outros';
+  }
+
+  defineCorFundo(valor: number): string {
+    const cor: any = d3.scaleLinear()
+    .domain([-1, 0, 1])
+    .range(['#72a5b6', '#ffffff', '#d7856c']);
+    return cor(valor);
+  }
+
+  defineCor(valor: number): string {
+    return (valor >= 1 || valor <= -1) ? 'white' : 'black';
   }
 
   open(content, item: ItensContrato): void {

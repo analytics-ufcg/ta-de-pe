@@ -9,13 +9,15 @@ import { EscolherMunicipioComponent } from './escolher-municipio/escolher-munici
 import { BuscaMunicipioComponent } from './busca-municipio/busca-municipio.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ProgressComponent } from './progress/progress.component';
+import { TooltipAjudaComponent } from './tooltip-ajuda/tooltip-ajuda.component';
 
 @NgModule({
   declarations: [
     EscolherMunicipioComponent,
     BuscaMunicipioComponent,
     SpinnerComponent,
-    ProgressComponent
+    ProgressComponent,
+    TooltipAjudaComponent
   ],
   imports: [
     CommonModule,
@@ -27,7 +29,8 @@ import { ProgressComponent } from './progress/progress.component';
     EscolherMunicipioComponent,
     BuscaMunicipioComponent,
     SpinnerComponent,
-    ProgressComponent
+    ProgressComponent,
+    TooltipAjudaComponent
   ]
 })
 export class SharedModule { }

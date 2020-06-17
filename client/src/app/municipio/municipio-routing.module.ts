@@ -13,16 +13,16 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'licitacoes',
+        redirectTo: 'contratos',
         pathMatch: 'full'
-      },
-      {
-        path: 'licitacoes',
-        component: LicitacoesAbertasComponent
       },
       {
         path: 'contratos',
         component: ContratosVigentesComponent
+      },
+      {
+        path: 'licitacoes',
+        component: LicitacoesAbertasComponent
       },
       {
         path: 'acontecimentos',
