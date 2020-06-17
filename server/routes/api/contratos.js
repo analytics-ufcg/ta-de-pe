@@ -68,36 +68,33 @@ router.get("/:id", (req, res) => {
         as: "contratoFornecedor"
       },
       {
-        model: Licitacao,
-        attributes: ["id_licitacao"],
-        as: "contratosLicitacao",
-        required: true,
-        include: [
-          {
-            model: Novidade,
-            attributes: ["id_tipo", [sequelize.literal('CAST(texto_novidade as REAL)'), 'valor']],
-            as: "licitacaoNovidade",
-            where: {
-              id_tipo: {
-                [Op.or]: [6, 9] // 6 (novidade de pagamento) e 9 (novidade de empenho)
-              }
-            }
+        model: Novidade,
+        attributes: ["id_tipo", [sequelize.literal('CAST(texto_novidade as REAL)'), 'valor']],
+        required: false,
+        as: "contratoNovidade",
+        where: {
+          id_tipo: {
+            [Op.or]: [6, 9] // 6 (novidade de pagamento) e 9 (novidade de empenho)
           }
-        ]
+        }
       }
     ],
     where: {
       id_contrato: req.params.id
     }
   })
-    .then(contratos => {
-      contratos = contratos.get({ plain: true });
+    .then(contrato => {
+      contrato = contrato.get({ plain: true });
 
-      contratos.total_pago = contratos.contratosLicitacao.licitacaoNovidade
-        .map(item => item.valor)
-        .reduce((prev, next) => prev + next);
+      if (contrato.contratoNovidade && contrato.contratoNovidade.length > 0) {
+        contrato.total_pago = contrato.contratoNovidade
+          .map(item => item.valor)
+          .reduce((prev, next) => prev + next);
+      } else {
+        contrato.total_pago = 0;
+      }
 
-      res.json(contratos)
+      res.json(contrato)
     })
     .catch(err => {
       console.log(err)
@@ -127,22 +124,15 @@ router.get("/licitacao/:id", (req, res) => {
         as: "itensContrato"
       },
       {
-        model: Licitacao,
-        attributes: ["id_licitacao"],
-        as: "contratosLicitacao",
-        required: true,
-        include: [
-          {
-            model: Novidade,
-            attributes: ["id_tipo", [sequelize.literal('CAST(texto_novidade as REAL)'), 'valor']],
-            as: "licitacaoNovidade",
-            where: {
-              id_tipo: {
-                [Op.or]: [6, 9] // 6 (novidade de pagamento) e 9 (novidade de empenho)
-              }
-            }
+        model: Novidade,
+        attributes: ["id_tipo", [sequelize.literal('CAST(texto_novidade as REAL)'), 'valor']],
+        required: false,
+        as: "contratoNovidade",
+        where: {
+          id_tipo: {
+            [Op.or]: [6, 9] // 6 (novidade de pagamento) e 9 (novidade de empenho)
           }
-        ]
+        }
       }
     ],
     where: {
@@ -151,29 +141,21 @@ router.get("/licitacao/:id", (req, res) => {
   })
     .then(contratos => {
 
-      //Solução 1
-      const data = contratos.map(contrato =>
-        contrato.get({ plain: true })
-      );
+      contratos = contratos.map(contrato => {
+        let data = contrato.toJSON();
 
-      data.forEach(contrato => {
-        contrato.total_pago = contrato.contratosLicitacao.licitacaoNovidade
-          .map(item => item.valor)
-          .reduce((prev, next) => prev + next);
-      });
+        if (data.contratoNovidade && data.contratoNovidade.length > 0) {
+          data.total_pago = data.contratoNovidade
+            .map(item => item.valor)
+            .reduce((prev, next) => prev + next);
+        } else {
+          data.total_pago = 0;
+        }
 
-      // Solução 2
-      // contratos = contratos.map(contrato => {
-      //   let data = contrato.toJSON();
+        return data;
+      })
 
-      //   data.total_pago = data.contratosLicitacao.licitacaoNovidade
-      //     .map(item => item.valor)
-      //     .reduce((prev, next) => prev + next);
-
-      //   return data;
-      // })
-
-      res.json(data)
+      res.json(contratos)
     })
     .catch(err => {
       console.log(err)
