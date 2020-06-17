@@ -1,16 +1,13 @@
 .btn-item {
   white-space: nowrap;
 }
+
 .negativo {
   color: #b7472a;
 }
 
 .positivo {
   color: #0c7b93;
-}
-
-.table-item {
-  cursor: pointer;
 }
 
 .table-item-strong {
@@ -44,6 +41,6 @@
   border-top: none
 }
 
-.table-th-percent {
-  width: 80px;
+.nowrap {
+  white-space: nowrap;
 }
