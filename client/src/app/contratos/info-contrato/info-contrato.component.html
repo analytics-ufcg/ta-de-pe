@@ -22,7 +22,10 @@
           <strong>Licitação</strong>
         </div>
         <div class="dados-linha">
-          <a href="/licitacoes/{{ contrato?.id_licitacao }}/contratos?id={{ contrato?.id_contrato }}">{{ contrato?.nr_licitacao }}/{{ contrato?.ano_licitacao }}</a>
+          <a
+            [routerLink]="['/licitacoes/'+ contrato?.id_licitacao + '/info/']">
+            {{ contrato?.nr_licitacao }}/{{ contrato?.ano_licitacao }}
+          </a>
         </div>
       </div>
       <div class="col-sm-6 col-md-3 col-lg-3 mb-4">
