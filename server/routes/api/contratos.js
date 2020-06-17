@@ -57,6 +57,31 @@ router.get("/vigentes", (req, res) => {
 
 router.get("/:id", (req, res) => {
   Contrato.findOne({
+    include: [
+      {
+        model: itensContrato,
+        include: [
+          {
+            model: itensLicitacao,
+            attributes: ["vl_unitario_estimado", "sg_unidade_medida"],
+            as: "itensLicitacaoItensContrato"
+          },
+          {
+            model: itensContrato,
+            include: [{
+              model: Orgao,
+              as: "itensContratoOrgao"
+            }, {
+              model: Contrato,
+              as: "itensContratoContrato"
+            }],
+            as: "itensSemelhantes"
+          }
+        ],
+        attributes: ["qt_itens_contrato", "vl_item_contrato", "vl_total_item_contrato", "ds_item", "categoria", "ano_licitacao", "dt_inicio_vigencia"],
+        as: "itensContrato"
+      }
+    ],
     where: {
       id_contrato: req.params.id
     }
