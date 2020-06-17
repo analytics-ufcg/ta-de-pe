@@ -59,6 +59,11 @@ router.get("/:id", (req, res) => {
   Contrato.findOne({
     include: [
       {
+        model: Fornecedor,
+        attributes: ["nm_pessoa", "tp_pessoa"],
+        as: "contratoFornecedor"
+      },
+      {
         model: itensContrato,
         include: [
           {
