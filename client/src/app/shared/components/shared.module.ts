@@ -9,25 +9,30 @@ import { EscolherMunicipioComponent } from './escolher-municipio/escolher-munici
 import { BuscaMunicipioComponent } from './busca-municipio/busca-municipio.component';
 import { SpinnerComponent } from './spinner/spinner.component';
 import { TooltipAjudaComponent } from './tooltip-ajuda/tooltip-ajuda.component';
+import { ListaContratosComponent } from './lista-contratos/lista-contratos.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   declarations: [
     EscolherMunicipioComponent,
     BuscaMunicipioComponent,
     SpinnerComponent,
-    TooltipAjudaComponent
+    TooltipAjudaComponent,
+    ListaContratosComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     RouterModule,
-    NgbModule
+    NgbModule,
+    PipesModule
   ],
   exports: [
     EscolherMunicipioComponent,
     BuscaMunicipioComponent,
     SpinnerComponent,
-    TooltipAjudaComponent
+    TooltipAjudaComponent,
+    ListaContratosComponent
   ]
 })
 export class SharedModule { }
