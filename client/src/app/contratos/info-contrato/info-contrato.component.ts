@@ -94,7 +94,7 @@ export class InfoContratoComponent implements OnInit, OnDestroy {
   }
 
   defineCor(valor: number): string {
-    return (valor >= 1 || valor <= -1) ? 'white' : 'black';
+    return (valor >= 0.7 || valor <= -0.7) ? 'white' : 'black';
   }
 
   open(content, item: ItensContrato): void {
