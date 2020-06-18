@@ -66,19 +66,23 @@
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
           <div class="dados-linha">
-            <strong>Contratado vs Estimado</strong>
+            <strong>Diferença com Estimado</strong>
+
+            <app-tooltip-ajuda
+                  [posicao]="'top'"
+                  [descricao]="'Diferença em R$ entre o valor do contrato e o valor estimado na licitação'"></app-tooltip-ajuda>
           </div>
           <div class="dados-linha">
-            <span *ngIf="contrato?.valor_contratado - contrato?.valor_estimado === 0">--</span>
+            <span *ngIf="contrato?.valor_contratado - contrato?.valor_estimado === 0">Sem diferença</span>
             <span
-              *ngIf="contrato?.valor_contratado - contrato?.valor_estimado < 0"
-              class="positivo">
+              *ngIf="contrato?.valor_contratado - contrato?.valor_estimado < 0">
               {{ contrato?.valor_contratado - contrato?.valor_estimado  | currency: "R$" }}
+              <span class="text-muted">(mais barato)</span>
             </span>
             <span
-              *ngIf="contrato?.valor_contratado - contrato?.valor_estimado > 0"
-              class="negativo">
+              *ngIf="contrato?.valor_contratado - contrato?.valor_estimado > 0">
               {{ contrato?.valor_contratado - contrato?.valor_estimado  | currency: "+R$" }}
+              <span class="text-muted">(mais caro)</span>
             </span>
           </div>
         </div>
