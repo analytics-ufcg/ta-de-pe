@@ -4,7 +4,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { LicitacoesListarComponent } from './licitacoes-listar/licitacoes-listar.component';
 import { LicitacoesRoutingModule } from './licitacoes-routing.module';
 import { LicitacoesDetalharComponent } from './licitacoes-detalhar/licitacoes-detalhar.component';
 import { LicitacoesDetalharNavComponent } from './licitacoes-detalhar/licitacoes-detalhar-nav/licitacoes-nav.component';
@@ -17,7 +16,6 @@ import { PipesModule } from '../shared/pipes/pipes.module';
 
 @NgModule({
   declarations: [
-    LicitacoesListarComponent,
     LicitacoesDetalharComponent,
     LicitacoesDetalharNavComponent,
     LicitacoesDetalharInfoComponent,
