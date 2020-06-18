@@ -36,8 +36,7 @@
         <td>{{ contrato.dt_final_vigencia | date:'LLL/y' }}</td>
         <td class="text-center">
           <a
-            [routerLink]="['/licitacoes/' + contrato.id_licitacao + '/contratos']"
-            [queryParams]="{ id: contrato.id_contrato }"
+            [routerLink]="['/contratos/' + contrato.id_contrato]"
             class="btn btn-sm btn-primary">
             <span class="icon-arrow-right"></span>
             Ver contrato

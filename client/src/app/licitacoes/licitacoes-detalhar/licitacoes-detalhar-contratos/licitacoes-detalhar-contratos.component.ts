@@ -11,7 +11,7 @@ import { LicitacaoService } from 'src/app/shared/services/licitacao.service';
 import { ItensContrato } from 'src/app/shared/models/itensContrato.model';
 import { ItensService } from 'src/app/shared/services/itens.service';
 
-import * as d3 from 'd3';
+import * as d3 from 'd3-scale';
 
 @Component({
   selector: 'app-licitacoes-detalhar-contratos',
