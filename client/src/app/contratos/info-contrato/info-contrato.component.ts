@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
@@ -18,7 +18,7 @@ import { ItensService } from 'src/app/shared/services/itens.service';
   templateUrl: './info-contrato.component.html',
   styleUrls: ['./info-contrato.component.scss']
 })
-export class InfoContratoComponent implements OnInit {
+export class InfoContratoComponent implements OnInit, OnDestroy {
 
   private unsubscribe = new Subject();
 
