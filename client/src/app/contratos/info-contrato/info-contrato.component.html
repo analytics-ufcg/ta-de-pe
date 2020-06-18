@@ -338,6 +338,11 @@
               </th>
               <th
                 scope="col"
+                class="table-th-monospace">
+                Ano
+              </th>
+              <th
+                scope="col"
                 class="table-th-monospace text-right">
                 Valor por
                 <br>
@@ -372,6 +377,10 @@
               </td>
               <td class="align-middle">
                 {{ item.nome_municipio }}
+              </td>
+              <td
+                class="align-middle">
+                {{ item.ano_licitacao }}
               </td>
               <td class="numero align-middle">
                 {{ item.vl_item_contrato | currency:'':'' }}
