@@ -18,5 +18,6 @@ export interface ContratoLicitacao {
   ano_contrato: number;
   id_contrato: string;
   total_pago: number;
+  dias_vigente: number;
   contratosLicitacao: any;
 }

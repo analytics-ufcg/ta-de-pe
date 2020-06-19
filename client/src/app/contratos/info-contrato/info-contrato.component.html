@@ -10,7 +10,7 @@
   <div class="container">
     <app-spinner *ngIf="isLoading"></app-spinner>
     <div class="row mt-4">
-      <div class="col-sm-6 col-md-3 col-lg-3 mb-4">
+      <div class="col-sm-12 col-md-3 mb-4">
         <div class="dados-linha">
           <strong>Licitação</strong>
         </div>
@@ -20,23 +20,18 @@
           </a>
         </div>
       </div>
-      <div class="col-sm-6 col-md-3 col-lg-3 mb-4">
-        <div class="dados-linha">
-          <strong>CPF/CNPJ</strong>
-        </div>
-        <div class="dados-linha">
-          {{ contrato?.nr_documento_contratado | formatCpfCnpj }}
-        </div>
-      </div>
-      <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
+      <div class="col-sm-12 col-md-9 mb-4">
         <div class="dados-linha">
           <strong>Fornecedor</strong>
         </div>
         <div class="dados-linha">
           {{ contrato?.contratoFornecedor.nm_pessoa }}
+          <span class="text-muted">
+            ({{ contrato?.nr_documento_contratado | formatCpfCnpj }})
+          </span>
         </div>
       </div>
-      <div class="col-sm-6 col-md-3 col-lg-3 mb-4">
+      <div class="col-sm-6 col-md-6 col-lg-3 mb-4">
         <div class="dados-linha">
           <strong>Vigência</strong>
         </div>
@@ -44,21 +39,25 @@
           {{ contrato?.dt_inicio_vigencia | date: "dd/MM/yyyy" }} à {{ contrato?.dt_final_vigencia | date: "dd/MM/yyyy" }}
         </div>
       </div>
-      <div class="col-sm-6 col-md-3 col-lg-3 mb-4">
+      <div class="col-sm-6 col-md-6 col-lg-3 mb-4">
         <div class="dados-linha">
           <strong>Valor</strong>
         </div>
         <div class="dados-linha">
           {{ contrato?.vl_contrato | currency: "R$" }}
-          <app-progress
-            [value]="contrato?.total_pago"
-            [max]="contrato?.valor_contratado"
-            [class]="'sessao-dark'"></app-progress>
-          <span
-            *ngIf="contrato?.valor_contratado > 0"
-            class="text-contrato-progress">
-            {{ contrato?.total_pago / contrato?.valor_contratado | percent }} do valor contratado já foi pago.
-          </span>
+          <div class="mt-2">
+            <app-progress
+              [value]="contrato?.total_pago"
+              [max]="contrato?.valor_contratado"
+              [class]="'bg-info'"></app-progress>
+            <span
+              *ngIf="contrato?.valor_contratado > 0"
+              class="text-contrato-progress">
+              <small>
+                {{ contrato?.total_pago / contrato?.valor_contratado | percent }} do valor contratado já foi pago.
+              </small>
+            </span>
+          </div>
         </div>
       </div>
       <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
@@ -149,7 +148,7 @@
                 class="table-th-monospace table-th-dividido-up text-right">
                 Diferença
                 <br>
-                <span class="nowrap">c/ estado</span>
+                <span class="nowrap">com estado</span>
                 <br>
                 (%)
                 <app-tooltip-ajuda [descricao]="'Diferença percentual entre o valor contratado e o valor mediano de produtos similares contratados em municípios do estado'"></app-tooltip-ajuda>
@@ -169,7 +168,7 @@
                 class="table-th-monospace table-th-dividido-up text-right">
                 Diferença
                 <br>
-                <span class="nowrap">c/ estimado</span>
+                <span class="nowrap">com estimado</span>
                 <br>
                 (%)
                 <app-tooltip-ajuda
