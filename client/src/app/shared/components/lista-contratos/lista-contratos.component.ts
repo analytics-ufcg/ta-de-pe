@@ -8,7 +8,7 @@ import { ContratoLicitacao } from '../../models/contratoLicitacao.model';
 })
 export class ListaContratosComponent implements OnInit {
 
-  @Input() contratos: ContratoLicitacao;
+  @Input() contratos: ContratoLicitacao[];
   @Input() isLoading: boolean;
 
   constructor() { }
