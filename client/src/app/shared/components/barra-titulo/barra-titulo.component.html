@@ -1,0 +1,13 @@
+<div class="view-title-wrapper">
+  <div class="container">
+    <h2 class="view-title">
+      <a [routerLink]="['/municipio']" [hidden]="!exibirVoltar">
+        <span class="small icon-arrow-left"></span>
+      </a>
+      <span>
+        {{ titulo }}
+      </span>
+    </h2>
+    <span class="view-subtitle">{{ subtitulo }}</span>
+  </div>
+</div>
