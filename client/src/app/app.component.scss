@@ -5,3 +5,15 @@
     font-size: 0.8rem;
   }
 }
+
+.navbar-brand-img {
+  width: 150px;
+
+  @media (min-width: 350px) {
+    width: 160px;
+  }
+
+  @media (min-width: 576px) {
+    width: 200px;
+  }
+}
