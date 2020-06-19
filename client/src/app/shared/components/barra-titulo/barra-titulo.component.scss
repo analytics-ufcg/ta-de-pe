@@ -1,0 +1,26 @@
+.view-title-wrapper {
+  position: sticky;
+  top: 40px;
+  z-index: 999;
+  background-color: #f8f9fa;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  margin-top: 0;
+  margin-bottom: 0;
+
+  @media (min-width: 576px) {
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+  }
+}
+
+.view-title {
+  font-size: 1.2rem;
+  @media (min-width: 576px) {
+    font-size: 1.9rem;
+  }
+}
+
+.view-subtitle {
+  font-size: 0.8rem;
+}

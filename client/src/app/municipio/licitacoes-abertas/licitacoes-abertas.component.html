@@ -1,37 +1,36 @@
 <h4 class="mb-4">Licitações abertas</h4>
 
-<p [hidden]="licitacoesAbertas?.length > 0 || isLoading">Não há licitações abertas neste momento.</p>
+<p [hidden]="licitacoesAbertas?.length > 0 || isLoading">
+  Não há licitações abertas neste momento.
+</p>
 
 <app-spinner *ngIf="isLoading"></app-spinner>
 
-<table class="table" [hidden]="licitacoesAbertas?.length == 0 || isLoading">
-  <thead>
-    <tr>
-      <th scope="col">Objeto da licitação</th>
-      <th
-        scope="col"
-        class="text-center">
-        Data de abertura
-      </th>
-      <th>&nbsp;</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr *ngFor="let licitacao of licitacoesAbertas">
-      <td>
-        {{ licitacao.descricao_objeto | initialcase }}
-      </td>
-      <td class="text-center">
-        {{ licitacao.data_abertura | date: "dd-MM-yyyy" }}
-      </td>
-      <td class="text-center">
-        <a
-          [routerLink]="['/licitacoes/' + licitacao.id_licitacao + '/info']"
-          class="btn btn-sm btn-primary">
-          <span class="icon-arrow-right"></span>
-          Ver detalhes
-        </a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<div class="table-responsive">
+  <table
+    class="table table-hover"
+    [hidden]="licitacoesAbertas?.length == 0 || isLoading">
+    <thead>
+      <tr>
+        <th scope="col">Objeto da licitação</th>
+        <th
+          scope="col"
+          class="text-center">
+          Data de abertura
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let licitacao of licitacoesAbertas">
+        <td>
+          <a [routerLink]="['/licitacoes/' + licitacao.id_licitacao + '/info']">
+            {{ licitacao.descricao_objeto | initialcase }}
+          </a>
+        </td>
+        <td class="text-center text-nowrap">
+          {{ licitacao.data_abertura | date: "dd-MM-yyyy" }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

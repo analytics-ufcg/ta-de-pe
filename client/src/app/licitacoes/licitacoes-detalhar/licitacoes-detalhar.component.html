@@ -1,18 +1,11 @@
-<div class="view-container">
-  <div class="licitacao-titulo pt-4 pb-2">
-    <div class="container">
-      <h2>
-        <a [routerLink]="['/municipio']">
-          <span class="small icon-arrow-left"></span>
-        </a>
-        <span [hidden]="!licitacao">
-          Licitação
-          {{ licitacao?.nr_licitacao }}/{{ licitacao?.ano_licitacao }}
-        </span>
-      </h2>
-      <p>{{ licitacao?.nm_orgao }}</p>
-    </div>
-  </div>
+<div
+  class="view-container"
+  [hidden]="!licitacao">
+
+  <app-barra-titulo
+    [titulo]="'Licitação ' + licitacao?.nr_licitacao + '/' + licitacao?.ano_licitacao"
+    [subtitulo]="licitacao?.nm_orgao"
+    [exibirVoltar]="true"></app-barra-titulo>
 
   <div class="container">
     <app-licitacoes-detalhar-nav *ngIf="licitacao?.contratosLicitacao.length != 0"></app-licitacoes-detalhar-nav>
