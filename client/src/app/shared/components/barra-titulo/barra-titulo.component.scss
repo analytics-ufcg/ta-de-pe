@@ -1,6 +1,6 @@
 .view-title-wrapper {
   position: sticky;
-  top: 40px;
+  top: 45px;
   z-index: 999;
   background-color: #f8f9fa;
   padding-top: 0.5rem;
@@ -11,6 +11,7 @@
   @media (min-width: 576px) {
     padding-top: 1rem;
     padding-bottom: 1rem;
+    top: 55px;
   }
 }
 
