@@ -12,6 +12,7 @@ import { ProgressComponent } from './progress/progress.component';
 import { TooltipAjudaComponent } from './tooltip-ajuda/tooltip-ajuda.component';
 import { ListaContratosComponent } from './lista-contratos/lista-contratos.component';
 import { PipesModule } from '../pipes/pipes.module';
+import { BarraTituloComponent } from './barra-titulo/barra-titulo.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PipesModule } from '../pipes/pipes.module';
     SpinnerComponent,
     TooltipAjudaComponent,
     ListaContratosComponent,
-    ProgressComponent
+    ProgressComponent,
+    BarraTituloComponent
   ],
   imports: [
     CommonModule,
@@ -35,7 +37,8 @@ import { PipesModule } from '../pipes/pipes.module';
     SpinnerComponent,
     TooltipAjudaComponent,
     ListaContratosComponent,
-    ProgressComponent
+    ProgressComponent,
+    BarraTituloComponent
   ]
 })
 export class SharedModule { }
