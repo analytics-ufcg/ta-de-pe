@@ -1,4 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-barra-titulo',
@@ -11,9 +12,12 @@ export class BarraTituloComponent implements OnInit {
   @Input() subtitulo: string;
   @Input() exibirVoltar = false;
 
-  constructor() { }
+  constructor(private location: Location) { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  voltar() {
+    this.location.back();
   }
 
 }
