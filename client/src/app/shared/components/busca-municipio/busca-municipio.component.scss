@@ -3,7 +3,7 @@
   top: 0;
   z-index: 1000;
   background-color: #549b97;
-  color: #fff;
+  color: #ffffff;
   padding: 0.5rem;
   transition: opacity ease-in-out .5s;
   opacity: 1;
@@ -23,4 +23,38 @@
   margin-right: 1rem;
   padding-top: 0.5rem;
   padding-bottom: 0.5rem;
+}
+
+.brand {
+  font-family: 'Fredoka One', cursive;
+  color: #ffffff;
+  font-size: 0.8rem;
+  padding-top: 0.3rem;
+
+  @media (min-width: 576px) {
+    font-size: 1.25rem;
+  }
+
+  > small {
+    font-size: 0.8em;
+  }
+}
+
+.btn-buscar {
+  font-size: 0.6rem;
+
+  @media (min-width: 350px) {
+    font-size: 0.8rem;
+  }
+
+  @media (min-width: 576px) {
+    font-size: 1rem;
+  }
+}
+
+.busca-municipio > .container {
+  @media (max-width: 350px) {
+    padding-right: 0;
+    padding-left: 0;
+  }
 }
