@@ -10,27 +10,32 @@ import { BuscaMunicipioComponent } from './busca-municipio/busca-municipio.compo
 import { SpinnerComponent } from './spinner/spinner.component';
 import { ProgressComponent } from './progress/progress.component';
 import { TooltipAjudaComponent } from './tooltip-ajuda/tooltip-ajuda.component';
+import { ListaContratosComponent } from './lista-contratos/lista-contratos.component';
+import { PipesModule } from '../pipes/pipes.module';
 
 @NgModule({
   declarations: [
     EscolherMunicipioComponent,
     BuscaMunicipioComponent,
     SpinnerComponent,
-    ProgressComponent,
-    TooltipAjudaComponent
+    TooltipAjudaComponent,
+    ListaContratosComponent,
+    ProgressComponent
   ],
   imports: [
     CommonModule,
     FormsModule,
     RouterModule,
-    NgbModule
+    NgbModule,
+    PipesModule
   ],
   exports: [
     EscolherMunicipioComponent,
     BuscaMunicipioComponent,
     SpinnerComponent,
-    ProgressComponent,
-    TooltipAjudaComponent
+    TooltipAjudaComponent,
+    ListaContratosComponent,
+    ProgressComponent
   ]
 })
 export class SharedModule { }

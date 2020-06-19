@@ -60,7 +60,6 @@ router.get("/vigentes", (req, res) => {
 
 router.get("/:id", (req, res) => {
   Contrato.findOne({
-    attributes: ["id_contrato", "nr_contrato", "nr_documento_contratado", "vl_contrato", "dt_inicio_vigencia", "dt_final_vigencia", "ano_contrato"],
     include: [
       {
         model: Fornecedor,
