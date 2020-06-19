@@ -6,10 +6,10 @@ module.exports = (sequelize, type) => {
         type: type.STRING,
         primaryKey: true
       },
-      id_contrato: type.INTEGER,
+      id_contrato: type.STRING,
       id_orgao: type.INTEGER,
-      id_licitacao: type.INTEGER,
-      id_item_licitacao: type.INTEGER,
+      id_licitacao: type.STRING,
+      id_item_licitacao: type.STRING,
       nr_lote: type.INTEGER,
       nr_licitacao: type.INTEGER,
       ano_licitacao: type.INTEGER,

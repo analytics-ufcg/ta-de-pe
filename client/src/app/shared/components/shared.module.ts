@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EscolherMunicipioComponent } from './escolher-municipio/escolher-municipio.component';
 import { BuscaMunicipioComponent } from './busca-municipio/busca-municipio.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { ProgressComponent } from './progress/progress.component';
 import { TooltipAjudaComponent } from './tooltip-ajuda/tooltip-ajuda.component';
 
 @NgModule({
@@ -15,6 +16,7 @@ import { TooltipAjudaComponent } from './tooltip-ajuda/tooltip-ajuda.component';
     EscolherMunicipioComponent,
     BuscaMunicipioComponent,
     SpinnerComponent,
+    ProgressComponent,
     TooltipAjudaComponent
   ],
   imports: [
@@ -27,6 +29,7 @@ import { TooltipAjudaComponent } from './tooltip-ajuda/tooltip-ajuda.component';
     EscolherMunicipioComponent,
     BuscaMunicipioComponent,
     SpinnerComponent,
+    ProgressComponent,
     TooltipAjudaComponent
   ]
 })

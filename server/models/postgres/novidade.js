@@ -11,7 +11,8 @@ module.exports = (sequelize, type) => {
       data: type.DATE,
       id_original: type.INTEGER,
       nome_municipio: type.STRING,
-      texto_novidade: type.STRING
+      texto_novidade: type.STRING,
+      id_contrato: type.STRING,
     },
     {
       freezeTableName: true,
@@ -29,6 +30,11 @@ module.exports = (sequelize, type) => {
       foreignKey: "id_licitacao",
       sourceKey: "id_licitacao",
       as: "licitacaoNovidade"
+    });
+    novidade.belongsTo(models.contrato, {
+      foreignKey: "id_contrato",
+      sourceKey: "id_contrato",
+      as: "contratoNovidade"
     });
   };
 
