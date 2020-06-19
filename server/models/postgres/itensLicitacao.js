@@ -7,7 +7,7 @@ module.exports = (sequelize, type) => {
                 primaryKey: true
             },
             id_licitacao: type.STRING,
-            id_orgao: type.STRING,
+            id_orgao: type.INTEGER,
             nr_licitacao: type.INTEGER,
             ano_licitacao: type.INTEGER,
             cd_tipo_modalidade: type.STRING,

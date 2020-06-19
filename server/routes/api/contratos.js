@@ -9,6 +9,9 @@ const models = require("../../models/index");
 const Contrato = models.contrato;
 const Fornecedor = models.fornecedor;
 const Orgao = models.orgao;
+const Licitacao = models.licitacao;
+const Novidade = models.novidade;
+const sequelize = models.sequelize;
 
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
@@ -64,6 +67,17 @@ router.get("/:id", (req, res) => {
         as: "contratoFornecedor"
       },
       {
+        model: Novidade,
+        attributes: ["id_tipo", [sequelize.literal('CAST(texto_novidade as REAL)'), 'valor']],
+        required: false,
+        as: "contratoNovidade",
+        where: {
+          id_tipo: {
+            [Op.or]: [6, 9] // 6 (novidade de pagamento) e 9 (novidade de empenho)
+          }
+        }
+      },
+      {
         model: itensContrato,
         include: [
           {
@@ -91,8 +105,23 @@ router.get("/:id", (req, res) => {
       id_contrato: req.params.id
     }
   })
-    .then(contratos => res.json(contratos))
-    .catch(err => res.status(BAD_REQUEST).json({ err }));
+    .then(contrato => {
+      contrato = contrato.get({ plain: true });
+
+      if (contrato.contratoNovidade && contrato.contratoNovidade.length > 0) {
+        contrato.total_pago = contrato.contratoNovidade
+          .map(item => item.valor)
+          .reduce((prev, next) => prev + next);
+      } else {
+        contrato.total_pago = 0;
+      }
+
+      res.json(contrato)
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(BAD_REQUEST).json({ err })
+    });
 });
 
 router.get("/licitacao/:id", (req, res) => {
@@ -111,29 +140,49 @@ router.get("/licitacao/:id", (req, res) => {
             model: itensLicitacao,
             attributes: ["vl_unitario_estimado", "sg_unidade_medida"],
             as: "itensLicitacaoItensContrato"
-          },
-          {
-            model: itensContrato,
-            include: [{
-              model: Orgao,
-              as: "itensContratoOrgao"
-            }, {
-              model: Contrato,
-              as: "itensContratoContrato"
-            }],
-            as: "itensSemelhantes"
           }
         ],
         attributes: ["qt_itens_contrato", "vl_item_contrato", "vl_total_item_contrato", "ds_item", "categoria", "ano_licitacao", "dt_inicio_vigencia"],
         as: "itensContrato"
+      },
+      {
+        model: Novidade,
+        attributes: ["id_tipo", [sequelize.literal('CAST(texto_novidade as REAL)'), 'valor']],
+        required: false,
+        as: "contratoNovidade",
+        where: {
+          id_tipo: {
+            [Op.or]: [6, 9] // 6 (novidade de pagamento) e 9 (novidade de empenho)
+          }
+        }
       }
     ],
     where: {
       id_licitacao: req.params.id
     }
   })
-    .then(contratos => res.json(contratos))
-    .catch(err => res.status(BAD_REQUEST).json({ err }));
+    .then(contratos => {
+
+      contratos = contratos.map(contrato => {
+        let data = contrato.toJSON();
+
+        if (data.contratoNovidade && data.contratoNovidade.length > 0) {
+          data.total_pago = data.contratoNovidade
+            .map(item => item.valor)
+            .reduce((prev, next) => prev + next);
+        } else {
+          data.total_pago = 0;
+        }
+
+        return data;
+      })
+
+      res.json(contratos)
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(BAD_REQUEST).json({ err })
+    });
 });
 
 

@@ -8,6 +8,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { EscolherMunicipioComponent } from './escolher-municipio/escolher-municipio.component';
 import { BuscaMunicipioComponent } from './busca-municipio/busca-municipio.component';
 import { SpinnerComponent } from './spinner/spinner.component';
+import { ProgressComponent } from './progress/progress.component';
 import { TooltipAjudaComponent } from './tooltip-ajuda/tooltip-ajuda.component';
 import { ListaContratosComponent } from './lista-contratos/lista-contratos.component';
 import { PipesModule } from '../pipes/pipes.module';
@@ -18,7 +19,8 @@ import { PipesModule } from '../pipes/pipes.module';
     BuscaMunicipioComponent,
     SpinnerComponent,
     TooltipAjudaComponent,
-    ListaContratosComponent
+    ListaContratosComponent,
+    ProgressComponent
   ],
   imports: [
     CommonModule,
@@ -32,7 +34,8 @@ import { PipesModule } from '../pipes/pipes.module';
     BuscaMunicipioComponent,
     SpinnerComponent,
     TooltipAjudaComponent,
-    ListaContratosComponent
+    ListaContratosComponent,
+    ProgressComponent
   ]
 })
 export class SharedModule { }

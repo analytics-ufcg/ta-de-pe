@@ -61,6 +61,14 @@
           </div>
           <div class="dados-linha">
             {{ contrato?.vl_contrato | currency: "R$" }}
+            <app-progress
+              [value]="contrato?.total_pago"
+              [max]="contrato?.valor_contratado"
+              [class]="'sessao-dark'"
+            ></app-progress>
+            <span *ngIf="contrato?.valor_contratado > 0" class="text-contrato-progress">
+              {{ contrato?.total_pago / contrato?.valor_contratado | percent }} do valor contratado já foi pago.
+            </span>
           </div>
         </div>
         <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
