@@ -1,3 +1,12 @@
+<form>
+  <div class="form-group form-inline">
+    <input
+      class="form-control ml-2"
+      type="text"
+      [formControl]="filtro"
+      placeholder="Buscar nos contratos..."/>
+  </div>
+</form>
 <div class="table-responsive">
   <table
     class="table table-hover"
@@ -33,18 +42,20 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let contrato of contratos">
-        <td class="text-center">{{ contrato.nr_contrato }}</td>
+      <tr *ngFor="let contrato of contratos$ | async; index as i">
+        <td class="text-center">
+          <ngb-highlight [result]="contrato.nr_contrato" [term]="filtro.value"></ngb-highlight>
+        </td>
         <td>
           <a [routerLink]="['/contratos/' + contrato.id_contrato]">
             <span *ngIf="contrato.contratoFornecedor.nm_pessoa">
-              {{ contrato.contratoFornecedor.nm_pessoa }}
+              <ngb-highlight [result]="contrato.contratoFornecedor.nm_pessoa" [term]="filtro.value"></ngb-highlight>
             </span>
             <span *ngIf="!contrato.contratoFornecedor.nm_pessoa">(Nome não encontrado)</span>
           </a>
         </td>
         <td class="text-right numero">
-          {{ contrato.nr_documento_contratado | formatCpfCnpj }}
+          <ngb-highlight [result]="contrato.nr_documento_contratado | formatCpfCnpj" [term]="filtro.value"></ngb-highlight>
         </td>
         <td class="text-right numero">
           {{ contrato.vl_contrato | currency: "R$" }}
