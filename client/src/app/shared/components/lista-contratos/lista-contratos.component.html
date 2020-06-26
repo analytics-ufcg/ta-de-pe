@@ -44,15 +44,15 @@
     <tbody>
       <tr *ngFor="let contrato of contratos$ | async; index as i">
         <td class="text-center">
-          <ngb-highlight [result]="contrato.nr_contrato" [term]="filtro.value"></ngb-highlight>
+          <a [routerLink]="['/contratos/' + contrato.id_contrato]">
+            <ngb-highlight [result]="contrato.nr_contrato" [term]="filtro.value"></ngb-highlight>
+          </a>
         </td>
         <td>
-          <a [routerLink]="['/contratos/' + contrato.id_contrato]">
-            <span *ngIf="contrato.contratoFornecedor.nm_pessoa">
+          <span *ngIf="contrato.contratoFornecedor.nm_pessoa">
               <ngb-highlight [result]="contrato.contratoFornecedor.nm_pessoa" [term]="filtro.value"></ngb-highlight>
             </span>
             <span *ngIf="!contrato.contratoFornecedor.nm_pessoa">(Nome não encontrado)</span>
-          </a>
         </td>
         <td class="text-right numero">
           <ngb-highlight [result]="contrato.nr_documento_contratado | formatCpfCnpj" [term]="filtro.value"></ngb-highlight>
