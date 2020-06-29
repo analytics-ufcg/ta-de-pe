@@ -35,9 +35,9 @@ export class ListaContratosComponent implements OnInit, OnChanges {
   buscar(texto: string, pipe: PipeTransform): ContratoLicitacao[] {
     if (this.contratos) {
       return this.contratos.filter(contrato => {
-        const termo = texto.toUpperCase();
+        const termo = texto.toLowerCase();
         return pipe.transform(contrato.nr_contrato).includes(termo)
-            || contrato.contratoFornecedor.nm_pessoa.includes(termo)
+            || contrato.contratoFornecedor.nm_pessoa.toLowerCase().includes(termo)
             || pipe.transform(contrato.nr_documento_contratado).includes(termo);
       });
     }
