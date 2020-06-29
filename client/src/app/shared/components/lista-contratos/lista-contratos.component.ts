@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, PipeTransform } from '@angular/core';
+import { Component, OnInit, Input, PipeTransform, OnChanges, SimpleChanges } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
 
@@ -13,26 +13,26 @@ import { ContratoLicitacao } from '../../models/contratoLicitacao.model';
   styleUrls: ['./lista-contratos.component.scss'],
   providers: [DecimalPipe]
 })
-export class ListaContratosComponent implements OnInit {
+export class ListaContratosComponent implements OnInit, OnChanges {
   @Input() contratos: ContratoLicitacao[];
   @Input() isLoading: boolean;
 
   contratos$: Observable<ContratoLicitacao[]>;
-  filtro = new FormControl('');
+  filtro = new FormControl();
 
-  constructor(pipe: DecimalPipe) {
+  constructor(private pipe: DecimalPipe) {
+  }
+  ngOnChanges(changes: SimpleChanges): void {
     this.contratos$ = this.filtro.valueChanges.pipe(
       startWith(''),
-      map(texto => this.buscar(texto, pipe))
+      map(texto => this.buscar(texto, this.pipe))
     );
   }
 
   ngOnInit() {
-    console.log(this.contratos$);
   }
 
   buscar(texto: string, pipe: PipeTransform): ContratoLicitacao[] {
-    console.log(this.contratos$);
     if (this.contratos) {
       return this.contratos.filter(contrato => {
         const termo = texto.toUpperCase();
