@@ -181,18 +181,28 @@
             <tr
               *ngFor="let item of contrato?.itensContrato; index as i"
               class="table-item">
-              <td class="text-nowrap align-middle">
+              <td class="align-middle descricao">
                 <a [routerLink]="['/itens/'+ item.id_item_contrato]">
-                {{ item.ds_item | resumirTexto }}
+                {{ item.ds_item_resumido }}
                 </a>
+                <button
+                  type="button"
+                  class="btn btn-sm btn-outline-secondary"
+                  (click)="item.resumido = !item.resumido"
+                  [attr.aria-expanded]="!item.resumido"
+                  aria-controls="collapseDetalhes"
+                  [hidden]="item.ds_item === item.ds_item_resumido">
+                  ...
+                </button>
                 <span class="text-muted">
                   ({{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida | lowercase }})
                 </span>
-                <button
-                  (click)="open(content, item)"
-                  class="btn btn-secondary btn-sm">
-                  ...
-                </button>
+                <div
+                  id="collapseDetalhes"
+                  class="descricao-item"
+                  [ngbCollapse]="!item.resumido">
+                  {{ item.ds_item }}
+                </div>
               </td>
               <td
                 class="numero align-middle"
@@ -249,160 +259,3 @@
     </div>
   </div>
 </div>
-
-<!-- Template do modal que exibe os detalhes de um item -->
-<ng-template
-  #content
-  let-modal>
-  <div class="modal-header">
-    <h5 class="modal-title">Detalhes do item</h5>
-    <button
-      type="button"
-      class="close"
-      data-dismiss="modal"
-      aria-label="Fechar"
-      (click)="modal.dismiss()">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-  <div class="modal-body">
-
-    <div class="row item-destaque-wrapper">
-      <div class="col-12">
-        <strong>Descrição</strong>
-      </div>
-      <div class="col-lg-7 pb-4">{{ itemSelecionado.ds_item }}</div>
-      <div class="col-lg-5">
-
-        <div class="row">
-          <div class="col-md-6">
-
-            <div>
-              <strong>Valor por unidade</strong>
-            </div>
-            <div class="numero numero-destaque">
-              {{ itemSelecionado.vl_item_contrato | currency:'R$' }}
-            </div>
-
-          </div>
-          <div class="col-md-6">
-
-            <div>
-              <strong>Mediana do estado</strong>
-            </div>
-            <div class="numero numero-destaque">
-              {{ itemSelecionado.mediana_valor | currency:'R$' }}
-            </div>
-             <div *ngIf="itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor !== 0">
-              <span
-                *ngIf="itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor < 0"
-                class="positivo">
-                {{ itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor | currency:'':'' }}
-                    ({{ (itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor) / itemSelecionado.mediana_valor | percent:'1.1' }})
-              </span>
-              <span
-                *ngIf="itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor > 0"
-                class="negativo">
-                +{{ itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor | currency:'':'' }}
-                    ({{ (itemSelecionado.vl_item_contrato - itemSelecionado.mediana_valor) / itemSelecionado.mediana_valor | percent:'1.1' }})
-              </span>
-            </div>
-
-          </div>
-        </div>
-
-      </div>
-    </div>
-
-    <h4>Comparação do item com seus similares</h4>
-
-    <div class="table-responsive">
-      <table class="table table-sm">
-        <thead>
-          <tr>
-            <th
-              scope="col"
-              class="align-middle">
-              Itens similares
-            </th>
-            <th
-              scope="col"
-              class="table-th-monospace">
-              Município
-            </th>
-            <th
-              scope="col"
-              class="table-th-monospace text-center">
-              Ano
-            </th>
-            <th
-              scope="col"
-              class="table-th-monospace text-right">
-              Valor por
-              <br>
-              unidade (R$)
-            </th>
-            <th
-              scope="col"
-              class="table-th-monospace text-right">
-              Diferença
-              <app-tooltip-ajuda
-                [posicao]="'top'"
-                [descricao]="'Diferença percentual entre o valor do item e itens similares em outros contratos'"></app-tooltip-ajuda>
-              <br>
-              c/ similar (%)
-            </th>
-            <th
-              scope="col"
-              class="table-th-monospace text-right">
-              &nbsp;
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr
-            *ngFor="let item of itemSelecionado?.itensSemelhantes; index as i"
-            class>
-            <td class="align-middle">
-              <details>
-                <summary>{{ item.ds_item | resumirTexto }}...</summary>
-                <p>{{ item.ds_item }}</p>
-              </details>
-            </td>
-            <td class="align-middle">{{ item.nome_municipio }}</td>
-            <td class="align-middle text-center">{{ item.ano_licitacao }}</td>
-            <td class="numero align-middle">
-              {{ item.vl_item_contrato | currency:'':'' }}
-            </td>
-            <td
-              class="numero align-middle"
-              [style.background-color]="defineCorFundo(item.percentual_vs_semelhante)"
-              [style.color]="defineCor(item.percentual_vs_semelhante)">
-              <span *ngIf="item.percentual_vs_semelhante > 0">+</span>{{ item.percentual_vs_semelhante | percent:'1.1' }}
-            </td>
-            <td class="align-middle">
-              <div class="ml-2">
-                <a
-                  [routerLink]="['/contratos/' + item.id_contrato]"
-                  target="_blank"
-                  class="btn btn-light btn-sm text-nowrap">
-                  <span class="icon-arrow-right"></span>
-                  Ver contrato
-                </a>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-  </div>
-  <div class="modal-footer">
-    <button
-      type="button"
-      class="btn btn-primary"
-      (click)="modal.close('Fechar')">
-      Fechar
-    </button>
-  </div>
-</ng-template>

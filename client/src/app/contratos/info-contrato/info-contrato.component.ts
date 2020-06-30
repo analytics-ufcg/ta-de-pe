@@ -11,12 +11,14 @@ import { ContratoLicitacao } from 'src/app/shared/models/contratoLicitacao.model
 import { ItensContrato } from 'src/app/shared/models/itensContrato.model';
 import { ContratoService } from 'src/app/shared/services/contrato.service';
 import { ItensService } from 'src/app/shared/services/itens.service';
+import { ResumirTextoPipe } from 'src/app/shared/pipes/resumir-texto.pipe';
 
 
 @Component({
   selector: 'app-info-contrato',
   templateUrl: './info-contrato.component.html',
-  styleUrls: ['./info-contrato.component.scss']
+  styleUrls: ['./info-contrato.component.scss'],
+  providers: [ResumirTextoPipe]
 })
 export class InfoContratoComponent implements OnInit, OnDestroy {
 
@@ -32,7 +34,8 @@ export class InfoContratoComponent implements OnInit, OnDestroy {
     private formBuilder: FormBuilder,
     private modalService: NgbModal,
     private contratoService: ContratoService,
-    private itensService: ItensService
+    private itensService: ItensService,
+    private resumirPipe: ResumirTextoPipe
   ) { }
 
   ngOnInit() {
@@ -56,6 +59,7 @@ export class InfoContratoComponent implements OnInit, OnDestroy {
           return sum + (item.itensLicitacaoItensContrato.vl_unitario_estimado * item.qt_itens_contrato);
         }, 0);
         contrato.itensContrato.map(item => {
+          item.ds_item_resumido = this.resumirPipe.transform(item.ds_item);
           const tituloItem = item.ds_item.split(/\s+|:|-/).slice(0, 3).map(palavra => {
             return palavra.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
           }).filter(i => i !== '');

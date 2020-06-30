@@ -11,6 +11,7 @@ export interface ItensContrato {
   vl_item_contrato: number;
   vl_total_item_contrato: number;
   ds_item: string;
+  ds_item_resumido: string;
   dt_inicio_vigencia: Date;
   nome_municipio: string;
 }
