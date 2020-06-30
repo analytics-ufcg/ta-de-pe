@@ -13,6 +13,7 @@ import { TooltipAjudaComponent } from './tooltip-ajuda/tooltip-ajuda.component';
 import { ListaContratosComponent } from './lista-contratos/lista-contratos.component';
 import { PipesModule } from '../pipes/pipes.module';
 import { BarraTituloComponent } from './barra-titulo/barra-titulo.component';
+import { DescricaoItemComponent } from './descricao-item/descricao-item.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { BarraTituloComponent } from './barra-titulo/barra-titulo.component';
     TooltipAjudaComponent,
     ListaContratosComponent,
     ProgressComponent,
-    BarraTituloComponent
+    BarraTituloComponent,
+    DescricaoItemComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +40,8 @@ import { BarraTituloComponent } from './barra-titulo/barra-titulo.component';
     TooltipAjudaComponent,
     ListaContratosComponent,
     ProgressComponent,
-    BarraTituloComponent
+    BarraTituloComponent,
+    DescricaoItemComponent
   ]
 })
 export class SharedModule { }

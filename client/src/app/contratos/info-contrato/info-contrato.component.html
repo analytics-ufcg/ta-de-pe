@@ -182,27 +182,9 @@
               *ngFor="let item of contrato?.itensContrato; index as i"
               class="table-item">
               <td class="align-middle descricao">
-                <a [routerLink]="['/itens/'+ item.id_item_contrato]">
-                {{ item.ds_item_resumido }}
-                </a>
-                <button
-                  type="button"
-                  class="btn btn-sm btn-outline-secondary"
-                  (click)="item.resumido = !item.resumido"
-                  [attr.aria-expanded]="!item.resumido"
-                  aria-controls="collapseDetalhes"
-                  [hidden]="item.ds_item === item.ds_item_resumido">
-                  ...
-                </button>
-                <span class="text-muted">
-                  ({{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida | lowercase }})
-                </span>
-                <div
-                  id="collapseDetalhes"
-                  class="descricao-item"
-                  [ngbCollapse]="!item.resumido">
-                  {{ item.ds_item }}
-                </div>
+                <app-descricao-item
+                  [item]="item"
+                  [temLink]="true"></app-descricao-item>
               </td>
               <td
                 class="numero align-middle"
