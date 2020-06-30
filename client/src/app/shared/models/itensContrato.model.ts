@@ -1,4 +1,5 @@
 export interface ItensContrato {
+  id_item_contrato: string;
   ano_licitacao: any;
   itensSemelhantes: any[];
   mediana_valor: number;
