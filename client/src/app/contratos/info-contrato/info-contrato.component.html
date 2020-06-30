@@ -182,7 +182,9 @@
               *ngFor="let item of contrato?.itensContrato; index as i"
               class="table-item">
               <td class="text-nowrap align-middle">
+                <a [routerLink]="['/itens/'+ item.id_item_contrato]">
                 {{ item.ds_item | resumirTexto }}
+                </a>
                 <span class="text-muted">
                   ({{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida | lowercase }})
                 </span>
