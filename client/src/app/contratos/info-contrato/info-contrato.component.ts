@@ -65,7 +65,7 @@ export class InfoContratoComponent implements OnInit, OnDestroy {
               item.itensSemelhantes = res.itensOrdenados;
               item.percentual_vs_estado = (item.vl_item_contrato - res.mediana) / res.mediana;
               item.percentual_vs_estimado = (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado)
-                                            / item.itensLicitacaoItensContrato.vl_unitario_estimado;
+                / item.itensLicitacaoItensContrato.vl_unitario_estimado;
             });
         });
         this.isLoading = false;
@@ -88,8 +88,8 @@ export class InfoContratoComponent implements OnInit, OnDestroy {
 
   defineCorFundo(valor: number): string {
     const cor: any = d3.scaleLinear()
-    .domain([-1, 0, 1])
-    .range(['#72a5b6', '#ffffff', '#d7856c']);
+      .domain([-1, 0, 1])
+      .range(['#72a5b6', '#ffffff', '#d7856c']);
     return cor(valor);
   }
 
@@ -99,6 +99,14 @@ export class InfoContratoComponent implements OnInit, OnDestroy {
 
   open(content, item: ItensContrato): void {
     this.itemSelecionado = item;
+    this.itemSelecionado.itensSemelhantes.map(itemSemelhante => {
+      if (itemSemelhante.vl_item_contrato > 0) {
+        itemSemelhante.percentual_vs_semelhante = (item.vl_item_contrato - itemSemelhante.vl_item_contrato)
+                                                    / itemSemelhante.vl_item_contrato;
+      } else {
+        itemSemelhante.percentual_vs_semelhante = 0;
+      }
+    });
     this.modalService.open(content, { ariaLabelledBy: 'modal-descricao', size: 'xl' });
   }
 
