@@ -99,6 +99,9 @@ export class InfoContratoComponent implements OnInit, OnDestroy {
 
   open(content, item: ItensContrato): void {
     this.itemSelecionado = item;
+    this.itemSelecionado.itensSemelhantes.map(itemSemelhante => {
+      itemSemelhante.percentual_vs_semelhante = (item.vl_item_contrato - itemSemelhante.vl_item_contrato) / itemSemelhante.vl_item_contrato;
+    });
     this.modalService.open(content, { ariaLabelledBy: 'modal-descricao', size: 'xl' });
   }
 
