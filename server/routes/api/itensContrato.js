@@ -5,6 +5,7 @@ const router = express.Router();
 const models = require("../../models/index");
 
 const itensContrato = models.itensContrato;
+const Orgao = models.orgao;
 
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
@@ -19,6 +20,10 @@ router.get("/", (req, res) => {
 // Recupera item de contrato a partir do id do item
 router.get("/item/:id", (req, res) => {
   itensContrato.find({
+    include: [{
+    model: Orgao,
+    as: "itensContratoOrgao"
+  }],
     where: {
       id_item_contrato: req.params.id
     }
