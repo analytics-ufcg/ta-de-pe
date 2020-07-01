@@ -17,6 +17,13 @@
           class="badge badge-danger">
           Licitação encerrada
         </span>
+        <div
+          *ngIf="!licitacao?.merenda"
+          class="mt-2">
+          <ngb-alert [dismissible]="false">
+              <strong>Atenção!</strong> Não temos certeza se essa licitação inclui merenda. É necessário checar no Licitacon.
+            </ngb-alert>
+        </div>
       </div>
     </div>
     <div class="row mt-4">
@@ -50,19 +57,12 @@
       <div class="col-12">
         <div class="dados-linha">
           <strong>Objeto da licitação</strong>
-
           <app-tooltip-ajuda
             [posicao]="'right'"
             [descricao]="'Os dados da licitação foram informados pelo município para o TCE'"></app-tooltip-ajuda>
         </div>
         <div class="dados-linha">
           {{ licitacao?.descricao_objeto | initialcase }}
-        </div>
-        <div
-          *ngIf="!licitacao?.merenda"
-          class="dados-linha text-muted ml-3">
-          <strong>Atenção!</strong>
-          Não temos certeza se essa licitação inclui merenda. É necessário checar no Licitacon.
         </div>
       </div>
     </div>
