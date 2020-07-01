@@ -9,10 +9,24 @@
   background-color: #f2f7f3;
 }
 
+.itens-semelhantes-corpo {
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.table-th-dividido-up {
+  border-top: none
+}
+
 .positivo {
   color: #b7472a;
 }
 
 .negativo {
   color: #0c7b93;
+}
+
+.nowrap {
+  white-space: nowrap;
 }
