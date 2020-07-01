@@ -31,6 +31,7 @@ export class BuscaMunicipioComponent implements OnInit, OnDestroy {
   public municipioSelecionado: string;
   public municipioDisplay: string;
   public show = false;
+  public navbarOpen = false;
 
   focus$ = new Subject<string>();
   click$ = new Subject<string>();
@@ -46,6 +47,10 @@ export class BuscaMunicipioComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.getMunicipios();
     this.getMunicipioSalvo();
+  }
+
+  toggleNavbar() {
+    this.navbarOpen = !this.navbarOpen;
   }
 
   getMunicipios() {

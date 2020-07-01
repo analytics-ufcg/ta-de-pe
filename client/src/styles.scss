@@ -8,7 +8,10 @@
 
 html,
 body {
-  background-color: $gray-100;
+  padding-top: 24px;
+  @media (min-width: 576px) {
+    padding-top: 28px;
+  }
 }
 
 .dropdown-menu {
