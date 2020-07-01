@@ -1,13 +1,13 @@
 <div class="view-container" *ngIf="item">
   <app-barra-titulo
-    [titulo]="'Item do contrato ' + item.nr_contrato + '/' + item.ano_contrato"
-    [subtitulo]="item.itensContratoOrgao.nm_orgao"
+    [titulo]="item.ds_item_resumido | titlecase"
+    [subtitulo]="item.itensContratoOrgao.nm_orgao + ' &#9474; Contrato ' + item.nr_contrato + '/' + item.ano_contrato"
     [exibirVoltar]="true"></app-barra-titulo>
 
   <div class="container">
     <div class="row item-destaque-wrapper">
       <div class="col-12">
-        <strong>Descrição</strong>
+        <strong>Descrição completa</strong>
       </div>
       <div class="col-lg-7 pb-4">{{ item.ds_item }}</div>
       <div class="col-lg-5">

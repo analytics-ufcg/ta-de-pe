@@ -42,6 +42,7 @@ export class InfoItemComponent implements OnInit {
     this.itensService.get(id)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(item => {
+        item.ds_item_resumido = this.resumirPipe.transform(item.ds_item);
         const termos = this.termosPipe.transform(item.ds_item);
         this.itensService.getMediaItensSemelhantes(termos, item.dt_inicio_vigencia)
           .then(res => {
