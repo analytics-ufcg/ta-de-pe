@@ -83,29 +83,28 @@
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let item of item.itensSemelhantes; index as i" class>
+          <tr *ngFor="let itemSemelhante of item.itensSemelhantes; index as i" class>
             <td class="align-middle">
-              <details>
-                <summary>{{ item.ds_item | resumirTexto }}...</summary>
-                <p>{{ item.ds_item }}</p>
-              </details>
+              <app-descricao-item
+                  [item]="itemSemelhante"
+                  [temLink]="false"></app-descricao-item>
             </td>
-            <td class="align-middle">{{ item.nome_municipio }}</td>
-            <td class="align-middle text-center">{{ item.ano_licitacao }}</td>
+            <td class="align-middle">{{ itemSemelhante.nome_municipio }}</td>
+            <td class="align-middle text-center">{{ itemSemelhante.ano_licitacao }}</td>
             <td class="numero align-middle">
-              {{ item.vl_item_contrato | currency: "":"" }}
+              {{ itemSemelhante.vl_item_contrato | currency: "":"" }}
             </td>
             <td
               class="numero align-middle"
-              [style.background-color]="defineCorFundo(item.percentual_vs_semelhante)"
-              [style.color]="defineCor(item.percentual_vs_semelhante)">
-              <span *ngIf="item.percentual_vs_semelhante > 0">+</span
-              >{{ item.percentual_vs_semelhante | percent: "1.1" }}
+              [style.background-color]="defineCorFundo(itemSemelhante.percentual_vs_semelhante)"
+              [style.color]="defineCor(itemSemelhante.percentual_vs_semelhante)">
+              <span *ngIf="itemSemelhante.percentual_vs_semelhante > 0">+</span
+              >{{ itemSemelhante.percentual_vs_semelhante | percent: "1.1" }}
             </td>
             <td class="align-middle">
               <div class="ml-2">
                 <a
-                  [routerLink]="['/contratos/' + item.id_contrato]"
+                  [routerLink]="['/contratos/' + itemSemelhante.id_contrato]"
                   target="_blank"
                   class="btn btn-light btn-sm text-nowrap">
                   <span class="icon-arrow-right"></span>

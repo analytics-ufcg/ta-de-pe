@@ -9,13 +9,15 @@ import * as d3 from 'd3-scale';
 import { ItensContrato } from 'src/app/shared/models/itensContrato.model';
 import { ItensService } from 'src/app/shared/services/itens.service';
 import { TermosImportantesPipe } from 'src/app/shared/pipes/termos-importantes.pipe';
+import { ResumirTextoPipe } from 'src/app/shared/pipes/resumir-texto.pipe';
 
 @Component({
   selector: 'app-info-item',
   templateUrl: './info-item.component.html',
   styleUrls: ['./info-item.component.scss'],
   providers: [
-    TermosImportantesPipe
+    TermosImportantesPipe,
+    ResumirTextoPipe
   ]
 })
 export class InfoItemComponent implements OnInit {
@@ -27,7 +29,8 @@ export class InfoItemComponent implements OnInit {
   constructor(
     private activatedroute: ActivatedRoute,
     private itensService: ItensService,
-    private termosPipe: TermosImportantesPipe
+    private termosPipe: TermosImportantesPipe,
+    private resumirPipe: ResumirTextoPipe
   ) { }
 
   ngOnInit() {
@@ -45,6 +48,7 @@ export class InfoItemComponent implements OnInit {
             item.mediana_valor = res.mediana;
             item.itensSemelhantes = res.itensOrdenados;
             item.itensSemelhantes.map(itemSemelhante => {
+              itemSemelhante.ds_item_resumido = this.resumirPipe.transform(itemSemelhante.ds_item);
               if (itemSemelhante.vl_item_contrato > 0) {
                 itemSemelhante.percentual_vs_semelhante = (item.vl_item_contrato - itemSemelhante.vl_item_contrato)
                   / itemSemelhante.vl_item_contrato;
@@ -53,6 +57,7 @@ export class InfoItemComponent implements OnInit {
               }
             });
             this.item = item;
+            console.log(this.item);
           });
       });
   }

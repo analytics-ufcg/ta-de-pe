@@ -27,7 +27,9 @@
     [hidden]="item.ds_item.length === item.ds_item_resumido.length">
     ...
   </button>
-  <span class="text-muted">
+  <span
+    *ngIf="temLink"
+    class="text-muted">
     ({{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida | lowercase }})
   </span>
 </div>
