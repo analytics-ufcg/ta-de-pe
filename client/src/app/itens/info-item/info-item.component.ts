@@ -57,7 +57,6 @@ export class InfoItemComponent implements OnInit {
               }
             });
             this.item = item;
-            console.log(this.item);
           });
       });
   }

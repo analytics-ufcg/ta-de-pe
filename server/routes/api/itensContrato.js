@@ -19,7 +19,7 @@ router.get("/", (req, res) => {
 
 // Recupera item de contrato a partir do id do item
 router.get("/item/:id", (req, res) => {
-  itensContrato.find({
+  itensContrato.findOne({
     include: [{
     model: Orgao,
     as: "itensContratoOrgao"
@@ -70,7 +70,7 @@ router.post("/similares", (req, res) => {
   dataInicial = dataInicial.toJSON().slice(0, 10);
   dataFinal = dataFinal.toJSON().slice(0, 10);
     
-  let query = `SELECT ano_licitacao, id_item_contrato, id_contrato, id_licitacao, vl_item_contrato, \
+  let query = `SELECT ano_licitacao, id_item_contrato, id_contrato, nr_contrato, id_licitacao, vl_item_contrato, \
                       vl_total_item_contrato, ds_item, dt_inicio_vigencia, nome_municipio \ 
                       FROM item_search WHERE item_search.document @@ to_tsquery('portuguese', '${termo}') AND \
                       dt_inicio_vigencia >= '${dataInicial}' AND dt_inicio_vigencia <= '${dataFinal}'\

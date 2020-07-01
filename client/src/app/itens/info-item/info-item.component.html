@@ -49,72 +49,65 @@
     </div>
 
     <h4>Comparação do item com seus similares</h4>
-
-    <div class="table-responsive">
-      <table class="table table-sm">
-        <thead>
-          <tr>
-            <th scope="col" class="align-middle">
-              Itens similares
-            </th>
-            <th scope="col" class="table-th-monospace">
-              Município
-            </th>
-            <th scope="col" class="table-th-monospace text-center">
-              Ano
-            </th>
-            <th scope="col" class="table-th-monospace text-right">
-              Valor por
-              <br />
-              unidade (R$)
-            </th>
-            <th scope="col" class="table-th-monospace text-right">
-              Diferença
-              <app-tooltip-ajuda
-                [posicao]="'top'"
-                [descricao]="'Diferença percentual entre o valor do item e itens similares em outros contratos'"
-              ></app-tooltip-ajuda>
-              <br />
-              c/ similar (%)
-            </th>
-            <th scope="col" class="table-th-monospace text-right">
-              &nbsp;
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let itemSemelhante of item.itensSemelhantes; index as i" class>
-            <td class="align-middle">
-              <app-descricao-item
-                  [item]="itemSemelhante"
-                  [temLink]="false"></app-descricao-item>
-            </td>
-            <td class="align-middle">{{ itemSemelhante.nome_municipio }}</td>
-            <td class="align-middle text-center">{{ itemSemelhante.ano_licitacao }}</td>
-            <td class="numero align-middle">
-              {{ itemSemelhante.vl_item_contrato | currency: "":"" }}
-            </td>
-            <td
-              class="numero align-middle"
-              [style.background-color]="defineCorFundo(itemSemelhante.percentual_vs_semelhante)"
-              [style.color]="defineCor(itemSemelhante.percentual_vs_semelhante)">
-              <span *ngIf="itemSemelhante.percentual_vs_semelhante > 0">+</span
-              >{{ itemSemelhante.percentual_vs_semelhante | percent: "1.1" }}
-            </td>
-            <td class="align-middle">
-              <div class="ml-2">
+    <div class="itens-semelhantes-corpo">
+      <div class="table-responsive">
+        <table class="table table-sm">
+          <thead>
+            <tr>
+              <th scope="col" class="align-middle table-th-dividido-up">
+                Itens similares
+              </th>
+              <th scope="col" class="table-th-monospace table-th-dividido-up">
+                Município
+              </th>
+              <th scope="col" class="table-th-monospace text-right table-th-dividido-up">
+                Contrato
+              </th>
+              <th scope="col" class="table-th-monospace text-right table-th-dividido-up">
+                Valor por
+                <br />
+                unidade (R$)
+              </th>
+              <th scope="col" class="table-th-monospace text-right table-th-dividido-up">
+                Diferença
+                <app-tooltip-ajuda
+                  [posicao]="'top'"
+                  [descricao]="'Diferença percentual entre o valor do item e itens similares em outros contratos'"
+                ></app-tooltip-ajuda>
+                <br />
+                c/ similar (%)
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let itemSemelhante of item.itensSemelhantes; index as i" class>
+              <td class="align-middle">
+                <app-descricao-item
+                    [item]="itemSemelhante"
+                    [temLink]="false"></app-descricao-item>
+              </td>
+              <td class="align-middle nowrap">{{ itemSemelhante.nome_municipio | titlecase }}</td>
+              <td class="align-middle text-right">
                 <a
                   [routerLink]="['/contratos/' + itemSemelhante.id_contrato]"
-                  target="_blank"
-                  class="btn btn-light btn-sm text-nowrap">
-                  <span class="icon-arrow-right"></span>
-                  Ver contrato
+                  target="_blank">
+                  {{ itemSemelhante.nr_contrato }}/{{ itemSemelhante.ano_licitacao }}
                 </a>
-              </div>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+              </td>
+              <td class="numero align-middle">
+                {{ itemSemelhante.vl_item_contrato | currency: "":"" }}
+              </td>
+              <td
+                class="numero align-middle"
+                [style.background-color]="defineCorFundo(itemSemelhante.percentual_vs_semelhante)"
+                [style.color]="defineCor(itemSemelhante.percentual_vs_semelhante)">
+                <span *ngIf="itemSemelhante.percentual_vs_semelhante > 0">+</span
+                >{{ itemSemelhante.percentual_vs_semelhante | percent: "1.1" }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </div>
 </div>
