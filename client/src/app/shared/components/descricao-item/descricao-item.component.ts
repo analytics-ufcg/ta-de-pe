@@ -15,6 +15,7 @@ export class DescricaoItemComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+    this.item.resumido = true;
   }
 
 }

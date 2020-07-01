@@ -17,4 +17,5 @@ export interface ItensContrato {
   dt_inicio_vigencia: Date;
   nome_municipio: string;
   itensContratoOrgao: any;
+  resumido: boolean;
 }
