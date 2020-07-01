@@ -20,7 +20,21 @@ export class ItensService {
       return this.http.get<ItensContrato>(`${this.url}/item/${idItem}`);
     }
 
-    getItensSimilares(nomeItem: string[], dataInicioContrato: Date): Observable<ItensContrato[]> {
-        return this.http.post<ItensContrato[]>(this.url + '/similares', { termo: nomeItem, data: dataInicioContrato });
+    getItensSimilares(termos: string[], dataInicioContrato: Date): Observable<ItensContrato[]> {
+        return this.http.post<ItensContrato[]>(this.url + '/similares', { termo: termos, data: dataInicioContrato });
+    }
+
+    getMediaItensSemelhantes(termos: string[], dataInicioContrato: Date) {
+      const strTermos = [termos[0], termos.slice(0, 2).join(' & '), termos.join(' & ')];
+      return this.getItensSimilares(strTermos, dataInicioContrato)
+        .pipe(take(1),
+          map(itens => {
+            const itensOrdenados = itens.slice(0, 21).sort((a, b) => a.vl_item_contrato - b.vl_item_contrato);
+            const meioInf = Math.floor((itensOrdenados.length - 1) / 2);
+            const meioSup = Math.ceil((itensOrdenados.length - 1) / 2);
+            const mediana = (itensOrdenados[meioInf].vl_item_contrato + itensOrdenados[meioSup].vl_item_contrato) / 2;
+            return { mediana, itensOrdenados };
+          })
+        ).toPromise();
     }
 }
