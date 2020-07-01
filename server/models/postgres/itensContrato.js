@@ -16,6 +16,7 @@ module.exports = (sequelize, type) => {
       cd_tipo_modalidade: type.STRING,
       nr_contrato: type.INTEGER,
       ano_contrato: type.STRING,
+      dt_inicio_vigencia: type.STRING,
       tp_instrumento_contrato: type.STRING,
       nr_item: type.STRING,
       qt_itens_contrato: type.REAL,
