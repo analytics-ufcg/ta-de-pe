@@ -5,6 +5,7 @@ const router = express.Router();
 const models = require("../../models/index");
 
 const itensContrato = models.itensContrato;
+const Orgao = models.orgao;
 
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
@@ -12,6 +13,21 @@ const SUCCESS = 200;
 // Recupera todos os itens de contrato
 router.get("/", (req, res) => {
   itensContrato.findAll()
+    .then(itensContrato => res.status(SUCCESS).json(itensContrato))
+    .catch(err => res.status(BAD_REQUEST).json({ err }));
+});
+
+// Recupera item de contrato a partir do id do item
+router.get("/item/:id", (req, res) => {
+  itensContrato.findOne({
+    include: [{
+    model: Orgao,
+    as: "itensContratoOrgao"
+  }],
+    where: {
+      id_item_contrato: req.params.id
+    }
+  })
     .then(itensContrato => res.status(SUCCESS).json(itensContrato))
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
@@ -54,7 +70,7 @@ router.post("/similares", (req, res) => {
   dataInicial = dataInicial.toJSON().slice(0, 10);
   dataFinal = dataFinal.toJSON().slice(0, 10);
     
-  let query = `SELECT ano_licitacao, id_item_contrato, id_contrato, id_licitacao, vl_item_contrato, \
+  let query = `SELECT ano_licitacao, id_item_contrato, id_contrato, nr_contrato, id_licitacao, vl_item_contrato, \
                       vl_total_item_contrato, ds_item, dt_inicio_vigencia, nome_municipio \ 
                       FROM item_search WHERE item_search.document @@ to_tsquery('portuguese', '${termo}') AND \
                       dt_inicio_vigencia >= '${dataInicial}' AND dt_inicio_vigencia <= '${dataFinal}'\

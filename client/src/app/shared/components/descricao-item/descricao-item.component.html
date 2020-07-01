@@ -1,0 +1,35 @@
+<div class="descricao">
+  <a
+    *ngIf="temLink; else tituloSemLink"
+    [routerLink]="['/itens/'+ item.id_item_contrato]">
+    <span *ngIf="item.resumido">
+      {{ item.ds_item_resumido }}
+    </span>
+    <span *ngIf="!item.resumido">
+      {{ item.ds_item }}
+    </span>
+  </a>
+  <ng-template #tituloSemLink>
+    <span *ngIf="item.resumido">
+      {{ item.ds_item_resumido }}
+    </span>
+    <span *ngIf="!item.resumido">
+      {{ item.ds_item }}
+    </span>
+  </ng-template>
+
+  <button
+    type="button"
+    class="btn btn-sm btn-outline-secondary"
+    (click)="item.resumido = !item.resumido"
+    [attr.aria-expanded]="item.resumido"
+    aria-controls="collapseDetalhes"
+    [hidden]="item.ds_item.length === item.ds_item_resumido.length">
+    ...
+  </button>
+  <span
+    *ngIf="temLink"
+    class="text-muted">
+    ({{ item.qt_itens_contrato }} {{ item.itensLicitacaoItensContrato.sg_unidade_medida | lowercase }})
+  </span>
+</div>

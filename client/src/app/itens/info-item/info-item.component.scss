@@ -1,25 +1,3 @@
-.contrato-corpo {
-  background-color: #ffffff;
-  border-radius: 5px;
-  padding: 5px;
-}
-
-.btn-item {
-  white-space: nowrap;
-}
-
-.table-item-strong {
-  font-weight: bold;
-}
-
-.head-controls {
-  border: none;
-}
-
-.numero-destaque {
-  font-size: 1.4rem;
-}
-
 .item-destaque-wrapper {
   max-width: 990px;
   margin-left: auto;
@@ -31,12 +9,22 @@
   background-color: #f2f7f3;
 }
 
-.table-th-dividido {
-  border-bottom: none;
+.itens-semelhantes-corpo {
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 5px;
 }
 
 .table-th-dividido-up {
   border-top: none
+}
+
+.positivo {
+  color: #b7472a;
+}
+
+.negativo {
+  color: #0c7b93;
 }
 
 .nowrap {
