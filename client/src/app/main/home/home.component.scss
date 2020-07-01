@@ -10,11 +10,6 @@
   }
 }
 
-.subtitle {
-  display: block;
-  color: #adb5bd;
-}
-
 .call-to-action {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -27,4 +22,14 @@
 .headline {
   font-family: "Fredoka One", cursive;
   text-transform: uppercase;
+}
+
+.banner {
+  background-color: #ffffff;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+
+.banner-img {
+  width: 150px;
 }

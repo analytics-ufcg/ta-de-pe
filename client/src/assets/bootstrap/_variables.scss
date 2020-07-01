@@ -34,14 +34,14 @@ $grays: map-merge(
   $grays
 );
 
-$gray:    #f2f7f3 !default;
+$gray:    #E2E2E2 !default;
 $orange:  #da7144 !default;
 $green:   #63aa72 !default;
 $yellow:  #f9a521 !default;
 $pink:    #e83e8c !default;
 $teal:    #80a997 !default;
-$cyan:    #549b97 !default;
-$blue:    #37779d !default;
+$cyan:    #41ACBD !default;
+$blue:    #124C7D !default;
 // $indigo:  #6610f2 !default;
 // $purple:  #6f42c1 !default;
 // $red:     #dc3545 !default;
@@ -67,14 +67,14 @@ $colors: map-merge(
   $colors
 );
 
-$primary:       $orange !default;
+$primary:       $cyan !default;
 $secondary:     $gray-600 !default;
 $success:       $green !default;
-$info:          $cyan !default;
+$info:          $blue !default;
 $warning:       $yellow !default;
 $danger:        $orange !default;
 $light:         $gray !default;
-$dark:          $teal !default;
+$dark:          $blue !default;
 
 $theme-colors: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
@@ -170,7 +170,7 @@ $sizes: map-merge(
 //
 // Settings for the `<body>` element.
 
-$body-bg:                   $white !default;
+$body-bg:                   $gray !default;
 $body-color:                $gray-900 !default;
 
 
@@ -242,7 +242,7 @@ $line-height-sm:              1.5 !default;
 $border-width:                1px !default;
 $border-color:                $gray-300 !default;
 
-$border-radius:               .25rem !default;
+$border-radius:               .75rem !default;
 $border-radius-lg:            .3rem !default;
 $border-radius-sm:            .2rem !default;
 
@@ -927,7 +927,7 @@ $toast-header-border-color:         rgba(0, 0, 0, .05) !default;
 $badge-font-size:                   75% !default;
 $badge-font-weight:                 $font-weight-bold !default;
 $badge-padding-y:                   .25em !default;
-$badge-padding-x:                   .4em !default;
+$badge-padding-x:                   .75em !default;
 $badge-border-radius:               $border-radius !default;
 
 $badge-transition:                  $btn-transition !default;
