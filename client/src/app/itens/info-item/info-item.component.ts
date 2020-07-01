@@ -47,7 +47,7 @@ export class InfoItemComponent implements OnInit {
         this.itensService.getMediaItensSemelhantes(termos, item.dt_inicio_vigencia)
           .then(res => {
             item.mediana_valor = res.mediana;
-            item.itensSemelhantes = res.itensOrdenados;
+            item.itensSemelhantes = res.itensOrdenados.filter(itemSemelhante => itemSemelhante.id_item_contrato !== item.id_item_contrato);
             item.itensSemelhantes.map(itemSemelhante => {
               itemSemelhante.ds_item_resumido = this.resumirPipe.transform(itemSemelhante.ds_item);
               if (itemSemelhante.vl_item_contrato > 0) {
