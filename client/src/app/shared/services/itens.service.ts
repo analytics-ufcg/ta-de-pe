@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 
 import { ItensContrato } from '../models/itensContrato.model';
 import { environment } from '../../../environments/environment';
+import { take, map } from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -15,8 +16,11 @@ export class ItensService {
 
     constructor(private http: HttpClient) { }
 
+    get(idItem: string): Observable<ItensContrato> {
+      return this.http.get<ItensContrato>(`${this.url}/item/${idItem}`);
+    }
+
     getItensSimilares(nomeItem: string[], dataInicioContrato: Date): Observable<ItensContrato[]> {
         return this.http.post<ItensContrato[]>(this.url + '/similares', { termo: nomeItem, data: dataInicioContrato });
     }
-
 }

@@ -16,6 +16,17 @@ router.get("/", (req, res) => {
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
+// Recupera item de contrato a partir do id do item
+router.get("/item/:id", (req, res) => {
+  itensContrato.find({
+    where: {
+      id_item_contrato: req.params.id
+    }
+  })
+    .then(itensContrato => res.status(SUCCESS).json(itensContrato))
+    .catch(err => res.status(BAD_REQUEST).json({ err }));
+});
+
 // Recupera itens de contrato a partir do id do contrato
 router.get("/contrato/:id", (req, res) => {
   itensContrato.findAll({
