@@ -60,6 +60,7 @@ router.post("/similares", (req, res) => {
   const dataInicioContrato = req.body.data;
   const termo = req.body.termo.join(' | ')
   const termoRanking = req.body.termo[2]
+  const unidade = req.body.unidade
 
   dataInicial = new Date(dataInicioContrato);
   dataInicial.setMonth(dataInicial.getMonth() - 6);
@@ -71,13 +72,15 @@ router.post("/similares", (req, res) => {
   dataFinal = dataFinal.toJSON().slice(0, 10);
     
   let query = `SELECT ano_licitacao, id_item_contrato, id_contrato, nr_contrato, id_licitacao, vl_item_contrato, \
-                      vl_total_item_contrato, ds_item, dt_inicio_vigencia, nome_municipio \ 
+                      vl_total_item_contrato, ds_item, dt_inicio_vigencia, nome_municipio, \
+                      ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) as rel, \ 
+                      sg_unidade_medida \
                       FROM item_search WHERE item_search.document @@ to_tsquery('portuguese', '${termo}') AND \
                       dt_inicio_vigencia >= '${dataInicial}' AND dt_inicio_vigencia <= '${dataFinal}'\
-                      AND ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) >= 0.6\
+                      AND sg_unidade_medida = '${unidade}'\
+                      AND ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) >= 0.9\
                       ORDER BY ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) DESC, id_item_contrato ASC \
-                      LIMIT 100;`
-  
+                      LIMIT 21;`
   models.sequelize.query(query, {
     model: itensContrato,
     mapToModel: true
