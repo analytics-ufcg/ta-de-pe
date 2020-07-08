@@ -4,6 +4,7 @@
       class="form-control"
       type="text"
       [formControl]="filtro"
+      [hidden]="contratos?.length == 0 || isLoading"
       placeholder="Buscar nos contratos..."/>
   </div>
 </form>
