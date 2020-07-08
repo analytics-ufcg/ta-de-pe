@@ -22,6 +22,26 @@
       id="navbarNav"
       class="collapse navbar-collapse"
       [ngClass]="{ 'show': navbarOpen }">
+      <button
+          class="btn btn-nav-buscar"
+          (click)="toggleShow()">
+          <span class="icon-search"></span>
+          Buscar município
+        </button>
+        <div class="input-group input-buscar" [hidden]="!show">
+          <input
+            id="typeahead-focus"
+            type="text"
+            class="form-control"
+            placeholder="{{placeholder}}"
+            [(ngModel)]="municipioSelecionado"
+            [ngbTypeahead]="search"
+            (focus)="focus$.next($event.target.value)"
+            (click)="click$.next($event.target.value)"
+            [editable]="false"
+            (selectItem)="salvarMunicipio($event.item)"
+            #instance="ngbTypeahead">
+        </div>
       <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
           <a
@@ -40,30 +60,6 @@
             (click)="toggleNavbar()">
             Dúvidas
           </a>
-        </li>
-        <li class="nav-item active">
-          <button
-            class="btn btn-link nav-link"
-            (click)="toggleShow()">
-            <span class="icon-search"></span>
-            Buscar município
-          </button>
-        </li>
-        <li [hidden]="!show">
-          <div class="input-group">
-            <input
-              id="typeahead-focus"
-              type="text"
-              class="form-control"
-              placeholder="{{placeholder}}"
-              [(ngModel)]="municipioSelecionado"
-              [ngbTypeahead]="search"
-              (focus)="focus$.next($event.target.value)"
-              (click)="click$.next($event.target.value)"
-              [editable]="false"
-              (selectItem)="salvarMunicipio($event.item)"
-              #instance="ngbTypeahead">
-          </div>
         </li>
       </ul>
     </div>
