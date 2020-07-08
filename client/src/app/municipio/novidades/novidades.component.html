@@ -1,5 +1,5 @@
 <div class="container view-container">
-  <h4 class=" d-block d-sm-none">Últimos acontecimentos</h4>
+  <h4 class=" d-block d-sm-none">Linha do Tempo</h4>
   <app-filter (filterChange)="search($event)" (dateChange)="alteraNovidades($event)"></app-filter>
 
   <app-spinner *ngIf="loading$ | async"></app-spinner>

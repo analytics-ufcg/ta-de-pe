@@ -25,7 +25,7 @@ const routes: Routes = [
         component: LicitacoesAbertasComponent
       },
       {
-        path: 'acontecimentos',
+        path: 'linha-do-tempo',
         component: NovidadesComponent
       }
     ]
