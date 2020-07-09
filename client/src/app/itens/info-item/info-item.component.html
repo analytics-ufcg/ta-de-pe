@@ -77,15 +77,6 @@
                 <br />
                 unidade (R$)
               </th>
-              <th scope="col" class="table-th-monospace text-right table-th-dividido-up">
-                Diferença
-                <app-tooltip-ajuda
-                  [posicao]="'top'"
-                  [descricao]="'Diferença percentual entre o valor do item e itens similares em outros contratos'"
-                ></app-tooltip-ajuda>
-                <br />
-                c/ similar (%)
-              </th>
             </tr>
           </thead>
           <tbody>
@@ -105,13 +96,6 @@
               </td>
               <td class="numero align-middle">
                 {{ itemSemelhante.vl_item_contrato | currency: "":"" }}
-              </td>
-              <td
-                class="numero align-middle"
-                [style.background-color]="defineCorFundo(itemSemelhante.percentual_vs_semelhante)"
-                [style.color]="defineCor(itemSemelhante.percentual_vs_semelhante)">
-                <span *ngIf="itemSemelhante.percentual_vs_semelhante > 0">+</span
-                >{{ itemSemelhante.percentual_vs_semelhante | percent: "1.1" }}
               </td>
             </tr>
           </tbody>
