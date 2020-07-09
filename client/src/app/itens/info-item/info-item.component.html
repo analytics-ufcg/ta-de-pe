@@ -55,14 +55,18 @@
       </div>
     </div>
 
-    <h4>Comparação de {{ item.ds_item_resumido | lowercase }} com similares</h4>
+    <h4>
+      Produtos com descrição mais semelhante em outros municípios
+      <app-tooltip-ajuda
+        [descricao]="'Os produtos abaixo foram selecionados a partir de sua descrição (palavras e unidades de medida semelhantes ao produto selecionado), o preço e o ano'"></app-tooltip-ajuda>
+    </h4>
     <div class="itens-semelhantes-corpo">
       <div class="table-responsive">
         <table class="table table-sm">
           <thead>
             <tr>
               <th scope="col" class="align-middle table-th-dividido-up">
-                Produto similar
+                Produto
               </th>
               <th scope="col" class="table-th-monospace table-th-dividido-up">
                 Município
