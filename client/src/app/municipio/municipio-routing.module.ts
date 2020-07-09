@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { MunicipioComponent } from './municipio.component';
-import { LicitacoesAbertasComponent } from './licitacoes-abertas/licitacoes-abertas.component';
+import { LicitacoesComponent } from './licitacoes/licitacoes.component';
 import { ContratosVigentesComponent } from './contratos-vigentes/contratos-vigentes.component';
 import { NovidadesComponent } from './novidades/novidades.component';
 
@@ -22,7 +22,7 @@ const routes: Routes = [
       },
       {
         path: 'licitacoes',
-        component: LicitacoesAbertasComponent
+        component: LicitacoesComponent
       },
       {
         path: 'linha-do-tempo',
