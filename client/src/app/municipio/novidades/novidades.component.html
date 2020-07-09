@@ -1,7 +1,7 @@
 <h4 class=" d-block d-sm-none">Linha do Tempo</h4>
 <app-spinner *ngIf="loading$ | async"></app-spinner>
 
-<p *ngIf="novidades?.length === 0 || !(loading$ | async)">
+<p *ngIf="novidades?.length === 0 || (loading$ | async) === false">
   Não há novidades neste momento.
 </p>
 
