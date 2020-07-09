@@ -6,44 +6,51 @@
 
   <div class="container">
     <div class="row item-destaque-wrapper">
-      <div class="col-12">
+      <div class="col-lg-6">
         <strong>Descrição completa</strong>
+        <div class="pb-4">{{ item.ds_item }}</div>
       </div>
-      <div class="col-lg-7 pb-4">{{ item.ds_item }}</div>
-      <div class="col-lg-5">
-        <div class="row">
-          <div class="col-md-6">
+      <div class="col-lg-6">
+        <div class="row d-flex align-items-center">
+          <div class="col-md-4">
             <div>
               <strong>Valor por unidade</strong>
             </div>
             <div class="numero numero-destaque">
               {{ item.vl_item_contrato | currency: "R$" }}
             </div>
-            <span
-                *ngIf="(item.vl_item_contrato - item.mediana_valor) < 0"
-                class="small negativo">
-                {{
-                  (item.vl_item_contrato - item.mediana_valor) /
-                    item.mediana_valor | percent: "1.1"
-                }}
-                <span class="text-muted">(mais barato)</span>
-              </span>
-              <span
-                *ngIf="(item.vl_item_contrato - item.mediana_valor) > 0"
-                class="small positivo">
-                +{{
-                  (item.vl_item_contrato - item.mediana_valor) /
-                    item.mediana_valor | percent: "1.1"
-                }}
-                <span class="text-muted">(mais caro)</span>
-              </span>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-4">
             <div>
               <strong>Mediana do estado</strong>
             </div>
             <div class="numero numero-destaque">
               {{ item.mediana_valor | currency: "R$" }}
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div>
+              <strong>Diferença com estado</strong>
+            </div>
+            <div class="numero-destaque">
+              <span
+                *ngIf="(item.vl_item_contrato - item.mediana_valor) < 0"
+                class="negativo">
+                {{
+                  (item.vl_item_contrato - item.mediana_valor) /
+                    item.mediana_valor | percent: "1.1"
+                }}
+                <span class="small text-muted">(mais barato)</span>
+              </span>
+              <span
+                *ngIf="(item.vl_item_contrato - item.mediana_valor) > 0"
+                class="positivo">
+                +{{
+                  (item.vl_item_contrato - item.mediana_valor) /
+                    item.mediana_valor | percent: "1.1"
+                }}
+                <span class="small text-muted">(mais caro)</span>
+              </span>
             </div>
           </div>
         </div>
