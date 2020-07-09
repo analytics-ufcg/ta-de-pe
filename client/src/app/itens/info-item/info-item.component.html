@@ -7,8 +7,10 @@
   <div class="container">
     <div class="row item-destaque-wrapper d-flex align-items-center">
       <div class="col-lg-7">
-        <strong>Descrição completa</strong>
-        <div class="pb-4">{{ item.ds_item }}</div>
+        <strong>Descrição informada</strong>
+        <app-descricao-item
+          [item]="item"
+          [temLink]="false"></app-descricao-item>
       </div>
       <div class="col-lg-5">
         <div class="row">
