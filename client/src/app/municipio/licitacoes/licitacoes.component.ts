@@ -44,10 +44,12 @@ export class LicitacoesComponent implements OnInit {
     this.licitacaoService.getLicitacoes(municipio)
       .pipe(takeUntil(this.unsubscribe)).subscribe(licitacoes => {
         this.licitacoes = licitacoes;
-        // Ordena pelas mais recentes e adiciona status
+        // Adiciona status
         this.licitacoes
-          .sort((l1, l2) => new Date(l2.data_abertura).getTime() - new Date(l1.data_abertura).getTime())
           .map(licitacao => licitacao.status = licitacao.data_homologacao === null ? 'Aberta' : 'Encerrada');
+        // Ordena por status
+        this.licitacoes
+          .sort((l1, l2) => l1.status.localeCompare(l2.status));
         this.isLoading = false;
       });
   }
