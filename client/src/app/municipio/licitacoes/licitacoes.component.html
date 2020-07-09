@@ -19,8 +19,7 @@
           Data de publicação
         </th>
         <th
-          scope="col"
-          class="text-center">
+          scope="col">
         Status
         </th>
       </tr>
@@ -36,7 +35,17 @@
           {{ licitacao.data_abertura | date: "dd-MM-yyyy" }}
         </td>
         <td>
-          <span>{{ licitacao.status }}</span>
+          <span
+            *ngIf="licitacao.status === 'Aberta'; else licitacaoEncerrada"
+            class="badge badge-info">
+            Aberta
+          </span>
+          <ng-template #licitacaoEncerrada>
+            <span
+              class="badge badge-danger">
+              Encerrada
+            </span>
+          </ng-template>
         </td>
       </tr>
     </tbody>
