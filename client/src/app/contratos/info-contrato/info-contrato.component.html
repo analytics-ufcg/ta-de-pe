@@ -211,9 +211,10 @@
               <td
                 class="numero align-middle"
                 [title]="item.mediana_valor"
-                [style.background-color]="item.itensSemelhantes.length > 3 ? defineCorFundo(item.percentual_vs_estado): 'white'"
+                [style.background-color]="item.itensSemelhantes.length > 3 ? defineCorFundo(item.percentual_vs_estado) : 'white'"
                 [style.color]="defineCor(item.percentual_vs_estado)">
                 <div
+                  class="text-center"
                   *ngIf="item.itensSemelhantes.length <= 3; else mostraPercentualEstado">
                   <app-tooltip-ajuda
                   [tipo]="'alerta'"
