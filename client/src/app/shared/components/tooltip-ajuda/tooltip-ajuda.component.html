@@ -1,8 +1,16 @@
-<div class="help">
+<div class="tooltip-wrapper">
   <span
-    class="help-tooltip"
+    *ngIf="tipo === 'ajuda'"
+    class="tooltip-base tooltip-help"
     placement="{{ posicao }}"
     ngbTooltip="{{ descricao }}">
     ?
+  </span>
+  <span
+    *ngIf="tipo === 'alerta'"
+    class="tooltip-base tooltip-warning"
+    placement="{{ posicao }}"
+    ngbTooltip="{{ descricao }}">
+    !
   </span>
 </div>

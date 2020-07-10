@@ -1,15 +1,27 @@
-.help {
+.tooltip-wrapper {
   display: inline-block;
 }
 
-.help-tooltip {
+.tooltip-base {
   border-radius: 100%;
-  background-color: #6c757d;
   color: white;
+  cursor: pointer;
+}
+
+.tooltip-help {
+  background-color: #6c757d;
   padding-left: 4px;
   padding-right: 4px;
   margin-left: 4px;
   margin-right: 4px;
   font-size: .8rem;
-  cursor: pointer;
+}
+
+.tooltip-warning {
+  background-color: #f9a521;
+  padding-left: 6px;
+  padding-right: 6px;
+  margin-left: 4px;
+  margin-right: 4px;
+  font-size: .85rem;
 }
