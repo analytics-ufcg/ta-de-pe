@@ -184,7 +184,7 @@
               <td class="align-middle descricao">
                 <app-descricao-item
                   [item]="item"
-                  [temLink]="true"></app-descricao-item>
+                  [temLink]="item.itensSemelhantes.length > 3"></app-descricao-item>
               </td>
               <td
                 class="numero align-middle"
@@ -211,9 +211,18 @@
               <td
                 class="numero align-middle"
                 [title]="item.mediana_valor"
-                [style.background-color]="defineCorFundo(item.percentual_vs_estado)"
+                [style.background-color]="item.itensSemelhantes.length > 3 ? defineCorFundo(item.percentual_vs_estado) : 'white'"
                 [style.color]="defineCor(item.percentual_vs_estado)">
-                <span *ngIf="item.percentual_vs_estado > 0">+</span>{{ item.percentual_vs_estado | percent:'1.1' }}
+                <div
+                  class="text-center"
+                  *ngIf="item.itensSemelhantes.length <= 3; else mostraPercentualEstado">
+                  <app-tooltip-ajuda
+                  [tipo]="'alerta'"
+                  [descricao]="'Este valor não pôde ser calculado pois existem poucos produtos semelhantes em nossa base de dados.'"></app-tooltip-ajuda>
+                </div>
+                <ng-template #mostraPercentualEstado>
+                  <span *ngIf="item.percentual_vs_estado > 0">+</span>{{ item.percentual_vs_estado | percent:'1.1' }}
+                </ng-template>
               </td>
               <td
                 class="numero align-middle"
