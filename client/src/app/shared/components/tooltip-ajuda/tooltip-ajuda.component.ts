@@ -8,6 +8,7 @@ import { Component, OnInit, Input } from '@angular/core';
 export class TooltipAjudaComponent implements OnInit {
 
   @Input() descricao: string;
+  @Input() tipo = 'ajuda';
   @Input() posicao = 'top';
 
   constructor() { }

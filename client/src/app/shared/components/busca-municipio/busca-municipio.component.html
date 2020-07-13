@@ -22,25 +22,7 @@
       id="navbarNav"
       class="collapse navbar-collapse"
       [ngClass]="{ 'show': navbarOpen }">
-      <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a
-            class="nav-link"
-            href="#"
-            routerLink="/sobre"
-            (click)="toggleNavbar()">
-            Sobre
-          </a>
-        </li>
-        <li class="nav-item active">
-          <a
-            class="nav-link"
-            href="#"
-            routerLink="/duvidas"
-            (click)="toggleNavbar()">
-            Dúvidas
-          </a>
-        </li>
+      <ul class="navbar-nav mr-auto">
         <li class="nav-item active">
           <button
             class="btn btn-link nav-link"
@@ -64,6 +46,26 @@
               (selectItem)="salvarMunicipio($event.item)"
               #instance="ngbTypeahead">
           </div>
+        </li>
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a
+            class="nav-link"
+            href="#"
+            routerLink="/sobre"
+            (click)="toggleNavbar()">
+            Sobre
+          </a>
+        </li>
+        <li class="nav-item active">
+          <a
+            class="nav-link"
+            href="#"
+            routerLink="/duvidas"
+            (click)="toggleNavbar()">
+            Dúvidas
+          </a>
         </li>
       </ul>
     </div>

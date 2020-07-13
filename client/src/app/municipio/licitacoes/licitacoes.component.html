@@ -1,6 +1,6 @@
-<h4 class="mb-4">Licitações abertas</h4>
+<h4 class="mb-4 d-block d-sm-none">Licitações</h4>
 
-<p [hidden]="licitacoesAbertas?.length > 0 || isLoading">
+<p [hidden]="licitacoes?.length > 0 || isLoading">
   Não há licitações abertas neste momento.
 </p>
 
@@ -9,19 +9,23 @@
 <div class="table-responsive">
   <table
     class="table table-hover"
-    [hidden]="licitacoesAbertas?.length == 0 || isLoading">
+    [hidden]="licitacoes?.length == 0 || isLoading">
     <thead>
       <tr>
         <th scope="col">Objeto da licitação</th>
         <th
           scope="col"
           class="text-center">
-          Data de abertura
+          Data de publicação
+        </th>
+        <th
+          scope="col">
+        Status
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let licitacao of licitacoesAbertas">
+      <tr *ngFor="let licitacao of licitacoes">
         <td>
           <a [routerLink]="['/licitacoes/' + licitacao.id_licitacao + '/info']">
             {{ licitacao.descricao_objeto | initialcase }}
@@ -29,6 +33,19 @@
         </td>
         <td class="text-center text-nowrap">
           {{ licitacao.data_abertura | date: "dd-MM-yyyy" }}
+        </td>
+        <td>
+          <span
+            *ngIf="licitacao.status === 'Aberta'; else licitacaoEncerrada"
+            class="badge badge-info">
+            Aberta
+          </span>
+          <ng-template #licitacaoEncerrada>
+            <span
+              class="badge badge-danger">
+              Encerrada
+            </span>
+          </ng-template>
         </td>
       </tr>
     </tbody>

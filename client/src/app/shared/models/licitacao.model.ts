@@ -2,6 +2,7 @@ import { ContratoLicitacao } from './contratoLicitacao.model';
 
 export interface Licitacao {
   id_licitacao: number;
+  status: string;
   nm_orgao: string;
   nr_licitacao: string;
   ano_licitacao: number;

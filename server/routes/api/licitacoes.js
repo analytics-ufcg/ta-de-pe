@@ -19,6 +19,27 @@ router.get("/", (req, res) => {
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
+router.get("/municipio/:nome_municipio", (req, res) => {
+  const municipio = req.params.nome_municipio;
+
+  Licitacao.findAll({
+    include: [
+      {
+        attributes: ["nome_municipio"],
+        model: Orgao,
+        as: "licitacoesOrgao",
+        where: {
+          nome_municipio: municipio
+        },
+        required: true
+      }
+    ],
+    order: [["data_abertura", "DESC"]]
+  })
+    .then(licitacoes => res.status(SUCCESS).json(licitacoes))
+    .catch(err => res.status(BAD_REQUEST).json({ err }));
+});
+
 router.get("/abertas", (req, res) => {
   const municipio = req.query.nome_municipio;
 
