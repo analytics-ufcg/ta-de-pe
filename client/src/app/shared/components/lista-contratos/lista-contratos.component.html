@@ -1,85 +1,81 @@
-<div class="row">
-  <div class="col-lg-6">
-    <form>
-      <div class="form-group">
-        <input
-          class="form-control"
-          type="text"
-          [formControl]="filtro"
-          [hidden]="contratos?.length == 0 || isLoading"
-          placeholder="Buscar nos contratos...">
-      </div>
-    </form>
+<form>
+  <div class="form-group">
+    <input
+      class="form-control"
+      type="text"
+      placeholder="Buscar nos contratos..."
+      name="termoBusca"
+      [(ngModel)]="listaService.termoBusca" />
   </div>
-</div>
-<div class="table-wrapper">
-  <div class="table-responsive">
-    <table
-      class="table table-sm table-hover"
-      [hidden]="contratos?.length == 0 || isLoading">
-      <thead>
-        <tr>
-          <th
-            scope="col"
-            class="text-center">
-            Contrato
-          </th>
-          <th
-            scope="col"
-            class="th-espacoso">
-            Fornecedor
-          </th>
-          <th
-            scope="col"
-            class="text-center">
-            CPF/CNPJ
-          </th>
-          <th scope="col">Valor contratado</th>
-          <th
-            scope="col"
-            class="text-center">
-            Início da vigência
-          </th>
-          <th
-            scope="col"
-            class="text-center">
-            Fim da vigência
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let contrato of contratos$ | async; index as i">
-          <td class="text-center">
-            <a [routerLink]="['/contratos/' + contrato.id_contrato]">
-              <ngb-highlight
-                [result]="contrato.nr_contrato"
-                [term]="filtro.value"></ngb-highlight>
-            </a>
-          </td>
-          <td>
-            <span *ngIf="contrato.contratoFornecedor.nm_pessoa">
-              <ngb-highlight
-                [result]="contrato.contratoFornecedor.nm_pessoa"
-                [term]="filtro.value"></ngb-highlight>
+</form>
+<div class="table-responsive">
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th
+          scope="col"
+          class="text-center"
+          ordenavel="nr_contrato"
+          (ordenar)="onOrdenar($event)">
+          Contrato
+        </th>
+        <th
+          scope="col"
+          class="th-espacoso"
+          ordenavel="nm_fornecedor"
+          (ordenar)="onOrdenar($event)">
+          Fornecedor
+        </th>
+        <th
+          scope="col"
+          class="text-center"
+          ordenavel="nr_documento_contratado"
+          (ordenar)="onOrdenar($event)">
+          CPF/CNPJ
+        </th>
+        <th scope="col">Valor contratado</th>
+        <th
+          scope="col"
+          class="text-center"
+          ordenavel="dt_inicio_vigencia"
+          (ordenar)="onOrdenar($event)">
+          Início da vigência
+        </th>
+        <th
+          scope="col"
+          class="text-center"
+          ordenavel="dt_final_vigencia"
+          (ordenar)="onOrdenar($event)">
+          Fim da vigência
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let contrato of listaService.dadosProcessados$ | async; index as i">
+        <td class="text-center">
+          <a [routerLink]="['/contratos/' + contrato.id_contrato]">
+            <ngb-highlight [result]="contrato.nr_contrato" [term]="listaService.termoBusca"></ngb-highlight>
+          </a>
+        </td>
+        <td>
+          <span *ngIf="contrato.contratoFornecedor.nm_pessoa">
+              <ngb-highlight [result]="contrato.contratoFornecedor.nm_pessoa" [term]="listaService.termoBusca"></ngb-highlight>
             </span>
             <span *ngIf="!contrato.contratoFornecedor.nm_pessoa">(Nome não encontrado)</span>
-          </td>
-          <td class="text-right numero">
-            <ngb-highlight
-              [result]="contrato.nr_documento_contratado | formatCpfCnpj"
-              [term]="filtro.value"></ngb-highlight>
-          </td>
-          <td class="text-right numero">
-            {{ contrato.vl_contrato | currency: "R$" }}
-          </td>
-          <td class="text-center">
-            {{ contrato.dt_inicio_vigencia | date:'LLL/y' }}
-          </td>
-          <td class="text-center">
-            {{ contrato.dt_final_vigencia | date:'LLL/y' }}
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+        </td>
+        <td class="text-right numero">
+          <ngb-highlight [result]="contrato.nr_documento_contratado | formatCpfCnpj" [term]="listaService.termoBusca"></ngb-highlight>
+        </td>
+        <td class="text-right numero">
+          {{ contrato.vl_contrato | currency: "R$" }}
+        </td>
+        <td class="text-center">
+          {{ contrato.dt_inicio_vigencia | date:'LLL/y' }}
+        </td>
+        <td class="text-center">
+          {{ contrato.dt_final_vigencia | date:'LLL/y' }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

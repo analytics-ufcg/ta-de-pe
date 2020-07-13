@@ -1,45 +1,30 @@
-import { Component, OnInit, Input, PipeTransform, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, Input, PipeTransform, OnChanges, SimpleChanges, ViewChildren, QueryList } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
 
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject, Subject } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
 import { ContratoLicitacao } from '../../models/contratoLicitacao.model';
+import { EventoOrd } from '../../models/lista.model';
+import { ListaService } from '../../services/lista.service';
+import { OrdenavelDirective } from '../../directives/ordenavel.directive';
 
 @Component({
   selector: 'app-lista-contratos',
   templateUrl: './lista-contratos.component.html',
   styleUrls: ['./lista-contratos.component.scss'],
-  providers: [DecimalPipe]
+  providers: [ListaService, DecimalPipe]
 })
-export class ListaContratosComponent implements OnInit, OnChanges {
-  @Input() contratos: ContratoLicitacao[];
-  @Input() isLoading: boolean;
+export class ListaContratosComponent implements OnChanges {
+  @Input() contratos$: Observable<ContratoLicitacao[]>;
 
-  contratos$: Observable<ContratoLicitacao[]>;
-  filtro = new FormControl();
+  @ViewChildren(OrdenavelDirective) cabecalhos: QueryList<OrdenavelDirective>;
 
-  constructor(private pipe: DecimalPipe) {
-  }
+  constructor(
+    public listaService: ListaService
+  ) {}
   ngOnChanges(changes: SimpleChanges): void {
-    this.contratos$ = this.filtro.valueChanges.pipe(
-      startWith(''),
-      map(texto => this.buscar(texto, this.pipe))
-    );
-  }
-
-  ngOnInit() {
-  }
-
-  buscar(texto: string, pipe: PipeTransform): ContratoLicitacao[] {
-    if (this.contratos) {
-      return this.contratos.filter(contrato => {
-        const termo = texto.toLowerCase();
-        return pipe.transform(contrato.nr_contrato).includes(termo)
-            || contrato.contratoFornecedor.nm_pessoa.toLowerCase().includes(termo)
-            || pipe.transform(contrato.nr_documento_contratado).includes(termo);
-      });
-    }
+    this.listaService.dados$ = this.contratos$;
   }
 }

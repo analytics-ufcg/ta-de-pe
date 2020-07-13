@@ -1,11 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Subject } from 'rxjs';
-import { takeUntil, debounceTime } from 'rxjs/operators';
+import { Subject, Observable, BehaviorSubject } from 'rxjs';
+import { takeUntil, debounceTime, tap, startWith } from 'rxjs/operators';
 
 import { UserService } from '../../shared/services/user.service';
 import { ContratoService } from '../../shared/services/contrato.service';
 import { ContratoLicitacao } from '../../shared/models/contratoLicitacao.model';
+import { ListaService } from 'src/app/shared/services/lista.service';
 
 @Component({
   selector: 'app-contratos-vigentes',
@@ -16,13 +17,14 @@ export class ContratosVigentesComponent implements OnInit {
 
   private unsubscribe = new Subject();
 
+  public contratosVigentes$: Observable<ContratoLicitacao[]>;
+  public loading$ = new BehaviorSubject<boolean>(true);
   public municipioEscolhido: string;
-  public contratosVigentes: ContratoLicitacao[];
-  public isLoading = true;
 
   constructor(
     private userService: UserService,
-    private contratoService: ContratoService) { }
+    private contratoService: ContratoService
+    ) { }
 
   ngOnInit() {
     this.getMunicipio();
@@ -33,19 +35,12 @@ export class ContratosVigentesComponent implements OnInit {
       .getMunicipioEscolhido()
       .pipe(
         debounceTime(300),
-        takeUntil(this.unsubscribe))
+        takeUntil(this.unsubscribe)
+      )
       .subscribe(municipio => {
         this.municipioEscolhido = municipio;
-        this.getContratosVigentes(this.municipioEscolhido);
+        this.contratosVigentes$ = this.contratoService.getVigentes(municipio);
+        this.loading$.next(false);
       });
   }
-
-  getContratosVigentes(municipio: string) {
-    this.contratoService.getVigentes(municipio)
-      .pipe(takeUntil(this.unsubscribe)).subscribe(contratos => {
-        this.contratosVigentes = contratos;
-        this.isLoading = false;
-      });
-  }
-
 }
