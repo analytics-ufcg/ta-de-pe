@@ -3,6 +3,8 @@ import { Fornecedor } from './fornecedor.model';
 
 export interface ContratoLicitacao {
   nm_orgao: string;
+  nm_fornecedor: string;
+  tp_fornecedor: string;
   id_licitacao: number;
   nr_licitacao: number;
   ano_licitacao: number;
@@ -13,7 +15,6 @@ export interface ContratoLicitacao {
   vl_contrato: number;
   dt_inicio_vigencia: Date;
   dt_final_vigencia: Date;
-  contratoFornecedor: Fornecedor;
   itensContrato: ItensContrato[];
   ano_contrato: number;
   id_contrato: string;
