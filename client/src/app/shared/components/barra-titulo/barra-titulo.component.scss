@@ -2,9 +2,9 @@
   position: sticky;
   top: 48px;
   z-index: 999;
-  background-color: #E2E2E2;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
+  background-color: #d4e3f1;
+  padding-top: 15px;
+  padding-bottom: 15px;
   margin-top: 0;
   margin-bottom: 0;
 
@@ -17,6 +17,8 @@
 
 .view-title {
   font-size: 1.2rem;
+  margin-bottom: 0;
+  color: #124C7D;
   @media (min-width: 576px) {
     font-size: 1.9rem;
   }
