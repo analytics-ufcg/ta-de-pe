@@ -26,7 +26,12 @@ router.get("/vigentes", (req, res) => {
   const municipio = req.query.nome_municipio;
 
   Contrato.findAll({
-    attributes: ["id_contrato", "id_licitacao", "nr_contrato", "nr_documento_contratado", "vl_contrato", "dt_inicio_vigencia", "dt_final_vigencia"],
+    raw: true,
+    attributes: {
+      include: [[Sequelize.col('contratoFornecedor.nm_pessoa'), 'nm_fornecedor'],
+                [Sequelize.col('contratoFornecedor.tp_pessoa'), 'tp_fornecedor'],
+                "id_contrato", "id_licitacao", "nr_contrato", "nr_documento_contratado", "vl_contrato", "dt_inicio_vigencia", "dt_final_vigencia"]
+    },
     include: [
       {
         attributes: ["nome_municipio"],
@@ -39,7 +44,7 @@ router.get("/vigentes", (req, res) => {
       },
       {
         model: Fornecedor,
-        attributes: ["nm_pessoa", "tp_pessoa"],
+        attributes: [],
         as: "contratoFornecedor"
       }
     ],
