@@ -1,0 +1,63 @@
+{
+  "name": "Tá de Pé? - Merenda",
+  "short_name": "Tá de Pé",
+  "description": "Tá de Pé? - Merenda é uma plataforma desenvolvida pela Transparência Brasil onde é possível acompanhar dados oficiais de licitações e contratos de alimentação escolar dos municípios brasileiros.",
+  "lang": "pt-BR",
+  "start_url": "index.html",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "theme_color": "#124C7D",
+  "background_color": "#ffffff",
+  "icons": [
+    {
+      "src": "assets/imgs/512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/imgs/192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/imgs/180x180.png",
+      "sizes": "180x180",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/imgs/167x167.png",
+      "sizes": "167x167",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/imgs/152x152.png",
+      "sizes": "152x152",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/imgs/144x144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/imgs/128x128.png",
+      "sizes": "128x128",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/imgs/96x96.png",
+      "sizes": "96x96",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/imgs/48x48.png",
+      "sizes": "48x48",
+      "type": "image/png"
+    },
+    {
+      "src": "assets/imgs/32x32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    }
+  ]
+}
