@@ -14,6 +14,7 @@ import { ListaContratosComponent } from './lista-contratos/lista-contratos.compo
 import { PipesModule } from '../pipes/pipes.module';
 import { BarraTituloComponent } from './barra-titulo/barra-titulo.component';
 import { DescricaoItemComponent } from './descricao-item/descricao-item.component';
+import { OrdenavelDirective } from '../directives/ordenavel.directive';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { DescricaoItemComponent } from './descricao-item/descricao-item.componen
     ListaContratosComponent,
     ProgressComponent,
     BarraTituloComponent,
-    DescricaoItemComponent
+    DescricaoItemComponent,
+    OrdenavelDirective
   ],
   imports: [
     CommonModule,
@@ -42,7 +44,8 @@ import { DescricaoItemComponent } from './descricao-item/descricao-item.componen
     ListaContratosComponent,
     ProgressComponent,
     BarraTituloComponent,
-    DescricaoItemComponent
+    DescricaoItemComponent,
+    OrdenavelDirective
   ]
 })
 export class SharedModule { }

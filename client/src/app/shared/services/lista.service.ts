@@ -1,11 +1,10 @@
 import { Injectable, PipeTransform } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 
-import { BehaviorSubject, Subject, Observable, of, combineLatest } from 'rxjs';
+import { BehaviorSubject, Subject, Observable } from 'rxjs';
 import { tap, debounceTime, switchMap, delay, map } from 'rxjs/operators';
 
-import { EstadoLista, DirecaoOrd, ResultadoBusca } from '../models/lista.model';
-import { SubjectSubscriber } from 'rxjs/internal/Subject';
+import { EstadoLista, DirecaoOrd } from '../models/lista.model';
 
 @Injectable({
   providedIn: 'root'
@@ -27,9 +26,9 @@ export class ListaService {
   constructor(private pipe: DecimalPipe) {
     this._busca$.pipe(
       tap(() => this.loading$.next(true)),
-      debounceTime(200),
+      debounceTime(0),
       switchMap(() => this._buscar()),
-      delay(200),
+      delay(0),
       tap(() => this.loading$.next(false))
     ).subscribe(dados => {
       this._dadosProcessados$.next(dados);
@@ -72,9 +71,13 @@ export class ListaService {
         || pipe.transform(dados.nr_documento_contratado).includes(termo);
   }
 
-  private _buscar(): Observable<any> {
+  private _buscar(): Observable<any[]> {
     const {colunaOrd, direcaoOrd, termoBusca} = this._estado;
-    return this.dados$.pipe(map(dados => dados.filter(d => this.corresponde(d, termoBusca, this.pipe))));
+    return this.dados$
+      .pipe(
+        map(dados => dados.filter(d => this.corresponde(d, termoBusca, this.pipe))),
+        map(dados => this.ordenar(dados, colunaOrd, direcaoOrd))
+      );
     // // 1. sort
     // let dados = this.ordenar(this._dados, colunaOrd, direcaoOrd);
 

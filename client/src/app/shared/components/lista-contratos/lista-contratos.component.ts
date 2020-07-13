@@ -21,10 +21,21 @@ export class ListaContratosComponent implements OnChanges {
 
   @ViewChildren(OrdenavelDirective) cabecalhos: QueryList<OrdenavelDirective>;
 
-  constructor(
-    public listaService: ListaService
-  ) {}
+  constructor(public listaService: ListaService) {}
+
   ngOnChanges(changes: SimpleChanges): void {
     this.listaService.dados$ = this.contratos$;
+  }
+
+  onOrdenar({coluna, direcao} : EventoOrd) {
+    // Reseta outros cabeçalhos
+    this.cabecalhos.forEach(cab => {
+      if (cab.ordenavel !== coluna) {
+        cab.direcao = '';
+      }
+    });
+
+    this.listaService.colunaOrd = coluna;
+    this.listaService.direcaoOrd = direcao;
   }
 }
