@@ -30,6 +30,8 @@ export class ListaContratosComponent implements OnChanges {
     this.cabecalhos.forEach(cab => {
       if (cab.ordenavel !== coluna) {
         cab.direcao = '';
+        cab.ordAsc = false;
+        cab.ordDesc = false;
       }
     });
 
