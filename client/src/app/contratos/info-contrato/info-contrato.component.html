@@ -112,13 +112,19 @@
             <tr>
               <th
                 scope="col"
-                class="text-left table-th-dividido-up align-middle">
-                Item
+                class="text-left table-th-dividido-up align-middle"
+                ordenavel="ds_item"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
+                Produto
               </th>
               <th
                 scope="col"
                 class="table-th-monospace table-th-dividido-up text-right"
-                *ngIf="!radioGroupForm.value['showTotal']">
+                *ngIf="!radioGroupForm.value['showTotal']"
+                ordenavel="vl_item_contrato"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 <span class="nowrap">Valor por</span>
                 <br>
                 unidade
@@ -128,14 +134,20 @@
               <th
                 scope="col"
                 class="table-th-monospace table-th-dividido-up text-right"
-                *ngIf="radioGroupForm.value['showTotal']">
+                *ngIf="radioGroupForm.value['showTotal']"
+                ordenavel="vl_total_item_contrato"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 <span class="nowrap">Valor total</span>
                 <br>
                 (R$)
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right">
+                class="table-th-monospace table-th-dividido-up text-right"
+                ordenavel="mediana_valor"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 Mediana
                 <br>
                 <span class="nowrap">no estado</span>
@@ -145,7 +157,10 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right">
+                class="table-th-monospace table-th-dividido-up text-right"
+                ordenavel="percentual_vs_estado"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 Diferença
                 <br>
                 <span class="nowrap">com estado</span>
@@ -155,7 +170,10 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right">
+                class="table-th-monospace table-th-dividido-up text-right"
+                ordenavel="vl_unitario_estimado"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 Valor
                 <br>
                 estimado
@@ -165,7 +183,10 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right">
+                class="table-th-monospace table-th-dividido-up text-right"
+                ordenavel="percentual_vs_estimado"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 Diferença
                 <br>
                 <span class="nowrap">com estimado</span>
@@ -179,7 +200,7 @@
           </thead>
           <tbody>
             <tr
-              *ngFor="let item of (itensContrato$ | async); index as i"
+              *ngFor="let item of listaService.dadosProcessados$ | async; index as i"
               class="table-item">
               <td class="align-middle descricao">
                 <app-descricao-item
