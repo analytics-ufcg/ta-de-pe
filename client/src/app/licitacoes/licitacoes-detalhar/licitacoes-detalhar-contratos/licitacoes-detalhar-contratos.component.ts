@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { Subject } from 'rxjs';
-import { takeUntil, take, map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { take, map } from 'rxjs/operators';
 
 import { ContratoLicitacao } from 'src/app/shared/models/contratoLicitacao.model';
 import { LicitacaoService } from 'src/app/shared/services/licitacao.service';
@@ -18,14 +18,12 @@ import * as d3 from 'd3-scale';
   templateUrl: './licitacoes-detalhar-contratos.component.html',
   styleUrls: ['./licitacoes-detalhar-contratos.component.scss']
 })
-export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
+export class LicitacoesDetalharContratosComponent implements OnInit {
 
-  private unsubscribe = new Subject();
+  public contratosLicitacao$: Observable<ContratoLicitacao[]>;
 
-  public contratoLicitacao: ContratoLicitacao[];
   public itemSelecionado: ItensContrato;
   public activeIds: string[] = [];
-  public isLoading = true;
   public radioGroupForm: FormGroup;
   public showTotal = false;
 
@@ -49,33 +47,7 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
   }
 
   getContratosLicitacaoByID(id: string) {
-    this.licitacaoService.getContratos(id)
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe(contratosLicitacao => {
-        this.contratoLicitacao = contratosLicitacao;
-        this.contratoLicitacao.map(contrato => {
-          contrato.valor_contratado = contrato.itensContrato.reduce((sum, item) => {
-            return sum + (item.vl_item_contrato * item.qt_itens_contrato);
-          }, 0);
-          contrato.valor_estimado = contrato.itensContrato.reduce((sum, item) => {
-            return sum + (item.itensLicitacaoItensContrato.vl_unitario_estimado * item.qt_itens_contrato);
-          }, 0);
-          contrato.itensContrato.map(item => {
-            const tituloItem = item.ds_item.split(/\s+|:|-/).slice(0, 3).map(palavra => {
-              return palavra.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
-            }).filter(i => i !== '');
-            this.getMediaItensSemelhantes(tituloItem, item.dt_inicio_vigencia, item.sg_unidade_medida)
-              .then(res => {
-                item.mediana_valor = res.mediana;
-                item.itensSemelhantes = res.itensOrdenados;
-                item.percentual_vs_estado = (item.vl_item_contrato - res.mediana) / res.mediana;
-                item.percentual_vs_estimado = (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado)
-                                              / item.itensLicitacaoItensContrato.vl_unitario_estimado;
-              });
-          });
-        });
-        this.isLoading = false;
-      });
+    this.contratosLicitacao$ = this.licitacaoService.getContratos(id);
   }
 
   getMediaItensSemelhantes(dsItem: string[], dataInicioContrato: Date, unidadeMedida: string) {
@@ -118,10 +90,4 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
     this.itemSelecionado = item;
     this.modalService.open(content, { ariaLabelledBy: 'modal-descricao', size: 'xl' });
   }
-
-  ngOnDestroy() {
-    this.unsubscribe.next();
-    this.unsubscribe.complete();
-  }
-
 }

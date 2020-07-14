@@ -1,6 +1,8 @@
 <h4 class="my-4 d-block d-sm-none">Contratos vigentes</h4>
 
-<p *ngIf="((contratosVigentes$ | async)?.length === 0) && (loading$ | async) === false">Não há contratos vigentes neste momento.</p>
+<p *ngIf="((contratosVigentes$ | async)?.length === 0) && (loading$ | async) === false">
+  Não há contratos vigentes neste momento.
+</p>
 
 <app-spinner *ngIf="loading$ | async"></app-spinner>
 
