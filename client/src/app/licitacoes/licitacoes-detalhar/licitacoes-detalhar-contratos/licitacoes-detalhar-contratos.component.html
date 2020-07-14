@@ -1,9 +1,8 @@
 <div>
-  <p [hidden]="contratoLicitacao?.length > 0 || isLoading">
+  <p *ngIf="((contratosLicitacao$ | async)?.length === 0)">
     Ainda não há contratos para essa licitação.
   </p>
 
-  <app-spinner *ngIf="isLoading"></app-spinner>
-
-  <app-lista-contratos [contratos]="contratoLicitacao" [isLoading]="isLoading"></app-lista-contratos>
+  <app-lista-contratos
+    [contratos$]="contratosLicitacao$"></app-lista-contratos>
 </div>
