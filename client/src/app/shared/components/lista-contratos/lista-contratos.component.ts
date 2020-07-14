@@ -1,9 +1,7 @@
-import { Component, OnInit, Input, PipeTransform, OnChanges, SimpleChanges, ViewChildren, QueryList } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewChildren, QueryList } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
-import { FormControl } from '@angular/forms';
 
-import { Observable, BehaviorSubject, Subject } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 import { ContratoLicitacao } from '../../models/contratoLicitacao.model';
 import { EventoOrd } from '../../models/lista.model';
@@ -27,7 +25,7 @@ export class ListaContratosComponent implements OnChanges {
     this.listaService.dados$ = this.contratos$;
   }
 
-  onOrdenar({coluna, direcao} : EventoOrd) {
+  onOrdenar({coluna, direcao}: EventoOrd) {
     // Reseta outros cabeçalhos
     this.cabecalhos.forEach(cab => {
       if (cab.ordenavel !== coluna) {
