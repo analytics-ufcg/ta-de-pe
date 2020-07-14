@@ -1,12 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Subject, Observable, BehaviorSubject } from 'rxjs';
-import { takeUntil, debounceTime, tap, startWith } from 'rxjs/operators';
+import { takeUntil, debounceTime } from 'rxjs/operators';
 
 import { UserService } from '../../shared/services/user.service';
 import { ContratoService } from '../../shared/services/contrato.service';
 import { ContratoLicitacao } from '../../shared/models/contratoLicitacao.model';
-import { ListaService } from 'src/app/shared/services/lista.service';
 
 @Component({
   selector: 'app-contratos-vigentes',

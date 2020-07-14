@@ -81,29 +81,6 @@ router.get("/:id", (req, res) => {
             [Op.or]: [6, 9] // 6 (novidade de pagamento) e 9 (novidade de empenho)
           }
         }
-      },
-      {
-        model: itensContrato,
-        include: [
-          {
-            model: itensLicitacao,
-            attributes: ["vl_unitario_estimado", "sg_unidade_medida"],
-            as: "itensLicitacaoItensContrato"
-          },
-          {
-            model: itensContrato,
-            include: [{
-              model: Orgao,
-              as: "itensContratoOrgao"
-            }, {
-              model: Contrato,
-              as: "itensContratoContrato"
-            }],
-            as: "itensSemelhantes"
-          }
-        ],
-        attributes: ["id_item_contrato", "qt_itens_contrato", "vl_item_contrato", "vl_total_item_contrato", "ds_item", "categoria", "ano_licitacao", "dt_inicio_vigencia"],
-        as: "itensContrato"
       }
     ],
     where: {
@@ -189,7 +166,6 @@ router.get("/licitacao/:id", (req, res) => {
       res.status(BAD_REQUEST).json({ err })
     });
 });
-
 
 router.get("/licitacao/:id/fornecedores", (req, res) => {
   Fornecedor.findAll({

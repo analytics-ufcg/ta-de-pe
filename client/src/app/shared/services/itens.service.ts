@@ -20,6 +20,10 @@ export class ItensService {
       return this.http.get<ItensContrato>(`${this.url}/item/${idItem}`);
     }
 
+    getByContrato(idContrato: string): Observable<ItensContrato[]> {
+      return this.http.get<ItensContrato[]>(`${this.url}/contrato/${idContrato}`);
+    }
+
     getItensSimilares(termos: string[], dataInicioContrato: Date): Observable<ItensContrato[]> {
         return this.http.post<ItensContrato[]>(this.url + '/similares', { termo: termos, data: dataInicioContrato });
     }
