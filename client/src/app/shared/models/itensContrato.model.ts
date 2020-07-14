@@ -12,6 +12,8 @@ export interface ItensContrato {
   qt_itens_contrato: number;
   vl_item_contrato: number;
   vl_total_item_contrato: number;
+  vl_unitario_estimado: number;
+  sg_unidade_medida: string;
   ds_item: string;
   ds_item_resumido: string;
   dt_inicio_vigencia: Date;

@@ -8,7 +8,7 @@
     [exibirVoltar]="true"></app-barra-titulo>
 
   <div class="container">
-    <app-spinner *ngIf="isLoading"></app-spinner>
+    <app-spinner *ngIf="loading$ | async"></app-spinner>
     <div class="row mt-4">
       <div class="col-sm-12 col-md-3 mb-4">
         <div class="dados-linha">
@@ -25,7 +25,7 @@
           <strong>Fornecedor</strong>
         </div>
         <div class="dados-linha">
-          {{ contrato?.nm_fornecedor }}
+          {{ contrato?.contratoFornecedor.nm_pessoa }}
           <span class="text-muted">
             ({{ contrato?.nr_documento_contratado | formatCpfCnpj }})
           </span>
@@ -179,7 +179,7 @@
           </thead>
           <tbody>
             <tr
-              *ngFor="let item of contrato?.itensContrato; index as i"
+              *ngFor="let item of (itensContrato$ | async); index as i"
               class="table-item">
               <td class="align-middle descricao">
                 <app-descricao-item
@@ -245,18 +245,18 @@
               <td
                 class="numero align-middle"
                 *ngIf="!radioGroupForm.value['showTotal']"
-                [title]="item.itensLicitacaoItensContrato.vl_unitario_estimado">
-                {{ item.itensLicitacaoItensContrato.vl_unitario_estimado | currency:'':'' }}
+                [title]="item.vl_unitario_estimado">
+                {{ item.vl_unitario_estimado | currency:'':'' }}
               </td>
               <td
                 class="numero align-middle"
                 *ngIf="radioGroupForm.value['showTotal']"
-                [title]="item.itensLicitacaoItensContrato.vl_unitario_estimado * item.qt_itens_contrato">
-                {{ item.qt_itens_contrato * item.itensLicitacaoItensContrato.vl_unitario_estimado | currency:'':'' }}
+                [title]="item.vl_unitario_estimado * item.qt_itens_contrato">
+                {{ item.qt_itens_contrato * item.vl_unitario_estimado | currency:'':'' }}
               </td>
               <td
                 class="numero align-middle"
-                [title]="item.itensLicitacaoItensContrato.vl_unitario_estimado"
+                [title]="item.vl_unitario_estimado"
                 [style.background-color]="defineCorFundo(item.percentual_vs_estimado)"
                 [style.color]="defineCor(item.percentual_vs_estimado)">
                 <span *ngIf="item.percentual_vs_estimado > 0">+</span>{{ item.percentual_vs_estimado | percent:'1.1' }}

@@ -16,6 +16,7 @@ export interface ContratoLicitacao {
   dt_inicio_vigencia: Date;
   dt_final_vigencia: Date;
   itensContrato: ItensContrato[];
+  contratoFornecedor: any;
   ano_contrato: number;
   id_contrato: string;
   total_pago: number;
