@@ -16,42 +16,48 @@
           scope="col"
           class="text-center th-medio"
           ordenavel="nr_contrato"
-          (ordenar)="onOrdenar($event)">
+          (ordenar)="onOrdenar($event)"
+          appOrdenavel>
           Contrato
         </th>
         <th
           scope="col"
           class="th-espacoso"
           ordenavel="nm_fornecedor"
-          (ordenar)="onOrdenar($event)">
+          (ordenar)="onOrdenar($event)"
+          appOrdenavel>
           Fornecedor
         </th>
         <th
           scope="col"
           class="text-center"
           ordenavel="nr_documento_contratado"
-          (ordenar)="onOrdenar($event)">
+          (ordenar)="onOrdenar($event)"
+          appOrdenavel>
           CPF/CNPJ
         </th>
         <th
           scope="col"
           class="text-center"
           ordenavel="vl_contrato"
-          (ordenar)="onOrdenar($event)">
+          (ordenar)="onOrdenar($event)"
+          appOrdenavel>
           Valor contratado
         </th>
         <th
           scope="col"
           class="text-center th-medio"
           ordenavel="dt_inicio_vigencia"
-          (ordenar)="onOrdenar($event)">
+          (ordenar)="onOrdenar($event)"
+          appOrdenavel>
           Início da vigência
         </th>
         <th
           scope="col"
           class="text-center th-medio"
           ordenavel="dt_final_vigencia"
-          (ordenar)="onOrdenar($event)">
+          (ordenar)="onOrdenar($event)"
+          appOrdenavel>
           Fim da vigência
         </th>
       </tr>

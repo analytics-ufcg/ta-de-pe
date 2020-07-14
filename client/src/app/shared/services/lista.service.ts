@@ -11,42 +11,42 @@ import { EstadoLista, DirecaoOrd } from '../models/lista.model';
 })
 export class ListaService {
 
-  private _busca$ = new Subject<void>();
-  private _dadosProcessados$ = new BehaviorSubject<any[]>([]);
+  private busca$ = new Subject<void>();
+  private pDadosProcessados$ = new BehaviorSubject<any[]>([]);
 
   public dados$: Observable<any[]>;
   public loading$ = new BehaviorSubject<boolean>(true);
 
-  private _estado: EstadoLista = {
+  private estado: EstadoLista = {
     termoBusca: '',
     colunaOrd: '',
     direcaoOrd: ''
   };
 
   constructor(private pipe: DecimalPipe) {
-    this._busca$.pipe(
+    this.busca$.pipe(
       tap(() => this.loading$.next(true)),
       debounceTime(0),
       switchMap(() => this._buscar()),
       delay(0),
       tap(() => this.loading$.next(false))
     ).subscribe(dados => {
-      this._dadosProcessados$.next(dados);
+      this.pDadosProcessados$.next(dados);
     });
 
-    this._busca$.next();
+    this.busca$.next();
   }
 
-  get dadosProcessados$() { return this._dadosProcessados$.asObservable(); }
-  get termoBusca() { return this._estado.termoBusca; }
+  get dadosProcessados$() { return this.pDadosProcessados$.asObservable(); }
+  get termoBusca() { return this.estado.termoBusca; }
 
   set termoBusca(termoBusca: string) { this._set({termoBusca}); }
   set colunaOrd(colunaOrd: string) { this._set({colunaOrd}); }
   set direcaoOrd(direcaoOrd: DirecaoOrd) { this._set({direcaoOrd}); }
 
   private _set(patch: Partial<EstadoLista>) {
-    Object.assign(this._estado, patch);
-    this._busca$.next();
+    Object.assign(this.estado, patch);
+    this.busca$.next();
   }
 
   private comparar(v1, v2) {
@@ -73,7 +73,7 @@ export class ListaService {
   }
 
   private _buscar(): Observable<any[]> {
-    const {colunaOrd, direcaoOrd, termoBusca} = this._estado;
+    const {colunaOrd, direcaoOrd, termoBusca} = this.estado;
     return this.dados$
       .pipe(
         map(dados => this.ordenar(dados, colunaOrd, direcaoOrd)),
