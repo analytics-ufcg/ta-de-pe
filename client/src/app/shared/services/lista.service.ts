@@ -67,7 +67,7 @@ class ListaService {
   corresponde(dados: any, texto: string, pipe: PipeTransform) {
   }
 
-  private _buscar(): Observable<any[]> {
+  _buscar(): Observable<any[]> {
     const {colunaOrd, direcaoOrd, termoBusca} = this.estado;
     return this.dados$
       .pipe(
@@ -102,5 +102,13 @@ export class ListaItensService extends ListaService {
 
   constructor(pipe: DecimalPipe) {
     super(pipe);
+  }
+
+  _buscar(): Observable<any[]> {
+    const {colunaOrd, direcaoOrd, termoBusca} = this.estado;
+    return this.dados$
+      .pipe(
+        map(dados => this.ordenar(dados, colunaOrd, direcaoOrd))
+      );
   }
 }
