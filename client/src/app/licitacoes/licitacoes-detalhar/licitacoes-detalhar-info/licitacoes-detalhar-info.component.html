@@ -22,13 +22,16 @@
           *ngIf="!licitacao?.merenda"
           class="mt-2">
           <ngb-alert [dismissible]="false">
-              <strong>Atenção!</strong> Não temos certeza se essa licitação inclui merenda. É necessário checar no Licitacon.
-            </ngb-alert>
+            <strong>Atenção!</strong>
+            Não temos certeza se essa licitação inclui merenda. É necessário checar no Licitacon.
+          </ngb-alert>
         </div>
       </div>
     </div>
     <div class="row mt-4">
-      <div class="col-sm-6 col-md-3 col-lg-2 mb-4">
+      <div
+        class="col-sm-6 col-md-3 col-lg-2 mb-4"
+        [hidden]="!licitacao?.data_homologacao">
         <div class="dados-linha">
           <strong>Valor homologado</strong>
         </div>
@@ -39,13 +42,13 @@
           <span [hidden]="licitacao?.vl_homologado">--</span>
         </div>
       </div>
-      <div class="col-sm-6 col-md-3 col-lg-2 mb-4" [hidden]="quantContratos == 0">
+      <div
+        class="col-sm-6 col-md-3 col-lg-2 mb-4"
+        [hidden]="quantContratos == 0">
         <div class="dados-linha">
           <strong>Contratos</strong>
         </div>
-        <div class="dados-linha">
-          {{ quantContratos }}
-        </div>
+        <div class="dados-linha">{{ quantContratos }}</div>
       </div>
       <div class="col-sm-6 col-md-3 col-lg-4 mb-4">
         <div class="dados-linha">
