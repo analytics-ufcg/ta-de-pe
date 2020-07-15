@@ -8,6 +8,7 @@ const itensLicitacaoModel = "./postgres/itensLicitacao.js";
 const contratoModel = "./postgres/contrato.js";
 const itensContratoModel = "./postgres/itensContrato.js"
 const fornecedorModel = "./postgres/fornecedor.js"
+const documentoLicitacaoModel = "./postgres/documentoLicitacao.js"
 
 if (!global.hasOwnProperty("models")) {
   const db = process.env.POSTGRESURI;
@@ -38,7 +39,8 @@ if (!global.hasOwnProperty("models")) {
     itensLicitacao: sequelize.import(itensLicitacaoModel),
     contrato: sequelize.import(contratoModel),
     itensContrato: sequelize.import(itensContratoModel),
-    fornecedor: sequelize.import(fornecedorModel)
+    fornecedor: sequelize.import(fornecedorModel),
+    documentoLicitacao: sequelize.import(documentoLicitacaoModel)
     //add your others models here
   };
 
