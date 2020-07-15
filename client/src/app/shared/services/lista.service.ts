@@ -9,7 +9,7 @@ import { EstadoLista, DirecaoOrd } from '../models/lista.model';
 @Injectable({
   providedIn: 'root'
 })
-export class ListaService {
+class ListaService {
 
   private busca$ = new Subject<void>();
   private pDadosProcessados$ = new BehaviorSubject<any[]>([]);
@@ -17,13 +17,13 @@ export class ListaService {
   public dados$: Observable<any[]>;
   public loading$ = new BehaviorSubject<boolean>(true);
 
-  private estado: EstadoLista = {
+  public estado: EstadoLista = {
     termoBusca: '',
     colunaOrd: '',
     direcaoOrd: ''
   };
 
-  constructor(private pipe: DecimalPipe) {
+  constructor(public pipe: DecimalPipe) {
     this.busca$.pipe(
       tap(() => this.loading$.next(true)),
       debounceTime(0),
@@ -49,13 +49,13 @@ export class ListaService {
     this.busca$.next();
   }
 
-  private comparar(v1, v2) {
+  comparar(v1, v2) {
     v1 = !v1 ? '' : v1;
     v2 = !v2 ? '' : v2;
     return v1.toString().localeCompare(v2.toString(), 'pt', {numeric: true, ignorePunctuation: true});
   }
 
-  private ordenar(dados: any[], coluna: string, direcao: string): any[] {
+  ordenar(dados: any[], coluna: string, direcao: string): any[] {
     if (direcao === '') {
       return dados;
     } else {
@@ -64,12 +64,7 @@ export class ListaService {
     }
   }
 
-  private corresponde(dados: any, texto: string, pipe: PipeTransform) {
-    const termo = texto.toLowerCase();
-    dados.nm_fornecedor = dados.nm_fornecedor ? dados.nm_fornecedor : '';
-    return pipe.transform(dados.nr_contrato).includes(termo)
-        || dados.nm_fornecedor.toLowerCase().includes(termo)
-        || pipe.transform(dados.nr_documento_contratado).includes(termo);
+  corresponde(dados: any, texto: string, pipe: PipeTransform) {
   }
 
   private _buscar(): Observable<any[]> {
@@ -79,5 +74,33 @@ export class ListaService {
         map(dados => this.ordenar(dados, colunaOrd, direcaoOrd)),
         map(dados => dados.filter(d => this.corresponde(d, termoBusca, this.pipe)))
       );
+  }
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ListaContratosService extends ListaService {
+
+  constructor(pipe: DecimalPipe) {
+    super(pipe);
+  }
+
+  corresponde(dados: any, texto: string, pipe: PipeTransform) {
+    const termo = texto.toLowerCase();
+    dados.nm_fornecedor = dados.nm_fornecedor ? dados.nm_fornecedor : '';
+    return pipe.transform(dados.nr_contrato).includes(termo)
+        || dados.nm_fornecedor.toLowerCase().includes(termo)
+        || pipe.transform(dados.nr_documento_contratado).includes(termo);
+  }
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ListaItensService extends ListaService {
+
+  constructor(pipe: DecimalPipe) {
+    super(pipe);
   }
 }
