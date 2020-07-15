@@ -1,10 +1,10 @@
-import { Component, OnInit, OnDestroy, ViewChildren, QueryList, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChildren, QueryList } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import * as d3 from 'd3-scale';
 
-import { Subject, forkJoin, BehaviorSubject, of, Observable } from 'rxjs';
+import { Subject, forkJoin, BehaviorSubject, Observable } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 
 import { ContratoLicitacao } from 'src/app/shared/models/contratoLicitacao.model';
@@ -29,7 +29,7 @@ import { DecimalPipe } from '@angular/common';
     DecimalPipe
   ]
 })
-export class InfoContratoComponent implements OnInit, OnChanges, OnDestroy {
+export class InfoContratoComponent implements OnInit, OnDestroy {
 
   private unsubscribe = new Subject();
 
@@ -54,16 +54,12 @@ export class InfoContratoComponent implements OnInit, OnChanges, OnDestroy {
 
   ngOnInit() {
     this.activatedroute.params.pipe(take(1)).subscribe(params => {
-      this.getContratoByID(params.id);
       this.getItensByContrato(params.id);
+      this.getContratoByID(params.id);
     });
     this.radioGroupForm = this.formBuilder.group({
       showTotal: false
     });
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.listaService.dados$ = this.itensContrato$;
   }
 
   getContratoByID(id: string) {
@@ -83,20 +79,6 @@ export class InfoContratoComponent implements OnInit, OnChanges, OnDestroy {
       this.contrato.valor_estimado = itensContrato.reduce((sum, item) => {
         return sum + (item.vl_unitario_estimado * item.qt_itens_contrato);
       }, 0);
-
-      // Calcula valores da tabela de itens
-      itensContrato.map(item => {
-        item.ds_item_resumido = this.resumirPipe.transform(item.ds_item);
-        const termos = this.termosPipe.transform(item.ds_item);
-        this.itensService.getMediaItensSemelhantes(termos, item.dt_inicio_vigencia)
-          .then(res => {
-            item.mediana_valor = res.mediana;
-            item.itensSemelhantes = res.itensOrdenados;
-            item.percentual_vs_estado = (item.vl_item_contrato - res.mediana) / res.mediana;
-            item.percentual_vs_estimado = (item.vl_item_contrato - item.vl_unitario_estimado)
-              / item.vl_unitario_estimado;
-          });
-      });
       this.loading$.next(false);
     });
   }
@@ -107,7 +89,7 @@ export class InfoContratoComponent implements OnInit, OnChanges, OnDestroy {
       .pipe(
         map(itensContrato => {
           // Calcula valores da tabela de itens
-          return itensContrato.map(item => {
+          itensContrato.map(item => {
             item.ds_item_resumido = this.resumirPipe.transform(item.ds_item);
             const termos = this.termosPipe.transform(item.ds_item);
             this.itensService.getMediaItensSemelhantes(termos, item.dt_inicio_vigencia)
@@ -119,10 +101,9 @@ export class InfoContratoComponent implements OnInit, OnChanges, OnDestroy {
                   / item.vl_unitario_estimado;
               });
           });
+          return itensContrato;
         })
       );
-
-    console.log(this.listaService.dados$);
   }
 
   onOrdenar({coluna, direcao}: EventoOrd) {
@@ -149,19 +130,6 @@ export class InfoContratoComponent implements OnInit, OnChanges, OnDestroy {
   defineCor(valor: number): string {
     return (valor >= 0.7 || valor <= -0.7) ? 'white' : 'black';
   }
-
-  // open(content, item: ItensContrato): void {
-  //   this.itemSelecionado = item;
-  //   this.itemSelecionado.itensSemelhantes.map(itemSemelhante => {
-  //     if (itemSemelhante.vl_item_contrato > 0) {
-  //       itemSemelhante.percentual_vs_semelhante = (item.vl_item_contrato - itemSemelhante.vl_item_contrato)
-  //                                                   / itemSemelhante.vl_item_contrato;
-  //     } else {
-  //       itemSemelhante.percentual_vs_semelhante = 0;
-  //     }
-  //   });
-  //   this.modalService.open(content, { ariaLabelledBy: 'modal-descricao', size: 'xl' });
-  // }
 
   ngOnDestroy() {
     this.unsubscribe.next();
