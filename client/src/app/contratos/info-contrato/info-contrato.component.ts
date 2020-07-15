@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import * as d3 from 'd3-scale';
 
 import { Subject, forkJoin, BehaviorSubject, of, Observable } from 'rxjs';
-import { take } from 'rxjs/operators';
+import { take, map } from 'rxjs/operators';
 
 import { ContratoLicitacao } from 'src/app/shared/models/contratoLicitacao.model';
 import { ItensContrato } from 'src/app/shared/models/itensContrato.model';
@@ -13,7 +13,7 @@ import { ContratoService } from 'src/app/shared/services/contrato.service';
 import { ItensService } from 'src/app/shared/services/itens.service';
 import { ResumirTextoPipe } from 'src/app/shared/pipes/resumir-texto.pipe';
 import { TermosImportantesPipe } from 'src/app/shared/pipes/termos-importantes.pipe';
-import { ListaService } from 'src/app/shared/services/lista.service';
+import { ListaItensService } from 'src/app/shared/services/lista.service';
 import { EventoOrd } from 'src/app/shared/models/lista.model';
 import { OrdenavelDirective } from 'src/app/shared/directives/ordenavel.directive';
 import { DecimalPipe } from '@angular/common';
@@ -25,7 +25,7 @@ import { DecimalPipe } from '@angular/common';
   providers: [
     ResumirTextoPipe,
     TermosImportantesPipe,
-    ListaService,
+    ListaItensService,
     DecimalPipe
   ]
 })
@@ -49,12 +49,13 @@ export class InfoContratoComponent implements OnInit, OnChanges, OnDestroy {
     private itensService: ItensService,
     private resumirPipe: ResumirTextoPipe,
     private termosPipe: TermosImportantesPipe,
-    public listaService: ListaService
+    public listaService: ListaItensService
   ) { }
 
   ngOnInit() {
     this.activatedroute.params.pipe(take(1)).subscribe(params => {
       this.getContratoByID(params.id);
+      this.getItensByContrato(params.id);
     });
     this.radioGroupForm = this.formBuilder.group({
       showTotal: false
@@ -62,7 +63,7 @@ export class InfoContratoComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    this.listaService.dados$ = this.itensContrato$.asObservable();
+    this.listaService.dados$ = this.itensContrato$;
   }
 
   getContratoByID(id: string) {
@@ -96,10 +97,32 @@ export class InfoContratoComponent implements OnInit, OnChanges, OnDestroy {
               / item.vl_unitario_estimado;
           });
       });
-      this.itensContrato$ = of(itensContrato);
-      console.log(this.contrato);
       this.loading$.next(false);
     });
+  }
+
+  getItensByContrato(id: string) {
+    this.listaService.dados$ = this.itensService
+      .getByContrato(id)
+      .pipe(
+        map(itensContrato => {
+          // Calcula valores da tabela de itens
+          return itensContrato.map(item => {
+            item.ds_item_resumido = this.resumirPipe.transform(item.ds_item);
+            const termos = this.termosPipe.transform(item.ds_item);
+            this.itensService.getMediaItensSemelhantes(termos, item.dt_inicio_vigencia)
+              .then(res => {
+                item.mediana_valor = res.mediana;
+                item.itensSemelhantes = res.itensOrdenados;
+                item.percentual_vs_estado = (item.vl_item_contrato - res.mediana) / res.mediana;
+                item.percentual_vs_estimado = (item.vl_item_contrato - item.vl_unitario_estimado)
+                  / item.vl_unitario_estimado;
+              });
+          });
+        })
+      );
+
+    console.log(this.listaService.dados$);
   }
 
   onOrdenar({coluna, direcao}: EventoOrd) {
