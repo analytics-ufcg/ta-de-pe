@@ -21,8 +21,8 @@ body {
 }
 
 .view-container {
-  padding-top: 2rem;
   padding-bottom: 2rem;
+  background-color: $white;
 }
 
 .card-text {
@@ -54,7 +54,6 @@ body {
 .sessao-dark {
   background-color: $teal;
 }
-
 
 a.link-light:link,
 a.link-light:visited {
@@ -222,4 +221,48 @@ td.numero {
 .toggle-label {
   display: inline-block;
   padding: 4px 8px;
+}
+
+.table-wrapper {
+  background-color: #ffffff;
+  border: solid 2px $gray-400;
+  border-radius: 10px;
+  padding: 1rem;
+}
+
+.navegacao {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  background-color: #f2f7f3;
+  border-top: solid 2px #adb5bd;
+  border-radius: 0.75rem;
+
+  @media (min-width: 576px) {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    z-index: auto;
+    width: auto;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+    border-top: none;
+  }
+}
+
+.navegacao-link {
+  &.active {
+    @media (max-width: 575.98px) {
+      margin-top: -8px;
+      padding-bottom: 16px;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+  }
+}
+
+.table th {
+  border-top: none;
 }

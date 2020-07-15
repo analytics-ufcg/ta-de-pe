@@ -82,7 +82,7 @@
       </div>
     </div>
 
-    <div class="contrato-corpo">
+    <div class="table-wrapper">
       <div class="table-responsive">
         <table class="table table-sm">
           <thead>
@@ -112,12 +112,12 @@
             <tr>
               <th
                 scope="col"
-                class="text-left table-th-dividido-up align-middle">
+                class="text-left align-middle">
                 Item
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right"
+                class="table-th-monospace text-right"
                 *ngIf="!radioGroupForm.value['showTotal']">
                 <span class="nowrap">Valor por</span>
                 <br>
@@ -127,7 +127,7 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right"
+                class="table-th-monospace text-right"
                 *ngIf="radioGroupForm.value['showTotal']">
                 <span class="nowrap">Valor total</span>
                 <br>
@@ -135,7 +135,7 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right">
+                class="table-th-monospace text-right">
                 Mediana
                 <br>
                 <span class="nowrap">no estado</span>
@@ -145,7 +145,7 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right">
+                class="table-th-monospace text-right">
                 Diferença
                 <br>
                 <span class="nowrap">com estado</span>
@@ -155,7 +155,7 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right">
+                class="table-th-monospace text-right">
                 Valor
                 <br>
                 estimado
@@ -165,7 +165,7 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right">
+                class="table-th-monospace text-right">
                 Diferença
                 <br>
                 <span class="nowrap">com estimado</span>
