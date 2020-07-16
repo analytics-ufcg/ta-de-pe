@@ -86,11 +86,10 @@ export class InfoContratoComponent implements OnInit {
           itensContrato.map(item => {
             item.ds_item_resumido = this.resumirPipe.transform(item.ds_item);
             const termos = this.termosPipe.transform(item.ds_item);
-            this.itensService.getMediaItensSemelhantes(termos, item.dt_inicio_vigencia)
-              .then(res => {
-                item.mediana_valor = res.mediana;
-                item.itensSemelhantes = res.itensOrdenados;
-                item.percentual_vs_estado = (item.vl_item_contrato - res.mediana) / res.mediana;
+            this.itensService.getMediaItensSemelhantes(item, termos)
+              .subscribe(itemComMediana => {
+                item = itemComMediana;
+                item.percentual_vs_estado = (item.vl_item_contrato - item.mediana_valor) / item.mediana_valor;
                 item.percentual_vs_estimado = (item.vl_item_contrato - item.vl_unitario_estimado)
                   / item.vl_unitario_estimado;
               });
