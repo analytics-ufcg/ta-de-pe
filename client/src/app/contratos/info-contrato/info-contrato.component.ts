@@ -34,12 +34,10 @@ export class InfoContratoComponent implements OnInit, OnDestroy {
   private unsubscribe = new Subject();
 
   public loading$ = new BehaviorSubject<boolean>(true);
-  public itensContrato$: Observable<any[]>;
 
   @ViewChildren(OrdenavelDirective) cabecalhos: QueryList<OrdenavelDirective>;
 
   public contrato: ContratoLicitacao;
-  public itemSelecionado: ItensContrato;
   public radioGroupForm: FormGroup;
 
   constructor(
