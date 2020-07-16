@@ -29,8 +29,7 @@ export class ItensService {
     }
 
     getMediaItensSemelhantes(item: ItensContrato, termos: string[]): Observable<ItensContrato> {
-      const strTermos = [termos[0], termos.slice(0, 2).join(' & '), termos.join(' & ')];
-      return this.getItensSimilares(strTermos, item.dt_inicio_vigencia)
+      return this.getItensSimilares(termos, item.dt_inicio_vigencia)
         .pipe(take(1),
           map(itens => {
             const itensOrdenados = itens.slice(0, 21).sort((a, b) => a.vl_item_contrato - b.vl_item_contrato);
