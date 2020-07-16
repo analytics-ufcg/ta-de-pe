@@ -23,13 +23,9 @@ export class ContratosVigentesComponent implements OnInit {
   constructor(
     private userService: UserService,
     private contratoService: ContratoService
-    ) { }
+    ) {}
 
   ngOnInit() {
-    this.getMunicipio();
-  }
-
-  getMunicipio() {
     this.userService
       .getMunicipioEscolhido()
       .pipe(
