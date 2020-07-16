@@ -1,14 +1,13 @@
-import { Component, OnInit, OnDestroy, ViewChildren, QueryList } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup } from '@angular/forms';
 
 import * as d3 from 'd3-scale';
 
-import { Subject, forkJoin, BehaviorSubject, Observable } from 'rxjs';
+import { forkJoin, BehaviorSubject } from 'rxjs';
 import { take, map } from 'rxjs/operators';
 
 import { ContratoLicitacao } from 'src/app/shared/models/contratoLicitacao.model';
-import { ItensContrato } from 'src/app/shared/models/itensContrato.model';
 import { ContratoService } from 'src/app/shared/services/contrato.service';
 import { ItensService } from 'src/app/shared/services/itens.service';
 import { ResumirTextoPipe } from 'src/app/shared/pipes/resumir-texto.pipe';
@@ -29,16 +28,13 @@ import { DecimalPipe } from '@angular/common';
     DecimalPipe
   ]
 })
-export class InfoContratoComponent implements OnInit, OnDestroy {
-
-  private unsubscribe = new Subject();
+export class InfoContratoComponent implements OnInit {
 
   public loading$ = new BehaviorSubject<boolean>(true);
-
-  @ViewChildren(OrdenavelDirective) cabecalhos: QueryList<OrdenavelDirective>;
-
   public contrato: ContratoLicitacao;
   public radioGroupForm: FormGroup;
+
+  @ViewChildren(OrdenavelDirective) cabecalhos: QueryList<OrdenavelDirective>;
 
   constructor(
     private activatedroute: ActivatedRoute,
@@ -128,10 +124,4 @@ export class InfoContratoComponent implements OnInit, OnDestroy {
   defineCor(valor: number): string {
     return (valor >= 0.7 || valor <= -0.7) ? 'white' : 'black';
   }
-
-  ngOnDestroy() {
-    this.unsubscribe.next();
-    this.unsubscribe.complete();
-  }
-
 }
