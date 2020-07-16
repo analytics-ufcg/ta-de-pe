@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Subject } from 'rxjs';
-import { take, takeUntil, map, concatMap } from 'rxjs/operators';
+import { take, map, concatMap } from 'rxjs/operators';
 
 import * as d3 from 'd3-scale';
 
@@ -83,19 +82,6 @@ export class InfoItemComponent implements OnInit {
         })
       );
   }
-
-  // item.itensSemelhantes = res.itensOrdenados
-  //             .filter(itemSemelhante => itemSemelhante.id_item_contrato !== item.id_item_contrato);
-  //           item.itensSemelhantes.map(itemSemelhante => {
-  //             itemSemelhante.ds_item_resumido = this.resumirPipe.transform(itemSemelhante.ds_item);
-  //             if (itemSemelhante.vl_item_contrato > 0) {
-  //               itemSemelhante.percentual_vs_semelhante = (item.vl_item_contrato - itemSemelhante.vl_item_contrato)
-  //                 / itemSemelhante.vl_item_contrato;
-  //             } else {
-  //               itemSemelhante.percentual_vs_semelhante = 0;
-  //             }
-  //           });
-  //           this.item = item;
 
   onOrdenar({coluna, direcao}: EventoOrd) {
     // Reseta outros cabeçalhos
