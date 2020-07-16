@@ -15,7 +15,6 @@ class ListaService {
   private pDadosProcessados$ = new BehaviorSubject<any[]>([]);
 
   public dados$: Observable<any[]>;
-  public loading$ = new BehaviorSubject<boolean>(true);
 
   public estado: EstadoLista = {
     termoBusca: '',
@@ -25,11 +24,8 @@ class ListaService {
 
   constructor(public pipe: DecimalPipe) {
     this.busca$.pipe(
-      tap(() => this.loading$.next(true)),
-      debounceTime(0),
-      switchMap(() => this._buscar()),
-      delay(0),
-      tap(() => this.loading$.next(false))
+      debounceTime(200),
+      switchMap(() => this._buscar())
     ).subscribe(dados => {
       this.pDadosProcessados$.next(dados);
     });
@@ -92,6 +88,22 @@ export class ListaContratosService extends ListaService {
     return pipe.transform(dados.nr_contrato).includes(termo)
         || dados.nm_fornecedor.toLowerCase().includes(termo)
         || pipe.transform(dados.nr_documento_contratado).includes(termo);
+  }
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ListaLicitacoesService extends ListaService {
+
+  constructor(pipe: DecimalPipe) {
+    super(pipe);
+  }
+
+  corresponde(dados: any, texto: string) {
+    const termo = texto.toLowerCase();
+    return dados.descricao_objeto.toLowerCase().includes(termo)
+        || dados.status.toLowerCase().includes(termo);
   }
 }
 
