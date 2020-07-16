@@ -32,9 +32,9 @@ th[ordenavel].asc:before, th[ordenavel].desc:before {
 }
 
 th[ordenavel].asc:before {
-  content: '\e90d';
+  content: '\e911';
 }
 
 th[ordenavel].desc:before {
-  content: '\e911';
+  content: '\e90d';
 }
