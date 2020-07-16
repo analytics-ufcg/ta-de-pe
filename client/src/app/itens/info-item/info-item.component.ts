@@ -78,6 +78,8 @@ export class InfoItemComponent implements OnInit {
         map(itens => {
           // cria resumo da descrição
           itens.map(item => item.ds_item_resumido = this.resumirPipe.transform(item.ds_item));
+          // itens ordenados pelo preço
+          itens.sort((i1, i2) => i1.vl_item_contrato - i2.vl_item_contrato);
           return itens;
         })
       );
