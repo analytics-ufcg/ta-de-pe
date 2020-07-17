@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
   apiUrl: './api/',
-  googleAnalyticsUA: 'UA-64813818-7'
+  googleAnalyticsUA: 'UA-64813818-8'
 };
