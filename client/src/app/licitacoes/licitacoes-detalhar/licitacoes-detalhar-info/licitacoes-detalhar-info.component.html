@@ -58,7 +58,7 @@
           {{ licitacao?.cd_tipo_modalidade}} - {{ licitacao?.tipo_modalidade_licitacao | initialcase }}
         </div>
       </div>
-      <div class="col-12">
+      <div class="col-12 mb-4">
         <div class="dados-linha">
           <strong>Objeto da licitação</strong>
           <app-tooltip-ajuda
@@ -71,6 +71,27 @@
       </div>
     </div>
 
+  </div>
+  <div
+    class="mb-4"
+    *ngIf="licitacao?.docsLicitacao.length">
+    <h4 class="titulo-sessao">
+      Editais
+      <app-tooltip-ajuda
+        [posicao]="'right'"
+        [descricao]="'Os editais foram informados pelo município ao TCE'"></app-tooltip-ajuda>
+    </h4>
+
+    <ul>
+      <li *ngFor="let doc of licitacao?.docsLicitacao">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="{{doc?.arquivo_url_download}}">
+          {{ doc?.nome_arquivo_documento }}
+        </a>
+      </li>
+    </ul>
   </div>
   <app-timeline [timeline]="timeline"></app-timeline>
 </div>
