@@ -23,7 +23,8 @@ module.exports = (sequelize, type) => {
       vl_item_contrato: type.DECIMAL(15, 2),
       vl_total_item_contrato: type.DECIMAL(15, 2),
       ds_item: type.STRING,
-      categoria: type.INTEGER
+      categoria: type.INTEGER,
+      sg_unidade_medida: type.STRING
     },
     {
       freezeTableName: true,
