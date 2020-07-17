@@ -6,7 +6,7 @@ import { filter } from 'rxjs/operators';
 
 import { environment } from '../environments/environment';
 
-declare var gtag: Function;
+declare var gtag: (tag, value, params) => void;
 
 @Component({
   selector: 'app-root',
