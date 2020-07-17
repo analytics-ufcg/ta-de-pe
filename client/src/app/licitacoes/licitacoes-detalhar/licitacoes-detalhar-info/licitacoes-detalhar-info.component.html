@@ -69,23 +69,29 @@
           {{ licitacao?.descricao_objeto | initialcase }}
         </div>
       </div>
-      <div *ngIf="licitacao?.docsLicitacao.length" class="col-12">
-        <div class="dados-linha">
-          <strong>Editais</strong>
-          <app-tooltip-ajuda
-            [posicao]="'right'"
-            [descricao]="'Os editais foram informados pelo município ao TCE'"></app-tooltip-ajuda>
-        </div>
-        <div class="dados-linha mt-3">
-          <ul *ngFor="let doc of licitacao?.docsLicitacao">
-            <li>
-              <a target="_blank" rel="noopener noreferrer" href="{{doc?.arquivo_url_download}}">{{ doc?.nome_arquivo_documento }}</a>
-            </li>
-          </ul>
-        </div>
-      </div>
     </div>
 
+  </div>
+  <div
+    class="mb-4"
+    *ngIf="licitacao?.docsLicitacao.length">
+    <h4 class="titulo-sessao">
+      Editais
+      <app-tooltip-ajuda
+        [posicao]="'right'"
+        [descricao]="'Os editais foram informados pelo município ao TCE'"></app-tooltip-ajuda>
+    </h4>
+
+    <ul>
+      <li *ngFor="let doc of licitacao?.docsLicitacao">
+        <a
+          target="_blank"
+          rel="noopener noreferrer"
+          href="{{doc?.arquivo_url_download}}">
+          {{ doc?.nome_arquivo_documento }}
+        </a>
+      </li>
+    </ul>
   </div>
   <app-timeline [timeline]="timeline"></app-timeline>
 </div>
