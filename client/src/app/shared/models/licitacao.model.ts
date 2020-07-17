@@ -1,7 +1,9 @@
 import { ContratoLicitacao } from './contratoLicitacao.model';
+import { DocumentoLicitacao } from './documentoLicitacao.model';
 
 export interface Licitacao {
   id_licitacao: number;
+  status: string;
   nm_orgao: string;
   nr_licitacao: string;
   ano_licitacao: number;
@@ -16,4 +18,5 @@ export interface Licitacao {
   descricao_objeto: string;
   merenda: boolean;
   contratosLicitacao: ContratoLicitacao[];
+  docsLicitacao: DocumentoLicitacao[];
 }

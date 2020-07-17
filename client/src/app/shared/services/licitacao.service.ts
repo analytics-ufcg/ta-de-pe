@@ -25,6 +25,10 @@ export class LicitacaoService {
     return this.http.get<Licitacao>(this.url + '/' + id);
   }
 
+  getLicitacoes(municipio: string): Observable<Licitacao[]> {
+    return this.http.get<Licitacao[]>(this.url + '/municipio/' + municipio);
+  }
+
   // Recupera contratos de uma licitação
   getContratos(id: string): Observable<ContratoLicitacao[]> {
     return this.http.get<ContratoLicitacao[]>(this.urlContratos + '/licitacao/' + id);
@@ -43,7 +47,6 @@ export class LicitacaoService {
   // Recupera licitacoes abertas (sem data de homologação)
   getAbertas(municipio: string): Observable<Licitacao[]> {
     const params = new HttpParams().set('nome_municipio', municipio);
-
     return this.http.get<Licitacao[]>(this.url + '/abertas', { params });
   }
 

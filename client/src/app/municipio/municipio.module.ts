@@ -6,7 +6,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { MunicipioComponent } from './municipio.component';
 import { MunicipioRoutingModule } from './municipio-routing.module';
 import { FilterModule } from '../filter/filter.module';
-import { LicitacoesAbertasComponent } from './licitacoes-abertas/licitacoes-abertas.component';
+import { LicitacoesComponent } from './licitacoes/licitacoes.component';
 import { ContratosVigentesComponent } from './contratos-vigentes/contratos-vigentes.component';
 import { NovidadesComponent } from './novidades/novidades.component';
 import { SharedModule } from '../shared/components/shared.module';
@@ -16,7 +16,7 @@ import { NovidadeComponent } from './novidades/novidade/novidade.component';
 @NgModule({
   declarations: [
     MunicipioComponent,
-    LicitacoesAbertasComponent,
+    LicitacoesComponent,
     ContratosVigentesComponent,
     NovidadesComponent,
     NovidadeComponent

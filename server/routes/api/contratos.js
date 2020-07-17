@@ -84,26 +84,20 @@ router.get("/:id", (req, res) => {
             model: itensLicitacao,
             attributes: ["vl_unitario_estimado", "sg_unidade_medida"],
             as: "itensLicitacaoItensContrato"
-          },
-          {
-            model: itensContrato,
-            include: [{
-              model: Orgao,
-              as: "itensContratoOrgao"
-            }, {
-              model: Contrato,
-              as: "itensContratoContrato"
-            }],
-            as: "itensSemelhantes"
           }
         ],
-        attributes: ["id_item_contrato", "qt_itens_contrato", "vl_item_contrato", "vl_total_item_contrato", "ds_item", "categoria", "ano_licitacao", "dt_inicio_vigencia"],
+        attributes: ["id_item_contrato", "qt_itens_contrato", "vl_item_contrato", "vl_total_item_contrato", "ds_item", "categoria", "ano_licitacao", "dt_inicio_vigencia", "sg_unidade_medida"],
         as: "itensContrato"
       }
     ],
     where: {
       id_contrato: req.params.id
-    }
+    },
+    order: [[
+      { model: itensContrato, as: 'itensContrato' },
+      'id_item_contrato',
+      'DESC'
+    ]]
   })
     .then(contrato => {
       contrato = contrato.get({ plain: true });

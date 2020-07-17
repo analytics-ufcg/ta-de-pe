@@ -11,11 +11,12 @@ export class DescricaoItemComponent implements OnInit {
 
   @Input() item: ItensContrato;
   @Input() temLink: boolean;
+  @Input() itemResumido = true;
 
   constructor() { }
 
   ngOnInit() {
-    this.item.resumido = true;
+    this.item.resumido = this.itemResumido;
   }
 
 }

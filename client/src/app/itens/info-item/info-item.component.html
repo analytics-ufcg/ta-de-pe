@@ -5,23 +5,35 @@
     [exibirVoltar]="true"></app-barra-titulo>
 
   <div class="container">
-    <div class="row item-destaque-wrapper">
-      <div class="col-12">
-        <strong>Descrição completa</strong>
+    <div class="row item-destaque-wrapper d-flex align-items-center">
+      <div class="col-lg-7">
+        <strong>Descrição informada</strong>
+        <app-descricao-item
+          [item]="item"
+          [temLink]="false"
+          [itemResumido]="false"></app-descricao-item>
       </div>
-      <div class="col-lg-7 pb-4">{{ item.ds_item }}</div>
       <div class="col-lg-5">
         <div class="row">
-          <div class="col-md-6">
+          <div class="col-md-6 text-right">
+            <div>
+              <strong>Mediana do estado</strong>
+            </div>
+            <div class="numero numero-destaque">
+              {{ item.mediana_valor | currency: "R$" }}
+            </div>
+          </div>
+          <div class="col-md-6 text-right">
             <div>
               <strong>Valor por unidade</strong>
             </div>
             <div class="numero numero-destaque">
               {{ item.vl_item_contrato | currency: "R$" }}
             </div>
-            <span
+            <div class="small">
+              <span
                 *ngIf="(item.vl_item_contrato - item.mediana_valor) < 0"
-                class="small negativo">
+                class="negativo">
                 {{
                   (item.vl_item_contrato - item.mediana_valor) /
                     item.mediana_valor | percent: "1.1"
@@ -30,34 +42,31 @@
               </span>
               <span
                 *ngIf="(item.vl_item_contrato - item.mediana_valor) > 0"
-                class="small positivo">
+                class="positivo">
                 +{{
                   (item.vl_item_contrato - item.mediana_valor) /
                     item.mediana_valor | percent: "1.1"
                 }}
                 <span class="text-muted">(mais caro)</span>
               </span>
-          </div>
-          <div class="col-md-6">
-            <div>
-              <strong>Mediana do estado</strong>
-            </div>
-            <div class="numero numero-destaque">
-              {{ item.mediana_valor | currency: "R$" }}
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <h4>Comparação de {{ item.ds_item_resumido | lowercase }} com similares</h4>
+    <h4>
+      Produtos com descrição mais semelhante em outros municípios
+      <app-tooltip-ajuda
+        [descricao]="'Os produtos abaixo foram selecionados a partir de sua descrição (palavras e unidades de medida semelhantes ao produto selecionado), o preço e o ano'"></app-tooltip-ajuda>
+    </h4>
     <div class="itens-semelhantes-corpo">
       <div class="table-responsive">
-        <table class="table table-sm">
+        <table class="table table-sm table-hover">
           <thead>
             <tr>
               <th scope="col" class="align-middle table-th-dividido-up">
-                Produto similar
+                Produto
               </th>
               <th scope="col" class="table-th-monospace table-th-dividido-up">
                 Município
@@ -69,15 +78,6 @@
                 Valor por
                 <br />
                 unidade (R$)
-              </th>
-              <th scope="col" class="table-th-monospace text-right table-th-dividido-up">
-                Diferença
-                <app-tooltip-ajuda
-                  [posicao]="'top'"
-                  [descricao]="'Diferença percentual entre o valor do item e itens similares em outros contratos'"
-                ></app-tooltip-ajuda>
-                <br />
-                c/ similar (%)
               </th>
             </tr>
           </thead>
@@ -98,13 +98,6 @@
               </td>
               <td class="numero align-middle">
                 {{ itemSemelhante.vl_item_contrato | currency: "":"" }}
-              </td>
-              <td
-                class="numero align-middle"
-                [style.background-color]="defineCorFundo(itemSemelhante.percentual_vs_semelhante)"
-                [style.color]="defineCor(itemSemelhante.percentual_vs_semelhante)">
-                <span *ngIf="itemSemelhante.percentual_vs_semelhante > 0">+</span
-                >{{ itemSemelhante.percentual_vs_semelhante | percent: "1.1" }}
               </td>
             </tr>
           </tbody>

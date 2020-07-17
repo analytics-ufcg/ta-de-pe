@@ -41,6 +41,11 @@ module.exports = (sequelize, type) => {
       sourceKey: "id_orgao",
       as: "itensContratoOrgao"
     });
+    orgao.hasMany(models.documentoLicitacao, {
+      foreignKey: "id_orgao",
+      sourceKey: "id_orgao",
+      as: "documentosLicitacaoOrgao"
+    });
   };
   return orgao;
 };

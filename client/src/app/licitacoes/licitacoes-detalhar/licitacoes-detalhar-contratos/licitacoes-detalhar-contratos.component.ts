@@ -64,7 +64,7 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
             const tituloItem = item.ds_item.split(/\s+|:|-/).slice(0, 3).map(palavra => {
               return palavra.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '');
             }).filter(i => i !== '');
-            this.getMediaItensSemelhantes(tituloItem, item.dt_inicio_vigencia)
+            this.getMediaItensSemelhantes(tituloItem, item.dt_inicio_vigencia, item.sg_unidade_medida)
               .then(res => {
                 item.mediana_valor = res.mediana;
                 item.itensSemelhantes = res.itensOrdenados;
@@ -78,9 +78,9 @@ export class LicitacoesDetalharContratosComponent implements OnInit, OnDestroy {
       });
   }
 
-  getMediaItensSemelhantes(dsItem: string[], dataInicioContrato: Date) {
+  getMediaItensSemelhantes(dsItem: string[], dataInicioContrato: Date, unidadeMedida: string) {
     const termos = [dsItem[0], dsItem.slice(0, 2).join(' & '), dsItem.join(' & ')];
-    return this.itensService.getItensSimilares(termos, dataInicioContrato)
+    return this.itensService.getItensSimilares(termos, dataInicioContrato, unidadeMedida)
       .pipe(take(1),
         map(itens => {
           const itensOrdenados = itens.slice(0, 21).sort((a, b) => a.vl_item_contrato - b.vl_item_contrato);

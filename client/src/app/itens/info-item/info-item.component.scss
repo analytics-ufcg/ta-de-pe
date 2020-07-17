@@ -1,5 +1,7 @@
 .item-destaque-wrapper {
-  max-width: 990px;
+  position: sticky;
+  top: 48px;
+  z-index: 999;
   margin-left: auto;
   margin-right: auto;
   padding-top: 2rem;

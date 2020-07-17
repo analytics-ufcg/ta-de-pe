@@ -44,7 +44,7 @@ export class InfoItemComponent implements OnInit {
       .subscribe(item => {
         item.ds_item_resumido = this.resumirPipe.transform(item.ds_item);
         const termos = this.termosPipe.transform(item.ds_item);
-        this.itensService.getMediaItensSemelhantes(termos, item.dt_inicio_vigencia)
+        this.itensService.getMediaItensSemelhantes(termos, item.dt_inicio_vigencia, item.sg_unidade_medida)
           .then(res => {
             item.mediana_valor = res.mediana;
             item.itensSemelhantes = res.itensOrdenados.filter(itemSemelhante => itemSemelhante.id_item_contrato !== item.id_item_contrato);
