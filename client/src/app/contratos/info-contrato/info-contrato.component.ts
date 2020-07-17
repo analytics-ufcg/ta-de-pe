@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 import * as d3 from 'd3-scale';
 
-import { forkJoin, BehaviorSubject } from 'rxjs';
-import { take, map } from 'rxjs/operators';
+import { forkJoin, BehaviorSubject, from } from 'rxjs';
+import { take, map, concatMap, mergeMap, reduce } from 'rxjs/operators';
 
 import { ContratoLicitacao } from 'src/app/shared/models/contratoLicitacao.model';
 import { ContratoService } from 'src/app/shared/services/contrato.service';
@@ -81,20 +81,27 @@ export class InfoContratoComponent implements OnInit {
     this.listaService.dados$ = this.itensService
       .getByContrato(id)
       .pipe(
-        map(itensContrato => {
+        concatMap(itensContrato => {
           // Calcula valores da tabela de itens
-          itensContrato.map(item => {
-            item.ds_item_resumido = this.resumirPipe.transform(item.ds_item);
-            const termos = this.termosPipe.transform(item.ds_item);
-            this.itensService.getMediaItensSemelhantes(item, termos)
-              .subscribe(itemComMediana => {
-                item = itemComMediana;
-                item.percentual_vs_estado = (item.vl_item_contrato - item.mediana_valor) / item.mediana_valor;
-                item.percentual_vs_estimado = (item.vl_item_contrato - item.vl_unitario_estimado)
-                  / item.vl_unitario_estimado;
-              });
-          });
-          return itensContrato;
+          return from(itensContrato)
+            .pipe(
+              mergeMap(item => {
+                item.ds_item_resumido = this.resumirPipe.transform(item.ds_item);
+                const termos = this.termosPipe.transform(item.ds_item);
+                return this.itensService.getMediaItensSemelhantes(item, termos)
+                .pipe(
+                  map(itemComMediana => {
+                    item = itemComMediana;
+                    item.percentual_vs_estado = (item.vl_item_contrato - item.mediana_valor) / item.mediana_valor;
+                    item.percentual_vs_estado = Math.round((item.percentual_vs_estado + Number.EPSILON) * 1000) / 1000;
+                    item.percentual_vs_estimado = (item.vl_item_contrato - item.vl_unitario_estimado)
+                      / item.vl_unitario_estimado;
+                    return item;
+                  })
+                );
+              }),
+              reduce((acc: Array<any>, element: any) => [...acc, element], [])
+            );
         })
       );
   }
