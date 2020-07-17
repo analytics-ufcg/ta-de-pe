@@ -2,7 +2,7 @@ import { Injectable, PipeTransform } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 
 import { BehaviorSubject, Subject, Observable } from 'rxjs';
-import { tap, debounceTime, switchMap, delay, map } from 'rxjs/operators';
+import { debounceTime, switchMap, map } from 'rxjs/operators';
 
 import { EstadoLista, DirecaoOrd } from '../models/lista.model';
 
@@ -24,7 +24,7 @@ class ListaService {
 
   constructor(public pipe: DecimalPipe) {
     this.busca$.pipe(
-      debounceTime(200),
+      debounceTime(10),
       switchMap(() => this._buscar())
     ).subscribe(dados => {
       this.pDadosProcessados$.next(dados);
@@ -46,9 +46,13 @@ class ListaService {
   }
 
   comparar(v1, v2) {
-    v1 = !v1 ? '' : v1;
-    v2 = !v2 ? '' : v2;
-    return v1.toString().localeCompare(v2.toString(), 'pt', {numeric: true, ignorePunctuation: true});
+    if (typeof v1 === 'number') {
+      return v1 - v2;
+    } else {
+      v1 = !v1 ? '' : v1;
+      v2 = !v2 ? '' : v2;
+      return v1.toString().localeCompare(v2.toString(), 'pt', {numeric: true, ignorePunctuation: true});
+    }
   }
 
   ordenar(dados: any[], coluna: string, direcao: string): any[] {
