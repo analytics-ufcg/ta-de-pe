@@ -8,16 +8,16 @@ import { LicitacaoService } from '../../shared/services/licitacao.service';
 import { Licitacao } from '../../shared/models/licitacao.model';
 
 @Component({
-  selector: 'app-licitacoes-abertas',
-  templateUrl: './licitacoes-abertas.component.html',
-  styleUrls: ['./licitacoes-abertas.component.scss']
+  selector: 'app-licitacoes',
+  templateUrl: './licitacoes.component.html',
+  styleUrls: ['./licitacoes.component.scss']
 })
-export class LicitacoesAbertasComponent implements OnInit {
+export class LicitacoesComponent implements OnInit {
 
   private unsubscribe = new Subject();
 
   public municipioEscolhido: string;
-  public licitacoesAbertas: Licitacao[];
+  public licitacoes: Licitacao[];
   public isLoading = true;
 
   constructor(
@@ -36,14 +36,20 @@ export class LicitacoesAbertasComponent implements OnInit {
         takeUntil(this.unsubscribe))
       .subscribe(municipio => {
         this.municipioEscolhido = municipio;
-        this.getLicitacoesAbertas(this.municipioEscolhido);
+        this.getLicitacoes(this.municipioEscolhido);
       });
   }
 
-  getLicitacoesAbertas(municipio: string) {
-    this.licitacaoService.getAbertas(municipio)
+  getLicitacoes(municipio: string) {
+    this.licitacaoService.getLicitacoes(municipio)
       .pipe(takeUntil(this.unsubscribe)).subscribe(licitacoes => {
-        this.licitacoesAbertas = licitacoes;
+        this.licitacoes = licitacoes;
+        // Adiciona status
+        this.licitacoes
+          .map(licitacao => licitacao.status = licitacao.data_homologacao === null ? 'Aberta' : 'Encerrada');
+        // Ordena por status
+        this.licitacoes
+          .sort((l1, l2) => l1.status.localeCompare(l2.status));
         this.isLoading = false;
       });
   }
