@@ -1,7 +1,7 @@
 import { Directive, Input, Output, EventEmitter, HostBinding, HostListener, Host } from '@angular/core';
 import { DirecaoOrd, EventoOrd } from '../models/lista.model';
 
-const trocar: {[key: string]: DirecaoOrd} = { asc: '', desc: 'asc', '': 'desc' };
+const trocar: {[key: string]: DirecaoOrd} = { asc: 'desc', desc: '', '': 'asc' };
 
 @Directive({
   selector: 'th[appOrdenavel]'
