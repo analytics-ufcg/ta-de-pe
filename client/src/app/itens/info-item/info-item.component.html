@@ -56,10 +56,12 @@
     </div>
 
     <h4>
-      Produtos com descrição mais semelhante em outros municípios
-      <app-tooltip-ajuda
-        [descricao]="'Os produtos abaixo foram selecionados a partir de sua descrição (palavras e unidades de medida semelhantes ao produto selecionado), o preço e o ano'"></app-tooltip-ajuda>
+      Produtos semelhantes comprados em outros municípios
     </h4>
+    <ngb-alert [dismissible]="false">
+      <strong>Atenção</strong>: essa tabela foi gerada de forma automatizada a partir da descrição do objeto licitado. É necessário checar se os objetos listados possuem qualidade e quantidade semelhante para uma comparação correta.
+      <a [routerLink]="['/duvidas']">Saiba mais</a>.
+    </ngb-alert>
     <div class="table-wrapper">
       <div class="table-responsive">
         <table class="table table-sm table-hover">
