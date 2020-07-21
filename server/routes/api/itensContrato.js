@@ -78,7 +78,7 @@ router.post("/similares", (req, res) => {
                       FROM item_search WHERE item_search.document @@ to_tsquery('portuguese', '${termo}') AND \
                       dt_inicio_vigencia >= '${dataInicial}' AND dt_inicio_vigencia <= '${dataFinal}'\
                       AND sg_unidade_medida = '${unidade}'\
-                      AND ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) >= 0.9\
+                      AND ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) >= 0.65\
                       ORDER BY ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) DESC, id_item_contrato ASC \
                       LIMIT 21;`
   models.sequelize.query(query, {
