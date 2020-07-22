@@ -200,13 +200,31 @@
                 class="numero align-middle"
                 *ngIf="!radioGroupForm.value['showTotal']"
                 [title]="item.mediana_valor">
-                {{ item.mediana_valor | currency:'':'' }}
+                <div
+                  class="pr-3"
+                  *ngIf="item?.itensSemelhantes?.length <= 3; else mostraMedianaEstado">
+                  <app-tooltip-ajuda
+                  [tipo]="'alerta'"
+                  [descricao]="'Este valor não pôde ser calculado pois existem poucos produtos semelhantes em nossa base de dados.'"></app-tooltip-ajuda>
+                </div>
+                <ng-template #mostraMedianaEstado>
+                  {{ item.mediana_valor | currency:'':'' }}
+                </ng-template>
               </td>
               <td
                 class="numero align-middle"
                 *ngIf="radioGroupForm.value['showTotal']"
                 [title]="item.mediana_valor * item.qt_itens_contrato">
-                {{ item.mediana_valor * item.qt_itens_contrato | currency:'':'' }}
+                <div
+                  class="pr-3"
+                  *ngIf="item?.itensSemelhantes?.length <= 3; else mostraMedianaTotalEstado">
+                  <app-tooltip-ajuda
+                  [tipo]="'alerta'"
+                  [descricao]="'Este valor não pôde ser calculado pois existem poucos produtos semelhantes em nossa base de dados.'"></app-tooltip-ajuda>
+                </div>
+                <ng-template #mostraMedianaTotalEstado>
+                  {{ item.mediana_valor * item.qt_itens_contrato | currency:'':'' }}
+                </ng-template>
               </td>
               <td
                 class="numero align-middle"
