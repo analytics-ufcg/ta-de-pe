@@ -63,16 +63,10 @@
         </td>
         <td class="text-center">
           <span
-            *ngIf="licitacao.status === 'Aberta'; else licitacaoEncerrada"
-            class="badge badge-info">
-            Aberta
+            class="badge"
+            [ngClass]="licitacao?.status === 'Com contratos' ? 'badge-danger' : 'badge-info'">
+            {{ licitacao?.status }}
           </span>
-          <ng-template #licitacaoEncerrada>
-            <span
-              class="badge badge-danger">
-              Encerrada
-            </span>
-          </ng-template>
         </td>
       </tr>
     </tbody>

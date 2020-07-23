@@ -9,14 +9,9 @@
     <div class="row mt-4">
       <div class="col">
         <span
-          [hidden]="licitacao?.data_homologacao"
-          class="badge badge-info">
-          Licitação aberta
-        </span>
-        <span
-          [hidden]="!licitacao?.data_homologacao"
-          class="badge badge-danger">
-          Licitação encerrada
+          class="badge"
+          [ngClass]="licitacao?.status === 'Com contratos' ? 'badge-danger' : 'badge-info'">
+          {{ licitacao?.status }}
         </span>
         <div
           *ngIf="!licitacao?.merenda"
@@ -30,24 +25,21 @@
     <div class="row mt-4">
       <div
         class="col-sm-6 col-md-3 col-lg-2 mb-4"
-        [hidden]="!licitacao?.data_homologacao">
+        [hidden]="licitacao?.qt_contratos === 0">
         <div class="dados-linha">
-          <strong>Valor homologado</strong>
+          <strong>Valor contratado</strong>
         </div>
         <div class="dados-linha">
-          <span [hidden]="!licitacao?.vl_homologado">
-            {{ licitacao?.vl_homologado | currency: "R$" }}
-          </span>
-          <span [hidden]="licitacao?.vl_homologado">--</span>
+          {{ licitacao?.vl_contratado | currency: "R$" }}
         </div>
       </div>
       <div
         class="col-sm-6 col-md-3 col-lg-2 mb-4"
-        [hidden]="quantContratos == 0">
+        [hidden]="licitacao?.qt_contratos === 0">
         <div class="dados-linha">
           <strong>Contratos</strong>
         </div>
-        <div class="dados-linha">{{ quantContratos }}</div>
+        <div class="dados-linha">{{ licitacao?.qt_contratos }}</div>
       </div>
       <div class="col-sm-6 col-md-3 col-lg-4 mb-4">
         <div class="dados-linha">

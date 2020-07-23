@@ -38,11 +38,13 @@ export class LicitacoesComponent implements OnInit {
           .getLicitacoes(municipio)
           .pipe(
             map(licitacoes => {
-              // Adiciona status
-              licitacoes.map(licitacao => licitacao.status = licitacao.data_homologacao === null ? 'Aberta' : 'Encerrada');
-              // Ordena por status
-              licitacoes.sort((l1, l2) => l1.status.localeCompare(l2.status));
-              return licitacoes;
+              licitacoes.map(licitacao => {
+                licitacao.qt_contratos = licitacao.contratosLicitacao.length;
+                licitacao.status = licitacao.qt_contratos === 0 ? 'Sem contratos' : 'Com contratos';
+                licitacao.vl_contratado = licitacao.contratosLicitacao
+                  .reduce((sum, contrato) => sum + contrato.vl_contrato, 0);
+              });
+              return licitacoes.slice().sort((l1, l2) => l2.status.localeCompare(l1.status));;
             }),
             tap(() => this.loading$.next(false))
           );
