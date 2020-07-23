@@ -11,6 +11,7 @@
         <app-descricao-item
           [item]="item"
           [temLink]="false"
+          [comUnidade]="false"
           [itemResumido]="false"></app-descricao-item>
       </div>
       <div class="col-lg-5">
@@ -108,7 +109,8 @@
               <td class="align-middle">
                 <app-descricao-item
                     [item]="itemSemelhante"
-                    [temLink]="false"></app-descricao-item>
+                    [temLink]="false"
+                    [comUnidade]="false"></app-descricao-item>
               </td>
               <td class="align-middle nowrap">{{ itemSemelhante.nome_municipio | titlecase }}</td>
               <td class="align-middle text-right">
