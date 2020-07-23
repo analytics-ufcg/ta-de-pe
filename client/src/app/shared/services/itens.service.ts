@@ -33,6 +33,9 @@ export class ItensService {
     return this.getItensSimilares(item, termos)
       .pipe(take(1),
         map(itens => {
+          if (itens.length === 0) {
+            return item;
+          }
           const itensOrdenados = itens.sort((a, b) => a.vl_item_contrato - b.vl_item_contrato);
           const meioInf = Math.floor((itensOrdenados.length - 1) / 2);
           const meioSup = Math.ceil((itensOrdenados.length - 1) / 2);

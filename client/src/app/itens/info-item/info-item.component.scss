@@ -41,21 +41,16 @@ th[ordenavel].desc:before {
 
 .item-destaque-wrapper {
   position: sticky;
-  top: 48px;
+  top: 60px;
   z-index: 999;
-  margin-left: auto;
-  margin-right: auto;
   padding-top: 2rem;
   padding-bottom: 2rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 2rem;
   margin-bottom: 2rem;
   border-radius: 0.2rem;
   background-color: #f2f7f3;
-}
-
-.itens-semelhantes-corpo {
-  background-color: #ffffff;
-  border-radius: 5px;
-  padding: 5px;
 }
 
 .table-th-dividido-up {

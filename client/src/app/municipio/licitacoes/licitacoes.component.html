@@ -1,4 +1,4 @@
-<h4 class="mb-4 d-block d-sm-none">Licitações</h4>
+<h4 class="my-4 d-block d-sm-none">Licitações</h4>
 
 <form *ngIf="(loading$ | async) === false">
   <div class="form-group">
@@ -19,7 +19,7 @@
 
 <div class="table-responsive">
   <table
-    class="table table-hover"
+    class="table table-sm table-hover"
     *ngIf="((listaService.dadosProcessados$ | async)?.length > 0) && (loading$ | async) === false">
     <thead>
       <tr>
@@ -54,7 +54,7 @@
         <td class="text-center text-nowrap">
           {{ licitacao.data_abertura | date:'LLL/y' }}
         </td>
-        <td>
+        <td class="text-center">
           <span
             *ngIf="licitacao.status === 'Aberta'; else licitacaoEncerrada"
             class="badge badge-info">

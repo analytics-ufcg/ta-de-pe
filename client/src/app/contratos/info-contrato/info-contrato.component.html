@@ -62,7 +62,7 @@
       </div>
       <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
         <div class="dados-linha">
-          <strong>Diferença com Estimado</strong>
+          <strong>Diferença com estimado</strong>
 
           <app-tooltip-ajuda
             [posicao]="'top'"
@@ -82,7 +82,7 @@
       </div>
     </div>
 
-    <div class="contrato-corpo">
+    <div class="table-wrapper">
       <div class="table-responsive">
         <table class="table table-sm">
           <thead>
@@ -112,7 +112,7 @@
             <tr>
               <th
                 scope="col"
-                class="text-left table-th-dividido-up align-middle"
+                class="text-left align-middle"
                 ordenavel="ds_item"
                 (ordenar)="onOrdenar($event)"
                 appOrdenavel>
@@ -120,7 +120,7 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right"
+                class="table-th-monospace text-right"
                 *ngIf="!radioGroupForm.value['showTotal']"
                 ordenavel="vl_item_contrato"
                 (ordenar)="onOrdenar($event)"
@@ -133,7 +133,7 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right"
+                class="table-th-monospace text-right"
                 *ngIf="radioGroupForm.value['showTotal']"
                 ordenavel="vl_total_item_contrato"
                 (ordenar)="onOrdenar($event)"
@@ -144,7 +144,7 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right"
+                class="table-th-monospace text-right"
                 ordenavel="mediana_valor"
                 (ordenar)="onOrdenar($event)"
                 appOrdenavel>
@@ -157,7 +157,7 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right"
+                class="table-th-monospace text-right"
                 ordenavel="percentual_vs_estado"
                 (ordenar)="onOrdenar($event)"
                 appOrdenavel>
@@ -170,7 +170,7 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right"
+                class="table-th-monospace text-right"
                 ordenavel="vl_unitario_estimado"
                 (ordenar)="onOrdenar($event)"
                 appOrdenavel>
@@ -183,7 +183,7 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right"
+                class="table-th-monospace text-right"
                 ordenavel="percentual_vs_estimado"
                 (ordenar)="onOrdenar($event)"
                 appOrdenavel>
@@ -205,7 +205,7 @@
               <td class="align-middle descricao">
                 <app-descricao-item
                   [item]="item"
-                  [temLink]="item.itensSemelhantes?.length > 3"></app-descricao-item>
+                  [temLink]="item?.itensSemelhantes?.length > 3"></app-descricao-item>
               </td>
               <td
                 class="numero align-middle"
@@ -221,22 +221,40 @@
                 class="numero align-middle"
                 *ngIf="!radioGroupForm.value['showTotal']"
                 [title]="item.mediana_valor">
-                {{ item.mediana_valor | currency:'':'' }}
+                <div
+                  class="pr-3"
+                  *ngIf="item?.itensSemelhantes?.length <= 3; else mostraMedianaEstado">
+                  <app-tooltip-ajuda
+                  [tipo]="'alerta'"
+                  [descricao]="'Este valor não pôde ser calculado pois existem poucos produtos semelhantes em nossa base de dados.'"></app-tooltip-ajuda>
+                </div>
+                <ng-template #mostraMedianaEstado>
+                  {{ item.mediana_valor | currency:'':'' }}
+                </ng-template>
               </td>
               <td
                 class="numero align-middle"
                 *ngIf="radioGroupForm.value['showTotal']"
                 [title]="item.mediana_valor * item.qt_itens_contrato">
-                {{ item.mediana_valor * item.qt_itens_contrato | currency:'':'' }}
+                <div
+                  class="pr-3"
+                  *ngIf="item?.itensSemelhantes?.length <= 3; else mostraMedianaTotalEstado">
+                  <app-tooltip-ajuda
+                  [tipo]="'alerta'"
+                  [descricao]="'Este valor não pôde ser calculado pois existem poucos produtos semelhantes em nossa base de dados.'"></app-tooltip-ajuda>
+                </div>
+                <ng-template #mostraMedianaTotalEstado>
+                  {{ item.mediana_valor * item.qt_itens_contrato | currency:'':'' }}
+                </ng-template>
               </td>
               <td
                 class="numero align-middle"
                 [title]="item.mediana_valor"
-                [style.background-color]="item.itensSemelhantes?.length > 3 ? defineCorFundo(item.percentual_vs_estado) : 'white'"
+                [style.background-color]="item?.itensSemelhantes?.length > 3 ? defineCorFundo(item.percentual_vs_estado) : 'white'"
                 [style.color]="defineCor(item.percentual_vs_estado)">
                 <div
-                  class="text-center"
-                  *ngIf="item.itensSemelhantes?.length <= 3; else mostraPercentualEstado">
+                  class="pr-3"
+                  *ngIf="item?.itensSemelhantes?.length <= 3; else mostraPercentualEstado">
                   <app-tooltip-ajuda
                   [tipo]="'alerta'"
                   [descricao]="'Este valor não pôde ser calculado pois existem poucos produtos semelhantes em nossa base de dados.'"></app-tooltip-ajuda>
