@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import * as d3 from 'd3-scale';
 
 import { forkJoin, BehaviorSubject, from } from 'rxjs';
-import { take, map, concatMap, mergeMap, reduce } from 'rxjs/operators';
+import { take, map, concatMap, mergeMap, reduce, tap } from 'rxjs/operators';
 
 import { ContratoLicitacao } from 'src/app/shared/models/contratoLicitacao.model';
 import { ContratoService } from 'src/app/shared/services/contrato.service';
@@ -73,7 +73,6 @@ export class InfoContratoComponent implements OnInit {
       this.contrato.valor_estimado = itensContrato.reduce((sum, item) => {
         return sum + (item.vl_unitario_estimado * item.qt_itens_contrato);
       }, 0);
-      this.loading$.next(false);
     });
   }
 
@@ -102,7 +101,8 @@ export class InfoContratoComponent implements OnInit {
               }),
               reduce((acc: Array<any>, element: any) => [...acc, element], [])
             );
-        })
+        }),
+        tap(() => this.loading$.next(false))
       );
   }
 

@@ -8,7 +8,6 @@
     [exibirVoltar]="true"></app-barra-titulo>
 
   <div class="container">
-    <app-spinner *ngIf="loading$ | async"></app-spinner>
     <div class="row mt-4">
       <div class="col-sm-12 col-md-3 mb-4">
         <div class="dados-linha">
@@ -82,7 +81,11 @@
       </div>
     </div>
 
-    <div class="table-wrapper">
+    <app-spinner *ngIf="loading$ | async"></app-spinner>
+
+    <div
+      *ngIf="(loading$ | async) === false"
+      class="table-wrapper">
       <div class="table-responsive">
         <table class="table table-sm">
           <thead>
