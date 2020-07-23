@@ -69,7 +69,7 @@ export class InfoItemComponent implements OnInit {
         concatMap(item => {
           const termos = this.termosPipe.transform(item.ds_item);
           return this.itensService
-            .getItensSimilares(termos, item.dt_inicio_vigencia)
+            .getItensSimilares(item, termos)
             .pipe(
               // filtra dos semelhantes o item atual
               map(itensSemelhantes => itensSemelhantes.filter(itemSemelhante => itemSemelhante.id_item_contrato !== item.id_item_contrato))
