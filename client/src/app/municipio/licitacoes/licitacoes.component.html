@@ -30,7 +30,17 @@
         <th scope="col"
         ordenavel="descricao_objeto"
         (ordenar)="onOrdenar($event)"
-        appOrdenavel>Objeto</th>
+        appOrdenavel>
+        Objeto
+        </th>
+        <th
+          scope="col"
+          class="text-right"
+          ordenavel="vl_contratado"
+          (ordenar)="onOrdenar($event)"
+          appOrdenavel>
+          Valor contratado
+        </th>
         <th
           scope="col"
           class="text-center"
@@ -57,6 +67,14 @@
         </td>
         <td>
           <ngb-highlight [result]="licitacao.descricao_objeto | initialcase" [term]="listaService.termoBusca"></ngb-highlight>
+        </td>
+        <td class="text-right">
+          <span *ngIf="licitacao?.qt_contratos !== 0; else semContratos">
+            {{ licitacao.vl_contratado | currency: "R$" }}
+          </span>
+          <ng-template #semContratos>
+            --
+          </ng-template>
         </td>
         <td class="text-center text-nowrap">
           {{ licitacao.data_abertura | date:'LLL/y' }}
