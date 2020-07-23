@@ -96,6 +96,7 @@ router.post("/similares", (req, res) => {
                       AND ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) >= 0.65\
                       ORDER BY ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) DESC, id_item_contrato ASC \
                       LIMIT 21;`
+  
   models.sequelize.query(query, {
     model: itensContrato,
     mapToModel: true

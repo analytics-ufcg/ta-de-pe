@@ -32,7 +32,7 @@ export class ItensService {
       return this.getItensSimilares(termos, item.dt_inicio_vigencia)
         .pipe(take(1),
           map(itens => {
-            const itensOrdenados = itens.slice(0, 21).sort((a, b) => a.vl_item_contrato - b.vl_item_contrato);
+            const itensOrdenados = itens.sort((a, b) => a.vl_item_contrato - b.vl_item_contrato);
             const meioInf = Math.floor((itensOrdenados.length - 1) / 2);
             const meioSup = Math.ceil((itensOrdenados.length - 1) / 2);
             const mediana = (itensOrdenados[meioInf].vl_item_contrato + itensOrdenados[meioSup].vl_item_contrato) / 2;
