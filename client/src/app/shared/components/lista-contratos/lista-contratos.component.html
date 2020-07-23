@@ -1,93 +1,99 @@
-<form>
-  <div class="form-group">
-    <input
-      class="form-control"
-      type="text"
-      placeholder="Buscar nos contratos..."
-      name="termoBusca"
-      [(ngModel)]="listaService.termoBusca" />
+<div class="row">
+  <div class="col-lg-6">
+    <form>
+      <div class="form-group">
+        <input
+          class="form-control"
+          type="text"
+          placeholder="Buscar nos contratos..."
+          name="termoBusca"
+          [(ngModel)]="listaService.termoBusca" />
+      </div>
+    </form>
   </div>
-</form>
-<div class="table-responsive">
-  <table class="table table-hover">
-    <thead>
-      <tr>
-        <th
-          scope="col"
-          class="text-center th-medio"
-          ordenavel="nr_contrato"
-          (ordenar)="onOrdenar($event)"
-          appOrdenavel>
-          Contrato
-        </th>
-        <th
-          scope="col"
-          class="th-espacoso"
-          ordenavel="nm_fornecedor"
-          (ordenar)="onOrdenar($event)"
-          appOrdenavel>
-          Fornecedor
-        </th>
-        <th
-          scope="col"
-          class="text-center"
-          ordenavel="nr_documento_contratado"
-          (ordenar)="onOrdenar($event)"
-          appOrdenavel>
-          CPF/CNPJ
-        </th>
-        <th
-          scope="col"
-          class="text-center"
-          ordenavel="vl_contrato"
-          (ordenar)="onOrdenar($event)"
-          appOrdenavel>
-          Valor contratado
-        </th>
-        <th
-          scope="col"
-          class="text-center th-medio"
-          ordenavel="dt_inicio_vigencia"
-          (ordenar)="onOrdenar($event)"
-          appOrdenavel>
-          Início da vigência
-        </th>
-        <th
-          scope="col"
-          class="text-center th-medio"
-          ordenavel="dt_final_vigencia"
-          (ordenar)="onOrdenar($event)"
-          appOrdenavel>
-          Fim da vigência
-        </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let contrato of listaService.dadosProcessados$ | async; index as i">
-        <td class="text-center">
-          <a [routerLink]="['/contratos/' + contrato.id_contrato]">
-            <ngb-highlight [result]="contrato.nr_contrato" [term]="listaService.termoBusca"></ngb-highlight>
-          </a>
-        </td>
-        <td>
-          <span *ngIf="contrato.nm_fornecedor">
-              <ngb-highlight [result]="contrato.nm_fornecedor" [term]="listaService.termoBusca"></ngb-highlight>
-            </span>
-            <span *ngIf="!contrato.nm_fornecedor">(Nome não encontrado)</span>
-        </td>
-        <td class="text-right numero">
-          <ngb-highlight [result]="contrato.nr_documento_contratado | formatCpfCnpj" [term]="listaService.termoBusca"></ngb-highlight>
-        </td>
-        <td class="text-right numero">
-          {{ contrato.vl_contrato | currency: "R$" }}
-        </td>
-        <td class="text-center">
-          {{ contrato.dt_inicio_vigencia | date:'LLL/y' }}
-        </td>
-        <td class="text-center">
-          {{ contrato.dt_final_vigencia | date:'LLL/y' }}
-        </td>
-      </tr>
-    </tbody>
-  </table>
+</div>
+<div class="table-wrapper">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+        <tr>
+          <th
+            scope="col"
+            class="text-center"
+            ordenavel="nr_contrato"
+            (ordenar)="onOrdenar($event)"
+            appOrdenavel>
+            Contrato
+          </th>
+          <th
+            scope="col"
+            class="th-espacoso"
+            ordenavel="nm_fornecedor"
+            (ordenar)="onOrdenar($event)"
+            appOrdenavel>
+            Fornecedor
+          </th>
+          <th
+            scope="col"
+            class="text-center"
+            ordenavel="nr_documento_contratado"
+            (ordenar)="onOrdenar($event)"
+            appOrdenavel>
+            CPF/CNPJ
+          </th>
+          <th
+            scope="col"
+            class="text-center"
+            ordenavel="vl_contrato"
+            (ordenar)="onOrdenar($event)"
+            appOrdenavel>
+            Valor contratado
+          </th>
+          <th
+            scope="col"
+            class="text-center"
+            ordenavel="dt_inicio_vigencia"
+            (ordenar)="onOrdenar($event)"
+            appOrdenavel>
+            Início da vigência
+          </th>
+          <th
+            scope="col"
+            class="text-center"
+            ordenavel="dt_final_vigencia"
+            (ordenar)="onOrdenar($event)"
+            appOrdenavel>
+            Fim da vigência
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let contrato of listaService.dadosProcessados$ | async; index as i">
+          <td class="text-center">
+            <a [routerLink]="['/contratos/' + contrato.id_contrato]">
+              <ngb-highlight [result]="contrato.nr_contrato" [term]="listaService.termoBusca"></ngb-highlight>
+            </a>
+          </td>
+          <td>
+            <span *ngIf="contrato.nm_fornecedor">
+                <ngb-highlight [result]="contrato.nm_fornecedor" [term]="listaService.termoBusca"></ngb-highlight>
+              </span>
+              <span *ngIf="!contrato.nm_fornecedor">(Nome não encontrado)</span>
+          </td>
+          <td class="text-right numero">
+            <ngb-highlight [result]="contrato.nr_documento_contratado | formatCpfCnpj" [term]="listaService.termoBusca"></ngb-highlight>
+          </td>
+          <td class="text-right numero">
+            {{ contrato.vl_contrato | currency: "R$" }}
+          </td>
+          <td class="text-center">
+            {{ contrato.dt_inicio_vigencia | date:'LLL/y' }}
+          </td>
+          <td class="text-center">
+            {{ contrato.dt_final_vigencia | date:'LLL/y' }}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>

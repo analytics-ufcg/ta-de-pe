@@ -112,7 +112,7 @@
             <tr>
               <th
                 scope="col"
-                class="text-left table-th-dividido-up align-middle"
+                class="text-left align-middle"
                 ordenavel="ds_item"
                 (ordenar)="onOrdenar($event)"
                 appOrdenavel>
@@ -120,7 +120,7 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right"
+                class="table-th-monospace text-right"
                 *ngIf="!radioGroupForm.value['showTotal']"
                 ordenavel="vl_item_contrato"
                 (ordenar)="onOrdenar($event)"
@@ -133,7 +133,7 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right"
+                class="table-th-monospace text-right"
                 *ngIf="radioGroupForm.value['showTotal']"
                 ordenavel="vl_total_item_contrato"
                 (ordenar)="onOrdenar($event)"
@@ -144,7 +144,7 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right"
+                class="table-th-monospace text-right"
                 ordenavel="mediana_valor"
                 (ordenar)="onOrdenar($event)"
                 appOrdenavel>
@@ -157,7 +157,7 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right"
+                class="table-th-monospace text-right"
                 ordenavel="percentual_vs_estado"
                 (ordenar)="onOrdenar($event)"
                 appOrdenavel>
@@ -170,7 +170,7 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right"
+                class="table-th-monospace text-right"
                 ordenavel="vl_unitario_estimado"
                 (ordenar)="onOrdenar($event)"
                 appOrdenavel>
@@ -183,7 +183,7 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace table-th-dividido-up text-right"
+                class="table-th-monospace text-right"
                 ordenavel="percentual_vs_estimado"
                 (ordenar)="onOrdenar($event)"
                 appOrdenavel>
@@ -205,7 +205,7 @@
               <td class="align-middle descricao">
                 <app-descricao-item
                   [item]="item"
-                  [temLink]="item.itensSemelhantes?.length > 3"></app-descricao-item>
+                  [temLink]="item?.itensSemelhantes?.length > 3"></app-descricao-item>
               </td>
               <td
                 class="numero align-middle"
