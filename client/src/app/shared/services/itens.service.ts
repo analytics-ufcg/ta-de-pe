@@ -25,7 +25,8 @@ export class ItensService {
   }
 
   getItensSimilares(item: ItensContrato, termos: string[]): Observable<ItensContrato[]> {
-      return this.http.post<ItensContrato[]>(this.url + '/similares', { termo: termos, data: item.dt_inicio_vigencia });
+      return this.http.post<ItensContrato[]>(this.url + '/similares',
+        { termo: termos, data: item.dt_inicio_vigencia, unidade: item.sg_unidade_medida });
   }
 
   getMediaItensSemelhantes(item: ItensContrato, termos: string[]): Observable<ItensContrato> {
