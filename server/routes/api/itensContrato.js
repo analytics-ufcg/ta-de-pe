@@ -91,7 +91,7 @@ router.post("/similares", (req, res) => {
                       dt_inicio_vigencia >= '${dataInicial}' AND dt_inicio_vigencia <= '${dataFinal}'\
                       AND ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) >= 0.6\
                       ORDER BY ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) DESC, id_item_contrato ASC \
-                      LIMIT 100;`
+                      LIMIT 21;`
   
   models.sequelize.query(query, {
     model: itensContrato,
