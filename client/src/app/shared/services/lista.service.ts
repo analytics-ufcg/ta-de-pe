@@ -104,10 +104,11 @@ export class ListaLicitacoesService extends ListaService {
     super(pipe);
   }
 
-  corresponde(dados: any, texto: string) {
+  corresponde(dados: any, texto: string, pipe: PipeTransform) {
     const termo = texto.toLowerCase();
-    return dados.descricao_objeto.toLowerCase().includes(termo)
-        || dados.status.toLowerCase().includes(termo);
+    return pipe.transform(dados.nr_licitacao).includes(termo)
+      || dados.descricao_objeto.toLowerCase().includes(termo)
+      || dados.status.toLowerCase().includes(termo);
   }
 }
 

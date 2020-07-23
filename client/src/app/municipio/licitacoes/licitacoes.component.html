@@ -24,9 +24,13 @@
     <thead>
       <tr>
         <th scope="col"
+        ordenavel="nr_licitacao"
+        (ordenar)="onOrdenar($event)"
+        appOrdenavel>Licitação</th>
+        <th scope="col"
         ordenavel="descricao_objeto"
         (ordenar)="onOrdenar($event)"
-        appOrdenavel>Objeto da licitação</th>
+        appOrdenavel>Objeto</th>
         <th
           scope="col"
           class="text-center"
@@ -46,10 +50,13 @@
     </thead>
     <tbody>
       <tr *ngFor="let licitacao of listaService.dadosProcessados$ | async; index as i">
-        <td>
+        <td class="text-center">
           <a [routerLink]="['/licitacoes/' + licitacao.id_licitacao + '/info']">
-            <ngb-highlight [result]="licitacao.descricao_objeto | initialcase" [term]="listaService.termoBusca"></ngb-highlight>
+            <ngb-highlight [result]="licitacao.nr_licitacao" [term]="listaService.termoBusca"></ngb-highlight>
           </a>
+        </td>
+        <td>
+          <ngb-highlight [result]="licitacao.descricao_objeto | initialcase" [term]="listaService.termoBusca"></ngb-highlight>
         </td>
         <td class="text-center text-nowrap">
           {{ licitacao.data_abertura | date:'LLL/y' }}
