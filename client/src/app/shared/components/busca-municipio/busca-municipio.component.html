@@ -23,7 +23,7 @@
       class="collapse navbar-collapse"
       [ngClass]="{ 'show': navbarOpen }">
       <ul class="navbar-nav ml-auto">
-        <li>
+        <li [hidden]="isURLHome">
           <div class="input-group">
             <input
               [hidden]="!show"

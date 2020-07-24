@@ -5,7 +5,6 @@ import {
   debounceTime,
   distinctUntilChanged,
   takeUntil,
-  take,
   map,
   filter
 } from 'rxjs/operators';
@@ -14,7 +13,7 @@ import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 
 import { MunicipioService } from '../../services/municipio.service';
 import { UserService } from '../../services/user.service';
-import { Router } from '@angular/router';
+import { Router, NavigationStart } from '@angular/router';
 
 @Component({
   selector: 'app-busca-municipio',
@@ -31,6 +30,7 @@ export class BuscaMunicipioComponent implements OnInit, OnDestroy {
   public municipioSelecionado: string;
   public municipioDisplay: string;
   public show = false;
+  public isURLHome = false;
   public navbarOpen = false;
 
   focus$ = new Subject<string>();
@@ -42,6 +42,12 @@ export class BuscaMunicipioComponent implements OnInit, OnDestroy {
     private userService: UserService
   ) {
     this.municipios = [];
+    router.events
+      .pipe(filter(event => event instanceof NavigationStart))
+      .subscribe((route: NavigationStart) => {
+        console.log(route);
+        this.isURLHome = route.url === '/' || route.url === '/home';
+    });
   }
 
   ngOnInit() {
