@@ -20,4 +20,5 @@ export interface ItensContrato {
   nome_municipio: string;
   itensContratoOrgao: any;
   resumido: boolean;
+  sg_unidade_medida: string;
 }
