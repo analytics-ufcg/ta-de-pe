@@ -22,33 +22,32 @@
       id="navbarNav"
       class="collapse navbar-collapse"
       [ngClass]="{ 'show': navbarOpen }">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <button
-            class="btn btn-link nav-link"
-            (click)="toggleShow()">
-            <span class="icon-search"></span>
-            Buscar município
-          </button>
-        </li>
-        <li [hidden]="!show">
+      <ul class="navbar-nav ml-auto">
+        <li [hidden]="isURLHome">
           <div class="input-group">
             <input
+              [hidden]="!show"
               id="typeahead-focus"
               type="text"
-              class="form-control"
+              class="form-control inp-expandido"
               placeholder="{{placeholder}}"
               [(ngModel)]="municipioSelecionado"
               [ngbTypeahead]="search"
-              (focus)="focus$.next($event.target.value)"
-              (click)="click$.next($event.target.value)"
+              onclick="this.select()"
+              onfocus="this.select()"
+              (focus)="focus$.next($any($event).target.value)"
+              (click)="click$.next($any($event).target.value)"
               [editable]="false"
               (selectItem)="salvarMunicipio($event.item)"
               #instance="ngbTypeahead">
+            <button
+              class="btn btn-link btn-buscar nav-link"
+              [ngClass]="{'btn-retraido': show}"
+              (click)="toggleShow()">
+              <span class="icon-search"></span>
+            </button>
           </div>
         </li>
-      </ul>
-      <ul class="navbar-nav ml-auto">
         <li class="nav-item active">
           <a
             class="nav-link"
