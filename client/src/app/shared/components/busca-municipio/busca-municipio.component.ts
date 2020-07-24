@@ -45,7 +45,6 @@ export class BuscaMunicipioComponent implements OnInit, OnDestroy {
     router.events
       .pipe(filter(event => event instanceof NavigationStart))
       .subscribe((route: NavigationStart) => {
-        console.log(route);
         this.isURLHome = route.url === '/' || route.url === '/home';
     });
   }
