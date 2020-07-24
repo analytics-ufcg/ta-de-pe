@@ -23,9 +23,10 @@
       class="collapse navbar-collapse"
       [ngClass]="{ 'show': navbarOpen }">
       <ul class="navbar-nav ml-auto">
-        <li [hidden]="!show">
+        <li>
           <div class="input-group">
             <input
+              [hidden]="!show"
               id="typeahead-focus"
               type="text"
               class="form-control inp-expandido"
@@ -39,15 +40,13 @@
               [editable]="false"
               (selectItem)="salvarMunicipio($event.item)"
               #instance="ngbTypeahead">
+            <button
+              class="btn btn-link btn-buscar nav-link"
+              [ngClass]="{'btn-retraido': show}"
+              (click)="toggleShow()">
+              <span class="icon-search"></span>
+            </button>
           </div>
-        </li>
-        <li class="nav-item active">
-          <button
-            class="btn btn-link btn-buscar nav-link"
-            [ngClass]="{'btn-retraido': show}"
-            (click)="toggleShow()">
-            <span class="icon-search"></span>
-          </button>
         </li>
         <li class="nav-item active">
           <a
