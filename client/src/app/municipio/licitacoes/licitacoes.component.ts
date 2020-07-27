@@ -44,7 +44,7 @@ export class LicitacoesComponent implements OnInit {
                 licitacao.vl_contratado = licitacao.contratosLicitacao
                   .reduce((sum, contrato) => sum + contrato.vl_contrato, 0);
               });
-              return licitacoes.slice().sort((l1, l2) => l2.status.localeCompare(l1.status));;
+              return licitacoes.slice().sort((l1, l2) => l2.status.localeCompare(l1.status));
             }),
             tap(() => this.loading$.next(false))
           );
