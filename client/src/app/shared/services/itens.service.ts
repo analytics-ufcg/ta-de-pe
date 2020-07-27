@@ -20,26 +20,30 @@ export class ItensService {
     return this.http.get<ItensContrato>(`${this.url}/item/${idItem}`);
   }
 
-  getItensSimilares(termos: string[], dataInicioContrato: Date, unidadeMedida: string): Observable<ItensContrato[]> {
-    return this.http.post<ItensContrato[]>(this.url + '/similares',
-      { termo: termos, data: dataInicioContrato, unidade: unidadeMedida });
+  getByContrato(idContrato: string): Observable<ItensContrato[]> {
+    return this.http.get<ItensContrato[]>(`${this.url}/contrato/${idContrato}`);
   }
 
-  getMediaItensSemelhantes(termos: string[], dataInicioContrato: Date, unidadeMedida: string) {
-    const strTermos = [termos[0], termos.slice(0, 2).join(' & '), termos.join(' & ')];
-    return this.getItensSimilares(strTermos, dataInicioContrato, unidadeMedida)
+  getItensSimilares(item: ItensContrato, termos: string[]): Observable<ItensContrato[]> {
+      return this.http.post<ItensContrato[]>(this.url + '/similares',
+        { termo: termos, data: item.dt_inicio_vigencia, unidade: item.sg_unidade_medida });
+  }
+
+  getMediaItensSemelhantes(item: ItensContrato, termos: string[]): Observable<ItensContrato> {
+    return this.getItensSimilares(item, termos)
       .pipe(take(1),
         map(itens => {
-          const itensOrdenados = itens.slice(0, 21).sort((a, b) => a.vl_item_contrato - b.vl_item_contrato);
-          if (itensOrdenados.length > 0) {
-            const meioInf = Math.floor((itensOrdenados.length - 1) / 2);
-            const meioSup = Math.ceil((itensOrdenados.length - 1) / 2);
-            const mediana = (itensOrdenados[meioInf].vl_item_contrato + itensOrdenados[meioSup].vl_item_contrato) / 2;
-            return { mediana, itensOrdenados };
+          if (itens.length === 0) {
+            return item;
           }
-          //  retorna undefined caso não seja possível calcular a mediana
-          return { mediana: undefined, itensOrdenados };
+          const itensOrdenados = itens.sort((a, b) => a.vl_item_contrato - b.vl_item_contrato);
+          const meioInf = Math.floor((itensOrdenados.length - 1) / 2);
+          const meioSup = Math.ceil((itensOrdenados.length - 1) / 2);
+          const mediana = (itensOrdenados[meioInf].vl_item_contrato + itensOrdenados[meioSup].vl_item_contrato) / 2;
+          item.mediana_valor = mediana;
+          item.itensSemelhantes = itensOrdenados;
+          return item;
         })
-      ).toPromise();
+      );
   }
 }

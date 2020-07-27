@@ -8,7 +8,6 @@
     [exibirVoltar]="true"></app-barra-titulo>
 
   <div class="container">
-    <app-spinner *ngIf="isLoading"></app-spinner>
     <div class="row mt-4">
       <div class="col-sm-12 col-md-3 mb-4">
         <div class="dados-linha">
@@ -82,7 +81,11 @@
       </div>
     </div>
 
-    <div class="table-wrapper">
+    <app-spinner *ngIf="loading$ | async"></app-spinner>
+
+    <div
+      *ngIf="(loading$ | async) === false"
+      class="table-wrapper">
       <div class="table-responsive">
         <table class="table table-sm">
           <thead>
@@ -112,13 +115,19 @@
             <tr>
               <th
                 scope="col"
-                class="text-left align-middle">
-                Item
+                class="text-left align-middle"
+                ordenavel="ds_item"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
+                Produto
               </th>
               <th
                 scope="col"
                 class="table-th-monospace text-right"
-                *ngIf="!radioGroupForm.value['showTotal']">
+                *ngIf="!radioGroupForm.value['showTotal']"
+                ordenavel="vl_item_contrato"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 <span class="nowrap">Valor por</span>
                 <br>
                 unidade
@@ -128,14 +137,20 @@
               <th
                 scope="col"
                 class="table-th-monospace text-right"
-                *ngIf="radioGroupForm.value['showTotal']">
+                *ngIf="radioGroupForm.value['showTotal']"
+                ordenavel="vl_total_item_contrato"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 <span class="nowrap">Valor total</span>
                 <br>
                 (R$)
               </th>
               <th
                 scope="col"
-                class="table-th-monospace text-right">
+                class="table-th-monospace text-right"
+                ordenavel="mediana_valor"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 Mediana
                 <br>
                 <span class="nowrap">no estado</span>
@@ -145,7 +160,10 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace text-right">
+                class="table-th-monospace text-right"
+                ordenavel="percentual_vs_estado"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 Diferença
                 <br>
                 <span class="nowrap">com estado</span>
@@ -155,7 +173,10 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace text-right">
+                class="table-th-monospace text-right"
+                ordenavel="vl_unitario_estimado"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 Valor
                 <br>
                 estimado
@@ -165,7 +186,10 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace text-right">
+                class="table-th-monospace text-right"
+                ordenavel="percentual_vs_estimado"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 Diferença
                 <br>
                 <span class="nowrap">com estimado</span>
@@ -179,12 +203,12 @@
           </thead>
           <tbody>
             <tr
-              *ngFor="let item of contrato?.itensContrato; index as i"
+              *ngFor="let item of listaService.dadosProcessados$ | async; index as i"
               class="table-item">
               <td class="align-middle descricao">
                 <app-descricao-item
                   [item]="item"
-                  [temLink]="item?.itensSemelhantes?.length > 3"></app-descricao-item>
+                  [temLink]="item?.itensSemelhantes?.length > 1"></app-descricao-item>
               </td>
               <td
                 class="numero align-middle"
@@ -202,10 +226,10 @@
                 [title]="item.mediana_valor">
                 <div
                   class="pr-3"
-                  *ngIf="item?.itensSemelhantes?.length <= 3; else mostraMedianaEstado">
+                  *ngIf="item?.itensSemelhantes?.length <= 1; else mostraMedianaEstado">
                   <app-tooltip-ajuda
                   [tipo]="'alerta'"
-                  [descricao]="'Este valor não pôde ser calculado pois existem poucos produtos semelhantes em nossa base de dados.'"></app-tooltip-ajuda>
+                  [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                 </div>
                 <ng-template #mostraMedianaEstado>
                   {{ item.mediana_valor | currency:'':'' }}
@@ -217,10 +241,10 @@
                 [title]="item.mediana_valor * item.qt_itens_contrato">
                 <div
                   class="pr-3"
-                  *ngIf="item?.itensSemelhantes?.length <= 3; else mostraMedianaTotalEstado">
+                  *ngIf="item?.itensSemelhantes?.length <= 1; else mostraMedianaTotalEstado">
                   <app-tooltip-ajuda
                   [tipo]="'alerta'"
-                  [descricao]="'Este valor não pôde ser calculado pois existem poucos produtos semelhantes em nossa base de dados.'"></app-tooltip-ajuda>
+                  [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                 </div>
                 <ng-template #mostraMedianaTotalEstado>
                   {{ item.mediana_valor * item.qt_itens_contrato | currency:'':'' }}
@@ -233,10 +257,10 @@
                 [style.color]="defineCor(item.percentual_vs_estado)">
                 <div
                   class="pr-3"
-                  *ngIf="item?.itensSemelhantes?.length <= 3; else mostraPercentualEstado">
+                  *ngIf="item?.itensSemelhantes?.length <= 1; else mostraPercentualEstado">
                   <app-tooltip-ajuda
                   [tipo]="'alerta'"
-                  [descricao]="'Este valor não pôde ser calculado pois existem poucos produtos semelhantes em nossa base de dados.'"></app-tooltip-ajuda>
+                  [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                 </div>
                 <ng-template #mostraPercentualEstado>
                   <span *ngIf="item.percentual_vs_estado > 0">+</span>{{ item.percentual_vs_estado | percent:'1.1' }}
@@ -245,18 +269,18 @@
               <td
                 class="numero align-middle"
                 *ngIf="!radioGroupForm.value['showTotal']"
-                [title]="item.itensLicitacaoItensContrato.vl_unitario_estimado">
-                {{ item.itensLicitacaoItensContrato.vl_unitario_estimado | currency:'':'' }}
+                [title]="item.vl_unitario_estimado">
+                {{ item.vl_unitario_estimado | currency:'':'' }}
               </td>
               <td
                 class="numero align-middle"
                 *ngIf="radioGroupForm.value['showTotal']"
-                [title]="item.itensLicitacaoItensContrato.vl_unitario_estimado * item.qt_itens_contrato">
-                {{ item.qt_itens_contrato * item.itensLicitacaoItensContrato.vl_unitario_estimado | currency:'':'' }}
+                [title]="item.vl_unitario_estimado * item.qt_itens_contrato">
+                {{ item.qt_itens_contrato * item.vl_unitario_estimado | currency:'':'' }}
               </td>
               <td
                 class="numero align-middle"
-                [title]="item.itensLicitacaoItensContrato.vl_unitario_estimado"
+                [title]="item.vl_unitario_estimado"
                 [style.background-color]="defineCorFundo(item.percentual_vs_estimado)"
                 [style.color]="defineCor(item.percentual_vs_estimado)">
                 <span *ngIf="item.percentual_vs_estimado > 0">+</span>{{ item.percentual_vs_estimado | percent:'1.1' }}

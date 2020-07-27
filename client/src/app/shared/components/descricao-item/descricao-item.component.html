@@ -28,6 +28,7 @@
     ...
   </button>
   <span
+    *ngIf="comUnidade"
     class="text-muted">
     ({{ item.qt_itens_contrato }} {{ item.sg_unidade_medida | lowercase }})
   </span>

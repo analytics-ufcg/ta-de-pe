@@ -19,8 +19,6 @@ export class LicitacoesDetalharInfoComponent implements OnInit, OnDestroy {
   private unsubscribe = new Subject();
 
   public licitacao: Licitacao;
-  public valorContratado: number;
-  public quantContratos: number;
   public timeline: any[];
   public isLoading = true;
 
@@ -41,14 +39,11 @@ export class LicitacoesDetalharInfoComponent implements OnInit, OnDestroy {
       this.licitacaoService.getNovidades(id)
     ).pipe(takeUntil(this.unsubscribe)).subscribe(data => {
       this.licitacao = data[0];
+      this.licitacao.qt_contratos = this.licitacao.contratosLicitacao.length;
+      this.licitacao.status = this.licitacao.qt_contratos === 0 ? 'Sem contratos' : 'Com contratos';
+      this.licitacao.vl_contratado = this.licitacao.contratosLicitacao
+        .reduce((sum, contrato) => sum + contrato.vl_contrato, 0);
       const novidadesLicitacao = data[1];
-
-      this.valorContratado = data[0].contratosLicitacao.reduce((sum, contrato) => {
-        return sum + contrato.vl_contrato;
-      }, 0);
-
-      this.quantContratos = data[0].contratosLicitacao.length;
-
       const timeline = nest()
         .key((d: any) => d.data)
         .key((d: any) => d.id_tipo)
