@@ -108,12 +108,7 @@ router.get("/:id", (req, res) => {
     ],
     where: {
       id_contrato: req.params.id
-    },
-    order: [[
-      { model: itensContrato, as: 'itensContrato' },
-      'id_item_contrato',
-      'DESC'
-    ]]
+    }
   })
     .then(contrato => {
       contrato = contrato.get({ plain: true });
