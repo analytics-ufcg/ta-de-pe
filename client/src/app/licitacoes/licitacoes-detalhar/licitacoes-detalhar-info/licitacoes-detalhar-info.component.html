@@ -14,7 +14,7 @@
           {{ licitacao?.status }}
         </span>
         <div
-          *ngIf="!licitacao?.merenda"
+          *ngIf="licitacao?.assunto !== 'merenda'"
           class="mt-2">
           <ngb-alert [dismissible]="false">
             <strong>Atenção</strong>: não temos certeza se essa licitação envolve alimentação escolar. É preciso checar no edital ou no portal de transparência do município.
