@@ -11,6 +11,7 @@
         <app-descricao-item
           [item]="item"
           [temLink]="false"
+          [comUnidade]="false"
           [itemResumido]="false"></app-descricao-item>
       </div>
       <div class="col-lg-5">
@@ -67,16 +68,36 @@
         <table class="table table-sm table-hover">
           <thead>
             <tr>
-              <th scope="col" class="align-middle table-th-dividido-up">
+              <th
+                scope="col"
+                class="align-middle table-th-dividido-up"
+                ordenavel="ds_item"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 Produto
               </th>
-              <th scope="col" class="table-th-monospace table-th-dividido-up">
+              <th
+                scope="col"
+                class="table-th-monospace table-th-dividido-up"
+                ordenavel="nome_municipio"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 Município
               </th>
-              <th scope="col" class="table-th-monospace text-right table-th-dividido-up">
+              <th
+                scope="col"
+                class="table-th-monospace text-right table-th-dividido-up"
+                ordenavel="ano_licitacao"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 Contrato
               </th>
-              <th scope="col" class="table-th-monospace text-right table-th-dividido-up">
+              <th
+                scope="col"
+                class="table-th-monospace text-right table-th-dividido-up"
+                ordenavel="vl_item_contrato"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 Valor por
                 <br />
                 unidade (R$)
@@ -84,11 +105,12 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let itemSemelhante of item.itensSemelhantes; index as i" class>
+            <tr *ngFor="let itemSemelhante of listaService.dadosProcessados$ | async; index as i" class>
               <td class="align-middle">
                 <app-descricao-item
                     [item]="itemSemelhante"
-                    [temLink]="false"></app-descricao-item>
+                    [temLink]="false"
+                    [comUnidade]="false"></app-descricao-item>
               </td>
               <td class="align-middle nowrap">{{ itemSemelhante.nome_municipio | titlecase }}</td>
               <td class="align-middle text-right">

@@ -1,8 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { Subject } from 'rxjs';
-import { take, takeUntil, map } from 'rxjs/operators';
+import { take, map, concatMap } from 'rxjs/operators';
 
 import * as d3 from 'd3-scale';
 
@@ -10,6 +9,10 @@ import { ItensContrato } from 'src/app/shared/models/itensContrato.model';
 import { ItensService } from 'src/app/shared/services/itens.service';
 import { TermosImportantesPipe } from 'src/app/shared/pipes/termos-importantes.pipe';
 import { ResumirTextoPipe } from 'src/app/shared/pipes/resumir-texto.pipe';
+import { EventoOrd } from 'src/app/shared/models/lista.model';
+import { OrdenavelDirective } from 'src/app/shared/directives/ordenavel.directive';
+import { ListaItensService } from 'src/app/shared/services/lista.service';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-info-item',
@@ -17,49 +20,83 @@ import { ResumirTextoPipe } from 'src/app/shared/pipes/resumir-texto.pipe';
   styleUrls: ['./info-item.component.scss'],
   providers: [
     TermosImportantesPipe,
-    ResumirTextoPipe
+    ResumirTextoPipe,
+    ListaItensService,
+    DecimalPipe
   ]
 })
 export class InfoItemComponent implements OnInit {
 
-  private unsubscribe = new Subject();
-
   public item: ItensContrato;
+
+  @ViewChildren(OrdenavelDirective) cabecalhos: QueryList<OrdenavelDirective>;
 
   constructor(
     private activatedroute: ActivatedRoute,
-    private itensService: ItensService,
     private termosPipe: TermosImportantesPipe,
-    private resumirPipe: ResumirTextoPipe
+    private resumirPipe: ResumirTextoPipe,
+    private itensService: ItensService,
+    public listaService: ListaItensService
   ) { }
 
   ngOnInit() {
     this.activatedroute.params.pipe(take(1)).subscribe(params => {
       this.getItemByID(params.id);
+      this.getItensSemelhantesByID(params.id);
     });
   }
+
   getItemByID(id: any) {
-    this.itensService.get(id)
-      .pipe(takeUntil(this.unsubscribe))
+    this.itensService
+      .get(id)
+      .pipe(
+        concatMap(item => {
+          const termos = this.termosPipe.transform(item.ds_item);
+          return this.itensService
+            .getMediaItensSemelhantes(item, termos);
+        })
+      )
       .subscribe(item => {
         item.ds_item_resumido = this.resumirPipe.transform(item.ds_item);
-        const termos = this.termosPipe.transform(item.ds_item);
-        this.itensService.getMediaItensSemelhantes(termos, item.dt_inicio_vigencia, item.sg_unidade_medida)
-          .then(res => {
-            item.mediana_valor = res.mediana;
-            item.itensSemelhantes = res.itensOrdenados.filter(itemSemelhante => itemSemelhante.id_item_contrato !== item.id_item_contrato);
-            item.itensSemelhantes.map(itemSemelhante => {
-              itemSemelhante.ds_item_resumido = this.resumirPipe.transform(itemSemelhante.ds_item);
-              if (itemSemelhante.vl_item_contrato > 0) {
-                itemSemelhante.percentual_vs_semelhante = (item.vl_item_contrato - itemSemelhante.vl_item_contrato)
-                  / itemSemelhante.vl_item_contrato;
-              } else {
-                itemSemelhante.percentual_vs_semelhante = 0;
-              }
-            });
-            this.item = item;
-          });
+        this.item = item;
       });
+  }
+
+  getItensSemelhantesByID(id: any) {
+    this.listaService.dados$ = this.itensService
+      .get(id)
+      .pipe(
+        concatMap(item => {
+          const termos = this.termosPipe.transform(item.ds_item);
+          return this.itensService
+            .getItensSimilares(item, termos)
+            .pipe(
+              // filtra dos semelhantes o item atual
+              map(itensSemelhantes => itensSemelhantes.filter(itemSemelhante => itemSemelhante.id_item_contrato !== item.id_item_contrato))
+            );
+        }),
+        map(itens => {
+          // cria resumo da descrição
+          itens.map(item => item.ds_item_resumido = this.resumirPipe.transform(item.ds_item));
+          // itens ordenados pelo preço
+          itens.sort((i1, i2) => i1.vl_item_contrato - i2.vl_item_contrato);
+          return itens;
+        })
+      );
+  }
+
+  onOrdenar({coluna, direcao}: EventoOrd) {
+    // Reseta outros cabeçalhos
+    this.cabecalhos.forEach(cab => {
+      if (cab.ordenavel !== coluna) {
+        cab.direcao = '';
+        cab.ordAsc = false;
+        cab.ordDesc = false;
+      }
+    });
+
+    this.listaService.colunaOrd = coluna;
+    this.listaService.direcaoOrd = direcao;
   }
 
   defineCorFundo(valor: number): string {
