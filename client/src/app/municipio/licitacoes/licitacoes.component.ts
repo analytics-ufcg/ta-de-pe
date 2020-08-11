@@ -27,7 +27,10 @@ export class LicitacoesComponent implements OnInit {
     private userService: UserService,
     private licitacaoService: LicitacaoService,
     public listaService: ListaLicitacoesService
-    ) { }
+    ) {
+      this.listaService.colunaOrd = 'data_abertura';
+      this.listaService.direcaoOrd = 'desc';
+    }
 
   ngOnInit() {
     this.userService

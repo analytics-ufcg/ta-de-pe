@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, ViewChildren, QueryList } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewChildren, QueryList, OnInit } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
 
 import { Observable } from 'rxjs';
@@ -19,7 +19,10 @@ export class ListaContratosComponent implements OnChanges {
 
   @ViewChildren(OrdenavelDirective) cabecalhos: QueryList<OrdenavelDirective>;
 
-  constructor(public listaService: ListaContratosService) {}
+  constructor(public listaService: ListaContratosService) {
+    this.listaService.colunaOrd = 'dt_inicio_vigencia';
+    this.listaService.direcaoOrd = 'desc';
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     this.listaService.dados$ = this.contratos$;
