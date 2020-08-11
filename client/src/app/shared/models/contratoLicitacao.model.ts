@@ -22,4 +22,5 @@ export interface ContratoLicitacao {
   total_pago: number;
   dias_vigente: number;
   contratosLicitacao: any;
+  descricao_objeto_contrato: string;
 }
