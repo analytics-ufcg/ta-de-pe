@@ -30,6 +30,17 @@
           </span>
         </div>
       </div>
+      <div class="col-sm-12 mb-4">
+        <div class="dados-linha">
+          <strong>Objeto do contrato</strong>
+          <app-tooltip-ajuda
+            [posicao]="'right'"
+            [descricao]="'Os dados do contrato foram informados pelo município para o TCE'"></app-tooltip-ajuda>
+        </div>
+        <div class="dados-linha">
+          {{ contrato?.descricao_objeto_contrato | initialcase }}
+        </div>
+      </div>
       <div class="col-sm-6 col-md-6 col-lg-3 mb-4">
         <div class="dados-linha">
           <strong>Vigência</strong>
