@@ -19,7 +19,6 @@ import { FornecedorService } from './../../shared/services/fornecedor.service';
 export class InfoFornecedorComponent implements OnInit {
 
   private unsubscribe = new Subject();
-  
   @ViewChildren(OrdenavelDirective) cabecalhos: QueryList<OrdenavelDirective>;
 
   public fornecedor: Fornecedor;
@@ -34,8 +33,8 @@ export class InfoFornecedorComponent implements OnInit {
 
   ngOnInit(): void {
     this.activatedRoute.params.pipe(take(1)).subscribe(params => {
-      this.getFornecedorByID(params.id)
-      this.getContratosFornecedorByID(params.id)
+      this.getFornecedorByID(params.id);
+      this.getContratosFornecedorByID(params.id);
     });
   }
 
@@ -57,9 +56,9 @@ export class InfoFornecedorComponent implements OnInit {
         contratos.sort((c1, c2) => new Date(c1.dt_inicio_vigencia).getTime() - new Date(c2.dt_inicio_vigencia).getTime());
         this.isLoading = false;
         return contratos;
-      }))
+      }));
   }
- 
+
   onOrdenar({coluna, direcao}: EventoOrd) {
     // Reseta outros cabeçalhos
     this.cabecalhos.forEach(cab => {
@@ -72,11 +71,6 @@ export class InfoFornecedorComponent implements OnInit {
 
     this.listaService.colunaOrd = coluna;
     this.listaService.direcaoOrd = direcao;
-  }
-
-  ngOnDestroy() {
-    this.unsubscribe.next();
-    this.unsubscribe.complete();
   }
 
 }

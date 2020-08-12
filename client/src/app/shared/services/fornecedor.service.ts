@@ -21,8 +21,8 @@ export class FornecedorService {
     return this.http.get<Fornecedor>(this.url + '/' + id);
   }
 
-  getContratos(nr_documento: string): Observable<ContratoFornecedor[]> {
-    return this.http.get<ContratoFornecedor[]>(this.urlContratos + '/fornecedor/' + nr_documento);
+  getContratos(nrDocumento: string): Observable<ContratoFornecedor[]> {
+    return this.http.get<ContratoFornecedor[]>(this.urlContratos + '/fornecedor/' + nrDocumento);
   }
 
 }
