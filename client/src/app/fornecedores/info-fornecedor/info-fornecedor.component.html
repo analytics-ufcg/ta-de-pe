@@ -1,5 +1,5 @@
 <div class="view-container" *ngIf="fornecedor">
-  <app-barra-titulo [titulo]="fornecedor.nm_pessoa"
+  <app-barra-titulo [titulo]="fornecedor?.nm_pessoa ? fornecedor?.nm_pessoa : 'Nome não encontrado'"
     [subtitulo]="'Fornecedor '+ (fornecedor.nr_documento |formatCpfCnpj)" [exibirVoltar]="true">
   </app-barra-titulo>
 
@@ -11,7 +11,11 @@
           <strong>Fornecedor</strong>
         </div>
         <div class="dados-linha">
-          {{ fornecedor?.nm_pessoa }}
+          <span *ngIf="fornecedor?.nm_pessoa">
+            {{ fornecedor?.nm_pessoa }}
+          </span>
+          <span *ngIf="!fornecedor?.nm_pessoa">Nome não encontrado</span>
+
           <span class="text-muted">
             ({{ fornecedor?.nr_documento | formatCpfCnpj }})
           </span>
@@ -66,7 +70,9 @@
       </div>
     </div>
 
-    <div class="container table-wrapper">
+    <app-spinner *ngIf="isLoading"></app-spinner>
+
+    <div *ngIf="!isLoading" class="container table-wrapper">
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>

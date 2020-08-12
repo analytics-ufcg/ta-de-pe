@@ -53,8 +53,9 @@ export class InfoFornecedorComponent implements OnInit {
     this.listaService.dados$ = this.fornecedorService
       .getContratos(id)
       .pipe(map(contratos => {
-        // itens ordenados pelo preço
+        // itens ordenados pela data do inicio da vigencia
         contratos.sort((c1, c2) => new Date(c1.dt_inicio_vigencia).getTime() - new Date(c2.dt_inicio_vigencia).getTime());
+        this.isLoading = false;
         return contratos;
       }))
   }
