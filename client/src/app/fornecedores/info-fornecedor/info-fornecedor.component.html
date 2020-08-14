@@ -1,41 +1,20 @@
-<div class="view-container" *ngIf="fornecedor">
-  <app-barra-titulo [titulo]="fornecedor?.nm_pessoa ? fornecedor?.nm_pessoa : 'Nome não encontrado'"
-    [subtitulo]="'Fornecedor '+ (fornecedor.nr_documento |formatCpfCnpj)" [exibirVoltar]="true">
+<div
+  class="view-container"
+  *ngIf="fornecedor">
+  <app-barra-titulo
+    [titulo]="fornecedor?.nm_pessoa ? fornecedor?.nm_pessoa : 'Nome não encontrado'"
+    [subtitulo]="(fornecedor.nr_documento |formatCpfCnpj)"
+    [exibirVoltar]="true">
   </app-barra-titulo>
-
 
   <div class="container">
     <div class="row mt-4">
-      <div class="col-sm-12 col-md-5 mb-4">
-        <div class="dados-linha">
-          <strong>Fornecedor</strong>
-        </div>
-        <div class="dados-linha">
-          <span *ngIf="fornecedor?.nm_pessoa">
-            {{ fornecedor?.nm_pessoa }}
-          </span>
-          <span *ngIf="!fornecedor?.nm_pessoa">Nome não encontrado</span>
-
-          <span class="text-muted">
-            ({{ fornecedor?.nr_documento | formatCpfCnpj }})
-          </span>
-        </div>
-      </div>
-      <div class="col-sm-12 col-md-7 mb-4">
-        <div class="dados-linha">
-          <strong>Tipo</strong>
-        </div>
-        <div class="dados-linha">
-          {{fornecedor?.tp_pessoa == 'F'? ' Pessoa Física': 'Pessoa Jurídica'}}
-
-        </div>
-      </div>
-
       <div class="col-sm-6 col-md-6 col-lg-3 mb-4">
         <div class="dados-linha">
           <strong>Data do primeiro contrato</strong>
-          <app-tooltip-ajuda [posicao]="'top'"
-            [descricao]="'Data que o fornecedor realizou seu primeiro contrato independente do assunto (merenda ou covid).'">
+          <app-tooltip-ajuda
+            [posicao]="'top'"
+            [descricao]="'Data que o fornecedor realizou seu primeiro contrato independente do assunto'">
           </app-tooltip-ajuda>
         </div>
         <div class="dados-linha">
@@ -47,13 +26,12 @@
         <div class="dados-linha">
           <strong>Total de contratos</strong>
 
-          <app-tooltip-ajuda [posicao]="'top'"
-            [descricao]="'Quantidade total de contratos que o fornecedor já participou independente do assunto (merenda ou covid).'">
+          <app-tooltip-ajuda
+            [posicao]="'top'"
+            [descricao]="'Quantidade total de contratos que o fornecedor já participou independente do assunto'">
           </app-tooltip-ajuda>
         </div>
-        <div class="dados-linha">
-          {{fornecedor?.total_de_contratos}}
-        </div>
+        <div class="dados-linha">{{fornecedor?.total_de_contratos}}</div>
       </div>
     </div>
   </div>
@@ -63,8 +41,12 @@
       <div class="col-lg-6">
         <form>
           <div class="form-group">
-            <input class="form-control" type="text" placeholder="Buscar nos contratos..." name="termoBusca"
-              [(ngModel)]="listaService.termoBusca" />
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Buscar nos contratos..."
+              name="termoBusca"
+              [(ngModel)]="listaService.termoBusca">
           </div>
         </form>
       </div>
@@ -72,26 +54,50 @@
 
     <app-spinner *ngIf="isLoading"></app-spinner>
 
-    <div *ngIf="!isLoading" class="container table-wrapper">
+    <div
+      *ngIf="!isLoading"
+      class="container table-wrapper">
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
             <tr>
-              <th scope="col" class="text-center th-medio" ordenavel="nr_contrato" (ordenar)="onOrdenar($event)"
+              <th
+                scope="col"
+                class="text-center th-medio"
+                ordenavel="nr_contrato"
+                (ordenar)="onOrdenar($event)"
                 appOrdenavel>
                 Contrato
               </th>
-              <th scope="col" class="th-espacoso" ordenavel="descricao_objeto_contrato" (ordenar)="onOrdenar($event)" appOrdenavel>
+              <th
+                scope="col"
+                class="th-espacoso"
+                ordenavel="descricao_objeto_contrato"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 Descrição
               </th>
-              <th scope="col" class="text-center" ordenavel="vl_contrato" (ordenar)="onOrdenar($event)" appOrdenavel>
+              <th
+                scope="col"
+                class="text-center"
+                ordenavel="vl_contrato"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 Valor contratado
               </th>
-              <th scope="col" class="text-center" ordenavel="dt_inicio_vigencia" (ordenar)="onOrdenar($event)"
+              <th
+                scope="col"
+                class="text-center th-medio"
+                ordenavel="dt_inicio_vigencia"
+                (ordenar)="onOrdenar($event)"
                 appOrdenavel>
-                Início da vigência
+                Início&nbsp;da vigência
               </th>
-              <th scope="col" class="text-center" ordenavel="dt_final_vigencia" (ordenar)="onOrdenar($event)"
+              <th
+                scope="col"
+                class="text-center"
+                ordenavel="dt_final_vigencia"
+                (ordenar)="onOrdenar($event)"
                 appOrdenavel>
                 Fim da vigência
               </th>
@@ -101,12 +107,16 @@
             <tr *ngFor="let contrato of listaService.dadosProcessados$ | async; index as i">
               <td class="text-center">
                 <a [routerLink]="['/contratos/' + contrato.id_contrato]">
-                  <ngb-highlight [result]="contrato.nr_contrato" [term]="listaService.termoBusca"></ngb-highlight>
+                  <ngb-highlight
+                    [result]="contrato.nr_contrato"
+                    [term]="listaService.termoBusca"></ngb-highlight>
                 </a>
               </td>
               <td>
                 <span *ngIf="contrato.descricao_objeto_contrato">
-                  <ngb-highlight [result]="contrato.descricao_objeto_contrato" [term]="listaService.termoBusca">
+                  <ngb-highlight
+                    [result]="contrato.descricao_objeto_contrato"
+                    [term]="listaService.termoBusca">
                   </ngb-highlight>
                 </span>
                 <span *ngIf="!contrato.descricao_objeto_contrato">(Descrição não encontrada)</span>
@@ -126,6 +136,5 @@
       </div>
     </div>
   </div>
-
 
 </div>
