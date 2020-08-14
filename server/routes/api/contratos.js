@@ -86,6 +86,34 @@ router.get("/licitacao/:id", (req, res) => {
   .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
+
+router.get("/fornecedor/:id", (req, res) => {
+  Contrato.findAll({
+    raw: true,
+    attributes:["id_contrato", "id_licitacao", 
+                "id_orgao", "nr_contrato", "ano_contrato", 
+                "nr_licitacao", "ano_licitacao", "cd_tipo_modalidade", 
+                "tp_instrumento_contrato", "dt_inicio_vigencia", 
+                "dt_final_vigencia", "vl_contrato", "descricao_objeto_contrato", 
+                [Sequelize.col('contratosOrgao.nome_municipio'), 'nome_municipio']
+               ]
+    ,
+    include: [
+      {
+        model: Orgao,
+        attributes: ["nome_municipio"],
+        as: "contratosOrgao"
+      }
+    ],
+    where: {
+      nr_documento_contratado: req.params.id
+    }
+  })
+  .then(contratos => res.status(SUCCESS).json(contratos))
+  .catch(err => res.status(BAD_REQUEST).json({ err }));
+});
+
+
 router.get("/:id", (req, res) => {
   Contrato.findOne({
     include: [

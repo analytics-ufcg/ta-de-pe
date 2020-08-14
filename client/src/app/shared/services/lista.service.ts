@@ -129,3 +129,19 @@ export class ListaItensService extends ListaService {
       );
   }
 }
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ListaContratosFornecedorService extends ListaService {
+
+  constructor(pipe: DecimalPipe) {
+    super(pipe);
+  }
+
+  corresponde(dados: any, texto: string, pipe: PipeTransform) {
+    const termo = texto.toLowerCase();
+    return dados.descricao_objeto_contrato.toLowerCase().includes(termo)
+      || dados.nr_contrato.toLowerCase().includes(termo);
+  }
+}

@@ -18,21 +18,6 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   Fornecedor.findOne({
-    include: [
-      {
-        model: Contrato,
-        attributes: ["id_contrato", "id_licitacao", "id_orgao", "nr_contrato", "ano_contrato", "nr_licitacao", "ano_licitacao", "cd_tipo_modalidade",
-          "tp_instrumento_contrato", "dt_inicio_vigencia", "dt_final_vigencia", "vl_contrato", "descricao_objeto_contrato"],
-        as: "fornecedorContratos",
-        include: [
-          {
-            attributes: ["nome_municipio"],
-            model: Orgao,
-            as: "contratosOrgao"
-          }
-        ]
-      },
-    ],
     where: {
       nr_documento: req.params.id
     }
