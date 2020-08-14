@@ -1,5 +1,3 @@
-
-
 export interface ContratoFornecedor {
   id_contrato: string;
   id_licitacao: number;
