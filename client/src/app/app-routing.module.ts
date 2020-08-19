@@ -25,6 +25,11 @@ const routes: Routes = [
     loadChildren: () => import('./licitacoes/licitacoes.module').then(m => m.LicitacoesModule)
   },
   {
+    path: 'fornecedores',
+    loadChildren: () => import('./fornecedores/fornecedores.module').then(m => m.FornecedoresModule)
+  }
+  ,
+  {
     path: 'duvidas',
     loadChildren: () => import('./faq/faq.module').then(m => m.FaqModule)
   },

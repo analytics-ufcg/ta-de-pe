@@ -51,11 +51,12 @@
           </th>
           <th
             scope="col"
-            class="text-center"
+            class="text-center th-medio"
             ordenavel="dt_inicio_vigencia"
+            direcao="desc"
             (ordenar)="onOrdenar($event)"
             appOrdenavel>
-            Início da vigência
+            Início&nbsp;da vigência
           </th>
           <th
             scope="col"
@@ -75,10 +76,12 @@
             </a>
           </td>
           <td>
-            <span *ngIf="contrato.nm_fornecedor">
+            <a [routerLink]="['/fornecedores/' + contrato?.nr_documento_contratado]">
+              <span *ngIf="contrato.nm_fornecedor">
                 <ngb-highlight [result]="contrato.nm_fornecedor" [term]="listaService.termoBusca"></ngb-highlight>
               </span>
               <span *ngIf="!contrato.nm_fornecedor">(Nome não encontrado)</span>
+            </a>
           </td>
           <td class="text-right numero">
             <ngb-highlight [result]="contrato.nr_documento_contratado | formatCpfCnpj" [term]="listaService.termoBusca"></ngb-highlight>
