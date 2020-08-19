@@ -3,6 +3,7 @@ const express = require("express");
 const router = express.Router();
 
 const models = require("../../models/index");
+const { Sequelize } = require("sequelize");
 
 const itensContrato = models.itensContrato;
 const Orgao = models.orgao;
@@ -35,6 +36,20 @@ router.get("/item/:id", (req, res) => {
 // Recupera itens de contrato a partir do id do contrato
 router.get("/contrato/:id", (req, res) => {
   itensContrato.findAll({
+    raw: true,
+    attributes: {
+      include: [
+        [Sequelize.col('itensLicitacaoItensContrato.vl_unitario_estimado'), 'vl_unitario_estimado'],
+        [Sequelize.col('itensLicitacaoItensContrato.sg_unidade_medida'), 'sg_unidade_medida']
+      ]
+    },
+    include: [
+      {
+        model: itensLicitacao,
+        attributes: [],
+        as: "itensLicitacaoItensContrato"
+      }
+    ],
     where: {
       id_contrato: req.params.id
     }
@@ -72,12 +87,13 @@ router.post("/similares", (req, res) => {
   dataFinal = dataFinal.toJSON().slice(0, 10);
     
   let query = `SELECT ano_licitacao, id_item_contrato, id_contrato, nr_contrato, id_licitacao, vl_item_contrato, \
-                      vl_total_item_contrato, ds_item, dt_inicio_vigencia, nome_municipio, \
+                      vl_total_item_contrato, ds_item, dt_inicio_vigencia, qt_itens_contrato, nome_municipio, \
                       ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) as rel, \ 
                       sg_unidade_medida \
                       FROM item_search WHERE item_search.document @@ to_tsquery('portuguese', '${termo}') AND \
                       dt_inicio_vigencia >= '${dataInicial}' AND dt_inicio_vigencia <= '${dataFinal}'\
                       AND sg_unidade_medida = '${unidade}'\
+                      AND vl_item_contrato > 0 \
                       AND ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) >= 0.65\
                       ORDER BY ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) DESC, id_item_contrato ASC \
                       LIMIT 21;`

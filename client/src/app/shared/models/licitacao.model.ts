@@ -15,8 +15,10 @@ export interface Licitacao {
   data_homologacao: Date;
   data_adjudicacao: Date;
   vl_homologado: number;
+  qt_contratos: number;
+  vl_contratado: number;
   descricao_objeto: string;
-  merenda: boolean;
+  assunto: string;
   contratosLicitacao: ContratoLicitacao[];
   docsLicitacao: DocumentoLicitacao[];
 }

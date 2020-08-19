@@ -1,51 +1,91 @@
 <h4 class="my-4 d-block d-sm-none">Licitações</h4>
 
-<p [hidden]="licitacoes?.length > 0 || isLoading">
-  Não há licitações abertas neste momento.
+<form *ngIf="(loading$ | async) === false">
+  <div class="form-group">
+    <input
+      class="form-control"
+      type="text"
+      placeholder="Buscar nas licitações..."
+      name="termoBusca"
+      [(ngModel)]="listaService.termoBusca" />
+  </div>
+</form>
+
+<p *ngIf="((listaService.dadosProcessados$ | async)?.length === 0) && (loading$ | async) === false">
+  Não há licitações.
 </p>
 
-<app-spinner *ngIf="isLoading"></app-spinner>
+<app-spinner *ngIf="loading$ | async"></app-spinner>
 
 <div class="table-responsive">
   <table
     class="table table-sm table-hover"
-    [hidden]="licitacoes?.length == 0 || isLoading">
+    *ngIf="((listaService.dadosProcessados$ | async)?.length > 0) && (loading$ | async) === false">
     <thead>
       <tr>
-        <th scope="col">Objeto da licitação</th>
+        <th scope="col"
+        ordenavel="nr_licitacao"
+        (ordenar)="onOrdenar($event)"
+        appOrdenavel>Licitação</th>
+        <th scope="col"
+        ordenavel="descricao_objeto"
+        (ordenar)="onOrdenar($event)"
+        appOrdenavel>
+        Objeto
+        </th>
         <th
           scope="col"
-          class="text-center">
+          class="text-right"
+          ordenavel="vl_contratado"
+          (ordenar)="onOrdenar($event)"
+          appOrdenavel>
+          Total contratado
+        </th>
+        <th
+          scope="col"
+          class="text-center"
+          ordenavel="data_abertura"
+          direcao="desc"
+          (ordenar)="onOrdenar($event)"
+          appOrdenavel>
           Data de publicação
         </th>
         <th
-          scope="col">
+          scope="col"
+          ordenavel="status"
+          (ordenar)="onOrdenar($event)"
+          appOrdenavel>
         Status
         </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let licitacao of licitacoes">
-        <td>
+      <tr *ngFor="let licitacao of listaService.dadosProcessados$ | async; index as i">
+        <td class="text-center">
           <a [routerLink]="['/licitacoes/' + licitacao.id_licitacao + '/info']">
-            {{ licitacao.descricao_objeto | initialcase }}
+            <ngb-highlight [result]="licitacao.nr_licitacao" [term]="listaService.termoBusca"></ngb-highlight>
           </a>
         </td>
+        <td>
+          <ngb-highlight [result]="licitacao.descricao_objeto | initialcase" [term]="listaService.termoBusca"></ngb-highlight>
+        </td>
+        <td class="text-right">
+          <span *ngIf="licitacao?.qt_contratos !== 0; else semContratos">
+            {{ licitacao.vl_contratado | currency: "R$" }}
+          </span>
+          <ng-template #semContratos>
+            --
+          </ng-template>
+        </td>
         <td class="text-center text-nowrap">
-          {{ licitacao.data_abertura | date: "dd-MM-yyyy" }}
+          {{ licitacao.data_abertura | date:'LLL/y' }}
         </td>
         <td class="text-center">
           <span
-            *ngIf="licitacao.status === 'Aberta'; else licitacaoEncerrada"
-            class="badge badge-info">
-            Aberta
+            class="badge"
+            [ngClass]="licitacao?.status === 'Com contratos' ? 'badge-danger' : 'badge-info'">
+            {{ licitacao?.status }}
           </span>
-          <ng-template #licitacaoEncerrada>
-            <span
-              class="badge badge-danger">
-              Encerrada
-            </span>
-          </ng-template>
         </td>
       </tr>
     </tbody>

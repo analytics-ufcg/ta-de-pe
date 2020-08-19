@@ -9,6 +9,36 @@
   opacity: 1;
 }
 
+.btn-buscar {
+  color: #495057!important;
+  background-color: white;
+  height: calc(1.5em + 0.75rem + 4px);
+  line-height: 1.5pt;
+  margin-right: 5px;
+  padding-left: 3px!important;
+  padding-right: 7px!important;
+
+}
+
+.btn-buscar:after {
+  content: " Buscar município";
+}
+
+.btn-retraido {
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+.btn-retraido:after  {
+  content: none;
+}
+
+.inp-expandido {
+  border-bottom-right-radius: 0px;
+  border-top-right-radius: 0px;
+  border: 0px;
+}
+
 .hide-busca {
   opacity: 0;
 }
@@ -28,7 +58,7 @@
 .brand {
   font-family: 'Fredoka One', cursive;
   color: #ffffff;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   padding-top: 0.3rem;
 
   @media (min-width: 576px) {
@@ -37,18 +67,6 @@
 
   > small {
     font-size: 0.8em;
-  }
-}
-
-.btn-buscar {
-  font-size: 0.6rem;
-
-  @media (min-width: 350px) {
-    font-size: 0.8rem;
-  }
-
-  @media (min-width: 576px) {
-    font-size: 1rem;
   }
 }
 
