@@ -19,7 +19,7 @@
         <tr>
           <th
             scope="col"
-            class="text-center th-medio"
+            class="text-center"
             ordenavel="nr_contrato"
             (ordenar)="onOrdenar($event)"
             appOrdenavel>
@@ -28,18 +28,18 @@
           <th
             scope="col"
             class="th-espacoso"
+            ordenavel="descricao_objeto_contrato"
+            (ordenar)="onOrdenar($event)"
+            appOrdenavel>
+            Descrição
+          </th>
+          <th
+            scope="col"
+            class="text-left"
             ordenavel="nm_fornecedor"
             (ordenar)="onOrdenar($event)"
             appOrdenavel>
             Fornecedor
-          </th>
-          <th
-            scope="col"
-            class="text-center"
-            ordenavel="nr_documento_contratado"
-            (ordenar)="onOrdenar($event)"
-            appOrdenavel>
-            CPF/CNPJ
           </th>
           <th
             scope="col"
@@ -76,15 +76,22 @@
             </a>
           </td>
           <td>
-            <a [routerLink]="['/fornecedores/' + contrato?.nr_documento_contratado]">
-              <span *ngIf="contrato.nm_fornecedor">
-                <ngb-highlight [result]="contrato.nm_fornecedor" [term]="listaService.termoBusca"></ngb-highlight>
-              </span>
-              <span *ngIf="!contrato.nm_fornecedor">(Nome não encontrado)</span>
-            </a>
+            <span *ngIf="contrato.descricao_objeto_contrato">
+              <app-descricao-contrato [contrato]="contrato" [termoHighlight]="listaService.termoBusca"></app-descricao-contrato>
+            </span>
+            <span *ngIf="!contrato.descricao_objeto_contrato">(Descrição não encontrada)</span>
           </td>
-          <td class="text-right numero">
-            <ngb-highlight [result]="contrato.nr_documento_contratado | formatCpfCnpj" [term]="listaService.termoBusca"></ngb-highlight>
+          <td class="descricao-fornecedor">
+            <a [routerLink]="['/fornecedores/' + contrato?.nr_documento_contratado]">
+              <ngb-highlight *ngIf="contrato.nm_fornecedor" [result]="contrato.nm_fornecedor" [term]="listaService.termoBusca"></ngb-highlight>
+              
+              <span *ngIf="!contrato.nm_fornecedor">Nome não encontrado</span>
+            </a>
+            <br>
+            <small>
+              <ngb-highlight [result]="contrato.nr_documento_contratado | formatCpfCnpj" [term]="listaService.termoBusca"></ngb-highlight>
+            </small>
+
           </td>
           <td class="text-right numero">
             {{ contrato.vl_contrato | currency: "R$" }}
