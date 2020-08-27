@@ -19,7 +19,6 @@
         <tr>
           <th
             scope="col"
-            class="text-center"
             ordenavel="nr_contrato"
             (ordenar)="onOrdenar($event)"
             appOrdenavel>
@@ -27,15 +26,7 @@
           </th>
           <th
             scope="col"
-            class="th-espacoso"
-            ordenavel="descricao_objeto_contrato"
-            (ordenar)="onOrdenar($event)"
-            appOrdenavel>
-            Descrição
-          </th>
-          <th
-            scope="col"
-            class="text-left"
+            class="text-left th-espacoso"
             ordenavel="nm_fornecedor"
             (ordenar)="onOrdenar($event)"
             appOrdenavel>
@@ -70,12 +61,10 @@
       </thead>
       <tbody>
         <tr *ngFor="let contrato of listaService.dadosProcessados$ | async; index as i">
-          <td class="text-center">
-            <a [routerLink]="['/contratos/' + contrato.id_contrato]">
-              <ngb-highlight [result]="contrato.nr_contrato" [term]="listaService.termoBusca"></ngb-highlight>
-            </a>
-          </td>
           <td>
+            <a [routerLink]="['/contratos/' + contrato.id_contrato]">
+              <ngb-highlight [result]="contrato.nr_contrato + '/' + (contrato.dt_inicio_vigencia | date:'y')" [term]="listaService.termoBusca"></ngb-highlight>
+            </a>
             <span *ngIf="contrato.descricao_objeto_contrato">
               <app-descricao-contrato [contrato]="contrato" [termoHighlight]="listaService.termoBusca"></app-descricao-contrato>
             </span>
@@ -84,7 +73,7 @@
           <td class="descricao-fornecedor">
             <a [routerLink]="['/fornecedores/' + contrato?.nr_documento_contratado]">
               <ngb-highlight *ngIf="contrato.nm_fornecedor" [result]="contrato.nm_fornecedor" [term]="listaService.termoBusca"></ngb-highlight>
-              
+
               <span *ngIf="!contrato.nm_fornecedor">Nome não encontrado</span>
             </a>
             <br>
