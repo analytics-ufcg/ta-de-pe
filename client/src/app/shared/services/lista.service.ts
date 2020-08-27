@@ -91,6 +91,7 @@ export class ListaContratosService extends ListaService {
     dados.nm_fornecedor = dados.nm_fornecedor ? dados.nm_fornecedor : '';
     return pipe.transform(dados.nr_contrato).includes(termo)
         || dados.nm_fornecedor.toLowerCase().includes(termo)
+        || dados.descricao_objeto_contrato.toLowerCase().includes(termo)
         || pipe.transform(dados.nr_documento_contratado).includes(termo);
   }
 }

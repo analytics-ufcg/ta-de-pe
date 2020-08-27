@@ -1,0 +1,26 @@
+<div class="descricao">
+    
+    <ngb-highlight 
+      *ngIf="!contrato.resumido"
+      [result]="contrato.descricao_objeto_contrato"
+      [term]="termoHighlight">
+    </ngb-highlight>
+
+    <ngb-highlight 
+      *ngIf="contrato.resumido"
+      [result]="contrato.descricao_objeto_resumida"
+      [term]="termoHighlight">
+    </ngb-highlight>
+  
+    <button
+      type="button"
+      class="btn btn-sm btn-outline-secondary ml-1"
+      (click)="contrato.resumido = !contrato.resumido"
+      [attr.aria-expanded]="contrato.resumido"
+      aria-controls="collapseDetalhes"
+      [hidden]="contrato.descricao_objeto_contrato.length === contrato.descricao_objeto_resumida.length">
+      ...
+    </button>
+    
+  </div>
+  
