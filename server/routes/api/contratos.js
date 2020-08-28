@@ -53,8 +53,12 @@ router.get("/vigentes", (req, res) => {
         [Op.lte]: new Date()
       },
       dt_final_vigencia: {
-        [Op.gt]: new Date()
+        [Op.or]: {
+          [Op.gt]: new Date(),
+          [Op.eq]: null
+        }
       },
+
     },
     order: [["dt_inicio_vigencia", "DESC"]],
     limit: 50
