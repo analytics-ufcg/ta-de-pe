@@ -7,7 +7,7 @@
           type="text"
           placeholder="Buscar nos contratos..."
           name="termoBusca"
-          [(ngModel)]="listaService.termoBusca" />
+          [(ngModel)]="listaService.termoBusca">
       </div>
     </form>
   </div>
@@ -22,7 +22,7 @@
             ordenavel="nr_contrato"
             (ordenar)="onOrdenar($event)"
             appOrdenavel>
-            Contrato
+            Compra
           </th>
           <th
             scope="col"
@@ -62,25 +62,39 @@
       <tbody>
         <tr *ngFor="let contrato of listaService.dadosProcessados$ | async; index as i">
           <td>
-            <a [routerLink]="['/contratos/' + contrato.id_contrato]">
-              <ngb-highlight [result]="contrato.nr_contrato + '/' + (contrato.dt_inicio_vigencia | date:'y')" [term]="listaService.termoBusca"></ngb-highlight>
-            </a>
-            <span *ngIf="contrato.descricao_objeto_contrato">
-              <app-descricao-contrato [contrato]="contrato" [termoHighlight]="listaService.termoBusca"></app-descricao-contrato>
-            </span>
-            <span *ngIf="!contrato.descricao_objeto_contrato">(Descrição não encontrada)</span>
+            <div>
+              <a [routerLink]="['/compras/' + contrato.id_contrato]">
+                <span *ngIf="contrato.tipo_instrumento_contrato === 'Compra'">Sem contrato</span>
+                <span *ngIf="contrato.tipo_instrumento_contrato === 'Contrato'">
+                  <ngb-highlight
+                    [result]="'Contrato ' + contrato.nr_contrato + '/' + (contrato.dt_inicio_vigencia | date:'y')"
+                    [term]="listaService.termoBusca"></ngb-highlight>
+                </span>
+              </a>
+            </div>
+            <div *ngIf="contrato.descricao_objeto_contrato">
+              <app-descricao-contrato
+                [contrato]="contrato"
+                [termoHighlight]="listaService.termoBusca"></app-descricao-contrato>
+            </div>
+            <div *ngIf="!contrato.descricao_objeto_contrato">(Descrição não encontrada)</div>
           </td>
           <td class="descricao-fornecedor">
-            <a [routerLink]="['/fornecedores/' + contrato?.nr_documento_contratado]">
-              <ngb-highlight *ngIf="contrato.nm_fornecedor" [result]="contrato.nm_fornecedor" [term]="listaService.termoBusca"></ngb-highlight>
-
-              <span *ngIf="!contrato.nm_fornecedor">Nome não encontrado</span>
-            </a>
-            <br>
-            <small>
-              <ngb-highlight [result]="contrato.nr_documento_contratado | formatCpfCnpj" [term]="listaService.termoBusca"></ngb-highlight>
-            </small>
-
+            <div *ngIf="contrato.nr_documento_contratado">
+              <a [routerLink]="['/fornecedores/' + contrato?.nr_documento_contratado]">
+                <ngb-highlight
+                  *ngIf="contrato.nm_fornecedor"
+                  [result]="contrato.nm_fornecedor"
+                  [term]="listaService.termoBusca"></ngb-highlight>
+                <span *ngIf="!contrato.nm_fornecedor">Nome não encontrado</span>
+              </a>
+              <br>
+              <small>
+                <ngb-highlight
+                  [result]="contrato.nr_documento_contratado | formatCpfCnpj"
+                  [term]="listaService.termoBusca"></ngb-highlight>
+              </small>
+            </div>
           </td>
           <td class="text-right numero">
             {{ contrato.vl_contrato | currency: "R$" }}

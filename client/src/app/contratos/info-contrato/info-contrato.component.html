@@ -2,10 +2,18 @@
   class="view-container"
   [hidden]="!contrato">
 
-  <app-barra-titulo
-    [titulo]="'Contrato ' + contrato?.nr_contrato + '/' + contrato?.ano_contrato"
+  <div *ngIf="contrato?.tipo_instrumento_contrato === 'Compra'">
+    <app-barra-titulo
+    [titulo]="'Compra com dispensa de contrato'"
     [subtitulo]="contrato?.nm_orgao"
     [exibirVoltar]="true"></app-barra-titulo>
+  </div>
+  <div *ngIf="contrato?.tipo_instrumento_contrato !== 'Compra'">
+    <app-barra-titulo
+      [titulo]="'Contrato ' + contrato?.nr_contrato + '/' + contrato?.ano_contrato"
+      [subtitulo]="contrato?.nm_orgao"
+      [exibirVoltar]="true"></app-barra-titulo>
+  </div>
 
   <div class="container">
     <div class="row mt-4">
@@ -20,15 +28,17 @@
         </div>
       </div>
       <div class="col-sm-12 col-md-9 mb-4">
-        <div class="dados-linha">
-          <strong>Fornecedor</strong>
-        </div>
-        <div class="dados-linha">
-          <a [routerLink]="['/fornecedores/' + contrato?.nr_documento_contratado]">
-            {{ contrato?.contratoFornecedor?.nm_pessoa }}
-          </a>
-          <br>
-          ({{ contrato?.nr_documento_contratado | formatCpfCnpj }})
+        <div *ngIf="contrato?.nr_documento_contratado">
+          <div class="dados-linha">
+            <strong>Fornecedor</strong>
+          </div>
+          <div class="dados-linha">
+            <a [routerLink]="['/fornecedores/' + contrato?.nr_documento_contratado]">
+              {{ contrato?.contratoFornecedor?.nm_pessoa }}
+            </a>
+            <br>
+            ({{ contrato?.nr_documento_contratado | formatCpfCnpj }})
+          </div>
         </div>
       </div>
       <div class="col-sm-12 mb-4">
@@ -241,8 +251,8 @@
                   class="pr-3"
                   *ngIf="item?.itensSemelhantes?.length <= 1; else mostraMedianaEstado">
                   <app-tooltip-ajuda
-                  [tipo]="'alerta'"
-                  [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
+                    [tipo]="'alerta'"
+                    [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                 </div>
                 <ng-template #mostraMedianaEstado>
                   {{ item.mediana_valor | currency:'':'' }}
@@ -256,8 +266,8 @@
                   class="pr-3"
                   *ngIf="item?.itensSemelhantes?.length <= 1; else mostraMedianaTotalEstado">
                   <app-tooltip-ajuda
-                  [tipo]="'alerta'"
-                  [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
+                    [tipo]="'alerta'"
+                    [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                 </div>
                 <ng-template #mostraMedianaTotalEstado>
                   {{ item.mediana_valor * item.qt_itens_contrato | currency:'':'' }}
@@ -272,11 +282,12 @@
                   class="pr-3"
                   *ngIf="item?.itensSemelhantes?.length <= 1; else mostraPercentualEstado">
                   <app-tooltip-ajuda
-                  [tipo]="'alerta'"
-                  [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
+                    [tipo]="'alerta'"
+                    [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                 </div>
                 <ng-template #mostraPercentualEstado>
-                  <span *ngIf="item.percentual_vs_estado > 0">+</span>{{ item.percentual_vs_estado | percent:'1.1' }}
+                  <span *ngIf="item.percentual_vs_estado > 0">+</span>
+                  {{ item.percentual_vs_estado | percent:'1.1' }}
                 </ng-template>
               </td>
               <td
@@ -296,7 +307,8 @@
                 [title]="item.vl_unitario_estimado"
                 [style.background-color]="defineCorFundo(item.percentual_vs_estimado)"
                 [style.color]="defineCor(item.percentual_vs_estimado)">
-                <span *ngIf="item.percentual_vs_estimado > 0">+</span>{{ item.percentual_vs_estimado | percent:'1.1' }}
+                <span *ngIf="item.percentual_vs_estimado > 0">+</span>
+                {{ item.percentual_vs_estimado | percent:'1.1' }}
               </td>
             </tr>
           </tbody>
