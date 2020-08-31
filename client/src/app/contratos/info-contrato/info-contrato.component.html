@@ -4,9 +4,9 @@
 
   <div *ngIf="contrato?.tipo_instrumento_contrato === 'Compra'">
     <app-barra-titulo
-    [titulo]="'Compra com dispensa de contrato'"
-    [subtitulo]="contrato?.nm_orgao"
-    [exibirVoltar]="true"></app-barra-titulo>
+      [titulo]="'Compra com dispensa de contrato'"
+      [subtitulo]="contrato?.nm_orgao"
+      [exibirVoltar]="true"></app-barra-titulo>
   </div>
   <div *ngIf="contrato?.tipo_instrumento_contrato !== 'Compra'">
     <app-barra-titulo
@@ -43,7 +43,7 @@
       </div>
       <div class="col-sm-12 mb-4">
         <div class="dados-linha">
-          <strong>Objeto do contrato</strong>
+          <strong>Objeto do contrato ou compra</strong>
           <app-tooltip-ajuda
             [posicao]="'right'"
             [descricao]="'Os dados do contrato foram informados pelo município para o TCE'"></app-tooltip-ajuda>
@@ -57,7 +57,10 @@
           <strong>Vigência</strong>
         </div>
         <div class="dados-linha">
-          {{ contrato?.dt_inicio_vigencia | date: "dd/MM/yyyy" }} à {{ contrato?.dt_final_vigencia | date: "dd/MM/yyyy" }}
+          {{ contrato?.dt_inicio_vigencia | date: "dd/MM/yyyy" }}
+          <span *ngIf="contrato?.dt_final_vigencia">
+            à {{ contrato?.dt_final_vigencia | date: "dd/MM/yyyy" }}
+          </span>
         </div>
       </div>
       <div class="col-sm-6 col-md-6 col-lg-3 mb-4">
@@ -66,7 +69,9 @@
         </div>
         <div class="dados-linha">
           {{ contrato?.vl_contrato | currency: "R$" }}
-          <div class="mt-2">
+          <div
+            *ngIf="contrato?.tipo_instrumento_contrato === 'Contrato'"
+            class="mt-2">
             <app-progress
               [value]="contrato?.total_pago"
               [max]="contrato?.valor_contratado"
@@ -81,7 +86,9 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
+      <div
+        *ngIf="contrato?.tipo_instrumento_contrato === 'Contrato'"
+        class="col-sm-6 col-md-6 col-lg-6 mb-4">
         <div class="dados-linha">
           <strong>Diferença com estimado</strong>
 
