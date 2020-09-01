@@ -43,7 +43,7 @@ export class LicitacoesComponent implements OnInit {
             map(licitacoes => {
               licitacoes.map(licitacao => {
                 licitacao.qt_contratos = licitacao.contratosLicitacao.length;
-                licitacao.status = licitacao.qt_contratos === 0 ? 'Sem contratos' : 'Com contratos';
+                licitacao.status = licitacao.qt_contratos === 0 ? 'Sem compras' : 'Com compras';
                 licitacao.vl_contratado = licitacao.contratosLicitacao
                   .reduce((sum, contrato) => sum + contrato.vl_contrato, 0);
               });

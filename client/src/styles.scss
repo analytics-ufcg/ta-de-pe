@@ -275,6 +275,10 @@ td.numero {
   min-width: 120px;
 }
 
+.th-pequeno {
+  width: 100px;
+}
+
 th[ordenavel] {
   cursor: pointer;
   user-select: none;

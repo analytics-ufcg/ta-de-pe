@@ -15,6 +15,7 @@ import { PipesModule } from '../pipes/pipes.module';
 import { BarraTituloComponent } from './barra-titulo/barra-titulo.component';
 import { DescricaoItemComponent } from './descricao-item/descricao-item.component';
 import { OrdenavelDirective } from '../directives/ordenavel.directive';
+import { DescricaoContratoComponent } from './descricao-contrato/descricao-contrato.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { OrdenavelDirective } from '../directives/ordenavel.directive';
     ProgressComponent,
     BarraTituloComponent,
     DescricaoItemComponent,
-    OrdenavelDirective
+    OrdenavelDirective,
+    DescricaoContratoComponent
   ],
   imports: [
     CommonModule,
