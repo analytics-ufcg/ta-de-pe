@@ -24,5 +24,6 @@ export interface ContratoLicitacao {
   contratosLicitacao: any;
   descricao_objeto_contrato: string;
   descricao_objeto_resumida: string;
+  tipo_instrumento_contrato: string;
   resumido: boolean;
 }
