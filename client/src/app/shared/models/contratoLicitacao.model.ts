@@ -22,4 +22,8 @@ export interface ContratoLicitacao {
   total_pago: number;
   dias_vigente: number;
   contratosLicitacao: any;
+  descricao_objeto_contrato: string;
+  descricao_objeto_resumida: string;
+  tipo_instrumento_contrato: string;
+  resumido: boolean;
 }

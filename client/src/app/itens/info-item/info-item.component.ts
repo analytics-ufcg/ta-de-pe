@@ -37,7 +37,10 @@ export class InfoItemComponent implements OnInit {
     private resumirPipe: ResumirTextoPipe,
     private itensService: ItensService,
     public listaService: ListaItensService
-  ) { }
+  ) {
+    this.listaService.colunaOrd = 'vl_item_contrato';
+    this.listaService.direcaoOrd = 'desc';
+  }
 
   ngOnInit() {
     this.activatedroute.params.pipe(take(1)).subscribe(params => {

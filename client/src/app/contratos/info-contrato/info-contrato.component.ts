@@ -44,7 +44,10 @@ export class InfoContratoComponent implements OnInit {
     private resumirPipe: ResumirTextoPipe,
     private termosPipe: TermosImportantesPipe,
     public listaService: ListaItensService
-  ) { }
+  ) {
+    this.listaService.colunaOrd = 'percentual_vs_estado';
+    this.listaService.direcaoOrd = 'desc';
+  }
 
   ngOnInit() {
     this.activatedroute.params.pipe(take(1)).subscribe(params => {

@@ -89,9 +89,11 @@ export class ListaContratosService extends ListaService {
   corresponde(dados: any, texto: string, pipe: PipeTransform) {
     const termo = texto.toLowerCase();
     dados.nm_fornecedor = dados.nm_fornecedor ? dados.nm_fornecedor : '';
-    return pipe.transform(dados.nr_contrato).includes(termo)
+    dados.nr_documento_contratado = dados.nr_documento_contratado ? dados.nr_documento_contratado.toString() : '';
+    return dados.nr_contrato.includes(termo)
         || dados.nm_fornecedor.toLowerCase().includes(termo)
-        || pipe.transform(dados.nr_documento_contratado).includes(termo);
+        || dados.descricao_objeto_contrato.toLowerCase().includes(termo)
+        || dados.nr_documento_contratado.includes(termo);
   }
 }
 
@@ -127,5 +129,21 @@ export class ListaItensService extends ListaService {
       .pipe(
         map(dados => this.ordenar(dados, colunaOrd, direcaoOrd))
       );
+  }
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ListaContratosFornecedorService extends ListaService {
+
+  constructor(pipe: DecimalPipe) {
+    super(pipe);
+  }
+
+  corresponde(dados: any, texto: string, pipe: PipeTransform) {
+    const termo = texto.toLowerCase();
+    return dados.descricao_objeto_contrato.toLowerCase().includes(termo)
+      || dados.nr_contrato.toLowerCase().includes(termo);
   }
 }
