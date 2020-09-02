@@ -26,6 +26,11 @@ router.get("/municipio/:nome_municipio", (req, res) => {
   Licitacao.findAll({
     include: [
       {
+        model: Contrato,
+        attributes: ["vl_contrato"],
+        as: "contratosLicitacao"
+      },
+      {
         attributes: ["nome_municipio"],
         model: Orgao,
         as: "licitacoesOrgao",

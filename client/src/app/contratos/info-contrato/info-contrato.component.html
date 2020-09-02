@@ -2,13 +2,20 @@
   class="view-container"
   [hidden]="!contrato">
 
-  <app-barra-titulo
-    [titulo]="'Contrato ' + contrato?.nr_contrato + '/' + contrato?.ano_contrato"
-    [subtitulo]="contrato?.nm_orgao"
-    [exibirVoltar]="true"></app-barra-titulo>
+  <div *ngIf="contrato?.tipo_instrumento_contrato === 'Compra'">
+    <app-barra-titulo
+      [titulo]="'Compra com dispensa de contrato'"
+      [subtitulo]="contrato?.nm_orgao"
+      [exibirVoltar]="true"></app-barra-titulo>
+  </div>
+  <div *ngIf="contrato?.tipo_instrumento_contrato !== 'Compra'">
+    <app-barra-titulo
+      [titulo]="'Contrato ' + contrato?.nr_contrato + '/' + contrato?.ano_contrato"
+      [subtitulo]="contrato?.nm_orgao"
+      [exibirVoltar]="true"></app-barra-titulo>
+  </div>
 
   <div class="container">
-    <app-spinner *ngIf="isLoading"></app-spinner>
     <div class="row mt-4">
       <div class="col-sm-12 col-md-3 mb-4">
         <div class="dados-linha">
@@ -21,14 +28,28 @@
         </div>
       </div>
       <div class="col-sm-12 col-md-9 mb-4">
+        <div *ngIf="contrato?.nr_documento_contratado">
+          <div class="dados-linha">
+            <strong>Fornecedor</strong>
+          </div>
+          <div class="dados-linha">
+            <a [routerLink]="['/fornecedores/' + contrato?.nr_documento_contratado]">
+              {{ contrato?.contratoFornecedor?.nm_pessoa }}
+            </a>
+            <br>
+            ({{ contrato?.nr_documento_contratado | formatCpfCnpj }})
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-12 mb-4">
         <div class="dados-linha">
-          <strong>Fornecedor</strong>
+          <strong>Objeto do contrato ou compra</strong>
+          <app-tooltip-ajuda
+            [posicao]="'right'"
+            [descricao]="'Os dados do contrato foram informados pelo município para o TCE'"></app-tooltip-ajuda>
         </div>
         <div class="dados-linha">
-          {{ contrato?.contratoFornecedor.nm_pessoa }}
-          <span class="text-muted">
-            ({{ contrato?.nr_documento_contratado | formatCpfCnpj }})
-          </span>
+          {{ contrato?.descricao_objeto_contrato | initialcase }}
         </div>
       </div>
       <div class="col-sm-6 col-md-6 col-lg-3 mb-4">
@@ -36,7 +57,10 @@
           <strong>Vigência</strong>
         </div>
         <div class="dados-linha">
-          {{ contrato?.dt_inicio_vigencia | date: "dd/MM/yyyy" }} à {{ contrato?.dt_final_vigencia | date: "dd/MM/yyyy" }}
+          {{ contrato?.dt_inicio_vigencia | date: "dd/MM/yyyy" }}
+          <span *ngIf="contrato?.dt_final_vigencia">
+            à {{ contrato?.dt_final_vigencia | date: "dd/MM/yyyy" }}
+          </span>
         </div>
       </div>
       <div class="col-sm-6 col-md-6 col-lg-3 mb-4">
@@ -45,7 +69,9 @@
         </div>
         <div class="dados-linha">
           {{ contrato?.vl_contrato | currency: "R$" }}
-          <div class="mt-2">
+          <div
+            *ngIf="contrato?.tipo_instrumento_contrato === 'Contrato'"
+            class="mt-2">
             <app-progress
               [value]="contrato?.total_pago"
               [max]="contrato?.valor_contratado"
@@ -60,7 +86,9 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
+      <div
+        *ngIf="contrato?.tipo_instrumento_contrato === 'Contrato'"
+        class="col-sm-6 col-md-6 col-lg-6 mb-4">
         <div class="dados-linha">
           <strong>Diferença com estimado</strong>
 
@@ -82,7 +110,11 @@
       </div>
     </div>
 
-    <div class="table-wrapper">
+    <app-spinner *ngIf="loading$ | async"></app-spinner>
+
+    <div
+      *ngIf="(loading$ | async) === false"
+      class="table-wrapper">
       <div class="table-responsive">
         <table class="table table-sm">
           <thead>
@@ -112,13 +144,19 @@
             <tr>
               <th
                 scope="col"
-                class="text-left align-middle">
-                Item
+                class="text-left align-middle"
+                ordenavel="ds_item"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
+                Produto
               </th>
               <th
                 scope="col"
                 class="table-th-monospace text-right"
-                *ngIf="!radioGroupForm.value['showTotal']">
+                *ngIf="!radioGroupForm.value['showTotal']"
+                ordenavel="vl_item_contrato"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 <span class="nowrap">Valor por</span>
                 <br>
                 unidade
@@ -128,14 +166,20 @@
               <th
                 scope="col"
                 class="table-th-monospace text-right"
-                *ngIf="radioGroupForm.value['showTotal']">
+                *ngIf="radioGroupForm.value['showTotal']"
+                ordenavel="vl_total_item_contrato"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 <span class="nowrap">Valor total</span>
                 <br>
                 (R$)
               </th>
               <th
                 scope="col"
-                class="table-th-monospace text-right">
+                class="table-th-monospace text-right"
+                ordenavel="mediana_valor"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 Mediana
                 <br>
                 <span class="nowrap">no estado</span>
@@ -145,7 +189,11 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace text-right">
+                class="table-th-monospace text-right"
+                ordenavel="percentual_vs_estado"
+                direcao="desc"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 Diferença
                 <br>
                 <span class="nowrap">com estado</span>
@@ -155,7 +203,10 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace text-right">
+                class="table-th-monospace text-right"
+                ordenavel="vl_unitario_estimado"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 Valor
                 <br>
                 estimado
@@ -165,7 +216,10 @@
               </th>
               <th
                 scope="col"
-                class="table-th-monospace text-right">
+                class="table-th-monospace text-right"
+                ordenavel="percentual_vs_estimado"
+                (ordenar)="onOrdenar($event)"
+                appOrdenavel>
                 Diferença
                 <br>
                 <span class="nowrap">com estimado</span>
@@ -179,12 +233,12 @@
           </thead>
           <tbody>
             <tr
-              *ngFor="let item of contrato?.itensContrato; index as i"
+              *ngFor="let item of listaService.dadosProcessados$ | async; index as i"
               class="table-item">
               <td class="align-middle descricao">
                 <app-descricao-item
                   [item]="item"
-                  [temLink]="item?.itensSemelhantes?.length > 3"></app-descricao-item>
+                  [temLink]="item?.itensSemelhantes?.length > 1"></app-descricao-item>
               </td>
               <td
                 class="numero align-middle"
@@ -200,48 +254,68 @@
                 class="numero align-middle"
                 *ngIf="!radioGroupForm.value['showTotal']"
                 [title]="item.mediana_valor">
-                {{ item.mediana_valor | currency:'':'' }}
+                <div
+                  class="pr-3"
+                  *ngIf="item?.itensSemelhantes?.length <= 1; else mostraMedianaEstado">
+                  <app-tooltip-ajuda
+                    [tipo]="'alerta'"
+                    [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
+                </div>
+                <ng-template #mostraMedianaEstado>
+                  {{ item.mediana_valor | currency:'':'' }}
+                </ng-template>
               </td>
               <td
                 class="numero align-middle"
                 *ngIf="radioGroupForm.value['showTotal']"
                 [title]="item.mediana_valor * item.qt_itens_contrato">
-                {{ item.mediana_valor * item.qt_itens_contrato | currency:'':'' }}
+                <div
+                  class="pr-3"
+                  *ngIf="item?.itensSemelhantes?.length <= 1; else mostraMedianaTotalEstado">
+                  <app-tooltip-ajuda
+                    [tipo]="'alerta'"
+                    [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
+                </div>
+                <ng-template #mostraMedianaTotalEstado>
+                  {{ item.mediana_valor * item.qt_itens_contrato | currency:'':'' }}
+                </ng-template>
               </td>
               <td
                 class="numero align-middle"
                 [title]="item.mediana_valor"
-                [style.background-color]="item?.itensSemelhantes?.length > 3 ? defineCorFundo(item.percentual_vs_estado) : 'white'"
+                [style.background-color]="item?.itensSemelhantes?.length > 1 ? defineCorFundo(item.percentual_vs_estado) : 'white'"
                 [style.color]="defineCor(item.percentual_vs_estado)">
                 <div
-                  class="text-center"
-                  *ngIf="item?.itensSemelhantes?.length <= 3; else mostraPercentualEstado">
+                  class="pr-3"
+                  *ngIf="item?.itensSemelhantes?.length <= 1; else mostraPercentualEstado">
                   <app-tooltip-ajuda
-                  [tipo]="'alerta'"
-                  [descricao]="'Este valor não pôde ser calculado pois existem poucos produtos semelhantes em nossa base de dados.'"></app-tooltip-ajuda>
+                    [tipo]="'alerta'"
+                    [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                 </div>
                 <ng-template #mostraPercentualEstado>
-                  <span *ngIf="item.percentual_vs_estado > 0">+</span>{{ item.percentual_vs_estado | percent:'1.1' }}
+                  <span *ngIf="item.percentual_vs_estado > 0">+</span>
+                  {{ item.percentual_vs_estado | percent:'1.1' }}
                 </ng-template>
               </td>
               <td
                 class="numero align-middle"
                 *ngIf="!radioGroupForm.value['showTotal']"
-                [title]="item.itensLicitacaoItensContrato.vl_unitario_estimado">
-                {{ item.itensLicitacaoItensContrato.vl_unitario_estimado | currency:'':'' }}
+                [title]="item.vl_unitario_estimado">
+                {{ item.vl_unitario_estimado | currency:'':'' }}
               </td>
               <td
                 class="numero align-middle"
                 *ngIf="radioGroupForm.value['showTotal']"
-                [title]="item.itensLicitacaoItensContrato.vl_unitario_estimado * item.qt_itens_contrato">
-                {{ item.qt_itens_contrato * item.itensLicitacaoItensContrato.vl_unitario_estimado | currency:'':'' }}
+                [title]="item.vl_unitario_estimado * item.qt_itens_contrato">
+                {{ item.qt_itens_contrato * item.vl_unitario_estimado | currency:'':'' }}
               </td>
               <td
                 class="numero align-middle"
-                [title]="item.itensLicitacaoItensContrato.vl_unitario_estimado"
+                [title]="item.vl_unitario_estimado"
                 [style.background-color]="defineCorFundo(item.percentual_vs_estimado)"
                 [style.color]="defineCor(item.percentual_vs_estimado)">
-                <span *ngIf="item.percentual_vs_estimado > 0">+</span>{{ item.percentual_vs_estimado | percent:'1.1' }}
+                <span *ngIf="item.percentual_vs_estimado > 0">+</span>
+                {{ item.percentual_vs_estimado | percent:'1.1' }}
               </td>
             </tr>
           </tbody>

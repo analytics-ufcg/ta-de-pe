@@ -1,45 +1,44 @@
-import { Component, OnInit, Input, PipeTransform, OnChanges, SimpleChanges } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, ViewChildren, QueryList, OnInit } from '@angular/core';
 import { DecimalPipe } from '@angular/common';
-import { FormControl } from '@angular/forms';
 
 import { Observable } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
 
 import { ContratoLicitacao } from '../../models/contratoLicitacao.model';
+import { EventoOrd } from '../../models/lista.model';
+import { ListaContratosService } from '../../services/lista.service';
+import { OrdenavelDirective } from '../../directives/ordenavel.directive';
 
 @Component({
   selector: 'app-lista-contratos',
   templateUrl: './lista-contratos.component.html',
   styleUrls: ['./lista-contratos.component.scss'],
-  providers: [DecimalPipe]
+  providers: [ListaContratosService, DecimalPipe]
 })
-export class ListaContratosComponent implements OnInit, OnChanges {
-  @Input() contratos: ContratoLicitacao[];
-  @Input() isLoading: boolean;
+export class ListaContratosComponent implements OnChanges {
+  @Input() contratos$: Observable<ContratoLicitacao[]>;
 
-  contratos$: Observable<ContratoLicitacao[]>;
-  filtro = new FormControl();
+  @ViewChildren(OrdenavelDirective) cabecalhos: QueryList<OrdenavelDirective>;
 
-  constructor(private pipe: DecimalPipe) {
+  constructor(public listaService: ListaContratosService) {
+    this.listaService.colunaOrd = 'dt_inicio_vigencia';
+    this.listaService.direcaoOrd = 'desc';
   }
+
   ngOnChanges(changes: SimpleChanges): void {
-    this.contratos$ = this.filtro.valueChanges.pipe(
-      startWith(''),
-      map(texto => this.buscar(texto, this.pipe))
-    );
+    this.listaService.dados$ = this.contratos$;
   }
 
-  ngOnInit() {
-  }
+  onOrdenar({coluna, direcao}: EventoOrd) {
+    // Reseta outros cabeçalhos
+    this.cabecalhos.forEach(cab => {
+      if (cab.ordenavel !== coluna) {
+        cab.direcao = '';
+        cab.ordAsc = false;
+        cab.ordDesc = false;
+      }
+    });
 
-  buscar(texto: string, pipe: PipeTransform): ContratoLicitacao[] {
-    if (this.contratos) {
-      return this.contratos.filter(contrato => {
-        const termo = texto.toLowerCase();
-        return pipe.transform(contrato.nr_contrato).includes(termo)
-            || contrato.contratoFornecedor.nm_pessoa.toLowerCase().includes(termo)
-            || pipe.transform(contrato.nr_documento_contratado).includes(termo);
-      });
-    }
+    this.listaService.colunaOrd = coluna;
+    this.listaService.direcaoOrd = direcao;
   }
 }

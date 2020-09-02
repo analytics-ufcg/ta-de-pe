@@ -13,7 +13,7 @@ const routes: Routes = [
     loadChildren: () => import('./municipio/municipio.module').then(m => m.MunicipioModule)
   },
   {
-    path: 'contratos',
+    path: 'compras',
     loadChildren: () => import('./contratos/contratos.module').then(m => m.ContratosModule)
   },
   {
@@ -24,6 +24,11 @@ const routes: Routes = [
     path: 'licitacoes',
     loadChildren: () => import('./licitacoes/licitacoes.module').then(m => m.LicitacoesModule)
   },
+  {
+    path: 'fornecedores',
+    loadChildren: () => import('./fornecedores/fornecedores.module').then(m => m.FornecedoresModule)
+  }
+  ,
   {
     path: 'duvidas',
     loadChildren: () => import('./faq/faq.module').then(m => m.FaqModule)

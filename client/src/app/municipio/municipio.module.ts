@@ -1,7 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { NgxPaginationModule } from 'ngx-pagination';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { MunicipioComponent } from './municipio.component';
 import { MunicipioRoutingModule } from './municipio-routing.module';
@@ -27,7 +29,9 @@ import { NovidadeComponent } from './novidades/novidade/novidade.component';
     MunicipioRoutingModule,
     FilterModule,
     SharedModule,
-    PipesModule
+    PipesModule,
+    FormsModule,
+    NgbModule
   ]
 })
 export class MunicipioModule { }

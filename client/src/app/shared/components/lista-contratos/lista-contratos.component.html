@@ -5,69 +5,101 @@
         <input
           class="form-control"
           type="text"
-          [formControl]="filtro"
-          [hidden]="contratos?.length == 0 || isLoading"
-          placeholder="Buscar nos contratos...">
+          placeholder="Buscar nos contratos..."
+          name="termoBusca"
+          [(ngModel)]="listaService.termoBusca">
       </div>
     </form>
   </div>
 </div>
 <div class="table-wrapper">
   <div class="table-responsive">
-    <table
-      class="table table-sm table-hover"
-      [hidden]="contratos?.length == 0 || isLoading">
+    <table class="table table-hover">
       <thead>
         <tr>
           <th
             scope="col"
-            class="text-center">
-            Contrato
+            ordenavel="nr_contrato"
+            (ordenar)="onOrdenar($event)"
+            appOrdenavel>
+            Compra
           </th>
           <th
             scope="col"
-            class="th-espacoso">
+            class="text-left th-espacoso"
+            ordenavel="nm_fornecedor"
+            (ordenar)="onOrdenar($event)"
+            appOrdenavel>
             Fornecedor
           </th>
           <th
             scope="col"
-            class="text-center">
-            CPF/CNPJ
-          </th>
-          <th scope="col">Valor contratado</th>
-          <th
-            scope="col"
-            class="text-center">
-            Início da vigência
+            class="text-center"
+            ordenavel="vl_contrato"
+            (ordenar)="onOrdenar($event)"
+            appOrdenavel>
+            Valor contratado
           </th>
           <th
             scope="col"
-            class="text-center">
+            class="text-center th-medio"
+            ordenavel="dt_inicio_vigencia"
+            direcao="desc"
+            (ordenar)="onOrdenar($event)"
+            appOrdenavel>
+            Início&nbsp;da vigência
+          </th>
+          <th
+            scope="col"
+            class="text-center"
+            ordenavel="dt_final_vigencia"
+            (ordenar)="onOrdenar($event)"
+            appOrdenavel>
             Fim da vigência
           </th>
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let contrato of contratos$ | async; index as i">
-          <td class="text-center">
-            <a [routerLink]="['/contratos/' + contrato.id_contrato]">
-              <ngb-highlight
-                [result]="contrato.nr_contrato"
-                [term]="filtro.value"></ngb-highlight>
-            </a>
-          </td>
+        <tr *ngFor="let contrato of listaService.dadosProcessados$ | async; index as i">
           <td>
-            <span *ngIf="contrato.contratoFornecedor.nm_pessoa">
-              <ngb-highlight
-                [result]="contrato.contratoFornecedor.nm_pessoa"
-                [term]="filtro.value"></ngb-highlight>
-            </span>
-            <span *ngIf="!contrato.contratoFornecedor.nm_pessoa">(Nome não encontrado)</span>
+            <div>
+              <a [routerLink]="['/compras/' + contrato.id_contrato]">
+                <span *ngIf="contrato.tipo_instrumento_contrato === 'Compra'">Sem contrato</span>
+                <span *ngIf="contrato.tipo_instrumento_contrato === 'Contrato'">
+                  <ngb-highlight
+                    [result]="'Contrato ' + contrato.nr_contrato + '/' + (contrato.dt_inicio_vigencia | date:'y')"
+                    [term]="listaService.termoBusca"></ngb-highlight>
+                </span>
+              </a>
+            </div>
+            <div *ngIf="contrato.descricao_objeto_contrato">
+              <app-descricao-contrato
+                [contrato]="contrato"
+                [termoHighlight]="listaService.termoBusca"></app-descricao-contrato>
+            </div>
+            <div *ngIf="!contrato.descricao_objeto_contrato">(Descrição não encontrada)</div>
           </td>
-          <td class="text-right numero">
-            <ngb-highlight
-              [result]="contrato.nr_documento_contratado | formatCpfCnpj"
-              [term]="filtro.value"></ngb-highlight>
+          <td class="descricao-fornecedor">
+            <div *ngIf="contrato.nr_documento_contratado">
+              <a [routerLink]="['/fornecedores/' + contrato?.nr_documento_contratado]">
+                <ngb-highlight
+                  *ngIf="contrato.nm_fornecedor"
+                  [result]="contrato.nm_fornecedor"
+                  [term]="listaService.termoBusca"></ngb-highlight>
+                <span *ngIf="!contrato.nm_fornecedor">Nome não encontrado</span>
+              </a>
+              <br>
+              <small>
+                <ngb-highlight
+                  [result]="contrato.nr_documento_contratado | formatCpfCnpj"
+                  [term]="listaService.termoBusca"></ngb-highlight>
+              </small>
+            </div>
+            <div [hidden]="contrato.nr_documento_contratado" class="text-center">
+              <app-tooltip-ajuda
+                [tipo]="'alerta'"
+                [descricao]="'Não há informação sobre o fornecedor dessa compra'"></app-tooltip-ajuda>
+            </div>
           </td>
           <td class="text-right numero">
             {{ contrato.vl_contrato | currency: "R$" }}
@@ -77,6 +109,11 @@
           </td>
           <td class="text-center">
             {{ contrato.dt_final_vigencia | date:'LLL/y' }}
+            <div [hidden]="contrato.dt_final_vigencia" class="text-center">
+              <app-tooltip-ajuda
+                [tipo]="'alerta'"
+                [descricao]="'O prazo para a conclusão da compra não foi informado pelo órgão gestor'"></app-tooltip-ajuda>
+            </div>
           </td>
         </tr>
       </tbody>

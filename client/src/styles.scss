@@ -266,3 +266,44 @@ td.numero {
 .table th {
   border-top: none;
 }
+
+.th-espacoso {
+  min-width: 180px;
+}
+
+.th-medio {
+  min-width: 120px;
+}
+
+.th-pequeno {
+  width: 100px;
+}
+
+th[ordenavel] {
+  cursor: pointer;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+th[ordenavel].asc:before, th[ordenavel].desc:before {
+  font-family: 'icomoon'!important;
+  display: inline;
+
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+th[ordenavel].asc:before {
+  content: '\e90d';
+}
+
+th[ordenavel].desc:before {
+  content: '\e911';
+}
