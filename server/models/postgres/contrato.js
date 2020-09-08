@@ -27,7 +27,8 @@ module.exports = (sequelize, type) => {
         descricao_objeto_contrato: type.STRING,
         justificativa_contratacao: type.STRING,
         obs_contrato: type.STRING,
-        tipo_instrumento_contrato: type.STRING
+        tipo_instrumento_contrato: type.STRING,
+        language: type.STRING
 
       },
       {
