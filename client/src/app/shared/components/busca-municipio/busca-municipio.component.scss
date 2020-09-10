@@ -21,7 +21,7 @@
 }
 
 .btn-buscar:after {
-  content: " Buscar município";
+  content: " Buscar compra ou município";
 }
 
 .btn-retraido {
@@ -33,20 +33,10 @@
   content: none;
 }
 
-.inp-expandido {
-  border-bottom-right-radius: 0px;
-  border-top-right-radius: 0px;
-  border: 0px;
-}
-
 .hide-busca {
   opacity: 0;
 }
 
-::ng-deep.dropdown-menu.show {
-  max-height: 70vh;
-  overflow-y: auto;
-}
 
 .nome {
   display: inline-block;
@@ -76,3 +66,13 @@
     padding-left: 0;
   }
 }
+
+.input-group {
+  background: white;
+  border-radius: 0.75rem;
+}
+
+:host::ng-deep.form-control {
+  border: 2px solid white;
+}
+

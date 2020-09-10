@@ -1,0 +1,30 @@
+hr {
+    max-width: 94%;
+    position: relative;
+    padding: 0px;
+    margin: 0px;
+}
+
+::ng-deep.dropdown-menu.show {
+  min-width: 100%;
+  overflow-y: auto;
+}
+
+input,
+textarea:hover,
+input:hover,
+textarea:active,
+input:active,
+textarea:focus,
+input:focus,
+label:focus
+{
+    outline: 0px !important;
+    -webkit-appearance: none;
+    box-shadow: none !important;
+    min-width: calc(0.6em + 17.95rem);
+
+    @media (max-width: 360px) {
+      min-width: calc(0.6em + 17.75rem);
+    }
+}

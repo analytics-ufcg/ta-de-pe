@@ -1,20 +1,11 @@
 <div class="row gutters-sm">
   <div class="col-sm-8 mb-3">
-    <input
-      id="typeahead-focus"
-      type="text"
-      [ngClass]="{'form-control': true, 'input-hidden': municipioSelecionado}"
-      placeholder="{{placeholder}}"
-      [(ngModel)]="municipioSelecionado"
-      [ngbTypeahead]="search"
-      [editable]="false"
-      (selectItem)="salvarMunicipio($event.item)"
-      #instance="ngbTypeahead">
+    <app-input-busca-geral [directSearch]="false" (buscavelSelecionadoEvent)="reciverSelecionado($event)"></app-input-busca-geral>
   </div>
   <div class="col-sm-4 mb-3">
     <button
       class="btn btn-block"
-      [ngClass]="{'btn-secondary': !municipioSelecionado, 'btn-primary': municipioSelecionado}"
+      [ngClass]="{'btn-secondary': !buscavelSelecionado, 'btn-primary': buscavelSelecionado}"
       (click)="buscarOnClick()">
       Acompanhar
     </button>
