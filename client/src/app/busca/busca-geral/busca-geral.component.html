@@ -1,0 +1,12 @@
+<div class="view-container">
+  <app-barra-titulo
+    [titulo]="'Resultados para &#34;' + 'cursos' + '&#34;'"
+    [exibirVoltar]="false"></app-barra-titulo>
+
+  <div class="container">
+    <app-lista-contratos
+      *ngIf="((contratos$ | async)?.length > 0) && (loading$ | async) === false"
+      [contratos$]="contratos$"></app-lista-contratos>
+  </div>
+
+</div>

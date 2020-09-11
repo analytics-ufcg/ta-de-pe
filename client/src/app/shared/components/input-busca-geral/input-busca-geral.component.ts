@@ -116,7 +116,7 @@ export class InputBuscaGeralComponent implements OnInit {
       if (buscavel.tipoBusca === TipoBusca.Municipio ) {
         this.router.navigate(['municipio']);
       } else if (buscavel.tipoBusca === TipoBusca.Compra ) {
-        console.log (buscavel);
+        this.router.navigate(['busca'], { queryParams: { termo: buscavel.descricao }});
       }
     }
   }
