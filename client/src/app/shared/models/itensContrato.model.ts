@@ -20,5 +20,5 @@ export interface ItensContrato {
   nome_municipio: string;
   itensContratoOrgao: any;
   resumido: boolean;
-  servio: boolean;
+  servico: boolean;
 }
