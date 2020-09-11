@@ -117,6 +117,61 @@ router.get("/fornecedor/:id", (req, res) => {
   .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
+router.get("/search", (req, res) => {
+  const termos = req.query.termo.replace(/[&|!<()\\:',]/gi, '').replace( /\s+/g, ' ').trim().split(' ').join(' & ');
+  
+  let query = `SELECT \
+            id_contrato, \
+            descricao_objeto_contrato, \
+            tipo_instrumento_contrato, \
+            nr_documento_contratado, \
+            vl_contrato, \
+            dt_inicio_vigencia, \
+            dt_final_vigencia, \
+            tipo_instrumento_contrato, \
+            id_orgao, \
+            (\
+              SELECT \
+              nome_municipio \
+              FROM \
+              orgao \
+              WHERE \
+              orgao.id_orgao = p_search.id_orgao
+            ),
+            (\
+              SELECT \
+              nm_pessoa as nm_fornecedor \
+              FROM \
+              fornecedor \
+              WHERE \
+              fornecedor.nr_documento = p_search.nr_documento_contratado
+            ) \
+        FROM \
+            ( \
+                SELECT \
+                *, \
+                to_tsvector( \
+                    contrato.language::regconfig, \
+                    contrato.descricao_objeto_contrato \
+                ) AS document \
+            FROM \
+                contrato \
+            ) p_search \
+        WHERE \
+        p_search.document @@to_tsquery('portuguese', '${termos}') \
+        ORDER BY \
+        ts_rank( \
+            p_search.document, \
+            to_tsquery('portuguese', '${termos}') \
+        ) DESC; `
+        
+  models.sequelize.query(query, {
+      model: Contrato,
+      mapToModel: true
+  }).then(contratos => res.status(SUCCESS).json(contratos))
+      .catch(err => res.status(BAD_REQUEST).json({ err }));
+
+});
 
 router.get("/:id", (req, res) => {
   Contrato.findOne({
