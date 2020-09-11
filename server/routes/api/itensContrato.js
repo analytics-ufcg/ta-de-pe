@@ -89,7 +89,7 @@ router.post("/similares", (req, res) => {
   let query = `SELECT ano_licitacao, id_item_contrato, id_contrato, nr_contrato, id_licitacao, vl_item_contrato, \
                       vl_total_item_contrato, ds_item, dt_inicio_vigencia, qt_itens_contrato, nome_municipio, \
                       ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) as rel, \ 
-                      sg_unidade_medida \
+                      sg_unidade_medida, servico \
                       FROM item_search WHERE item_search.document @@ to_tsquery('portuguese', '${termo}') AND \
                       dt_inicio_vigencia >= '${dataInicial}' AND dt_inicio_vigencia <= '${dataFinal}'\
                       AND sg_unidade_medida = '${unidade}'\
