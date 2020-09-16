@@ -15,12 +15,5 @@ router.get("/", (req, res) => {
     .then(tipoNovidades => res.status(SUCCESS).json(tipoNovidades))
     .catch(err => res.status(BAD_REQUEST).json({ err }));
   })
-  
-  router.get("/tiponovidades", (req, res) => {
-  
-    tipoNovidades.findAll()
-    .then(tipoNovidades => res.status(SUCCESS).json(tipoNovidades))
-    .catch(err => res.status(BAD_REQUEST).json({ err }));
-  })
-  
+
   module.exports = router;
