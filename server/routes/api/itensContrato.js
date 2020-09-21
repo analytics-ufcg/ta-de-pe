@@ -62,6 +62,20 @@ router.get("/contrato/:id", (req, res) => {
 // Recupera itens de contrato a partir do id da licitação
 router.get("/licitacao/:id", (req, res) => {
   itensContrato.findAll({
+    raw: true,
+    attributes: {
+      include: [
+        [Sequelize.col('itensLicitacaoItensContrato.vl_unitario_estimado'), 'vl_unitario_estimado'],
+        [Sequelize.col('itensLicitacaoItensContrato.sg_unidade_medida'), 'sg_unidade_medida']
+      ]
+    },
+    include: [
+      {
+        model: itensLicitacao,
+        attributes: [],
+        as: "itensLicitacaoItensContrato"
+      }
+    ],
     where: {
       id_licitacao: req.params.id
     }
