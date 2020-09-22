@@ -71,22 +71,22 @@ export class LicitacoesDetalharItensComponent implements OnInit {
                 item.ds_item_resumido = this.resumirPipe.transform(item.ds_item);
                 const termos = this.termosPipe.transform(item.ds_item);
                 return this.itensService.getMediaItensSemelhantes(item, termos)
-                .pipe(
-                  map(itemComMediana => {
-                    item = itemComMediana;
-                    // Se não houver itens similares, o valor da mediana será NaN
-                    // Este trecho atribui um valor bem pequeno para que todos os itens sem semelhantes fiquem ordenados primeiro
-                    if (isNaN(item.mediana_valor) || (item.itensSemelhantes && item.itensSemelhantes.length === 1)) {
-                      item.mediana_valor = -1; // Não existem itens com preços negativos
-                      item.percentual_vs_estado = -1000000000; // Valor pequeno e improvável de ter algum item com preço menor
-                    } else {
-                      item.percentual_vs_estado = (item.vl_item_contrato - item.mediana_valor) / item.mediana_valor;
-                    }
-                    item.percentual_vs_estimado = (item.vl_item_contrato - item.vl_unitario_estimado)
-                      / item.vl_unitario_estimado;
-                    return item;
-                  })
-                );
+                  .pipe(
+                    map(itemComMediana => {
+                      item = itemComMediana;
+                      // Se não houver itens similares, o valor da mediana será NaN
+                      // Este trecho atribui um valor bem pequeno para que todos os itens sem semelhantes fiquem ordenados primeiro
+                      if (isNaN(item.mediana_valor) || (item.itensSemelhantes && item.itensSemelhantes.length === 1)) {
+                        item.mediana_valor = -1; // Não existem itens com preços negativos
+                        item.percentual_vs_estado = -1000000000; // Valor pequeno e improvável de ter algum item com preço menor
+                      } else {
+                        item.percentual_vs_estado = (item.vl_item_contrato - item.mediana_valor) / item.mediana_valor;
+                      }
+                      item.percentual_vs_estimado = (item.vl_item_contrato - item.vl_unitario_estimado)
+                        / item.vl_unitario_estimado;
+                      return item;
+                    })
+                  );
               }),
               reduce((acc: Array<any>, element: any) => [...acc, element], [])
             );
@@ -95,7 +95,7 @@ export class LicitacoesDetalharItensComponent implements OnInit {
       );
   }
 
-  onOrdenar({coluna, direcao}: EventoOrd) {
+  onOrdenar({ coluna, direcao }: EventoOrd) {
     // Reseta outros cabeçalhos
     this.cabecalhos.forEach(cab => {
       if (cab.ordenavel !== coluna) {

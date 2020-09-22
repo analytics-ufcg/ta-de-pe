@@ -103,33 +103,15 @@
                         <th
                             scope="col"
                             class="table-th-monospace text-right"
-                            ordenavel="vl_unitario_estimado"
+                            ordenavel="nr_contrato"
                             (ordenar)="onOrdenar($event)"
                             appOrdenavel
                         >
-                            Valor
+                            Link para
                             <br>
-                            estimado
+                            compra
                             <br>
-                            (R$)
-                            <app-tooltip-ajuda [descricao]="'Valor de referência obtido através de orçamentos feitos pelo ente público; uma previsão de quanto será gasto no contrato'"></app-tooltip-ajuda>
-                        </th>
-                        <th
-                            scope="col"
-                            class="table-th-monospace text-right"
-                            ordenavel="percentual_vs_estimado"
-                            (ordenar)="onOrdenar($event)"
-                            appOrdenavel
-                        >
-                            Diferença
-                            <br>
-                            <span class="nowrap">com estimado</span>
-                            <br>
-                            (%)
-                            <app-tooltip-ajuda
-                                [posicao]="'left'"
-                                [descricao]="'Diferença percentual entre o valor contratado e o valor estimado'"
-                            ></app-tooltip-ajuda>
+                            <app-tooltip-ajuda [descricao]="'Link para a página específica da compra do item'"></app-tooltip-ajuda>
                         </th>
                     </tr>
                 </thead>
@@ -213,27 +195,15 @@
                             </ng-template>
                         </td>
                         <td
-                            class="numero align-middle"
-                            *ngIf="!radioGroupForm.value['showTotal']"
-                            [title]="item.vl_unitario_estimado"
+                            class="align-middle text-right"
+                            [title]="item.tp_instrumento_contrato"
                         >
-                            {{ item.vl_unitario_estimado | currency:'':'' }}
-                        </td>
-                        <td
-                            class="numero align-middle"
-                            *ngIf="radioGroupForm.value['showTotal']"
-                            [title]="item.vl_unitario_estimado * item.qt_itens_contrato"
-                        >
-                            {{ item.qt_itens_contrato * item.vl_unitario_estimado | currency:'':'' }}
-                        </td>
-                        <td
-                            class="numero align-middle"
-                            [title]="item.vl_unitario_estimado"
-                            [style.background-color]="defineCorFundo(item.percentual_vs_estimado)"
-                            [style.color]="defineCor(item.percentual_vs_estimado)"
-                        >
-                            <span *ngIf="item.percentual_vs_estimado > 0">+</span>
-                            {{ item.percentual_vs_estimado | percent:'1.1' }}
+                            <a
+                                [routerLink]="['/compras/' + item.id_contrato]"
+                                target="_blank"
+                            >
+                                {{ item.nr_contrato }}
+                            </a>
                         </td>
                     </tr>
                 </tbody>
