@@ -102,16 +102,13 @@
                         </th>
                         <th
                             scope="col"
-                            class="table-th-monospace text-right"
-                            ordenavel="nr_contrato"
+                            class="table-th-monospace-md text-right "
+                            ordenavel="nm_fornecedor"
                             (ordenar)="onOrdenar($event)"
                             appOrdenavel
                         >
-                            Link para
-                            <br>
-                            compra
-                            <br>
-                            <app-tooltip-ajuda [descricao]="'Link para a página específica da compra do item'"></app-tooltip-ajuda>
+                            Fornecedor
+                            <app-tooltip-ajuda [descricao]="'Fornecedor informado para o item comprado na Licitação'"></app-tooltip-ajuda>
                         </th>
                     </tr>
                 </thead>
@@ -194,16 +191,35 @@
                                 {{ item.percentual_vs_estado | percent:'1.1' }}
                             </ng-template>
                         </td>
-                        <td
-                            class="align-middle text-right"
-                            [title]="item.tp_instrumento_contrato"
-                        >
-                            <a
-                                [routerLink]="['/compras/' + item.id_contrato]"
-                                target="_blank"
+                        <td class="text-right">
+                            <div *ngIf="item?.nr_documento_contratado">
+                                <a [routerLink]="['/fornecedores/' + item?.nr_documento_contratado]">
+                                    <ngb-highlight
+                                        *ngIf="item.nm_fornecedor"
+                                        [result]="item.nm_fornecedor"
+                                    ></ngb-highlight>
+                                    <span *ngIf="!item.nm_fornecedor">Nome não encontrado</span>
+                                </a>
+                                <br>
+                                <small>
+                                    <ngb-highlight [result]="item.nr_documento_contratado | formatCpfCnpj"></ngb-highlight>
+                                    <a
+                                        [routerLink]="['/compras/' + item.id_contrato]"
+                                        target="_blank"
+                                    >
+                                        (compra)
+                                    </a>
+                                </small>
+                            </div>
+                            <div
+                                [hidden]="item.nr_documento_contratado"
+                                class="text-center"
                             >
-                                {{ item.nr_contrato }}
-                            </a>
+                                <app-tooltip-ajuda
+                                    [tipo]="'alerta'"
+                                    [descricao]="'Não há informação sobre o fornecedor desse item'"
+                                ></app-tooltip-ajuda>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
