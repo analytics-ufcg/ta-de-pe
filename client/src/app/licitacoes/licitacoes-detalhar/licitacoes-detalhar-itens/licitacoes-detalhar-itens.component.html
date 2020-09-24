@@ -108,7 +108,6 @@
                             appOrdenavel
                         >
                             Fornecedor
-                            <app-tooltip-ajuda [descricao]="'Fornecedor informado para o item comprado na Licitação'"></app-tooltip-ajuda>
                         </th>
                     </tr>
                 </thead>
@@ -203,12 +202,6 @@
                                 <br>
                                 <small>
                                     <ngb-highlight [result]="item.nr_documento_contratado | formatCpfCnpj"></ngb-highlight>
-                                    <a
-                                        [routerLink]="['/compras/' + item.id_contrato]"
-                                        target="_blank"
-                                    >
-                                        (compra)
-                                    </a>
                                 </small>
                             </div>
                             <div
