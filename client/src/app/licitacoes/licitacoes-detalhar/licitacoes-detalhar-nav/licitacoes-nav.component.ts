@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-licitacoes-detalhar-nav',
@@ -6,6 +6,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./licitacoes-detalhar-nav.component.scss']
 })
 export class LicitacoesDetalharNavComponent implements OnInit {
+
+  @Input() temContrato = false;
 
   constructor() { }
 
