@@ -1,4 +1,5 @@
 export enum TipoBusca {
-    Municipio = 'MUNICIPIO',
-    Compra = 'COMPRA'
+  Estado = 'ESTADO',
+  Municipio = 'MUNICIPIO',
+  Compra = 'COMPRA'
 }
