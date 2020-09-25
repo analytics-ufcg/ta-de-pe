@@ -16,6 +16,7 @@ import { BarraTituloComponent } from './barra-titulo/barra-titulo.component';
 import { DescricaoItemComponent } from './descricao-item/descricao-item.component';
 import { OrdenavelDirective } from '../directives/ordenavel.directive';
 import { DescricaoContratoComponent } from './descricao-contrato/descricao-contrato.component';
+import { InputBuscaGeralComponent } from './input-busca-geral/input-busca-geral.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { DescricaoContratoComponent } from './descricao-contrato/descricao-contr
     BarraTituloComponent,
     DescricaoItemComponent,
     OrdenavelDirective,
-    DescricaoContratoComponent
+    DescricaoContratoComponent,
+    InputBuscaGeralComponent
   ],
   imports: [
     CommonModule,

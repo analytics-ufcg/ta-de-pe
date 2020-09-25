@@ -13,6 +13,7 @@ import { LicitacoesDetalharContratosComponent } from './licitacoes-detalhar/lici
 import { TimelineComponent } from './licitacoes-detalhar/licitacoes-detalhar-info/timeline/timeline.component';
 import { SharedModule } from '../shared/components/shared.module';
 import { PipesModule } from '../shared/pipes/pipes.module';
+import { LicitacoesDetalharItensComponent } from './licitacoes-detalhar/licitacoes-detalhar-itens/licitacoes-detalhar-itens.component';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { PipesModule } from '../shared/pipes/pipes.module';
     LicitacoesDetalharNavComponent,
     LicitacoesDetalharInfoComponent,
     LicitacoesDetalharContratosComponent,
-    TimelineComponent
+    TimelineComponent,
+    LicitacoesDetalharItensComponent
   ],
   imports: [
     CommonModule,
