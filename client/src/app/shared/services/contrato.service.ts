@@ -25,4 +25,9 @@ export class ContratoService {
     return this.http.get<ContratoLicitacao[]>(this.url + '/vigentes', { params });
   }
 
+  buscar(termo: string): Observable<ContratoLicitacao[]> {
+    const params = new HttpParams().set('termo', termo);
+    return this.http.get<ContratoLicitacao[]>(this.url + '/search', { params });
+  }
+
 }
