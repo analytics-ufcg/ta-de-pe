@@ -54,7 +54,7 @@ router.get("/vigentes", (req, res) => {
       },
       dt_final_vigencia: {
         [Op.or]: {
-          [Op.gt]: new Date(),
+          [Op.gte]: new Date(),
           [Op.eq]: null
         }
       },
