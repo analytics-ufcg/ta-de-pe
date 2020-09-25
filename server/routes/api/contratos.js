@@ -122,6 +122,7 @@ router.get("/search", (req, res) => {
   
   let query = `SELECT \
             id_contrato, \
+            nr_contrato, \
             descricao_objeto_contrato, \
             tipo_instrumento_contrato, \
             nr_documento_contratado, \
