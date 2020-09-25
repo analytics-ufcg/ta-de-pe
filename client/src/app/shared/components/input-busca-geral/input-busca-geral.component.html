@@ -1,26 +1,36 @@
-<ng-template #rt let-r="result" let-t="term">
-    <span *ngIf="r?.tipoBusca=='COMPRA'" class="icon-file-text mr-1"></span>
-    <span *ngIf="r?.tipoBusca=='COMPRA'" > Buscar <strong>compras</strong> com o termo "</span>
-    
-    <span *ngIf="r?.tipoBusca=='MUNICIPIO'" class="icon-office mr-2"></span>
-    <ngb-highlight class= "custom-description" [result]="r?.descricao" [term]="t"></ngb-highlight>
-    <small *ngIf="r?.tipoBusca=='MUNICIPIO'">, Município</small>
-    <span *ngIf="r?.tipoBusca=='COMPRA'">"</span>
-    <hr *ngIf="r?.tipoBusca=='COMPRA'">
+<ng-template
+  #rt
+  let-r="result"
+  let-t="term">
+  <span
+    *ngIf="r?.tipoBusca=='COMPRA'"
+    class="icon-file-text mr-1"></span>
+  <span *ngIf="r?.tipoBusca=='COMPRA'">
+    Buscar
+    <strong>compras</strong>
+    com o termo "</span>
+
+  <span
+    *ngIf="r?.tipoBusca=='MUNICIPIO'"
+    class="icon-office mr-2"></span>
+  <ngb-highlight
+    class="custom-description"
+    [result]="r?.descricao"
+    [term]="t"></ngb-highlight>
+  <small *ngIf="r?.tipoBusca=='MUNICIPIO'">, Município</small>
+  <span *ngIf="r?.tipoBusca=='COMPRA'">"</span>
+  <hr *ngIf="r?.tipoBusca=='COMPRA'">
 </ng-template>
-  
-  
-  
-<input id="typeahead-focus" 
-    [(ngModel)]="buscavelSelecionado" 
-    type="text" 
-    class="form-control" 
-    [ngbTypeahead]="search"
-    [inputFormatter]="formatter" 
-    [resultFormatter]="formatter" 
-    [editable]='false' 
-    [resultTemplate]="rt"
-    placeholder="{{placeholder}}" 
-    (selectItem)="salvarBuscavel($event.item)"
-    />
-  
+
+<input
+  id="typeahead-focus"
+  [(ngModel)]="buscavelSelecionado"
+  type="text"
+  class="form-control"
+  [ngbTypeahead]="search"
+  [inputFormatter]="formatter"
+  [resultFormatter]="formatter"
+  [editable]='false'
+  [resultTemplate]="rt"
+  placeholder="{{placeholder}}"
+  (selectItem)="salvarBuscavel($event.item)">

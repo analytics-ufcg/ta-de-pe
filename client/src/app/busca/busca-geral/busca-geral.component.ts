@@ -15,6 +15,7 @@ export class BuscaGeralComponent implements OnInit {
 
   public contratos$: Observable<ContratoLicitacao[]>;
   public loading$ = new BehaviorSubject<boolean>(true);
+  public termo = '';
 
   constructor(
     private contratoService: ContratoService,
@@ -22,7 +23,8 @@ export class BuscaGeralComponent implements OnInit {
 
   ngOnInit() {
     this.activatedroute.queryParamMap.subscribe(params => {
-      this.contratos$ = this.contratoService.buscar(params.get('termo'));
+      this.termo = params.get('termo');
+      this.contratos$ = this.contratoService.buscar(this.termo);
       this.loading$.next(false);
     });
   }
