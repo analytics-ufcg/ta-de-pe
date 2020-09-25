@@ -1,0 +1,222 @@
+<div class="container">
+
+    <app-spinner *ngIf="loading$ | async"></app-spinner>
+
+    <div
+        *ngIf="(loading$ | async) === false"
+        class="table-wrapper"
+    >
+        <div class="table-responsive">
+            <table class="table table-sm">
+                <thead>
+                    <tr>
+                        <th class="head-controls">&nbsp;</th>
+                        <th
+                            class="head-controls text-right"
+                            colspan="6"
+                        >
+                            <form [formGroup]="radioGroupForm">
+                                <div class="toggle-wrapper toggle-wrapper-right">
+                                    <span class="toggle-label">Unidade</span>
+                                    <input
+                                        class="toggle toggle-flat"
+                                        id="cb4"
+                                        type="checkbox"
+                                        formControlName="showTotal"
+                                        [value]="true"
+                                        checked
+                                    >
+                                    <label
+                                        class="toggle-btn"
+                                        for="cb4"
+                                    ></label>
+                                    <span class="toggle-label">Total</span>
+                                </div>
+                            </form>
+                        </th>
+                    </tr>
+                    <tr>
+                        <th
+                            scope="col"
+                            class="text-left align-middle"
+                            ordenavel="ds_item"
+                            (ordenar)="onOrdenar($event)"
+                            appOrdenavel
+                        >
+                            Produto
+                        </th>
+                        <th
+                            scope="col"
+                            class="table-th-monospace text-right"
+                            *ngIf="!radioGroupForm.value['showTotal']"
+                            ordenavel="vl_item_contrato"
+                            (ordenar)="onOrdenar($event)"
+                            appOrdenavel
+                        >
+                            <span class="nowrap">Valor por</span>
+                            <br>
+                            unidade
+                            <br>
+                            (R$)
+                        </th>
+                        <th
+                            scope="col"
+                            class="table-th-monospace text-right"
+                            *ngIf="radioGroupForm.value['showTotal']"
+                            ordenavel="vl_total_item_contrato"
+                            (ordenar)="onOrdenar($event)"
+                            appOrdenavel
+                        >
+                            <span class="nowrap">Valor total</span>
+                            <br>
+                            (R$)
+                        </th>
+                        <th
+                            scope="col"
+                            class="table-th-monospace text-right"
+                            ordenavel="mediana_valor"
+                            (ordenar)="onOrdenar($event)"
+                            appOrdenavel
+                        >
+                            Mediana
+                            <br>
+                            <span class="nowrap">no estado</span>
+                            <br>
+                            (R$)
+                            <app-tooltip-ajuda [descricao]="'Mediana do preço de produtos similares contratados em municípios do estado seis meses antes ou depois da data do contrato'"></app-tooltip-ajuda>
+                        </th>
+                        <th
+                            scope="col"
+                            class="table-th-monospace text-right"
+                            ordenavel="percentual_vs_estado"
+                            direcao="desc"
+                            (ordenar)="onOrdenar($event)"
+                            appOrdenavel
+                        >
+                            Diferença
+                            <br>
+                            <span class="nowrap">com estado</span>
+                            <br>
+                            (%)
+                            <app-tooltip-ajuda [descricao]="'Diferença percentual entre o valor contratado e o valor mediano de produtos similares contratados em municípios do estado'"></app-tooltip-ajuda>
+                        </th>
+                        <th
+                            scope="col"
+                            class="table-th-monospace-md text-right "
+                            ordenavel="nm_fornecedor"
+                            (ordenar)="onOrdenar($event)"
+                            appOrdenavel
+                        >
+                            Fornecedor
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr
+                        *ngFor="let item of listaService.dadosProcessados$ | async; index as i"
+                        class="table-item"
+                    >
+                        <td class="align-middle descricao">
+                            <app-descricao-item
+                                [item]="item"
+                                [temLink]="item?.itensSemelhantes?.length > 1"
+                            ></app-descricao-item>
+                        </td>
+                        <td
+                            class="numero align-middle"
+                            *ngIf="!radioGroupForm.value['showTotal']"
+                        >
+                            {{ item.vl_item_contrato | currency:'':'' }}
+                        </td>
+                        <td
+                            class="numero align-middle"
+                            *ngIf="radioGroupForm.value['showTotal']"
+                        >
+                            {{ item.vl_total_item_contrato | currency:'':'' }}
+                        </td>
+                        <td
+                            class="numero align-middle"
+                            *ngIf="!radioGroupForm.value['showTotal']"
+                            [title]="item.mediana_valor"
+                        >
+                            <div
+                                class="pr-3"
+                                *ngIf="item?.itensSemelhantes?.length <= 1; else mostraMedianaEstado"
+                            >
+                                <app-tooltip-ajuda
+                                    [tipo]="'alerta'"
+                                    [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"
+                                ></app-tooltip-ajuda>
+                            </div>
+                            <ng-template #mostraMedianaEstado>
+                                {{ item.mediana_valor | currency:'':'' }}
+                            </ng-template>
+                        </td>
+                        <td
+                            class="numero align-middle"
+                            *ngIf="radioGroupForm.value['showTotal']"
+                            [title]="item.mediana_valor * item.qt_itens_contrato"
+                        >
+                            <div
+                                class="pr-3"
+                                *ngIf="item?.itensSemelhantes?.length <= 1; else mostraMedianaTotalEstado"
+                            >
+                                <app-tooltip-ajuda
+                                    [tipo]="'alerta'"
+                                    [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"
+                                ></app-tooltip-ajuda>
+                            </div>
+                            <ng-template #mostraMedianaTotalEstado>
+                                {{ item.mediana_valor * item.qt_itens_contrato | currency:'':'' }}
+                            </ng-template>
+                        </td>
+                        <td
+                            class="numero align-middle"
+                            [title]="item.mediana_valor"
+                            [style.background-color]="item?.itensSemelhantes?.length > 1 ? defineCorFundo(item.percentual_vs_estado) : 'white'"
+                            [style.color]="defineCor(item.percentual_vs_estado)"
+                        >
+                            <div
+                                class="pr-3"
+                                *ngIf="item?.itensSemelhantes?.length <= 1; else mostraPercentualEstado"
+                            >
+                                <app-tooltip-ajuda
+                                    [tipo]="'alerta'"
+                                    [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"
+                                ></app-tooltip-ajuda>
+                            </div>
+                            <ng-template #mostraPercentualEstado>
+                                <span *ngIf="item.percentual_vs_estado > 0">+</span>
+                                {{ item.percentual_vs_estado | percent:'1.1' }}
+                            </ng-template>
+                        </td>
+                        <td class="text-right">
+                            <div *ngIf="item?.nr_documento_contratado">
+                                <a [routerLink]="['/fornecedores/' + item?.nr_documento_contratado]">
+                                    <ngb-highlight
+                                        *ngIf="item.nm_fornecedor"
+                                        [result]="item.nm_fornecedor"
+                                    ></ngb-highlight>
+                                    <span *ngIf="!item.nm_fornecedor">Nome não encontrado</span>
+                                </a>
+                                <br>
+                                <small>
+                                    <ngb-highlight [result]="item.nr_documento_contratado | formatCpfCnpj"></ngb-highlight>
+                                </small>
+                            </div>
+                            <div
+                                [hidden]="item.nr_documento_contratado"
+                                class="text-center"
+                            >
+                                <app-tooltip-ajuda
+                                    [tipo]="'alerta'"
+                                    [descricao]="'Não há informação sobre o fornecedor desse item'"
+                                ></app-tooltip-ajuda>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
