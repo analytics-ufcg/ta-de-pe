@@ -8,7 +8,9 @@
     [exibirVoltar]="true"></app-barra-titulo>
 
   <div class="container">
-    <app-licitacoes-detalhar-nav *ngIf="licitacao?.contratosLicitacao.length != 0"></app-licitacoes-detalhar-nav>
+    <app-licitacoes-detalhar-nav
+      *ngIf="licitacao?.contratosLicitacao.length != 0"
+      [temContrato]="temContrato"></app-licitacoes-detalhar-nav>
     <router-outlet></router-outlet>
   </div>
 </div>
