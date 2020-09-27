@@ -9,16 +9,16 @@
         Resumo
       </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" *ngIf="temContrato">
       <a
         class="nav-link navegacao-link"
         [routerLink]="['./contratos']"
         routerLinkActive="active"
         replaceUrl="true">
-        Compras
+        Contratos
       </a>
     </li>
-    <li class="nav-item">
+    <li class="nav-item" *ngIf="!temContrato">
       <a
         class="nav-link navegacao-link"
         [routerLink]="['./itens']"

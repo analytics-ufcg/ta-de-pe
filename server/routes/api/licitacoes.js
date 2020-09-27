@@ -77,7 +77,7 @@ router.get("/:id", (req, res) => {
     include: [
       {
         model: Contrato,
-        attributes: ["vl_contrato"],
+        attributes: ["vl_contrato", "tipo_instrumento_contrato"],
         as: "contratosLicitacao"
       },
       {
