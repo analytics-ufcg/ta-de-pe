@@ -44,6 +44,7 @@ export class InfoFornecedorComponent implements OnInit {
       .get(id)
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(fornecedor => {
+        console.log(fornecedor)
         this.fornecedor = fornecedor;
       });
   }
