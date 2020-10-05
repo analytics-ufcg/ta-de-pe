@@ -35,4 +35,5 @@
   [editable]='false'
   [resultTemplate]="rt"
   placeholder="{{placeholder}}"
-  (selectItem)="salvarBuscavel($event.item)">
+  (selectItem)="salvarBuscavel($event.item, $event)"
+  (keyup.enter)="buscaOnEnter()">
