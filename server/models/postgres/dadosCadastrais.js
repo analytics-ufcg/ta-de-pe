@@ -63,6 +63,12 @@ module.exports = (sequelize, type) => {
             targetKey: "cnpj",
             as: "dadosCadastraisSocios"
         });
+
+        dadosCadastrais.belongsTo(models.cnae, {
+          foreignKey: "cnae_fiscal",
+          sourceKey: "id_cnae",
+          as: "dadosCadastraisCnaeFiscal"
+        });
     };
     return dadosCadastrais;
   }
