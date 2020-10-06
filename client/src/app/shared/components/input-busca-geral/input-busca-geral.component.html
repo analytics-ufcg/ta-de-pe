@@ -13,13 +13,16 @@
   <span
     *ngIf="r?.tipoBusca=='MUNICIPIO'"
     class="icon-office mr-2"></span>
+
+    <span
+    *ngIf="r?.tipoBusca=='ESTADO'"
+    class="icon-building mr-2"></span>
   <ngb-highlight
     class="custom-description"
     [result]="r?.descricao"
     [term]="t">
   </ngb-highlight>
     <span *ngIf="r?.tipoBusca=='MUNICIPIO'">–RS</span>
-    <small *ngIf="r?.tipoBusca=='MUNICIPIO'">, Município </small>
   <span *ngIf="r?.tipoBusca=='COMPRA'">"</span>
   <hr *ngIf="r?.tipoBusca=='COMPRA'">
 </ng-template>
