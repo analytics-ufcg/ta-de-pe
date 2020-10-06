@@ -23,6 +23,11 @@ module.exports = (sequelize, type) => {
       targetKey: "nr_documento",
       as: "fornecedorContratos"
     });
+    fornecedor.hasOne(models.dadosCadastrais, {
+      foreignKey: "cnpj",
+      targetKey: "nr_documento",
+      as: "fornecedorDadosCadastrais"
+    });
   };
   return fornecedor;
 }

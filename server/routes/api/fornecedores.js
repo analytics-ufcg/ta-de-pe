@@ -7,6 +7,8 @@ const models = require("../../models/index");
 const Contrato = models.contrato;
 const Fornecedor = models.fornecedor;
 const Orgao = models.orgao;
+const dadosCadastrais = models.dadosCadastrais;
+const socios = models.socios;
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
 
@@ -18,6 +20,18 @@ router.get("/", (req, res) => {
 
 router.get("/:id", (req, res) => {
   Fornecedor.findOne({
+    include: [
+      {
+        model: dadosCadastrais,
+        include: [
+          {
+            model: socios,
+            as: "dadosCadastraisSocios",
+          }
+        ],
+        as: "fornecedorDadosCadastrais",
+      }
+    ],
     where: {
       nr_documento: req.params.id
     }
