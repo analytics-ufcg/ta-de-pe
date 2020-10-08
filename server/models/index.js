@@ -11,6 +11,8 @@ const fornecedorModel = "./postgres/fornecedor.js"
 const documentoLicitacaoModel = "./postgres/documentoLicitacao.js"
 const dadosCadastraisModel = "./postgres/dadosCadastrais.js"
 const sociosModel = "./postgres/socios.js"
+const cnaeModel = "./postgres/cnae.js"
+const cnaeSecundarioModel = "./postgres/cnaeSecundario.js"
 
 
 if (!global.hasOwnProperty("models")) {
@@ -45,7 +47,9 @@ if (!global.hasOwnProperty("models")) {
     fornecedor: sequelize.import(fornecedorModel),
     dadosCadastrais: sequelize.import(dadosCadastraisModel),
     socios: sequelize.import(sociosModel),
-    documentoLicitacao: sequelize.import(documentoLicitacaoModel)
+    documentoLicitacao: sequelize.import(documentoLicitacaoModel),
+    cnae: sequelize.import(cnaeModel),
+    cnaeSecundario: sequelize.import(cnaeSecundarioModel)
     //add your others models here
   };
 
