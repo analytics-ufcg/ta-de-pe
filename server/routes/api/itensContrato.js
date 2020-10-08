@@ -136,4 +136,24 @@ router.post("/similares", (req, res) => {
 });
 
 
+router.get("/search", (req, res) => {
+
+  const termo = req.query.termo.replace(/[&|!<()\\:',]/gi, '').replace( /\s+/g, ' ').trim().split(' ').join(' & ');
+  let query = `SELECT ano_licitacao, id_item_contrato, id_contrato, nr_contrato, id_licitacao, vl_item_contrato, \
+                      vl_total_item_contrato, ds_item, dt_inicio_vigencia, qt_itens_contrato, nome_municipio, \
+                      ts_rank(item_search.document, to_tsquery('portuguese', '${termo}')) as rel, \ 
+                      sg_unidade_medida \
+                      FROM item_search WHERE item_search.document @@ to_tsquery('portuguese', '${termo}') \
+                      AND ts_rank(item_search.document, to_tsquery('portuguese', '${termo}')) >= 0.65\
+                      ORDER BY ts_rank(item_search.document, to_tsquery('portuguese', '${termo}')) DESC, id_item_contrato ASC;`
+
+  models.sequelize.query(query, {
+    model: itensContrato,
+    mapToModel: true
+  }).then(itensContrato => {res.status(SUCCESS).json(itensContrato)
+  })
+    .catch(err => res.status(BAD_REQUEST).json({ err }));
+});
+
+
 module.exports = router;
