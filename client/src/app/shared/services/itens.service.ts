@@ -51,7 +51,6 @@ export class ItensService {
       );
   }
 
-  
   buscar(termo: string): Observable<ItensContrato[]> {
     const params = new HttpParams().set('termo', termo);
     return this.http.get<ItensContrato[]>(this.url + '/search', { params });
