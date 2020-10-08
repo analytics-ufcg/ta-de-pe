@@ -24,9 +24,9 @@ router.get("/:id", (req, res) => {
     include: [
       {
         model: dadosCadastrais,
-        // attributes: ["cnpj", "cnae_fiscal"],
         include: [
           {
+            attributes: ["nome_socio", ["data_entrada_sociedade", "data_entrada"]],
             model: socios,
             as: "dadosCadastraisSocios",
           },
