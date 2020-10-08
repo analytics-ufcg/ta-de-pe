@@ -31,7 +31,7 @@ module.exports = (sequelize, type) => {
     fornecedor.hasMany(models.cnaeSecundario, {
       foreignKey: "cnpj",
       targetKey: "nr_documento",
-      as: "FornecedorCnaesSecundarios"
+      as: "fornecedorCnaesSecundarios"
     });
   };
   return fornecedor;

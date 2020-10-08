@@ -41,7 +41,7 @@ router.get("/:id", (req, res) => {
       {
         model: cnaeSecundario,
         attributes: ["id_cnae"],
-        as: "FornecedorCnaesSecundarios",
+        as: "fornecedorCnaesSecundarios",
         include: [
           {
             model: cnae,
