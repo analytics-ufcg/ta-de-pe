@@ -13,6 +13,8 @@ export class DescricaoItemComponent implements OnInit {
   @Input() temLink: boolean;
   @Input() itemResumido = true;
   @Input() comUnidade = true;
+  @Input() comHighlight = false;
+  @Input() termo = '';
 
   constructor() { }
 

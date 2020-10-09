@@ -41,7 +41,9 @@ export class EscolherMunicipioComponent implements OnInit, OnDestroy {
       if (this.buscavelSelecionado.tipoBusca === TipoBusca.Municipio ) {
         this.router.navigate(['municipio']);
       } else if (this.buscavelSelecionado.tipoBusca === TipoBusca.Compra ) {
-        this.router.navigate(['busca'], { queryParams: { termo: this.buscavelSelecionado.descricao }});
+        this.router.navigate(['busca/compra'], { queryParams: { termo: this.buscavelSelecionado.descricao }});
+      } else if (this.buscavelSelecionado.tipoBusca === TipoBusca.Item ) {
+        this.router.navigate(['busca/item'], { queryParams: { termo: this.buscavelSelecionado.descricao }});
       }
     }
   }

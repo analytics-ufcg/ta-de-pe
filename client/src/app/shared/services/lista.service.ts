@@ -123,12 +123,11 @@ export class ListaItensService extends ListaService {
     super(pipe);
   }
 
-  _buscar(): Observable<any[]> {
-    const {colunaOrd, direcaoOrd, termoBusca} = this.estado;
-    return this.dados$
-      .pipe(
-        map(dados => this.ordenar(dados, colunaOrd, direcaoOrd))
-      );
+  corresponde(dados: any, texto: string, pipe: PipeTransform) {
+    const termo = texto.toLowerCase();
+    return dados.ds_item.toLowerCase().includes(termo)
+        || dados.nome_municipio.toLowerCase().includes(termo)
+        || dados.nr_contrato.includes(termo);
   }
 }
 
