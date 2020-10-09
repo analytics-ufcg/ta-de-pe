@@ -34,17 +34,18 @@ $grays: map-merge(
   $grays
 );
 
-$gray:    #E2E2E2 !default;
+$gray:    #D9CDCC !default;
 $orange:  #da7144 !default;
-$green:   #63aa72 !default;
+$green:   #6FD08C !default;
 $yellow:  #f9a521 !default;
-$pink:    #e83e8c !default;
+$pink:    #bd4046 !default;
+$palepink: #F2D7D5 !default;
 $teal:    #80a997 !default;
 $cyan:    #41ACBD !default;
-$blue:    #124C7D !default;
+$blue:    #2D93AD !default;
 // $indigo:  #6610f2 !default;
 // $purple:  #6f42c1 !default;
-// $red:     #dc3545 !default;
+$red:     #7d1611 !default;
 
 $colors: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
@@ -56,25 +57,23 @@ $colors: map-merge(
     "yellow":     $yellow,
     "cyan":       $cyan,
     "blue":       $blue,
-    // "indigo":     $indigo,
-    // "purple":     $purple,
-    // "red":        $red,
+    "red":        $red,
     // "green":      $green,
     // "teal":       $teal,
-    // "white":      $white,
+   "white":      $white,
     // "gray-dark":  $gray-800
   ),
   $colors
 );
 
-$primary:       $cyan !default;
+$primary:       $pink !default;
 $secondary:     $gray-600 !default;
 $success:       $green !default;
 $info:          $blue !default;
 $warning:       $yellow !default;
 $danger:        $orange !default;
-$light:         $gray !default;
-$dark:          $blue !default;
+$light:         $palepink !default;
+$dark:          $red !default;
 
 $theme-colors: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
@@ -88,7 +87,7 @@ $theme-colors: map-merge(
     "danger":     $danger,
     "light":      $light,
     "dark":       $dark,
-    "blue":       $blue
+    "link": $pink
   ),
   $theme-colors
 );
@@ -178,7 +177,7 @@ $body-color:                $gray-900 !default;
 //
 // Style anchor elements.
 
-$link-color:                              theme-color("blue") !default;
+$link-color:                              theme-color("link") !default;
 $link-decoration:                         none !default;
 $link-hover-color:                        darken($link-color, 15%) !default;
 $link-hover-decoration:                   underline !default;
