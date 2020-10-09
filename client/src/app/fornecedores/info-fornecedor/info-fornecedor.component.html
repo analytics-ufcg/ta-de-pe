@@ -155,7 +155,8 @@
           </app-tooltip-ajuda>
         </div>
         <div *ngIf="fornecedor?.fornecedorDadosCadastrais?.dadosCadastraisCnaeFiscal" class="dados-linha">
-          {{ fornecedor?.fornecedorCnaesSecundarios?.length }} atividades:
+          {{ fornecedor?.fornecedorCnaesSecundarios?.length + 1 }} atividade<span
+            *ngIf="fornecedor?.fornecedorCnaesSecundarios?.length > 0">s</span>:
           <ul>
             <li>
               <strong>{{fornecedor?.fornecedorDadosCadastrais?.dadosCadastraisCnaeFiscal?.nm_cnae | initialcase }}
