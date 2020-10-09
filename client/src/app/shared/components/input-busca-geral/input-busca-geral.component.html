@@ -3,8 +3,8 @@
   let-r="result"
   let-t="term">
   <span
-    *ngIf="r?.tipoBusca=='COMPRA'"
-    class="icon-file-text mr-1"></span>
+    *ngIf="r?.tipoBusca=='COMPRA' || r?.tipoBusca=='ITEM'"
+    class="icon-search mr-1"></span>
   <span *ngIf="r?.tipoBusca=='COMPRA'">
     Buscar
     <strong>compras</strong>
@@ -17,14 +17,20 @@
     <span
     *ngIf="r?.tipoBusca=='ESTADO'"
     class="icon-building mr-2"></span>
+
+    <span *ngIf="r?.tipoBusca=='ITEM'">
+      Buscar
+      <strong>itens</strong>
+      com o termo "</span>
+
   <ngb-highlight
     class="custom-description"
     [result]="r?.descricao"
     [term]="t">
   </ngb-highlight>
     <span *ngIf="r?.tipoBusca=='MUNICIPIO'">–RS</span>
-  <span *ngIf="r?.tipoBusca=='COMPRA'">"</span>
-  <hr *ngIf="r?.tipoBusca=='COMPRA'">
+  <span *ngIf="r?.tipoBusca=='COMPRA' || r?.tipoBusca=='ITEM'">"</span>
+  <hr *ngIf="r?.tipoBusca=='ITEM'">
 </ng-template>
 
 <input

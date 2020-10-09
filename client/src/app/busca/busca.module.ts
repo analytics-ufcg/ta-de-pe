@@ -1,18 +1,24 @@
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { BuscaGeralComponent } from './busca-geral/busca-geral.component';
 import { BuscaRoutingModule } from './busca-routing.module';
 import { SharedModule } from '../shared/components/shared.module';
+import { BuscaCompraComponent } from './busca-compra/busca-compra.component';
+import { BuscaItemComponent } from './busca-item/busca-item.component';
 
 @NgModule({
   declarations: [
-    BuscaGeralComponent
+    BuscaCompraComponent,
+    BuscaItemComponent
   ],
   imports: [
     CommonModule,
     SharedModule,
-    BuscaRoutingModule
+    BuscaRoutingModule,
+    FormsModule,
+    NgbModule
   ]
 })
 export class BuscaModule { }
