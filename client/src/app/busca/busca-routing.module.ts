@@ -1,12 +1,21 @@
+import { BuscaItemComponent } from './busca-item/busca-item.component';
+import { BuscaCompraComponent } from './busca-compra/busca-compra.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-import { BuscaGeralComponent } from './busca-geral/busca-geral.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: BuscaGeralComponent
+    children: [
+      {
+        path: 'compra',
+        component: BuscaCompraComponent
+      },
+      {
+        path: 'item',
+        component: BuscaItemComponent
+      },
+    ]
   }
 ];
 

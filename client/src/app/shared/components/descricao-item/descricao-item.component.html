@@ -2,12 +2,24 @@
   <a
     *ngIf="temLink; else tituloSemLink"
     [routerLink]="['/itens/'+ item.id_item_contrato]">
-    <span *ngIf="item.resumido">
+    <span *ngIf="item.resumido && !comHighlight">
       {{ item.ds_item_resumido }}
     </span>
-    <span *ngIf="!item.resumido">
+    <span *ngIf="!item.resumido && !comHighlight">
       {{ item.ds_item }}
     </span>
+
+    <ngb-highlight
+      *ngIf="item.resumido && comHighlight"
+      [result]="item.ds_item_resumido"
+      [term]="termo">
+    </ngb-highlight>
+
+    <ngb-highlight
+      *ngIf="!item.resumido && comHighlight"
+      [result]="item.ds_item"
+      [term]="termo">
+    </ngb-highlight>
   </a>
   <ng-template #tituloSemLink>
     <span *ngIf="item.resumido">

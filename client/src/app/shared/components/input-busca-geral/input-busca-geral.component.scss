@@ -1,5 +1,5 @@
 hr {
-    max-width: 94%;
+    max-width: 100%;
     position: relative;
     padding: 0px;
     margin: 0px;
@@ -22,9 +22,9 @@ label:focus
     outline: 0px !important;
     -webkit-appearance: none;
     box-shadow: none !important;
-    min-width: calc(0.6em + 17.95rem);
+    min-width: calc(0.6em + 20.95rem);
 
     @media (max-width: 360px) {
-      min-width: calc(0.6em + 17.75rem);
+      min-width: calc(0.6em + 17rem);
     }
 }
