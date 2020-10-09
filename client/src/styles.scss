@@ -126,6 +126,12 @@ td.numero {
   font-size: 0.9rem;
 }
 
+.table-th-monospace-md {
+  width: 300px;
+  font-weight: normal;
+  font-size: 0.9rem;
+}
+
 .accordion {
   > .card {
     > .card-header {
@@ -307,3 +313,35 @@ th[ordenavel].asc:before {
 th[ordenavel].desc:before {
   content: '\e911';
 }
+
+.hidden-app {
+  display: none;
+}
+
+@media print {
+  /** 
+  *  Use these for toggling content for print.
+  **/
+  .visible-print {
+    display: block !important;
+  }
+
+  .hidden-print {
+    display: none !important;
+  }
+
+  .navbar{
+    position: absolute;
+    top: 0;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact;
+  }
+
+  td {
+    color:black !important;
+  }
+}
+

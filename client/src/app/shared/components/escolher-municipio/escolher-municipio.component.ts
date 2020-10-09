@@ -1,3 +1,5 @@
+import { TipoBusca } from './../../enum/tipo-busca.enum';
+import { Buscavel } from './../../models/buscavel.model';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
@@ -22,87 +24,44 @@ import { UserService } from '../../services/user.service';
   styleUrls: ['./escolher-municipio.component.scss']
 })
 export class EscolherMunicipioComponent implements OnInit, OnDestroy {
-  @ViewChild('instance', { static: true }) instance: NgbTypeahead;
 
+  public buscavelSelecionado: Buscavel;
   private unsubscribe = new Subject();
-
-  public placeholder = 'Escolha um município';
-  public municipios: any[];
-  public municipioSelecionado: string;
 
   focus$ = new Subject<string>();
   click$ = new Subject<string>();
 
-  constructor(
-    private router: Router,
-    private buscaMunicipioService: MunicipioService,
-    private userService: UserService
-  ) {
-    this.municipios = [];
-  }
+  constructor(private router: Router,
+              private userService: UserService) {}
 
-  ngOnInit() {
-    this.getMunicipios();
-    this.getMunicipioSalvo();
-  }
+  ngOnInit() { this.getMunicipioSalvo(); }
 
-  getMunicipios() {
-    this.buscaMunicipioService
-      .getMunicipios()
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe(municipios => {
-        this.municipios = municipios.map(e => e.nome_municipio).sort();
-      });
+  buscarOnClick() {
+    if (typeof this.buscavelSelecionado !== 'undefined' && this.buscavelSelecionado.descricao !== '') {
+      if (this.buscavelSelecionado.tipoBusca === TipoBusca.Municipio ) {
+        this.router.navigate(['municipio']);
+      } else if (this.buscavelSelecionado.tipoBusca === TipoBusca.Compra ) {
+        this.router.navigate(['busca'], { queryParams: { termo: this.buscavelSelecionado.descricao }});
+      }
+    }
   }
 
   getMunicipioSalvo() {
     this.userService
       .getMunicipioEscolhido()
-      .pipe(take(1))
       .subscribe(municipio => {
-        this.municipioSelecionado = municipio;
+        if (municipio) {
+          this.buscavelSelecionado = new Buscavel(municipio, TipoBusca.Municipio);
+        }
       });
   }
 
-  salvarMunicipio(municipio: string) {
-    this.userService.setMunicipioEscolhido(municipio);
-  }
-
-  removerMunicipio() {
-    this.municipioSelecionado = '';
-    this.userService.setMunicipioEscolhido(null);
-  }
-
-  search = (text$: Observable<string>) => {
-    const debouncedText$ = text$.pipe(
-      debounceTime(200),
-      distinctUntilChanged()
-    );
-    const clicksWithClosedPopup$ = this.click$.pipe(
-      filter(() => !this.instance.isPopupOpen())
-    );
-    const inputFocus$ = this.focus$;
-
-    return merge(debouncedText$, inputFocus$, clicksWithClosedPopup$).pipe(
-      map(term =>
-        term === ''
-          ? this.municipios
-          : this.municipios.filter(
-              v => v.toLowerCase().indexOf(term.toLowerCase()) > -1
-            )
-      )
-    );
-  }
-
-  buscarOnClick() {
-    if (this.municipioSelecionado !== '' && typeof this.municipioSelecionado !== 'undefined') {
-      this.router.navigate(['municipio']);
-    }
+  reciverSelecionado(buscavelSelecionado) {
+    this.buscavelSelecionado = buscavelSelecionado;
   }
 
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();
   }
-
 }

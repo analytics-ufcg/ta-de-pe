@@ -23,6 +23,8 @@ export class InfoFornecedorComponent implements OnInit {
 
   public fornecedor: Fornecedor;
   public isLoading = true;
+  public showSocios = 5;
+  public showAtividades = 5;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -71,6 +73,22 @@ export class InfoFornecedorComponent implements OnInit {
 
     this.listaService.colunaOrd = coluna;
     this.listaService.direcaoOrd = direcao;
+  }
+
+  mostraMaisSocios() {
+    if (this.showSocios < this.fornecedor.fornecedorDadosCadastrais.dadosCadastraisSocios.length) {
+      this.showSocios = this.fornecedor.fornecedorDadosCadastrais.dadosCadastraisSocios.length;
+    } else {
+      this.showSocios = 5;
+    }
+  }
+
+  mostraMaisAtividadesEconomicas() {
+    if (this.showAtividades < this.fornecedor.fornecedorCnaesSecundarios.length) {
+      this.showAtividades = this.fornecedor.fornecedorCnaesSecundarios.length;
+    } else {
+      this.showAtividades = 5;
+    }
   }
 
 }

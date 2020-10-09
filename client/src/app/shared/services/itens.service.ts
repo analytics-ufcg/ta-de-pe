@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
@@ -24,6 +24,10 @@ export class ItensService {
     return this.http.get<ItensContrato[]>(`${this.url}/contrato/${idContrato}`);
   }
 
+  getByLicitacao(idLicitacao: string): Observable<ItensContrato[]> {
+    return this.http.get<ItensContrato[]>(`${this.url}/licitacao/${idLicitacao}`);
+  }
+
   getItensSimilares(item: ItensContrato, termos: string[]): Observable<ItensContrato[]> {
       return this.http.post<ItensContrato[]>(this.url + '/similares',
         { termo: termos, data: item.dt_inicio_vigencia, unidade: item.sg_unidade_medida });
@@ -45,5 +49,10 @@ export class ItensService {
           return item;
         })
       );
+  }
+
+  buscar(termo: string): Observable<ItensContrato[]> {
+    const params = new HttpParams().set('termo', termo);
+    return this.http.get<ItensContrato[]>(this.url + '/search', { params });
   }
 }
