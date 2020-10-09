@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Observable } from 'rxjs';
@@ -49,5 +49,10 @@ export class ItensService {
           return item;
         })
       );
+  }
+
+  buscar(termo: string): Observable<ItensContrato[]> {
+    const params = new HttpParams().set('termo', termo);
+    return this.http.get<ItensContrato[]>(this.url + '/search', { params });
   }
 }

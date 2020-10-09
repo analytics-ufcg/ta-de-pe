@@ -13,11 +13,16 @@
   <span
     *ngIf="r?.tipoBusca=='MUNICIPIO'"
     class="icon-office mr-2"></span>
+
+    <span
+    *ngIf="r?.tipoBusca=='ESTADO'"
+    class="icon-building mr-2"></span>
   <ngb-highlight
     class="custom-description"
     [result]="r?.descricao"
-    [term]="t"></ngb-highlight>
-  <small *ngIf="r?.tipoBusca=='MUNICIPIO'">, Município</small>
+    [term]="t">
+  </ngb-highlight>
+    <span *ngIf="r?.tipoBusca=='MUNICIPIO'">–RS</span>
   <span *ngIf="r?.tipoBusca=='COMPRA'">"</span>
   <hr *ngIf="r?.tipoBusca=='COMPRA'">
 </ng-template>
@@ -33,4 +38,5 @@
   [editable]='false'
   [resultTemplate]="rt"
   placeholder="{{placeholder}}"
-  (selectItem)="salvarBuscavel($event.item)">
+  (selectItem)="salvarBuscavel($event.item)"
+  (keyup.enter)="buscaOnEnter()">

@@ -76,6 +76,10 @@ export class InputBuscaGeralComponent implements OnInit {
       });
   }
 
+  buscaOnEnter() {
+    this.buscarOnClick(this.buscavelSelecionado);
+  }
+
   salvarBuscavel(buscavel: Buscavel) {
     this.buscavelSelecionadoEvent.emit(buscavel);
     if (buscavel.tipoBusca === TipoBusca.Municipio || buscavel.tipoBusca === TipoBusca.Estado) {
