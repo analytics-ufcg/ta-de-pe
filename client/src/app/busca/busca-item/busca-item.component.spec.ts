@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BuscaGeralComponent } from './busca-geral.component';
+import { BuscaItemComponent } from './busca-item.component';
 
-describe('BuscaGeralComponent', () => {
-  let component: BuscaGeralComponent;
-  let fixture: ComponentFixture<BuscaGeralComponent>;
+describe('BuscaItemComponent', () => {
+  let component: BuscaItemComponent;
+  let fixture: ComponentFixture<BuscaItemComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ BuscaGeralComponent ]
+      declarations: [ BuscaItemComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BuscaGeralComponent);
+    fixture = TestBed.createComponent(BuscaItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

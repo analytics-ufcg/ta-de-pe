@@ -7,11 +7,11 @@ import { ContratoService } from 'src/app/shared/services/contrato.service';
 import { ContratoLicitacao } from 'src/app/shared/models/contratoLicitacao.model';
 
 @Component({
-  selector: 'app-busca-geral',
-  templateUrl: './busca-geral.component.html',
-  styleUrls: ['./busca-geral.component.scss']
+  selector: 'app-busca-compra',
+  templateUrl: './busca-compra.component.html',
+  styleUrls: ['./busca-compra.component.scss']
 })
-export class BuscaGeralComponent implements OnInit {
+export class BuscaCompraComponent implements OnInit {
 
   public contratos$: Observable<ContratoLicitacao[]>;
   public loading$ = new BehaviorSubject<boolean>(true);
