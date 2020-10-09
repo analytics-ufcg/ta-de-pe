@@ -8,7 +8,7 @@
     <div class="row mt-4">
       <div class="col-sm-6 col-md-6 col-lg-3 mb-4">
         <div class="dados-linha">
-          <strong>Data do primeiro contrato</strong>
+          <strong>Data da primeira compra</strong>
           <app-tooltip-ajuda [posicao]="'top'" [descricao]="
               'Data que o fornecedor realizou seu primeiro contrato independente do assunto'
             ">
@@ -21,7 +21,7 @@
 
       <div class="col-sm-6 col-md-6 col-lg-3 mb-4">
         <div class="dados-linha">
-          <strong>Total de contratos</strong>
+          <strong>Total de compras</strong>
 
           <app-tooltip-ajuda [posicao]="'top'" [descricao]="
               'Quantidade total de contratos que o fornecedor já participou independente do assunto'
@@ -202,7 +202,7 @@
             <tr>
               <th scope="col" class="text-center th-medio" ordenavel="nr_contrato" (ordenar)="onOrdenar($event)"
                 appOrdenavel>
-                Contrato
+                Compra
               </th>
               <th scope="col" class="th-espacoso" ordenavel="descricao_objeto_contrato" (ordenar)="onOrdenar($event)"
                 appOrdenavel>
