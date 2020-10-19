@@ -9,6 +9,7 @@ const dadosCadastrais = models.dadosCadastrais;
 const socios = models.socios;
 const cnae = models.cnae;
 const cnaeSecundario = models.cnaeSecundario;
+const naturezaJuridica = models.naturezaJuridica;
 
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
@@ -34,6 +35,11 @@ router.get("/:id", (req, res) => {
             model: cnae,
             attributes: ["id_cnae", "nm_cnae"],
             as: "dadosCadastraisCnaeFiscal"
+          },
+          {
+            attributes: [["codigo_natureza_juridica", "cod_natureza"], ["nome_subclasse_natureza_juridica", "desc_natureza"]],
+            model: naturezaJuridica,
+            as: "dadosCadastraisNatureza"
           }
         ],
         as: "fornecedorDadosCadastrais",
