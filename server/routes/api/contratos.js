@@ -192,6 +192,18 @@ router.get("/:id", (req, res) => {
             [Op.or]: [6, 9] // 6 (novidade de pagamento) e 9 (novidade de empenho)
           }
         }
+      },
+      {
+        model: alerta,
+        attributes: ["id_contrato", "id_tipo", "info_contrato"],
+        as: "contratoAlerta",
+        include: [
+          {
+            model: tipoAlerta,
+            attributes: ["titulo"],
+            as: "AlertaTipo"
+          }
+        ]
       }
     ],
     where: {

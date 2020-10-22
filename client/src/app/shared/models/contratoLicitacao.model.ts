@@ -25,4 +25,5 @@ export interface ContratoLicitacao {
   descricao_objeto_contrato: string;
   tipo_instrumento_contrato: string;
   resumido: boolean;
+  contratoAlerta: any;
 }
