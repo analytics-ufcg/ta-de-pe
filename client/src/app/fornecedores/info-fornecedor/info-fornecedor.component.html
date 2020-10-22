@@ -5,6 +5,7 @@
   </app-barra-titulo>
 
   <div class="container">
+    <h4 class="titulo-sessao mt-4">Dados Cadastrais</h4>
     <div class="row mt-4">
       <div class="col-sm-6 col-md-6 col-lg-3 mb-4">
         <div class="dados-linha">
@@ -125,9 +126,7 @@
             <br>
           </span>
         </div>
-        <div
-          *ngIf="!fornecedor?.fornecedorDadosCadastrais?.porte_empresa"
-          class="dados-linha">
+        <div *ngIf="!fornecedor?.fornecedorDadosCadastrais?.porte_empresa" class="dados-linha">
           Informação não encontrada
         </div>
       </div>
@@ -207,12 +206,38 @@
     </div>
   </div>
 
+  <div *ngIf="fornecedor?.fornecedorAlerta?.length" class="container">
+    <h4 class="titulo-sessao mt-2">Alertas</h4>
+    <div class="row">
+      <div class="col-lg-12">
+        <div *ngFor="let alerta of fornecedor?.fornecedorAlerta">
+          <p *ngIf="alerta?.id_tipo === 1">
+            <span class="tooltip-base tooltip-warning icon-calendar">
+            </span>
+            {{ alerta?.AlertaTipo?.titulo }}
+            <span *ngIf="alerta?.id_contrato">Veja a
+              <a [routerLink]="['/compras/' + alerta?.id_contrato]">
+                compra</a>.
+            </span>
+            <span *ngIf="!alerta?.id_contrato">
+              O {{ alerta?.info_contrato }} ainda não está disponível na nossa base de dados.
+            </span>
+            <app-tooltip-ajuda [posicao]="'top'"
+              [descricao]="'Foi contratado em menos de um mês após a abertura do CNPJ na Receita Federal.'">
+            </app-tooltip-ajuda>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="container">
+    <h4 class="titulo-sessao mt-4">Compras</h4>
     <div class="row">
       <div class="col-lg-6">
         <form>
           <div class="form-group">
-            <input class="form-control" type="text" placeholder="Buscar nos contratos..." name="termoBusca"
+            <input class="form-control" type="text" placeholder="Buscar nas compras..." name="termoBusca"
               [(ngModel)]="listaService.termoBusca">
           </div>
         </form>
