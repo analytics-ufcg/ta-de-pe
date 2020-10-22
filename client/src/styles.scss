@@ -306,11 +306,11 @@ th[ordenavel].asc:before, th[ordenavel].desc:before {
   -moz-osx-font-smoothing: grayscale;
 }
 
-th[ordenavel].asc:before {
+th[ordenavel].desc:before {
   content: '\e90d';
 }
 
-th[ordenavel].desc:before {
+th[ordenavel].asc:before {
   content: '\e911';
 }
 
@@ -319,7 +319,7 @@ th[ordenavel].desc:before {
 }
 
 @media print {
-  /** 
+  /**
   *  Use these for toggling content for print.
   **/
   .visible-print {
