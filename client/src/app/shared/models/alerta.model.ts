@@ -6,5 +6,5 @@ export interface Alerta {
   nr_documento: string;
   alertaContrato: any;
   alertaFornecedor: any;
-  alertaTipo: any;
+  AlertaTipo: any;
 }

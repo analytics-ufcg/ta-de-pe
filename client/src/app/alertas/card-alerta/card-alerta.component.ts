@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 
+import { Alerta } from 'src/app/shared/models/alerta.model';
+
 @Component({
   selector: 'app-card-alerta',
   templateUrl: './card-alerta.component.html',
@@ -7,7 +9,7 @@ import { Component, Input, OnInit } from '@angular/core';
 })
 export class CardAlertaComponent implements OnInit {
 
-  @Input() alerta: string;
+  @Input() alerta: Alerta;
 
   constructor() { }
 
