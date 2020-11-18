@@ -10,6 +10,8 @@ const socios = models.socios;
 const cnae = models.cnae;
 const cnaeSecundario = models.cnaeSecundario;
 const naturezaJuridica = models.naturezaJuridica;
+const alerta = models.alerta;
+const tipoAlerta = models.tipoAlerta;
 
 const BAD_REQUEST = 400;
 const SUCCESS = 200;
@@ -53,6 +55,18 @@ router.get("/:id", (req, res) => {
             model: cnae,
             attributes: ["nm_cnae"],
             as: "cnaeSecundarioCnae"
+          }
+        ]
+      },
+      {
+        model: alerta,
+        attributes: ["id_contrato", "id_tipo", "info_contrato"],
+        as: "fornecedorAlerta",
+        include: [
+          {
+            model: tipoAlerta,
+            attributes: ["titulo"],
+            as: "AlertaTipo"
           }
         ]
       }
