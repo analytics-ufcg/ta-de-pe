@@ -9,7 +9,7 @@ module.exports = (sequelize, type) => {
         nr_documento: type.STRING,
         id_contrato: type.STRING,
         id_tipo: type.INTEGER,
-        info_contrarto: type.STRING
+        info_contrato: type.STRING
       },
       {
         freezeTableName: true,
