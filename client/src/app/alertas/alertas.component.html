@@ -8,6 +8,10 @@
   <div
     [hidden]="loading$ | async"
     class="container mt-4">
+
+    <app-filtro-alertas (filterChange)="search($event)"></app-filtro-alertas>
+    <div *ngIf="alertas?.length === 0">Nenhum alerta encontrado.</div>
+
     <pagination-template
       #pag="paginationApi"
       maxSize="5"

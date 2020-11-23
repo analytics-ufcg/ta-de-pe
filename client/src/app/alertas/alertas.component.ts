@@ -1,7 +1,7 @@
 import { AfterContentInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
 
 import { BehaviorSubject, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { skip, takeUntil } from 'rxjs/operators';
 
 import { indicate } from '../shared/functions/indicate.function';
 import { AlertaService } from '../shared/services/alerta.service';
@@ -42,10 +42,12 @@ export class AlertasComponent implements OnInit, OnDestroy, AfterContentInit {
     this.alertaService
       .getAlertas()
       .pipe(
+        skip(1),
         indicate(this.loading$),
         takeUntil(this.unsubscribe)
       )
       .subscribe(alertas => {
+        console.log(alertas);
         this.alertas = alertas;
         this.loading$.next(false);
       });
@@ -71,6 +73,10 @@ export class AlertasComponent implements OnInit, OnDestroy, AfterContentInit {
           this.p = 1;
         }
       });
+  }
+
+  search(filtro) {
+    this.alertaService.search(filtro);
   }
 
   ngOnDestroy() {
