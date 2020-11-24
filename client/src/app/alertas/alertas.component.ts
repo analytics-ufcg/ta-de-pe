@@ -1,4 +1,5 @@
 import { AfterContentInit, ChangeDetectorRef, Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { BehaviorSubject, Subject } from 'rxjs';
 import { skip, takeUntil } from 'rxjs/operators';
@@ -7,7 +8,6 @@ import { indicate } from '../shared/functions/indicate.function';
 import { AlertaService } from '../shared/services/alerta.service';
 
 import { Alerta } from '../shared/models/alerta.model';
-import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-alertas',
@@ -47,7 +47,6 @@ export class AlertasComponent implements OnInit, OnDestroy, AfterContentInit {
         takeUntil(this.unsubscribe)
       )
       .subscribe(alertas => {
-        console.log(alertas);
         this.alertas = alertas;
         this.loading$.next(false);
       });
@@ -56,9 +55,7 @@ export class AlertasComponent implements OnInit, OnDestroy, AfterContentInit {
   pageChange(p: number) {
     this.p = p;
 
-    const queryParams: Params = Object.assign({}, this.activatedRoute.snapshot.queryParams);
-    queryParams.page = p;
-    this.router.navigate([], { queryParams });
+    this.router.navigate([], { queryParams: { page: p }, queryParamsHandling: 'merge' });
   }
 
   updatePageViaURL() {
@@ -76,6 +73,13 @@ export class AlertasComponent implements OnInit, OnDestroy, AfterContentInit {
   }
 
   search(filtro) {
+    if (filtro.nomePesquisado !== undefined && filtro.nomePesquisado !== '') {
+      this.pageChange(1);
+      this.router.navigate([], { queryParams: { page: 1, search: filtro.nomePesquisado }, queryParamsHandling: 'merge' });
+    } else {
+      this.router.navigate([], { queryParams: { search: '' }, queryParamsHandling: 'merge' });
+    }
+
     this.alertaService.search(filtro);
   }
 

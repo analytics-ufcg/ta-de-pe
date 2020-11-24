@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-filtro-alertas',
@@ -11,9 +12,11 @@ export class FiltroAlertasComponent implements OnInit {
 
   nomePesquisado: string;
 
-  constructor() { }
+  constructor(
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.updateFiltroViaURL();
   }
 
   aplicarFiltro() {
@@ -22,6 +25,18 @@ export class FiltroAlertasComponent implements OnInit {
     };
 
     this.filterChange.emit(filtro);
+  }
+
+  updateFiltroViaURL() {
+    this.activatedRoute.queryParams
+      .subscribe(params => {
+        const search = params.search;
+
+        if (search !== undefined && search !== null) {
+          this.nomePesquisado = search;
+          this.aplicarFiltro();
+        }
+      });
   }
 
 }

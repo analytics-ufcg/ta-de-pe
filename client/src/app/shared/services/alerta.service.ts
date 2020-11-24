@@ -81,7 +81,6 @@ export class AlertaService {
   }
 
   search(filtro) {
-    console.log(filtro);
     this.filtro.next(filtro);
   }
 
