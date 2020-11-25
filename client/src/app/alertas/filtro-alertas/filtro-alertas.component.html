@@ -1,0 +1,14 @@
+<div class="filtro-wrapper mb-3">
+  <div class="col-lg-8">
+    <div class="form-group">
+      <input
+        type="text"
+        class="form-control"
+        id="searchAlerta"
+        placeholder="Buscar município ou fornecedor"
+        [(ngModel)]="nomePesquisado"
+        (ngModelChange)="aplicarFiltro()"
+      >
+    </div>
+  </div>
+</div>
