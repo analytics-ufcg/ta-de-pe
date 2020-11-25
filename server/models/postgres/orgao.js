@@ -11,7 +11,8 @@ module.exports = (sequelize, type) => {
       esfera: type.STRING,
       home_page: type.STRING,
       nome_municipio: type.STRING,
-      cd_municipio_ibge: type.INTEGER
+      cd_municipio_ibge: type.INTEGER,
+      sigla_estado: type.STRING
 
     },
     {
