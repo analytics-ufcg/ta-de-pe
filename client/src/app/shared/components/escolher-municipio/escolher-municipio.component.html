@@ -1,10 +1,10 @@
 <div class="row gutters-sm">
-  <div class="col-sm-8 mb-3">
+  <div class="col-sm-8 mb-1">
     <app-input-busca-geral
       [directSearch]="false"
       (buscavelSelecionadoEvent)="reciverSelecionado($event)"></app-input-busca-geral>
   </div>
-  <div class="col-sm-4 mb-3">
+  <div class="col-sm-4 mb-1">
     <button
       class="btn btn-block"
       [ngClass]="{'btn-secondary': !buscavelSelecionado, 'btn-primary': buscavelSelecionado}"

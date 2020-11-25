@@ -15,19 +15,35 @@
   <div class="row">
     <div class="col-md-6">
       <h1 class="headline text-info">
-        Como está a compra de merenda na sua cidade?
+        Fiscalize a compra de merenda para escolas públicas
       </h1>
-      <p>
-        Nesta plataforma, desenvolvida pela
-        <strong>Transparência Brasil</strong>,
-        é possível acompanhar dados oficiais de licitações e
-        contratos de alimentação das escolas públicas brasileiras.
-      </p>
-
-      <div class="call-to-action">
+      <div class="call-to-action pesquisa">
         <app-escolher-municipio></app-escolher-municipio>
-        Disponível por enquanto apenas para o Rio Grande do Sul.
+        <span class="text-muted text-small">
+          Disponível por enquanto apenas para o Rio Grande do Sul.
           <a routerLink="/duvidas">Saiba mais</a>
+        </span>
+      </div>
+      <div class="call-to-action">
+        <p>
+          Veja o que a Malha Fina da Transparência Brasil encontrou
+        </p>
+        <a routerLink="/alertas">
+          <button
+            class="btn btn-primary"
+            (click)="buscarOnClick()">
+            Ir para Malha Fina
+          </button>
+        </a>
+      </div>
+      <div class="call-to-action">
+        <p>
+          Nesta plataforma, desenvolvida pela
+          <strong>Transparência Brasil</strong>
+          ,
+          é possível acompanhar dados oficiais de licitações e
+          contratos de alimentação das escolas públicas brasileiras.
+        </p>
       </div>
     </div>
   </div>
