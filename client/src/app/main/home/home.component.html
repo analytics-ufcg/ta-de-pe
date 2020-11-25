@@ -13,37 +13,27 @@
 </div>
 <div class="container app-container">
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-7">
       <h1 class="headline text-info">
         Fiscalize a compra de merenda para escolas públicas
       </h1>
-      <div class="call-to-action pesquisa">
-        <app-escolher-municipio></app-escolher-municipio>
-        <span class="text-muted text-small">
-          Disponível por enquanto apenas para o Rio Grande do Sul.
-          <a routerLink="/duvidas">Saiba mais</a>
-        </span>
-      </div>
-      <div class="call-to-action">
-        <p>
-          Veja o que a Malha Fina da Transparência Brasil encontrou
-        </p>
-        <a routerLink="/alertas">
-          <button
-            class="btn btn-primary">
-            Ir para Malha Fina
-          </button>
-        </a>
-      </div>
+    </div>
+    <div class="col-md-6">
       <div class="call-to-action">
         <p>
           Nesta plataforma, desenvolvida pela
-          <strong>Transparência Brasil</strong>
-          ,
-          é possível acompanhar dados oficiais de licitações e
+          <strong>Transparência Brasil</strong>, é
+          possível acompanhar dados oficiais de licitações e
           contratos de alimentação das escolas públicas brasileiras.
         </p>
       </div>
+      <div class="call-to-action pesquisa">
+        <app-escolher-municipio></app-escolher-municipio>
+        <p class="mt-1 ml-1">
+          ou veja o que a <u><a routerLink="/alertas">Malha Fina da Transparência Brasil</a></u> encontrou.
+        </p>
+      </div>
+     
     </div>
   </div>
 </div>
