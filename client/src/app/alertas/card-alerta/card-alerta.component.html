@@ -1,40 +1,37 @@
 <div
-    tabindex="0"
-    role="link"
-    class="card card-callout mb-2"
->
-    <div class="card-body">
-        <div *ngIf="alerta?.id_tipo === 1">
-            <div *ngIf="alerta?.nr_documento">
-                <a [routerLink]="['/fornecedores/' + alerta?.nr_documento]">
-                    <ngb-highlight
-                        *ngIf="alerta?.alertaFornecedor?.nm_pessoa"
-                        [result]="alerta?.alertaFornecedor?.nm_pessoa"
-                    ></ngb-highlight>
-                    <span *ngIf="!alerta?.alertaFornecedor?.nm_pessoa">Nome não encontrado</span>
-                </a>
-                <small class="ml-2">
-                    <ngb-highlight [result]="alerta?.nr_documento | formatCpfCnpj"></ngb-highlight>
-                </small>
-            </div>
-            <div class="mt-2">
-                <h6>{{ alerta?.AlertaTipo?.titulo }}</h6>
-            </div>
-            <p class="card-text text-muted text-right">
-                <span *ngIf="alerta?.id_contrato">
-                    {{ alerta?.alertaContrato?.tipo_instrumento_contrato }}
+  tabindex="0"
+  role="link"
+  class="card card-callout mb-2">
+  <div class="card-body">
+    <div *ngIf="alerta?.id_tipo === 1">
+      <div *ngIf="alerta?.nr_documento">
+        <a [routerLink]="['/fornecedores/' + alerta?.nr_documento]">
+          <ngb-highlight
+            *ngIf="alerta?.alertaFornecedor?.nm_pessoa"
+            [result]="alerta?.alertaFornecedor?.nm_pessoa"></ngb-highlight>
+          <span *ngIf="!alerta?.alertaFornecedor?.nm_pessoa">Nome não encontrado</span>
+        </a>
+        <small class="ml-2">
+          <ngb-highlight [result]="alerta?.nr_documento | formatCpfCnpj"></ngb-highlight>
+        </small>
+      </div>
+      <div class="mt-2">
+        <h6>{{ alerta?.AlertaTipo?.titulo }}</h6>
+      </div>
+      <p class="card-text text-muted text-right">
+        <span *ngIf="alerta?.id_contrato">
+          {{ alerta?.alertaContrato?.tipo_instrumento_contrato }}
                     {{ alerta?.alertaContrato?.nr_contrato }}/{{ alerta?.alertaContrato?.ano_contrato }} em
                     {{ alerta?.alertaContrato?.contratosOrgao?.nome_municipio | titlecase }}
-                </span>
-                <span *ngIf="!alerta?.id_contrato">
-                    {{ alerta?.info_contrato }}
-                    <app-tooltip-ajuda
-                        [posicao]="'top'"
-                        [descricao]="'Este contrato não está presente na base de dados do site por não estar relacionado ao assunto merenda ou compras emergenciais.'"
-                    >
-                    </app-tooltip-ajuda>
-                </span>
-            </p>
-        </div>
+        </span>
+        <span *ngIf="!alerta?.id_contrato">
+          {{ alerta?.info_contrato }}
+          <app-tooltip-ajuda
+            [posicao]="'top'"
+            [descricao]="'Este contrato não está presente na base de dados do site por não estar relacionado ao assunto merenda ou compras emergenciais.'">
+          </app-tooltip-ajuda>
+        </span>
+      </p>
     </div>
+  </div>
 </div>
