@@ -1,4 +1,3 @@
-const tipoNovidade = require("./tipoNovidade");
 
 module.exports = (sequelize, type) => {
     tipoAlerta = sequelize.define(

@@ -33,6 +33,11 @@ module.exports = (sequelize, type) => {
         sourceKey: "nr_documento",
         as: "alertaFornecedor"
       });
+      alerta.belongsTo(models.dadosCadastrais, {
+        foreignKey: "nr_documento",
+        sourceKey: "cnpj",
+        as: "alertaDadosFornecedorReceita"
+      });
     };
   
     return alerta;
