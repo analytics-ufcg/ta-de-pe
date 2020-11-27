@@ -28,7 +28,7 @@
     [result]="r?.descricao"
     [term]="t">
   </ngb-highlight>
-    <span *ngIf="r?.tipoBusca=='MUNICIPIO'">–RS</span>
+    <span *ngIf="r?.tipoBusca=='MUNICIPIO'"> – {{ r?.siglaEstado}}</span>
   <span *ngIf="r?.tipoBusca=='COMPRA' || r?.tipoBusca=='ITEM'">"</span>
   <hr *ngIf="r?.tipoBusca=='ITEM'">
 </ng-template>
