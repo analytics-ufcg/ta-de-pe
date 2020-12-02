@@ -1,21 +1,41 @@
-<div tabindex="0" role="link" class="card card-alert mb-2" [ngClass]="getStyle(alerta?.id_tipo)">
-  <div class="card-body" [routerLink]="alerta?.id_contrato ? '/compras/' + alerta?.id_contrato : null"
+<div
+  tabindex="0"
+  role="link"
+  class="card card-alert mb-2"
+  [ngClass]="getStyle(alerta?.id_tipo)">
+  <div
+    class="card-body"
+    [routerLink]="alerta?.id_contrato ? '/compras/' + alerta?.id_contrato : null"
     [routerLinkActive]="alerta?.id_contrato ? 'is-card-alert-active' : 'is-card-alert-disabled'">
     <div class="text-muted title-border">
-      <small><strong>{{ alerta?.AlertaTipo?.titulo }}</strong></small>
-      <app-tooltip-ajuda *ngIf="!alerta?.id_contrato" [posicao]="'top'"
-      [descricao]="'Este contrato não está presente na base de dados do site por não estar relacionado ao assunto merenda ou compras emergenciais.'">
-    </app-tooltip-ajuda>
+      <small>
+        <strong>{{ alerta?.AlertaTipo?.titulo }}</strong>
+      </small>
+      <app-tooltip-ajuda
+        *ngIf="!alerta?.id_contrato"
+        [posicao]="'top'"
+        [descricao]="'Este contrato não está presente na base de dados do site por não estar relacionado ao assunto merenda ou compras emergenciais.'">
+      </app-tooltip-ajuda>
     </div>
 
-    <div *ngIf="alerta?.nr_documento" class="mb-1 font-weight-bold">
-      <ngb-highlight *ngIf="alerta?.alertaFornecedor?.nm_pessoa" [result]="alerta?.alertaFornecedor?.nm_pessoa">
-      </ngb-highlight>
+    <div
+      *ngIf="alerta?.nr_documento"
+      class="mb-1 font-weight-bold">
+      <span *ngIf="alerta?.id_contrato">
+        Compra {{ alerta?.alertaContrato?.nr_contrato }}/{{ alerta?.alertaContrato?.ano_contrato }} com
+      </span>
 
-      <span *ngIf="!alerta?.alertaFornecedor?.nm_pessoa">O fornecedor sem nome cadastrado </span>
-      (<ngb-highlight [result]="alerta?.nr_documento | formatCpfCnpj"></ngb-highlight>)
-      <span *ngIf="alerta?.id_contrato">em</span>
-      {{ alerta?.alertaContrato?.contratosOrgao?.nome_municipio | titlecase }}
+      <span *ngIf="alerta?.alertaFornecedor?.nm_pessoa">
+        {{ alerta?.alertaFornecedor?.nm_pessoa }}
+      </span>
+      <span *ngIf="!alerta?.alertaFornecedor?.nm_pessoa">fornecedor sem nome cadastrado</span>
+      <small class="font-weight-bold">
+        (<ngb-highlight [result]="alerta?.nr_documento | formatCpfCnpj"></ngb-highlight>)
+      </small>
+
+      <span *ngIf="alerta?.id_contrato">
+        em {{ alerta?.alertaContrato?.contratosOrgao?.nome_municipio | titlecase }}
+      </span>
     </div>
 
     <div *ngIf="alerta?.id_tipo === 1">
@@ -25,7 +45,5 @@
       <app-alerta-item-atipico [alerta]="alerta"></app-alerta-item-atipico>
     </div>
 
-
-    
   </div>
 </div>
