@@ -1,13 +1,10 @@
 <h4 class="my-4 d-block d-sm-none">Linha do Tempo</h4>
-<app-spinner *ngIf="loading$ | async"></app-spinner>
 
 <p [hidden]="!novidades?.length || (loading$ | async) === false">
   Não há novidades no momento.
 </p>
 
-<div [hidden]="novidades?.length || (loading$ | async) === true">
-  <app-spinner *ngIf="loading$ | async"></app-spinner>
-</div>
+<app-spinner *ngIf="loading$ | async"></app-spinner>
 
 <div [hidden]="!novidades?.length">
   <app-filter (filterChange)="search($event)" (dateChange)="alteraNovidades($event)"></app-filter>
