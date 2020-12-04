@@ -60,7 +60,6 @@ export class AlertaService {
       let filtered = true;
 
       let pesquisaNome = a.alertaFornecedor.nm_pessoa + a.alertaFornecedor.nr_documento;
-      const contratacao = filtro;
 
       if (a.alertaContrato !== null) {
         pesquisaNome = pesquisaNome + a.alertaContrato.contratosOrgao.nome_municipio;
