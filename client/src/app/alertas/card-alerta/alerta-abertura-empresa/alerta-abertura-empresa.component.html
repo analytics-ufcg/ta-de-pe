@@ -1,14 +1,16 @@
-
 <div>
-    <span class="text-muted" *ngIf="alerta?.id_contrato">
-        A empresa abriu em {{alerta?.alertaDadosFornecedorReceita.data_inicio_atividade | date: "dd/MM/yyyy"}} e foi contratada 
+  <span
+    class="text-muted"
+    *ngIf="alerta?.id_contrato">
+    A empresa abriu em {{alerta?.alertaDadosFornecedorReceita.data_inicio_atividade | date: "dd/MM/yyyy"}} e foi contratada 
         {{diffAberturaEmpresaContrato(alerta)}} 
         dias depois como fornecedora da compra {{ alerta?.alertaContrato?.nr_contrato }}/{{ alerta?.alertaContrato?.ano_contrato }}.
-    </span>
+  </span>
 
-    <span class="text-muted" *ngIf="!alerta?.id_contrato">
-        A empresa abriu em {{alerta?.alertaDadosFornecedorReceita.data_inicio_atividade | date: "dd/MM/yyyy"}} e foi contratada 
+  <span
+    class="text-muted"
+    *ngIf="!alerta?.id_contrato">
+    A empresa abriu em {{alerta?.alertaDadosFornecedorReceita.data_inicio_atividade | date: "dd/MM/yyyy"}} e foi contratada 
         dias depois como fornecedora de uma compra.
-    </span>
+  </span>
 </div>
-
