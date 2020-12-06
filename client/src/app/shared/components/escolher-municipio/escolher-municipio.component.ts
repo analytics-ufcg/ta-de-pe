@@ -62,6 +62,10 @@ export class EscolherMunicipioComponent implements OnInit, OnDestroy {
     this.buscavelSelecionado = buscavelSelecionado;
   }
 
+  toggleShow() {
+    this.show = !this.show;
+  }
+
   ngOnDestroy() {
     this.unsubscribe.next();
     this.unsubscribe.complete();

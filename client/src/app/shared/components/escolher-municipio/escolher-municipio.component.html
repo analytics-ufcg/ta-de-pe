@@ -2,8 +2,18 @@
   <div class="col-sm-8 mb-1">
     <div class="input-group">
       <app-input-busca-geral
-        [directSearch]="false"
-        (buscavelSelecionadoEvent)="reciverSelecionado($event)"></app-input-busca-geral>
+      class="inp-expandido"
+      [hidden]="!show"
+      (buscavelSelecionadoEvent)="reciverSelecionado($event)"
+      [directSearch]="true"
+      >
+    </app-input-busca-geral>
+    <button
+      class="btn btn-link btn-buscar nav-link"
+      [ngClass]="{'btn-retraido': show}"
+      (click)="toggleShow()">
+      <span class="icon-search"></span>
+    </button>
     </div>
   </div>
 </div>
