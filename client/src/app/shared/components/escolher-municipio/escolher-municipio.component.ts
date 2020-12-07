@@ -27,6 +27,7 @@ export class EscolherMunicipioComponent implements OnInit, OnDestroy {
 
   public buscavelSelecionado: Buscavel;
   private unsubscribe = new Subject();
+  public show = false;
 
   focus$ = new Subject<string>();
   click$ = new Subject<string>();
@@ -60,6 +61,10 @@ export class EscolherMunicipioComponent implements OnInit, OnDestroy {
 
   reciverSelecionado(buscavelSelecionado) {
     this.buscavelSelecionado = buscavelSelecionado;
+  }
+
+  toggleShow() {
+    this.show = !this.show;
   }
 
   ngOnDestroy() {

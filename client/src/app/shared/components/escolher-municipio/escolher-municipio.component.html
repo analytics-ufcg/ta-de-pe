@@ -1,15 +1,19 @@
 <div class="row gutters-sm">
-  <div class="col-sm-8 mb-3">
-    <app-input-busca-geral
-      [directSearch]="false"
-      (buscavelSelecionadoEvent)="reciverSelecionado($event)"></app-input-busca-geral>
-  </div>
-  <div class="col-sm-4 mb-3">
+  <div class="col-sm-8 mb-1">
+    <div class="input-group">
+      <app-input-busca-geral
+      class="inp-expandido"
+      [hidden]="!show"
+      (buscavelSelecionadoEvent)="reciverSelecionado($event)"
+      [directSearch]="true"
+      >
+    </app-input-busca-geral>
     <button
-      class="btn btn-block"
-      [ngClass]="{'btn-secondary': !buscavelSelecionado, 'btn-primary': buscavelSelecionado}"
-      (click)="buscarOnClick()">
-      Acompanhar
+      class="btn btn-link btn-buscar nav-link"
+      [ngClass]="{'btn-retraido': show}"
+      (click)="toggleShow()">
+      <span class="icon-search"></span>
     </button>
+    </div>
   </div>
 </div>

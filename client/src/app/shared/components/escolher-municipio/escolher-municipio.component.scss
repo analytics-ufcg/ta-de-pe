@@ -1,0 +1,36 @@
+.btn-buscar {
+  color: #495057!important;
+  background-color: white;
+  height: calc(1.5em + 0.75rem + 4px);
+  line-height: 1.5pt;
+  margin-right: 5px;
+  padding-left: 3px!important;
+  padding-right: 7px!important;
+
+}
+
+.btn-buscar:after {
+  content: " Busque compras, itens, ou municípios";
+}
+
+.btn-retraido {
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+.btn-retraido:after  {
+  content: none;
+}
+
+.hide-busca {
+  opacity: 0;
+}
+
+.input-group {
+  background: white;
+  border-radius: 0.75rem;
+}
+
+:host::ng-deep.form-control {
+  border: 2px solid white;
+}
