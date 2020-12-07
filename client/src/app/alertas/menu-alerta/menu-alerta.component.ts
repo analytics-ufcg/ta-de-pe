@@ -1,3 +1,5 @@
+import { takeUntil } from 'rxjs/operators';
+import { Subject } from 'rxjs';
 import { TipoAlerta } from './../../shared/models/tipoAlerta.model';
 import { AlertaService } from './../../shared/services/alerta.service';
 import { Alerta } from './../../shared/models/alerta.model';
@@ -12,6 +14,8 @@ export class MenuAlertaComponent implements OnInit {
 
   @Output() alertaFilterChange = new EventEmitter<any>();
 
+  private unsubscribe = new Subject();
+
   alertasDisponiveis;
 
   constructor(private alertaService: AlertaService) { }
@@ -23,6 +27,7 @@ export class MenuAlertaComponent implements OnInit {
   getTiposAlertas() {
     this.alertaService
       .getTiposAlertas()
+      .pipe(takeUntil(this.unsubscribe))
       .subscribe(tiposAlertas => {
         const key = 'id_tipo';
         const tiposAlerta = [...new Map(tiposAlertas.map(item =>
