@@ -86,6 +86,49 @@ a.link-light:visited {
   }
 }
 
+.card-alert {
+  border-left: solid 0.25rem;
+
+  &:hover {
+    cursor: pointer;
+    left:-1px;
+  }
+}
+
+.is-card-alert-disabled {
+  cursor: not-allowed;
+  text-decoration: none;
+}
+
+.is-card-alert-active {
+  border-left: solid 0.25rem;
+}
+
+
+.cor-alerta-abertura-empresa:before{
+  background: $warning; 
+}
+
+.cor-alerta-item-atipico:before{
+  background: $blue; 
+}
+
+.cor-borda-esquerda-abertura-empresa {
+  border-left-color: $warning !important; 
+}
+
+.cor-borda-esquerda-item-atipico {
+  border-left-color: $blue !important; 
+}
+
+.cor-borda-inferior-abertura-empresa {
+  border-bottom-color: $warning !important; 
+}
+
+.cor-borda-inferior-item-atipico {
+  border-bottom-color: $blue !important; 
+}
+
 .text-contratacao {
   color: $success;
 }

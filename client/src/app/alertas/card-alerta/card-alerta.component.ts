@@ -16,4 +16,12 @@ export class CardAlertaComponent implements OnInit {
   ngOnInit() {
   }
 
+  getStyle(idAlerta) {
+    if (1 === idAlerta) {
+      return { 'cor-borda-esquerda-abertura-empresa': true };
+    } else if (2 === idAlerta) {
+      return { 'cor-borda-esquerda-item-atipico': true };
+    }
+  }
+
 }

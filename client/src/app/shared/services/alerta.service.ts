@@ -1,3 +1,4 @@
+import { TipoAlerta } from './../models/tipoAlerta.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -47,8 +48,13 @@ export class AlertaService {
     return this.alertasFiltered.asObservable();
   }
 
+  getTiposAlertas(): Observable<TipoAlerta[]> {
+    return this.http.get<TipoAlerta[]>(this.url + '/tipos');
+  }
+
   private filter(alerta: Alerta[], filtro: any) {
     const pesquisa = filtro.nomePesquisado;
+    const filtrosAlerta = filtro.tiposAlertas;
 
     return alerta.filter(a => {
       let filtered = true;
@@ -61,23 +67,38 @@ export class AlertaService {
 
       pesquisaNome = this.processaNome(pesquisaNome);
 
-      filtered =
-        pesquisa && filtered
+      filtered = pesquisa && filtered
           ? pesquisaNome.includes(this.processaNome(pesquisa))
           : filtered;
-
+      filtered = filtrosAlerta && filtered ? this.isTipoAlertaFiltrado(a.id_tipo, filtrosAlerta) : filtered;
       return filtered;
     });
   }
 
   // Verifica se filtro foi alterado
   private compareFilter(p: any, q: any) {
-    return p.nomePesquisado === q.nomePesquisado;
+    return p.nomePesquisado === q.nomePesquisado &&
+    p.tiposAlertas === q.tiposAlertas;
   }
 
   // Processa string passada removendo acentuação, pontuação e deixando tudo minúsculo.
   private processaNome(nome) {
     return nome.normalize('NFD').replace(/\.|\/|\-/g, '').replace(/[\u0300-\u036f]/g, '').toLowerCase();
+  }
+
+  isTipoAlertaFiltrado(idAlerta: number, idSelecionados: number[]): boolean {
+    return idSelecionados.includes(idAlerta);
+  }
+
+  diffAberturaEmpresaContrato(inicio, fim) {
+    const ONE_DAY = 1000 * 60 * 60 * 24;
+
+    const inicioEmpresa = Date.parse(inicio);
+    const assinaturaContrato = Date.parse(fim);
+
+    const differenceMs = Math.abs(assinaturaContrato - inicioEmpresa);
+
+    return Math.round(differenceMs / ONE_DAY);
   }
 
   search(filtro) {

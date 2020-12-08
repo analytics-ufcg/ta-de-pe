@@ -9,7 +9,7 @@ module.exports = (sequelize, type) => {
         nr_documento: type.STRING,
         id_contrato: type.STRING,
         id_tipo: type.INTEGER,
-        info_contrato: type.STRING
+        info: type.STRING
       },
       {
         freezeTableName: true,
@@ -32,6 +32,11 @@ module.exports = (sequelize, type) => {
         foreignKey: "nr_documento",
         sourceKey: "nr_documento",
         as: "alertaFornecedor"
+      });
+      alerta.belongsTo(models.dadosCadastrais, {
+        foreignKey: "nr_documento",
+        sourceKey: "cnpj",
+        as: "alertaDadosFornecedorReceita"
       });
     };
   

@@ -60,7 +60,7 @@ router.get("/:id", (req, res) => {
       },
       {
         model: alerta,
-        attributes: ["id_contrato", "id_tipo", "info_contrato"],
+        attributes: ["id_contrato", "id_tipo", "info"],
         as: "fornecedorAlerta",
         include: [
           {
