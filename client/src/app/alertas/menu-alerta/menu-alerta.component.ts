@@ -2,15 +2,14 @@ import { takeUntil } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { TipoAlerta } from './../../shared/models/tipoAlerta.model';
 import { AlertaService } from './../../shared/services/alerta.service';
-import { Alerta } from './../../shared/models/alerta.model';
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
 
 @Component({
   selector: 'app-menu-alerta',
   templateUrl: './menu-alerta.component.html',
   styleUrls: ['./menu-alerta.component.scss']
 })
-export class MenuAlertaComponent implements OnInit {
+export class MenuAlertaComponent implements OnInit, OnDestroy {
 
   @Output() alertaFilterChange = new EventEmitter<any>();
 
@@ -64,6 +63,11 @@ export class MenuAlertaComponent implements OnInit {
       }
     });
     this.alertaFilterChange.emit(alertas);
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
 }
