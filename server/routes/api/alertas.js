@@ -38,7 +38,7 @@ router.get("/", (req, res) => {
       },
       {
         model: Fornecedor,
-        attributes: ["nr_documento", "nm_pessoa", "tp_pessoa"],
+        attributes: ["nr_documento", "nm_pessoa", "tp_pessoa", "data_primeiro_contrato"],
         as: "alertaFornecedor",
       },
       {

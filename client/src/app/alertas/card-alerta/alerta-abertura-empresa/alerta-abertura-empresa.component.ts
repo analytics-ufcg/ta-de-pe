@@ -17,7 +17,7 @@ export class AlertaAberturaEmpresaComponent implements OnInit {
 
   diffAberturaEmpresaContrato(alerta) {
     return this.alertaService.diffAberturaEmpresaContrato(alerta.alertaDadosFornecedorReceita.data_inicio_atividade,
-      alerta.alertaContrato.dt_inicio_vigencia);
+      alerta.alertaFornecedor.data_primeiro_contrato);
   }
 
 }
