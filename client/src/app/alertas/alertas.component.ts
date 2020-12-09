@@ -54,6 +54,14 @@ export class AlertasComponent implements OnInit, OnDestroy, AfterContentInit {
         this.alertas = alertas;
         this.loading$.next(false);
       });
+
+    // condições utilizadas para atualizar o menu quando não houver filtros na busca
+    // deve ser removido quando as opções do menu forem adicionadas na URL.
+    if (Object.keys(this.filtros).indexOf('nomePesquisado') !== -1) {
+      if (this.filtros.nomePesquisado === undefined || this.filtros.nomePesquisado === '') {
+        this.search(this.filtros);
+      }
+    }
   }
 
   pageChange(p: number) {
