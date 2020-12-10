@@ -136,6 +136,18 @@ export class InfoContratoComponent implements OnInit {
     return cor(valor);
   }
 
+  isItemAtipico(item, alertas) {
+    let isAtipico = false;
+    alertas.forEach( alerta => {
+      alerta.alertaItens.forEach( itemAtipico => {
+        if (itemAtipico.id_item_contrato === item) {
+          isAtipico = true;
+        }
+      });
+    });
+    return isAtipico;
+  }
+
   defineCor(valor: number): string {
     return (valor >= 0.7 || valor <= -0.7) ? 'white' : 'black';
   }

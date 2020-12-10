@@ -7,4 +7,5 @@ export interface Alerta {
   alertaContrato: any;
   alertaFornecedor: any;
   AlertaTipo: any;
+  itensAtipicos: any[];
 }
