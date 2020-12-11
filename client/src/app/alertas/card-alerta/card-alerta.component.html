@@ -1,21 +1,15 @@
 <div
-  tabindex="0"
-  role="link"
+ 
   class="card card-alert mb-2"
-  [ngClass]="getStyle(alerta?.id_tipo)">
+  [ngClass]="getStyleCard(alerta?.id_tipo)">
   <div
     class="card-body"
-    [routerLink]="alerta?.id_contrato ? '/compras/' + alerta?.id_contrato : null"
-    [routerLinkActive]="alerta?.id_contrato ? 'is-card-alert-active' : 'is-card-alert-disabled'">
+    (click)="onClickCard(alerta?.id_contrato )"
+    [ngClass]="!alerta?.id_contrato ? 'card-alert-disabled' : ''">
     <div class="text-muted title-border">
       <small>
         <strong>{{ alerta?.AlertaTipo?.titulo }}</strong>
       </small>
-      <app-tooltip-ajuda
-        *ngIf="!alerta?.id_contrato"
-        [posicao]="'top'"
-        [descricao]="'Este contrato não está presente na base de dados do site por não estar relacionado ao assunto merenda ou compras emergenciais.'">
-      </app-tooltip-ajuda>
     </div>
 
     <div
@@ -41,9 +35,16 @@
     <div *ngIf="alerta?.id_tipo === 1">
       <app-alerta-abertura-empresa [alerta]="alerta"></app-alerta-abertura-empresa>
     </div>
+
     <div *ngIf="alerta?.id_tipo === 2">
       <app-alerta-item-atipico [alerta]="alerta"></app-alerta-item-atipico>
     </div>
-
+    <ngb-alert [dismissible]="false" type="light" *ngIf="!alerta?.id_contrato" class="container custom-alert-card mt-3 mb-1">
+      <small >
+        <strong>
+          Este contrato não está presente na base de dados do site por estar relacionado a outro contexto.
+        </strong>
+      </small>
+  </ngb-alert>
   </div>
 </div>
