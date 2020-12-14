@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Component, Input, OnInit } from '@angular/core';
 
 import { Alerta } from 'src/app/shared/models/alerta.model';
@@ -11,16 +12,24 @@ export class CardAlertaComponent implements OnInit {
 
   @Input() alerta: Alerta;
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   ngOnInit() {
   }
 
-  getStyle(idAlerta) {
+  getStyleCard(idAlerta) {
     if (1 === idAlerta) {
       return { 'cor-borda-esquerda-abertura-empresa': true };
     } else if (2 === idAlerta) {
       return { 'cor-borda-esquerda-item-atipico': true };
+    }
+  }
+
+
+
+  onClickCard(idContrato) {
+    if (idContrato) {
+      this.router.navigate(['/compras/' + idContrato]);
     }
   }
 

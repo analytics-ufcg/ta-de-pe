@@ -38,6 +38,11 @@ module.exports = (sequelize, type) => {
         sourceKey: "cnpj",
         as: "alertaDadosFornecedorReceita"
       });
+      alerta.hasMany(models.itemAtipico, {
+        foreignKey: "id_alerta",
+        sourceKey: "id_alerta",
+        as: "alertaItens"
+      });
     };
   
     return alerta;

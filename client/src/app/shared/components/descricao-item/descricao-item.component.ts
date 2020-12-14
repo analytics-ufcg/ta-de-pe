@@ -11,6 +11,7 @@ export class DescricaoItemComponent implements OnInit {
 
   @Input() item: ItensContrato;
   @Input() temLink: boolean;
+  @Input() isAtipico = false;
   @Input() itemResumido = true;
   @Input() comUnidade = true;
   @Input() comHighlight = false;
