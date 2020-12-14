@@ -11,7 +11,7 @@ export class ResumirTextoPipe implements PipeTransform {
     if (window.innerWidth >= 1500) {
       tamanho = window.innerWidth / 65;
     } else if (window.innerWidth >= 500) {
-      tamanho = window.innerWidth / 50;
+      tamanho = window.innerWidth / 55;
     }
     const split = descricao.split(/\s+|:|,/);
     let str = '';
