@@ -4,18 +4,6 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Observable, Subject, merge } from 'rxjs';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  takeUntil,
-  take,
-  map,
-  filter
-} from 'rxjs/operators';
-
-import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
-
-import { MunicipioService } from '../../services/municipio.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
@@ -27,7 +15,6 @@ export class EscolherMunicipioComponent implements OnInit, OnDestroy {
 
   public buscavelSelecionado: Buscavel;
   private unsubscribe = new Subject();
-  public show = false;
 
   focus$ = new Subject<string>();
   click$ = new Subject<string>();
@@ -61,10 +48,6 @@ export class EscolherMunicipioComponent implements OnInit, OnDestroy {
 
   reciverSelecionado(buscavelSelecionado) {
     this.buscavelSelecionado = buscavelSelecionado;
-  }
-
-  toggleShow() {
-    this.show = !this.show;
   }
 
   ngOnDestroy() {

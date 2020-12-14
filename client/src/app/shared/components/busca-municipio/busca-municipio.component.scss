@@ -37,7 +37,6 @@
   opacity: 0;
 }
 
-
 .nome {
   display: inline-block;
   margin-right: 1rem;
@@ -69,9 +68,9 @@
 
 .input-group {
   background: white;
-  border-radius: 0.75rem;
+  border-radius: 0.35rem;
 }
 
 :host::ng-deep.form-control {
-  border: 2px solid white;
+  border: 2px solid transparent;
 }

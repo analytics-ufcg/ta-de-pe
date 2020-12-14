@@ -22,9 +22,5 @@ label:focus
     outline: 0px !important;
     -webkit-appearance: none;
     box-shadow: none !important;
-    min-width: calc(0.6em + 20.95rem);
-
-    @media (max-width: 360px) {
-      min-width: calc(0.6em + 17rem);
-    }
+    min-width: 21rem;
 }
