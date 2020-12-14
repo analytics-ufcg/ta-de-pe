@@ -180,9 +180,16 @@ td.numero {
         padding-bottom: 1rem;
         font-size: 1.1rem;
         text-align: left;
+        background-color: #fff;
+        border-color: #fff;
       }
     }
   }
+}
+
+.btn-link {
+  border-color: #fff !important;
+  background-color: #fff !important;
 }
 
 .toggle-wrapper {

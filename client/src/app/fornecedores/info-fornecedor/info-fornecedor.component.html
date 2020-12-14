@@ -54,6 +54,8 @@
       <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
         <div class="dados-linha">
           <strong>Endereço</strong>
+          <app-tooltip-ajuda [posicao]="'top'" [descricao]="'Informação fornecida pela Receita Federal'">
+          </app-tooltip-ajuda>
         </div>
         <div *ngIf="fornecedor?.fornecedorDadosCadastrais?.logradouro" class="dados-linha">
           <span>

@@ -169,7 +169,7 @@
                 ordenavel="ds_item"
                 (ordenar)="onOrdenar($event)"
                 appOrdenavel>
-                Produto
+                Produto/serviço
               </th>
               <th
                 scope="col"
@@ -262,6 +262,7 @@
                   [item]="item"
                   [temLink]="item?.itensSemelhantes?.length > 1 && !item?.servico"></app-descricao-item>
               </td>
+
               <td
                 class="numero align-middle"
                 *ngIf="!radioGroupForm.value['showTotal']">

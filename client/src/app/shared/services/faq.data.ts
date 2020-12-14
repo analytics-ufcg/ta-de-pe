@@ -1,7 +1,7 @@
 /* tslint:disable */
 export const faqsData = [
  {
-   titulo: `O que significam as comparações de preço do Tá de Pé Merenda?`,
+   titulo: `O que significam as comparações de preço do Tá de Pé?`,
    texto: `As comparações têm por objetivo mostrar se a gestão realizou uma compra relativamente econômica ou não. Há dois indicadores de comparação de preço: com demais municípios e com o valor estimado.`
  },
  {
@@ -14,7 +14,7 @@ export const faqsData = [
  },
  {
    titulo: `Como a Transparência Brasil encontra estes dados?`,
-   texto: `Todos os dados usados pelo Tá de Pé Merenda são dados públicos de fontes oficiais. A Transparência Brasil coleta dados em portais dos Tribunais de Contas e por meio da Lei de Acesso à Informação, e apresenta suas próprias análises na plataforma Tá de Pé Merenda. Caso encontre alguma inconsistência nas informações, por favor entre em contato por e-mail no endereço tadepe@transparencia.org.br`
+   texto: `Todos os dados usados pelo Tá de Pé são dados públicos de fontes oficiais. A Transparência Brasil coleta dados em portais dos Tribunais de Contas e por meio da Lei de Acesso à Informação, e apresenta suas próprias análises na plataforma Tá de Pé. Caso encontre alguma inconsistência nas informações, por favor entre em contato por e-mail no endereço tadepe@transparencia.org.br`
  },
  {
    titulo: `Não encontro o meu município no site Tá de Pé, o que devo fazer?`,

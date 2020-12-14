@@ -13,13 +13,6 @@
           [ngClass]="licitacao?.status === 'Com compras' ? 'badge-danger' : 'badge-info'">
           {{ licitacao?.status }}
         </span>
-        <div
-          *ngIf="licitacao?.assunto !== 'merenda'"
-          class="mt-2">
-          <ngb-alert [dismissible]="false">
-            <strong>Atenção</strong>: não temos certeza se essa licitação envolve alimentação escolar. É preciso checar no edital ou no portal de transparência do município.
-          </ngb-alert>
-        </div>
       </div>
     </div>
     <div class="row mt-4">
