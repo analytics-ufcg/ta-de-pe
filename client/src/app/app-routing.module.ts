@@ -37,6 +37,10 @@ const routes: Routes = [
     loadChildren: () => import('./faq/faq.module').then(m => m.FaqModule)
   },
   {
+    path: 'malhaFina',
+    loadChildren: () => import('./alertas/alertas.module').then(m => m.AlertasModule)
+  },
+  {
     path: '',
     loadChildren: () => import('./main/main.module').then(m => m.MainModule)
   }

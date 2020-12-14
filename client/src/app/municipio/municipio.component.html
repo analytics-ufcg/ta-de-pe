@@ -1,6 +1,7 @@
 <div class="view-container">
   <app-barra-titulo
-    [titulo]="municipioEscolhido | titlecase"
+    *ngIf="municipioEscolhido"
+    titulo="{{ municipioEscolhido | titlecase }} – {{ siglaEstadoEscolhido }}"
     [exibirVoltar]="false"></app-barra-titulo>
 
   <div class="container">

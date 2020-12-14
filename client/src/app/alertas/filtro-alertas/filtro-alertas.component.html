@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="row justify-content-md-center">
+    <div class="filtro-wrapper">
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control"
+          id="searchAlerta"
+          placeholder="Buscar município ou fornecedor"
+          [(ngModel)]="nomePesquisado"
+          (ngModelChange)="aplicarFiltro()">
+      </div>
+    </div>
+  </div>
+</div>

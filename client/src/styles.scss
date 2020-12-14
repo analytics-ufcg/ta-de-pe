@@ -86,6 +86,45 @@ a.link-light:visited {
   }
 }
 
+.card-alert {
+  border-left: solid 0.25rem;
+
+  &:hover {
+    cursor: pointer;
+    left: -1px;
+  }
+}
+
+.card-alert-disabled {
+  cursor: default;
+  color: rgb(150, 150, 150) !important;
+  background: rgba(245, 245, 245, 0.185);
+}
+
+.cor-alerta-abertura-empresa:before {
+  background: $warning;
+}
+
+.cor-alerta-item-atipico:before {
+  background: $blue;
+}
+
+.cor-borda-esquerda-abertura-empresa {
+  border-left-color: $warning !important;
+}
+
+.cor-borda-esquerda-item-atipico {
+  border-left-color: $blue !important;
+}
+
+.cor-borda-inferior-abertura-empresa {
+  border-bottom-color: $warning !important;
+}
+
+.cor-borda-inferior-item-atipico {
+  border-bottom-color: $blue !important;
+}
+
 .text-contratacao {
   color: $success;
 }
@@ -291,8 +330,9 @@ th[ordenavel] {
   -webkit-user-select: none;
 }
 
-th[ordenavel].asc:before, th[ordenavel].desc:before {
-  font-family: 'icomoon'!important;
+th[ordenavel].asc:before,
+th[ordenavel].desc:before {
+  font-family: "icomoon" !important;
   display: inline;
 
   font-style: normal;
@@ -306,12 +346,12 @@ th[ordenavel].asc:before, th[ordenavel].desc:before {
   -moz-osx-font-smoothing: grayscale;
 }
 
-th[ordenavel].asc:before {
-  content: '\e90d';
+th[ordenavel].desc:before {
+  content: "\e915";
 }
 
-th[ordenavel].desc:before {
-  content: '\e911';
+th[ordenavel].asc:before {
+  content: "\e919";
 }
 
 .hidden-app {
@@ -319,7 +359,7 @@ th[ordenavel].desc:before {
 }
 
 @media print {
-  /** 
+  /**
   *  Use these for toggling content for print.
   **/
   .visible-print {
@@ -330,7 +370,7 @@ th[ordenavel].desc:before {
     display: none !important;
   }
 
-  .navbar{
+  .navbar {
     position: absolute;
     top: 0;
   }
@@ -341,7 +381,6 @@ th[ordenavel].desc:before {
   }
 
   td {
-    color:black !important;
+    color: black !important;
   }
 }
-

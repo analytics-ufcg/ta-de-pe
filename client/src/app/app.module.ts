@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { SharedModule } from './shared/components/shared.module';
 import { UserService } from './shared/services/user.service';
 import { NovidadeService } from './shared/services/novidade.service';
+import { AlertaService } from './shared/services/alerta.service';
 
 registerLocaleData(localePt);
 
@@ -33,7 +34,8 @@ registerLocaleData(localePt);
     CurrencyPipe,
     { provide: LOCALE_ID, useValue: 'pt'},
     UserService,
-    NovidadeService
+    NovidadeService,
+    AlertaService
   ],
   bootstrap: [AppComponent]
 })
