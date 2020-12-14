@@ -37,7 +37,7 @@ const routes: Routes = [
     loadChildren: () => import('./faq/faq.module').then(m => m.FaqModule)
   },
   {
-    path: 'alertas',
+    path: 'malhaFina',
     loadChildren: () => import('./alertas/alertas.module').then(m => m.AlertasModule)
   },
   {
