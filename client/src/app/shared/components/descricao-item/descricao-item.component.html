@@ -2,7 +2,7 @@
   <app-tooltip-ajuda
     *ngIf="isAtipico"
     [tipo]="'alerta-item'"
-    [descricao]="'Este produto é atípico com base nas atividade econômicas do fornecedor.'"></app-tooltip-ajuda>
+    [descricao]="'Este produto é atípico com base nas atividades econômicas do fornecedor.'"></app-tooltip-ajuda>
   <a
     *ngIf="temLink; else tituloSemLink"
     [routerLink]="['/itens/'+ item.id_item_contrato]">
