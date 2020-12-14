@@ -69,6 +69,12 @@ module.exports = (sequelize, type) => {
           sourceKey: "id_cnae",
           as: "dadosCadastraisCnaeFiscal"
         });
+
+        dadosCadastrais.belongsTo(models.naturezaJuridica, {
+          foreignKey: "codigo_natureza_juridica",
+          sourceKey: "codigo_natureza_juridica",
+          as: "dadosCadastraisNatureza"
+        });
     };
     return dadosCadastrais;
   }

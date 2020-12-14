@@ -22,7 +22,8 @@ router.get("/municipios", (req, res) => {
       [
         Sequelize.fn("DISTINCT", Sequelize.col("nome_municipio")),
         "nome_municipio"
-      ]
+      ],
+      "sigla_estado"
     ],
     where: {
       nome_municipio: {

@@ -1,0 +1,17 @@
+<ul class="unstyled centered">
+  <li
+    *ngFor="let alertaDisponivel of alertasDisponiveis; let i = index;"
+    [ngClass]="getStyle(alertaDisponivel?.idAlerta)">
+    <input
+      class="menu-checkbox"
+      [id]="alertaDisponivel.descricaoAlerta"
+      type="checkbox"
+      [checked]="alertaDisponivel.selected"
+      (change)="changeTipoAlerta(alertaDisponivel, i)">
+    <label
+      [ngClass]="getCheckboxStyle(alertaDisponivel?.idAlerta)"
+      [for]="alertaDisponivel.descricaoAlerta">
+      {{alertaDisponivel.descricaoAlerta}}
+    </label>
+  </li>
+</ul>

@@ -15,12 +15,14 @@ export class MunicipioComponent implements OnInit {
   private unsubscribe = new Subject();
 
   public municipioEscolhido: string;
+  public siglaEstadoEscolhido: string;
 
   constructor(
     private userService: UserService) { }
 
   ngOnInit() {
     this.getMunicipio();
+    this.getSiglaEstado();
   }
 
   getMunicipio() {
@@ -31,6 +33,17 @@ export class MunicipioComponent implements OnInit {
         takeUntil(this.unsubscribe))
       .subscribe(municipio => {
         this.municipioEscolhido = municipio;
+      });
+  }
+
+  getSiglaEstado() {
+    this.userService
+      .getSiglaEstadoEscolhido()
+      .pipe(
+        debounceTime(300),
+        takeUntil(this.unsubscribe))
+      .subscribe(siglaEstado => {
+        this.siglaEstadoEscolhido = siglaEstado;
       });
   }
 

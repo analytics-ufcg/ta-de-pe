@@ -109,6 +109,27 @@
         </div>
       </div>
     </div>
+    
+    <ngb-alert [dismissible]="false" *ngIf="contrato?.contratoAlerta?.length" class="container custom-alert-card">
+      <p class="mt-2 custom-alert-text"><strong>Alertas gerados pela Malha Fina</strong>:</p> 
+      <div class="row mt-2 ml-1 mb-2">
+        <div class="col-lg-12">
+          <div *ngFor="let alerta of contrato?.contratoAlerta">
+            <p *ngIf="alerta?.id_tipo === 1" class="custom-alert-text">
+              <span class="tooltip-base tooltip-warning icon-calendar  mr-1">
+              </span>
+              O fornecedor foi contratado em menos de um mês após a abertura do CNPJ na Receita Federal.
+            </p>
+            <p *ngIf="alerta?.id_tipo === 2" class="custom-alert-text">
+              <span class="tooltip-base tooltip-warning icon-shopping-cart mr-1">
+              </span>
+              A empresa forneceu produtos que não são comuns com base em suas atividades econômicas declaradas na Receita Federal.
+            </p>
+          </div>
+        </div>
+      </div>
+    </ngb-alert>
+
 
     <app-spinner *ngIf="loading$ | async"></app-spinner>
 
@@ -237,8 +258,9 @@
               class="table-item">
               <td class="align-middle descricao">
                 <app-descricao-item
+                  [isAtipico]="isItemAtipico(item.id_item_contrato, contrato?.contratoAlerta)"
                   [item]="item"
-                  [temLink]="item?.itensSemelhantes?.length > 1"></app-descricao-item>
+                  [temLink]="item?.itensSemelhantes?.length > 1 && !item?.servico"></app-descricao-item>
               </td>
               <td
                 class="numero align-middle"
@@ -256,10 +278,15 @@
                 [title]="item.mediana_valor">
                 <div
                   class="pr-3"
-                  *ngIf="item?.itensSemelhantes?.length <= 1; else mostraMedianaEstado">
+                  *ngIf="item?.itensSemelhantes?.length <= 1 || item?.servico; else mostraMedianaEstado">
                   <app-tooltip-ajuda
+                    *ngIf="item?.itensSemelhantes?.length <= 1"
                     [tipo]="'alerta'"
                     [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
+                  <app-tooltip-ajuda
+                    *ngIf="item?.servico"
+                    [tipo]="'alerta'"
+                    [descricao]="'Não realizamos comparações entre serviços, pois eles variam muito em descrição e especificação.'"></app-tooltip-ajuda>
                 </div>
                 <ng-template #mostraMedianaEstado>
                   {{ item.mediana_valor | currency:'':'' }}
@@ -271,10 +298,15 @@
                 [title]="item.mediana_valor * item.qt_itens_contrato">
                 <div
                   class="pr-3"
-                  *ngIf="item?.itensSemelhantes?.length <= 1; else mostraMedianaTotalEstado">
+                  *ngIf="item?.itensSemelhantes?.length <= 1 || item?.servico; else mostraMedianaTotalEstado">
                   <app-tooltip-ajuda
+                    *ngIf="item?.itensSemelhantes?.length <= 1"
                     [tipo]="'alerta'"
                     [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
+                  <app-tooltip-ajuda
+                    *ngIf="item?.servico"
+                    [tipo]="'alerta'"
+                    [descricao]="'Não realizamos comparações entre serviços, pois eles variam muito em descrição e especificação.'"></app-tooltip-ajuda>
                 </div>
                 <ng-template #mostraMedianaTotalEstado>
                   {{ item.mediana_valor * item.qt_itens_contrato | currency:'':'' }}
@@ -283,14 +315,19 @@
               <td
                 class="numero align-middle"
                 [title]="item.mediana_valor"
-                [style.background-color]="item?.itensSemelhantes?.length > 1 ? defineCorFundo(item.percentual_vs_estado) : 'white'"
+                [style.background-color]="item?.itensSemelhantes?.length > 1 && !item?.servico ? defineCorFundo(item.percentual_vs_estado) : 'white'"
                 [style.color]="defineCor(item.percentual_vs_estado)">
                 <div
                   class="pr-3"
-                  *ngIf="item?.itensSemelhantes?.length <= 1; else mostraPercentualEstado">
-                  <app-tooltip-ajuda
+                  *ngIf="item?.itensSemelhantes?.length <= 1 || item?.servico; else mostraPercentualEstado">
+                   <app-tooltip-ajuda
+                    *ngIf="item?.itensSemelhantes?.length <= 1"
                     [tipo]="'alerta'"
                     [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
+                  <app-tooltip-ajuda
+                    *ngIf="item?.servico"
+                    [tipo]="'alerta'"
+                    [descricao]="'Não realizamos comparações entre serviços, pois eles variam muito em descrição e especificação.'"></app-tooltip-ajuda>
                 </div>
                 <ng-template #mostraPercentualEstado>
                   <span *ngIf="item.percentual_vs_estado > 0">+</span>

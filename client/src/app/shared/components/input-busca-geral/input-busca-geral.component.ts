@@ -29,7 +29,7 @@ export class InputBuscaGeralComponent implements OnInit {
 
   private unsubscribe = new Subject();
 
-  public placeholder = 'Busque por compras, itens ou municípios';
+  public placeholder = 'Busque compras, itens, ou municípios';
   public municipios: any[];
   public buscavelSelecionado: Buscavel;
 
@@ -61,7 +61,7 @@ export class InputBuscaGeralComponent implements OnInit {
         this.municipios = municipios.map((response: any) => {
           const nome = response.nome_municipio.split(' ')[0].toLowerCase();
           const tipo = (nome === 'estado') ? TipoBusca.Estado : TipoBusca.Municipio;
-          buscaveis.push(new Buscavel(response.nome_municipio, tipo));
+          buscaveis.push(new Buscavel(response.nome_municipio, tipo, response.sigla_estado));
         });
         this.municipios = buscaveis;
       });
@@ -84,6 +84,7 @@ export class InputBuscaGeralComponent implements OnInit {
     this.buscavelSelecionadoEvent.emit(buscavel);
     if (buscavel.tipoBusca === TipoBusca.Municipio || buscavel.tipoBusca === TipoBusca.Estado) {
       this.userService.setMunicipioEscolhido(buscavel.descricao);
+      this.userService.setSiglaEstadoEscolhido(buscavel.siglaEstado);
     }
 
     if (this.directSearch) {

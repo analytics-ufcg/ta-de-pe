@@ -12,4 +12,12 @@
     placement="{{ posicao }}"
     ngbTooltip="{{ descricao }}">
   </span>
+
+  <span
+    *ngIf="tipo === 'alerta-item'"
+    class="tooltip-base tooltip-alerta-item tooltip-warning icon-shopping-cart"
+    placement="{{ posicao }}"
+    ngbTooltip="{{ descricao }}">
+  </span>
+  
 </div>
