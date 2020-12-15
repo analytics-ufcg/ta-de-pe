@@ -1,8 +1,7 @@
 <div class="descricao">
-  <app-tooltip-ajuda
-    *ngIf="isAtipico"
-    [tipo]="'alerta-item'"
-    [descricao]="'Este produto é atípico com base nas atividades econômicas do fornecedor.'"></app-tooltip-ajuda>
+  
+  
+  
   <a
     *ngIf="temLink; else tituloSemLink"
     [routerLink]="['/itens/'+ item.id_item_contrato]">
@@ -38,4 +37,9 @@
   <span class="text-muted">
     ({{ item.qt_itens_contrato }} {{ item.sg_unidade_medida | lowercase }})
   </span>
+
+  <app-tooltip-ajuda
+    *ngIf="isAtipico"
+    [tipo]="'alerta-item'"
+    [descricao]="'Este produto é atípico com base nas atividades econômicas do fornecedor.'"></app-tooltip-ajuda>
 </div>
