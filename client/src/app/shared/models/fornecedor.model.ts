@@ -6,4 +6,5 @@ export interface Fornecedor {
     data_primeiro_contrato: Date;
     fornecedorDadosCadastrais: any;
     fornecedorCnaesSecundarios: any;
+    fornecedorAlerta: any;
 }

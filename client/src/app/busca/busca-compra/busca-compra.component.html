@@ -2,8 +2,11 @@
     <app-barra-titulo
       [titulo]="'Resultados para &#34;' + termo + '&#34;'"
       [exibirVoltar]="false"></app-barra-titulo>
-  
+
     <div class="container mt-4">
+      <p *ngIf="((contratos$ | async)?.length === 0) && (loading$ | async) === false">
+        Não há compras com este termo.
+      </p>
       <app-spinner *ngIf="loading$ | async"></app-spinner>
       <div *ngIf="(loading$ | async) === false">
         <app-lista-contratos
@@ -11,6 +14,5 @@
           [contratos$]="contratos$"></app-lista-contratos>
       </div>
     </div>
-  
+
   </div>
-  

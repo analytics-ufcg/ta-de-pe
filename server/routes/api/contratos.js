@@ -9,7 +9,9 @@ const models = require("../../models/index");
 const Contrato = models.contrato;
 const Fornecedor = models.fornecedor;
 const Orgao = models.orgao;
-const Licitacao = models.licitacao;
+const Alerta = models.alerta;
+const TipoAlerta = models.tipoAlerta;
+const ItensAtipicos = models.itemAtipico;
 const Novidade = models.novidade;
 const sequelize = models.sequelize;
 
@@ -192,6 +194,23 @@ router.get("/:id", (req, res) => {
             [Op.or]: [6, 9] // 6 (novidade de pagamento) e 9 (novidade de empenho)
           }
         }
+      },
+      {
+        model: Alerta,
+        attributes: ["id_contrato", "id_tipo", "info"],
+        as: "contratoAlerta",
+        include: [
+          {
+            model: TipoAlerta,
+            attributes: ["titulo"],
+            as: "AlertaTipo"
+          },
+          {
+            model: ItensAtipicos,
+            attributes: ["id_item_contrato"],
+            as: "alertaItens"
+          }
+        ]
       }
     ],
     where: {

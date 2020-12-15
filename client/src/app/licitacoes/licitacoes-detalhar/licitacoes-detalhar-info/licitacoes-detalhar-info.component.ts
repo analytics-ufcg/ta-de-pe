@@ -40,7 +40,7 @@ export class LicitacoesDetalharInfoComponent implements OnInit, OnDestroy {
     ).pipe(takeUntil(this.unsubscribe)).subscribe(data => {
       this.licitacao = data[0];
       this.licitacao.qt_contratos = this.licitacao.contratosLicitacao.length;
-      this.licitacao.status = this.licitacao.qt_contratos === 0 ? 'Sem contratos' : 'Com contratos';
+      this.licitacao.status = this.licitacao.qt_contratos === 0 ? 'Sem compras' : 'Com compras';
       this.licitacao.vl_contratado = this.licitacao.contratosLicitacao
         .reduce((sum, contrato) => sum + contrato.vl_contrato, 0);
       const novidadesLicitacao = data[1];

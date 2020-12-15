@@ -4,18 +4,6 @@ import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { Observable, Subject, merge } from 'rxjs';
-import {
-  debounceTime,
-  distinctUntilChanged,
-  takeUntil,
-  take,
-  map,
-  filter
-} from 'rxjs/operators';
-
-import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
-
-import { MunicipioService } from '../../services/municipio.service';
 import { UserService } from '../../services/user.service';
 
 @Component({
