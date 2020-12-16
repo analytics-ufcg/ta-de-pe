@@ -19,9 +19,10 @@
         <div class="col-13 col-sm-13 col-md-8">
           <app-filtro-alertas (filterChange)="search($event)"></app-filtro-alertas>
           <div class="d-flex flex-row-reverse">
-            <small *ngIf="alertas?.length !== 0" class="text-secondary">{{alertas?.length}} alertas encontrados</small>
+            <small *ngIf="alertas?.length !== 1" class="text-secondary">{{alertas?.length}} alertas encontrados</small>
+            <small *ngIf="alertas?.length === 1" class="text-secondary">{{alertas?.length}} alerta encontrado</small>
           </div>
-          
+
           <div *ngIf="alertas?.length === 0">Nenhum alerta encontrado.</div>
           <div>
             <app-card-alerta
