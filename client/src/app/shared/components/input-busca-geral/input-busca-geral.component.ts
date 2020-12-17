@@ -32,7 +32,7 @@ export class InputBuscaGeralComponent implements OnInit {
   public placeholder = 'Busque compras, itens, ou municípios';
   public municipios: any[];
   public buscavelSelecionado: Buscavel;
-  public termoPesquisado:string = '';
+  public termoPesquisado = '';
 
   @Input() directSearch: boolean;
   @Output() buscavelSelecionadoEvent = new EventEmitter();
