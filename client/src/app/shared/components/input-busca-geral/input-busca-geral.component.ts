@@ -32,6 +32,7 @@ export class InputBuscaGeralComponent implements OnInit {
   public placeholder = 'Busque compras, itens, ou municípios';
   public municipios: any[];
   public buscavelSelecionado: Buscavel;
+  public termoPesquisado:string = '';
 
   @Input() directSearch: boolean;
   @Output() buscavelSelecionadoEvent = new EventEmitter();
@@ -129,7 +130,11 @@ export class InputBuscaGeralComponent implements OnInit {
         this.router.navigate(['busca/item'], { queryParams: { termo: buscavel.descricao }});
       }
     }
+    this.limpaInputPesquisa();
   }
 
+  limpaInputPesquisa() {
+    this.termoPesquisado = null;
+  }
 
 }
