@@ -1,11 +1,13 @@
-.tooltip-base {
-  border-radius: 100%;
-  color: white;
+
+.custom-alert-card {
+  padding: 0.1rem 1.25rem !important;
 }
 
-.tooltip-warning {
-  color: #adb5bd!important;
-  padding-left: 2px;
-  padding-right: 2px;
-  font-size: 1.1rem;
+.custom-alert-text {
+  margin-top: 0;
+  margin-bottom: 0.4rem;
+}
+
+.cursor-pointer{
+  cursor: pointer;
 }
