@@ -1,9 +1,15 @@
 <div class="view-container">
   <app-barra-titulo
-    titulo="Malha Fina da Transparência Brasil"
+    titulo="Malha Fina"
     [exibirVoltar]="true"></app-barra-titulo>
 
   <app-spinner *ngIf="loading$ | async"></app-spinner>
+
+  <div class="container">
+      <p class="pl-3 pt-3">
+        A Malha Fina da Transparência Brasil é uma seleção de compras e contratos pouco comuns que merecem um olhar com atenção.
+      </p>
+  </div>
 
   <div
     [hidden]="loading$ | async"
