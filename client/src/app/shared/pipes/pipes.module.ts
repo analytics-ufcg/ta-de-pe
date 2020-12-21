@@ -5,13 +5,15 @@ import { InitialCasePipe } from './initial-case.pipe';
 import { FormatCpfCnpjPipe } from './format-cpf-cnpj.pipe';
 import { ResumirTextoPipe } from './resumir-texto.pipe';
 import { TermosImportantesPipe } from './termos-importantes.pipe';
+import { FilterUniqueAlertasPipe } from './filter-unique-alertas.pipe';
 
 @NgModule({
   declarations: [
     InitialCasePipe,
     FormatCpfCnpjPipe,
     ResumirTextoPipe,
-    TermosImportantesPipe
+    TermosImportantesPipe,
+    FilterUniqueAlertasPipe
   ],
   imports: [
     CommonModule
@@ -20,7 +22,8 @@ import { TermosImportantesPipe } from './termos-importantes.pipe';
     InitialCasePipe,
     FormatCpfCnpjPipe,
     ResumirTextoPipe,
-    TermosImportantesPipe
+    TermosImportantesPipe,
+    FilterUniqueAlertasPipe
   ]
 })
 export class PipesModule { }

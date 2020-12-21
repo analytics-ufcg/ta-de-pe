@@ -19,5 +19,9 @@ export const faqsData = [
  {
    titulo: `Não encontro o meu município no site Tá de Pé, o que devo fazer?`,
    texto: `Nesta primeira fase do projeto, estamos divulgando apenas os contratos, licitações e empenhos dos municípios do Rio Grande do Sul, cujo Tribunal de Contas do Estado apresenta melhores dados, especificamente o preço por item contratado, que permite realizar análises comparativas. Infelizmente, esta não é a realidade dos dados de contratação apresentadas pelos demais estados. Ainda assim apresentaremos em breve análises com dados de outros estados. Precisaremos do apoio de indivíduos para abrir essas informações. Se você tem interesse em ajudar para que possamos oferecer a análise, entre em contato por e-mail no endereço tadepe@transparencia.org.br, informando seu município e estado.`
+ },
+ {
+   titulo: `O que é a Malha Fina da Transparência Brasil?`,
+   texto: `A Malha Fina é uma seleção de compras em que detectamos algo incomum. Podem ser produtos fora da área de atuação da empresa vendedora ou empresas fundadas logo antes da contratação com o poder público. A seleção é feita de forma automática com base no cadastro das empresas na Receita Federal e como elas definem suas atividades segundo a Classificação Nacional de Atividades Econômicas. A Malha Fina facilita a identificação de compras públicas atípicas, mas não é capaz de indicar, por si só, irregularidades, cabendo ao cidadão explorar o contexto das informações fornecidas.`
  }
 ];
