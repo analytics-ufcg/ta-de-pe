@@ -2,7 +2,7 @@ import { DecimalPipe } from '@angular/common';
 import { EventoOrd } from './../../shared/models/lista.model';
 import { OrdenavelDirective } from 'src/app/shared/directives/ordenavel.directive';
 import { take, takeUntil, map } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Component, OnInit, ViewChildren, QueryList, SimpleChanges } from '@angular/core';
 
@@ -27,6 +27,7 @@ export class InfoFornecedorComponent implements OnInit {
   public showAtividades = 5;
 
   constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private fornecedorService: FornecedorService,
     public listaService: ListaContratosFornecedorService
@@ -88,6 +89,12 @@ export class InfoFornecedorComponent implements OnInit {
       this.showAtividades = this.fornecedor.fornecedorCnaesSecundarios.length;
     } else {
       this.showAtividades = 5;
+    }
+  }
+
+  onClickAlerta(idFornecedor) {
+    if (idFornecedor) {
+      this.router.navigate(['/malhaFina'], { queryParams: {search: idFornecedor, page: 1}});
     }
   }
 

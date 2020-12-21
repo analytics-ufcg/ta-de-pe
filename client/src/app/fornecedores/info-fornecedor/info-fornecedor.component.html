@@ -206,30 +206,25 @@
     </div>
   </div>
 
-  <div *ngIf="fornecedor?.fornecedorAlerta?.length" class="container">
-    <h4 class="titulo-sessao mt-2">Alertas</h4>
-    <div class="row">
+  <ngb-alert [dismissible]="false" *ngIf="fornecedor?.fornecedorAlerta?.length" class="container custom-alert-card">
+    <p class="mt-2 custom-alert-text"><strong>Alertas gerados pela Malha Fina</strong>:</p>
+    <div class="row mt-2 ml-1 mb-2">
       <div class="col-lg-12">
-        <div *ngFor="let alerta of fornecedor?.fornecedorAlerta">
-          <p *ngIf="alerta?.id_tipo === 1">
-            <span class="tooltip-base tooltip-warning icon-calendar">
+        <div *ngFor="let alerta of fornecedor?.fornecedorAlerta | filterUniqueAlertas">
+          <p *ngIf="alerta?.id_tipo === 1" class="custom-alert-text cursor-pointer" (click)="onClickAlerta(fornecedor?.nr_documento)">
+            <span class="tooltip-base tooltip-warning icon-calendar  mr-1">
             </span>
-            {{ alerta?.AlertaTipo?.titulo }}
-            <span *ngIf="alerta?.id_contrato">Veja a
-              <a [routerLink]="['/compras/' + alerta?.id_contrato]">
-                compra</a>.
+            O fornecedor foi contratado em menos de um mês após a abertura do CNPJ na Receita Federal.
+          </p>
+          <p *ngIf="alerta?.id_tipo === 2" class="custom-alert-text cursor-pointer" (click)="onClickAlerta(fornecedor?.nr_documento)">
+            <span class="tooltip-base tooltip-warning icon-shopping-cart mr-1">
             </span>
-            <span *ngIf="!alerta?.id_contrato">
-              O {{ alerta?.info }} não é monitorado pelo Tá de Pé por não pertencer ao contexto de Merenda nem de Compras Emergenciais.
-            </span>
-            <app-tooltip-ajuda [posicao]="'top'"
-              [descricao]="'Foi contratado em menos de um mês após a abertura do CNPJ na Receita Federal.'">
-            </app-tooltip-ajuda>
+            A empresa forneceu produtos que não são comuns com base em suas atividades econômicas declaradas na Receita Federal.
           </p>
         </div>
       </div>
     </div>
-  </div>
+  </ngb-alert>
 
   <div class="container">
     <h4 class="titulo-sessao mt-4">Compras</h4>
