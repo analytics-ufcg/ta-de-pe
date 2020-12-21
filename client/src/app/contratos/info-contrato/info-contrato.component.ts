@@ -106,6 +106,11 @@ export class InfoContratoComponent implements OnInit {
                         / item.vl_unitario_estimado;
                       return item;
                     })
+                  ).pipe(
+                    map(itemComAlerta => {
+                      itemComAlerta.alertaAtipico = this.getAlertaAtipico(itemComAlerta);
+                      return itemComAlerta;
+                    })
                   );
               }),
               reduce((acc: Array<any>, element: any) => [...acc, element], [])
@@ -136,18 +141,19 @@ export class InfoContratoComponent implements OnInit {
     return cor(valor);
   }
 
-  isItemAtipico(item, alertas) {
-    let isAtipico = false;
+  getAlertaAtipico(item) {
+    const alertas = this.contrato.contratoAlerta;
+    let alertaAtipico;
     if (alertas) {
       alertas.forEach(alerta => {
         alerta.alertaItens.forEach(itemAtipico => {
-          if (itemAtipico.id_item_contrato === item) {
-            isAtipico = true;
+          if (itemAtipico.id_item_contrato === item.id_item_contrato) {
+            alertaAtipico = itemAtipico;
           }
         });
       });
     }
-    return isAtipico;
+    return alertaAtipico;
   }
 
   defineCor(valor: number): string {
