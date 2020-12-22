@@ -1,7 +1,7 @@
 <div class="descricao">
-  
-  
-  
+
+
+
   <a
     *ngIf="temLink; else tituloSemLink"
     [routerLink]="['/itens/'+ item.id_item_contrato]">
@@ -42,10 +42,10 @@
     class="hidden-print"
     *ngIf="item.alertaAtipico"
     [tipo]="'alerta-item'"
-    [descricao]="'Este produto já foi fornecido '+ item.alertaAtipico?.total_vendas_item + ' vezes, mas só em apenas '+ formatProp(item.alertaAtipico?.perc_vendas_semelhantes) +'% dos casos por empresas com essas atividades econômicas.'"></app-tooltip-ajuda>
+    [descricao]="'De acordo com nossos dados, este produto foi fornecido '+ item.alertaAtipico?.total_vendas_item + ' vezes, mas apenas '+ item.alertaAtipico?.n_vendas_semelhantes + ' vez(es) (' + formatProp(item.alertaAtipico?.perc_vendas_semelhantes) +'% dos casos) por empresas com essas atividades econômicas.'"></app-tooltip-ajuda>
 
     <ngb-alert [dismissible]="false" *ngIf="item.alertaAtipico" class="custom-alert-card hidden-app visible-print pt-1 mt-1">
       <span class="tooltip-base tooltip-warning icon-shopping-cart mr-1"></span>
-      Este produto já foi fornecido {{item.alertaAtipico?.total_vendas_item}} vezes, mas só em apenas {{formatProp(item.alertaAtipico?.perc_vendas_semelhantes)}} % dos casos por empresas com essas atividades econômicas.
+      De acordo com nossos dados, este produto foi fornecido {{item.alertaAtipico?.total_vendas_item}} vezes, mas apenas {{item.alertaAtipico?.n_vendas_semelhantes}} vez(es) ({{formatProp(item.alertaAtipico?.perc_vendas_semelhantes)}} % dos casos) por empresas com essas atividades econômicas.
     </ngb-alert>
 </div>
