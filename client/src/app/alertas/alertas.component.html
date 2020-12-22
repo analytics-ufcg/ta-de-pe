@@ -1,9 +1,15 @@
 <div class="view-container">
   <app-barra-titulo
-    titulo="Malha Fina da Transparência Brasil"
+    titulo="Malha Fina"
     [exibirVoltar]="true"></app-barra-titulo>
 
   <app-spinner *ngIf="loading$ | async"></app-spinner>
+
+  <div class="container">
+      <p class="pl-3 pt-3">
+        A Malha Fina da Transparência Brasil é uma seleção de compras e contratos pouco comuns que merecem um olhar com atenção.
+      </p>
+  </div>
 
   <div
     [hidden]="loading$ | async"
@@ -19,9 +25,10 @@
         <div class="col-13 col-sm-13 col-md-8">
           <app-filtro-alertas (filterChange)="search($event)"></app-filtro-alertas>
           <div class="d-flex flex-row-reverse">
-            <small *ngIf="alertas?.length !== 0" class="text-secondary">{{alertas?.length}} alertas encontrados</small>
+            <small *ngIf="alertas?.length !== 1" class="text-secondary">{{alertas?.length}} alertas encontrados</small>
+            <small *ngIf="alertas?.length === 1" class="text-secondary">{{alertas?.length}} alerta encontrado</small>
           </div>
-          
+
           <div *ngIf="alertas?.length === 0">Nenhum alerta encontrado.</div>
           <div>
             <app-card-alerta

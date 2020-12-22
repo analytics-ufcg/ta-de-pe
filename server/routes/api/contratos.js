@@ -207,7 +207,7 @@ router.get("/:id", (req, res) => {
           },
           {
             model: ItensAtipicos,
-            attributes: ["id_item_contrato"],
+            attributes: ["id_item_contrato", "total_vendas_item", "n_vendas_semelhantes", "perc_vendas_semelhantes"],
             as: "alertaItens"
           }
         ]
