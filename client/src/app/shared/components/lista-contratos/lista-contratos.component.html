@@ -64,7 +64,7 @@
           <td>
             <div>
               <a [routerLink]="['/compras/' + contrato.id_contrato]">
-                <span *ngIf="contrato.tipo_instrumento_contrato === 'Compra'">Compra sem contrato</span>
+                <span *ngIf="contrato.tipo_instrumento_contrato === 'Compra'">Compra sem número de contrato</span>
                 <span *ngIf="contrato.tipo_instrumento_contrato === 'Contrato'">
                   <ngb-highlight
                     [result]="'Contrato ' + contrato.nr_contrato + '/' + (contrato.dt_inicio_vigencia | date:'y')"
