@@ -10,7 +10,7 @@
   </div>
   <div *ngIf="contrato?.tipo_instrumento_contrato !== 'Compra'">
     <app-barra-titulo
-      [titulo]="'Contrato ' + contrato?.nr_contrato + '/' + contrato?.ano_contrato"
+      [titulo]="'Contrato nº ' + contrato?.nr_contrato + '/' + contrato?.ano_contrato"
       [subtitulo]="contrato?.nm_orgao"
       [exibirVoltar]="true"></app-barra-titulo>
   </div>

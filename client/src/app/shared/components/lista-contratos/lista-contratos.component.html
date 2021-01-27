@@ -67,7 +67,7 @@
                 <span *ngIf="contrato.tipo_instrumento_contrato === 'Compra'">Sem contrato</span>
                 <span *ngIf="contrato.tipo_instrumento_contrato === 'Contrato'">
                   <ngb-highlight
-                    [result]="'Contrato ' + contrato.nr_contrato + '/' + (contrato.dt_inicio_vigencia | date:'y')"
+                    [result]="'Contrato nº ' + contrato.nr_contrato + '/' + (contrato.dt_inicio_vigencia | date:'y')"
                     [term]="listaService.termoBusca"></ngb-highlight>
                 </span>
               </a>
