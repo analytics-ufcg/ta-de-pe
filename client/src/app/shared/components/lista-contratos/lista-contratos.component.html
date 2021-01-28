@@ -65,6 +65,10 @@
             <div>
               <a [routerLink]="['/compras/' + contrato.id_contrato]">
                 <span *ngIf="contrato.tipo_instrumento_contrato === 'Compra'">Sem contrato</span>
+                <app-tooltip-ajuda
+                  *ngIf="contrato.tipo_instrumento_contrato === 'Compra'"
+                  [tipo]="'info'"
+                  [descricao]="'Contratação realizada por meio de dispensa de licitação.'"></app-tooltip-ajuda>
                 <span *ngIf="contrato.tipo_instrumento_contrato === 'Contrato'">
                   <ngb-highlight
                     [result]="'Contrato ' + contrato.nr_contrato + '/' + (contrato.dt_inicio_vigencia | date:'y')"
