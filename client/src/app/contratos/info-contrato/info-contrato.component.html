@@ -34,7 +34,7 @@
           </div>
           <div class="dados-linha">
             <a [routerLink]="['/fornecedores/' + contrato?.nr_documento_contratado]">
-              {{ contrato?.contratoFornecedor?.nm_pessoa }}
+              {{ contrato?.contratoFornecedor?.nm_pessoa ? contrato?.contratoFornecedor?.nm_pessoa : 'Pessoa física (nome não divulgado)' }}
             </a>
             <br>
             ({{ contrato?.nr_documento_contratado | formatCpfCnpj }})
