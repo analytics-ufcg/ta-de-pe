@@ -110,22 +110,20 @@
       </div>
     </div>
 
-    <ngb-alert [dismissible]="false" *ngIf="contrato?.contratoAlerta?.length" class="container custom-alert-card">
-      <p class="mt-2 custom-alert-text"><strong>Alertas gerados pela Malha Fina</strong>:</p>
+    <ngb-alert [dismissible]="false" *ngIf="contrato?.contratoAlerta?.id_tipo" class="container custom-alert-card">
+      <p class="mt-2 custom-alert-text"><strong>Alerta gerado pela Malha Fina</strong>:</p>
       <div class="row mt-2 ml-1 mb-2">
         <div class="col-lg-12">
-          <div *ngFor="let alerta of contrato?.contratoAlerta">
-            <p *ngIf="alerta?.id_tipo === 1" class="custom-alert-text">
+            <p *ngIf="contrato?.contratoAlerta?.id_tipo === 1" class="custom-alert-text">
               <span class="tooltip-base tooltip-warning icon-alert-triangle  mr-1">
               </span>
               O fornecedor foi contratado em menos de um mês após a abertura do CNPJ na Receita Federal.
             </p>
-            <p *ngIf="alerta?.id_tipo === 2" class="custom-alert-text">
+            <p *ngIf="contrato?.contratoAlerta?.id_tipo === 2" class="custom-alert-text">
               <span class="tooltip-base tooltip-warning icon-alert-triangle mr-1">
               </span>
               A empresa forneceu produtos que não são comuns com base em suas atividades econômicas declaradas na Receita Federal.
             </p>
-          </div>
         </div>
       </div>
     </ngb-alert>

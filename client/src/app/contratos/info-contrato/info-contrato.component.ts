@@ -65,6 +65,7 @@ export class InfoContratoComponent implements OnInit {
       this.itensService.getByContrato(id)
     ).subscribe(data => {
       this.contrato = data[0];
+      console.log(this.contrato);
       const itensContrato = data[1];
 
       // Calcula valor contratado
@@ -142,15 +143,13 @@ export class InfoContratoComponent implements OnInit {
   }
 
   getAlertaAtipico(item) {
-    const alertas = this.contrato.contratoAlerta;
+    const alerta = this.contrato.contratoAlerta;
     let alertaAtipico;
-    if (alertas) {
-      alertas.forEach(alerta => {
-        alerta.alertaItens.forEach(itemAtipico => {
-          if (itemAtipico.id_item_contrato === item.id_item_contrato) {
+    if (alerta) {
+      alerta.alertaItens.forEach(itemAtipico => {
+        if (itemAtipico.id_item_contrato === item.id_item_contrato) {
             alertaAtipico = itemAtipico;
-          }
-        });
+        }
       });
     }
     return alertaAtipico;
