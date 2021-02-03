@@ -17,6 +17,8 @@ router.get("/", (req, res) => {
 });
 
 router.get("/municipios", (req, res) => {
+  const termo = req.query.termo;
+
   Orgaos.findAll({
     attributes: [
       [
@@ -26,9 +28,16 @@ router.get("/municipios", (req, res) => {
       "sigla_estado"
     ],
     where: {
-      nome_municipio: {
-        [Op.ne]: null
+      [Op.or]: {
+        nome_municipio: {
+          [Op.ne]: null,
+          [Op.like]: '%'.concat(termo).concat('%')
+        },
+        sigla_estado: {
+          [Op.like]: '%'.concat(termo).concat('%')
+        }
       }
+      
     }
   })
     .then(municipios => res.status(SUCCESS).json(municipios))
