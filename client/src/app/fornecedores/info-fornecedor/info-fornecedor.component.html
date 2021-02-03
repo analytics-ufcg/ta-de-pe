@@ -1,6 +1,6 @@
 <div class="view-container" *ngIf="fornecedor">
   <app-barra-titulo [titulo]="
-      fornecedor?.nm_pessoa ? fornecedor?.nm_pessoa : 'Nome não encontrado'
+      fornecedor?.nm_pessoa ? fornecedor?.nm_pessoa : 'Pessoa física (nome não divulgado)'
     " [subtitulo]="fornecedor.nr_documento | formatCpfCnpj" [exibirVoltar]="true">
   </app-barra-titulo>
 
@@ -274,7 +274,7 @@
               ">
               <td class="text-center">
                 <a [routerLink]="['/contratos/' + contrato.id_contrato]">
-                  <ngb-highlight [result]="contrato.nr_contrato" [term]="listaService.termoBusca"></ngb-highlight>
+                  nº <ngb-highlight [result]="contrato.nr_contrato" [term]="listaService.termoBusca"></ngb-highlight>
                 </a>
               </td>
               <td>
