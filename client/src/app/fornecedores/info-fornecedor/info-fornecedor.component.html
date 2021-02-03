@@ -9,9 +9,9 @@
     <div class="row mt-4">
       <div class="col-sm-6 col-md-6 col-lg-3 mb-4">
         <div class="dados-linha">
-          <strong>Data da primeira compra</strong>
+          <strong>Data do primeiro contrato</strong>
           <app-tooltip-ajuda [posicao]="'top'" [descricao]="
-              'Data em que o fornecedor teve sua primeira compra com uma prefeitura ou outros órgãos públicos no estado.'
+              'Data em que o fornecedor teve seu primeiro contrato com uma prefeitura ou outros órgãos públicos no estado.'
             ">
           </app-tooltip-ajuda>
         </div>
@@ -22,10 +22,10 @@
 
       <div class="col-sm-6 col-md-6 col-lg-3 mb-4">
         <div class="dados-linha">
-          <strong>Total de compras</strong>
+          <strong>Total de contratos</strong>
 
           <app-tooltip-ajuda [posicao]="'top'" [descricao]="
-              'Quantidade de compras fechadas entre este fornecedor e órgãos públicos no estado.'
+              'Quantidade de contratos fechados entre este fornecedor e órgãos públicos no estado.'
             ">
           </app-tooltip-ajuda>
         </div>
@@ -227,12 +227,12 @@
   </ngb-alert>
 
   <div class="container">
-    <h4 class="titulo-sessao mt-4">Compras</h4>
+    <h4 class="titulo-sessao mt-4">Contratos</h4>
     <div class="row">
       <div class="col-lg-6">
         <form>
           <div class="form-group">
-            <input class="form-control" type="text" placeholder="Buscar nas compras..." name="termoBusca"
+            <input class="form-control" type="text" placeholder="Buscar nos contratos..." name="termoBusca"
               [(ngModel)]="listaService.termoBusca">
           </div>
         </form>
@@ -248,7 +248,7 @@
             <tr>
               <th scope="col" class="text-center th-medio" ordenavel="nr_contrato" (ordenar)="onOrdenar($event)"
                 appOrdenavel>
-                Compra
+                Contrato
               </th>
               <th scope="col" class="th-espacoso" ordenavel="descricao_objeto_contrato" (ordenar)="onOrdenar($event)"
                 appOrdenavel>
@@ -273,7 +273,7 @@
                 index as i
               ">
               <td class="text-center">
-                <a [routerLink]="['/compras/' + contrato.id_contrato]">
+                <a [routerLink]="['/contratos/' + contrato.id_contrato]">
                   nº <ngb-highlight [result]="contrato.nr_contrato" [term]="listaService.termoBusca"></ngb-highlight>
                 </a>
               </td>

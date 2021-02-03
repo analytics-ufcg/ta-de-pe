@@ -5,7 +5,7 @@
 
     <div class="container mt-4">
       <p *ngIf="((contratos$ | async)?.length === 0) && (loading$ | async) === false">
-        Não há compras com este termo.
+        Não há contratos com este termo.
       </p>
       <app-spinner *ngIf="loading$ | async"></app-spinner>
       <div *ngIf="(loading$ | async) === false">
