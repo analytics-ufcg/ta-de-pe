@@ -50,10 +50,10 @@ router.get("/municipios/busca", (req, res) => {
       [Op.or]: {
         nome_municipio: {
           [Op.ne]: null,
-          [Op.like]: '%'.concat(termo).concat('%')
+          [Op.iLike]: '%'.concat(termo).concat('%')
         },
         sigla_estado: {
-          [Op.like]: '%'.concat(termo).concat('%')
+          [Op.iLike]: '%'.concat(termo).concat('%')
         }
       }
       
