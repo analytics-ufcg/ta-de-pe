@@ -29,7 +29,7 @@ export class InputBuscaGeralComponent implements OnInit {
 
   private unsubscribe = new Subject();
 
-  public placeholder = 'Busque contratos, itens, ou municípios';
+  public placeholder = 'Busque municípios, produtos ou contratos';
   public municipios: any[];
   public buscavelSelecionado: Buscavel;
   public termoPesquisado = '';
@@ -109,8 +109,8 @@ export class InputBuscaGeralComponent implements OnInit {
             const buscaveisTemp = this.municipios.filter(v =>
               v.descricao.toLowerCase().indexOf(term.toLowerCase()) > -1
             ).slice(0, 4);
-            buscaveisTemp.unshift (new Buscavel(term, TipoBusca.Item));
             buscaveisTemp.unshift (new Buscavel(term, TipoBusca.Compra));
+            buscaveisTemp.unshift (new Buscavel(term, TipoBusca.Item));
             return buscaveisTemp;
         } else {
           return [];
@@ -125,9 +125,9 @@ export class InputBuscaGeralComponent implements OnInit {
       if (buscavel.tipoBusca === TipoBusca.Municipio || buscavel.tipoBusca === TipoBusca.Estado) {
         this.router.navigate(['municipio']);
       } else if (buscavel.tipoBusca === TipoBusca.Compra) {
-        this.router.navigate(['busca/compra'], { queryParams: { termo: buscavel.descricao }});
+        this.router.navigate(['busca/contrato'], { queryParams: { termo: buscavel.descricao }});
       } else if (buscavel.tipoBusca === TipoBusca.Item) {
-        this.router.navigate(['busca/item'], { queryParams: { termo: buscavel.descricao }});
+        this.router.navigate(['busca/produto'], { queryParams: { termo: buscavel.descricao }});
       }
     }
     this.limpaInputPesquisa();
