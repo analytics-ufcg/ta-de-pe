@@ -29,7 +29,7 @@ export class CardAlertaComponent implements OnInit {
 
   onClickCard(idContrato) {
     if (idContrato) {
-      this.router.navigate(['/compras/' + idContrato]);
+      this.router.navigate(['/contratos/' + idContrato]);
     }
   }
 

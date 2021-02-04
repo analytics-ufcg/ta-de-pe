@@ -22,7 +22,7 @@
             ordenavel="nr_contrato"
             (ordenar)="onOrdenar($event)"
             appOrdenavel>
-            Compra
+            Contrato
           </th>
           <th
             scope="col"
@@ -63,11 +63,11 @@
         <tr *ngFor="let contrato of listaService.dadosProcessados$ | async; index as i">
           <td>
             <div>
-              <a [routerLink]="['/compras/' + contrato.id_contrato]">
-                <span *ngIf="contrato.tipo_instrumento_contrato === 'Compra'">Sem contrato</span>
+              <a [routerLink]="['/contratos/' + contrato.id_contrato]">
+                <span *ngIf="contrato.tipo_instrumento_contrato === 'Compra'">Compra sem número de contrato</span>
                 <span *ngIf="contrato.tipo_instrumento_contrato === 'Contrato'">
                   <ngb-highlight
-                    [result]="'Contrato ' + contrato.nr_contrato + '/' + (contrato.dt_inicio_vigencia | date:'y')"
+                    [result]="'Contrato nº ' + contrato.nr_contrato + '/' + (contrato.dt_inicio_vigencia | date:'y')"
                     [term]="listaService.termoBusca"></ngb-highlight>
                 </span>
               </a>
@@ -86,7 +86,7 @@
                   *ngIf="contrato.nm_fornecedor"
                   [result]="contrato.nm_fornecedor"
                   [term]="listaService.termoBusca"></ngb-highlight>
-                <span *ngIf="!contrato.nm_fornecedor">Nome não encontrado</span>
+                <span *ngIf="!contrato.nm_fornecedor">Pessoa física (nome não divulgado)</span>
               </a>
               <br>
               <small>
@@ -98,7 +98,7 @@
             <div [hidden]="contrato.nr_documento_contratado" class="text-center">
               <app-tooltip-ajuda
                 [tipo]="'alerta'"
-                [descricao]="'Não há informação sobre o fornecedor dessa compra'"></app-tooltip-ajuda>
+                [descricao]="'Não há informação sobre o fornecedor deste contrato'"></app-tooltip-ajuda>
             </div>
           </td>
           <td class="text-right numero">
@@ -112,7 +112,7 @@
             <div [hidden]="contrato.dt_final_vigencia" class="text-center">
               <app-tooltip-ajuda
                 [tipo]="'alerta'"
-                [descricao]="'O prazo para a conclusão da compra não foi informado pelo órgão gestor'"></app-tooltip-ajuda>
+                [descricao]="'O prazo para a conclusão do contrato não foi informado pelo órgão gestor'"></app-tooltip-ajuda>
             </div>
           </td>
         </tr>
