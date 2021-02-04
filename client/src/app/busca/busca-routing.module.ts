@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { BuscaComponent } from './busca.component';
 import { BuscaItemComponent } from './busca-item/busca-item.component';
 import { BuscaCompraComponent } from './busca-compra/busca-compra.component';
+import { BuscaMunicipioComponent } from './busca-municipio/busca-municipio.component';
 
 const routes: Routes = [
   {
@@ -12,7 +13,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'produto',
+        redirectTo: 'municipio',
         pathMatch: 'full'
       },
       {
@@ -23,6 +24,10 @@ const routes: Routes = [
         path: 'produto',
         component: BuscaItemComponent
       },
+      {
+        path: 'municipio',
+        component: BuscaMunicipioComponent
+      }
     ]
   }
 ];

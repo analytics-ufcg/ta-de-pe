@@ -1,0 +1,78 @@
+<div class="view-container">
+  <div class="container mt-2 pt-2">
+
+    <div class="row">
+      <div class="col-lg-6">
+        <form>
+          <div class="form-group">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Buscar nos municípios..."
+              name="termoBusca"
+              [(ngModel)]="listaService.termoBusca">
+          </div>
+        </form>
+      </div>
+    </div>
+    <p *ngIf="((listaService.dados$ | async)?.length === 0) && (loading$ | async) === false">Não há municípios com este termo.</p>
+    <app-spinner *ngIf="loading$ | async"></app-spinner>
+    <div *ngIf="(loading$ | async) === false">
+      <div class="row">
+        <div class="col-lg-6">
+          <div
+            *ngIf="((listaService.dados$ | async)?.length > 0) && (loading$ | async) === false"
+            class="table-wrapper">
+            <div class="table-responsive">
+              <table class="table table-sm table-hover">
+                <thead>
+                  <tr>
+                    <th
+                      scope="col"
+                      class="table-th-dividido-up"
+                      ordenavel="nome_municipio"
+                      (ordenar)="onOrdenar($event)"
+                      appOrdenavel>
+                      Município
+                    </th>
+                    <th
+                      scope="col"
+                      class="text-right table-th-dividido-up"
+                      ordenavel="sigla_estado"
+                      (ordenar)="onOrdenar($event)"
+                      appOrdenavel>
+                      Estado
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr
+                    *ngFor="let municipio of listaService.dadosProcessados$ | async; index as i"
+                    class>
+                    <td class="align-middle nowrap">
+                      <a
+                        routerLink="/municipio"
+                        (click)="onClick(municipio)">
+                        <ngb-highlight
+                          [result]="municipio?.nome_municipio | titlecase"
+                          [term]="listaService.termoBusca">
+                        </ngb-highlight>
+                      </a>
+                    </td>
+                    <td class="align-middle text-right">
+                      <ngb-highlight
+                        [result]="municipio?.sigla_estado"
+                        [term]="listaService.termoBusca">
+                      </ngb-highlight>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

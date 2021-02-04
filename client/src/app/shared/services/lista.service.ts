@@ -146,3 +146,19 @@ export class ListaContratosFornecedorService extends ListaService {
       || dados.nr_contrato.toLowerCase().includes(termo);
   }
 }
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ListaMunicipiosService extends ListaService {
+
+  constructor(pipe: DecimalPipe) {
+    super(pipe);
+  }
+
+  corresponde(dados: any, texto: string, pipe: PipeTransform) {
+    const termo = texto.toLowerCase();
+    return dados.nome_municipio.toLowerCase().includes(termo)
+        || dados.sigla_estado.includes(termo);
+  }
+}
