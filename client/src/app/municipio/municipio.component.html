@@ -1,5 +1,6 @@
 <div class="view-container">
   <app-barra-titulo
+    class="mb-5"
     *ngIf="municipioEscolhido"
     titulo="{{ municipioEscolhido | titlecase }} – {{ siglaEstadoEscolhido }}"
     [exibirVoltar]="false"></app-barra-titulo>
@@ -7,12 +8,13 @@
   <div class="container">
 
     <div class="navegacao">
-      <ul class="nav nav-pills nav-fill">
+      <ul class="nav nav-fill">
         <li class="nav-item">
           <a
             class="nav-link navegacao-link"
             [routerLink]="['./contratos']"
             routerLinkActive="active">
+            <span class="icon-file-text icone-navegacao"></span>
             Compras
           </a>
         </li>
@@ -21,6 +23,7 @@
             class="nav-link navegacao-link"
             [routerLink]="['./licitacoes']"
             routerLinkActive="active">
+            <span class="icon-hammer icone-navegacao"></span>
             Licitações
           </a>
         </li>
@@ -29,11 +32,13 @@
             class="nav-link navegacao-link"
             [routerLink]="['./linha-do-tempo']"
             routerLinkActive="active">
+            <span class="icon-git-commit icone-navegacao"></span>
             Linha do Tempo
           </a>
         </li>
       </ul>
     </div>
+    <hr class="borda-navegacao">
 
     <router-outlet></router-outlet>
   </div>
