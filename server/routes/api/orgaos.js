@@ -27,8 +27,36 @@ router.get("/municipios", (req, res) => {
     ],
     where: {
       nome_municipio: {
-        [Op.ne]: null
+          [Op.ne]: null
       }
+    }
+  })
+    .then(municipios => res.status(SUCCESS).json(municipios))
+    .catch(err => res.status(BAD_REQUEST).json({ err }));
+});
+
+router.get("/municipios/busca", (req, res) => {
+  const termo = req.query.termo;
+
+  Orgaos.findAll({
+    attributes: [
+      [
+        Sequelize.fn("DISTINCT", Sequelize.col("nome_municipio")),
+        "nome_municipio"
+      ],
+      "sigla_estado"
+    ],
+    where: {
+      [Op.or]: {
+        nome_municipio: {
+          [Op.ne]: null,
+          [Op.iLike]: '%'.concat(termo).concat('%')
+        },
+        sigla_estado: {
+          [Op.iLike]: '%'.concat(termo).concat('%')
+        }
+      }
+      
     }
   })
     .then(municipios => res.status(SUCCESS).json(municipios))
