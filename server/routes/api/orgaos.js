@@ -35,7 +35,7 @@ router.get("/municipios", (req, res) => {
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
-router.get("/municipiosBusca", (req, res) => {
+router.get("/municipios/busca", (req, res) => {
   const termo = req.query.termo;
 
   Orgaos.findAll({
