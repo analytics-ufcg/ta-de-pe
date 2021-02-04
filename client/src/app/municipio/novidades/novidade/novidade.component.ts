@@ -18,7 +18,7 @@ export class NovidadeComponent {
 
   handleClick() {
     if (this.novidadeService.isContrato(this.novidade.id_tipo)) {
-      this.router.navigate(['/compras/' + this.novidade.id_original]);
+      this.router.navigate(['/contratos/' + this.novidade.id_original]);
     } else if (this.novidadeService.isEmpenho(this.novidade.id_tipo)) {
       this.router.navigate(['/licitacoes/' + this.novidade.licitacaoNovidade.id_licitacao + '/info'],
         { queryParams: { id: this.novidade.id_original }
