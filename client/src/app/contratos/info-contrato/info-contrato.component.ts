@@ -65,7 +65,6 @@ export class InfoContratoComponent implements OnInit {
       this.itensService.getByContrato(id)
     ).subscribe(data => {
       this.contrato = data[0];
-      console.log(this.contrato);
       const itensContrato = data[1];
 
       // Calcula valor contratado
