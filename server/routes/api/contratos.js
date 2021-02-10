@@ -32,7 +32,7 @@ router.get("/vigentes", (req, res) => {
     attributes: {
       include: [[Sequelize.col('contratoFornecedor.nm_pessoa'), 'nm_fornecedor'],
                 [Sequelize.col('contratoFornecedor.tp_pessoa'), 'tp_fornecedor'],
-                [Sequelize.col('contratoAlerta.info'), 'info_alerta'],
+                [Sequelize.col('contratoAlerta.id_tipo'), 'tipo_alerta'],
                 "id_contrato", "id_licitacao", "nr_contrato", "nr_documento_contratado", "vl_contrato", "dt_inicio_vigencia", "dt_final_vigencia"]
     },
     include: [
@@ -52,7 +52,7 @@ router.get("/vigentes", (req, res) => {
       },
       {
         model: Alerta,
-        attributes: ["info"],
+        attributes: ["id_tipo"],
         as: "contratoAlerta"
       }
     ],
