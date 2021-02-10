@@ -162,6 +162,10 @@ router.get("/search", (req, res) => {
                 to_tsvector( \
                     contrato.language::regconfig, \
                     contrato.descricao_objeto_contrato \
+                ) || \
+                to_tsvector( \
+                  contrato.language::regconfig, \
+                  concat(contrato.nr_contrato,'/', date_part('year', contrato.dt_inicio_vigencia)) \
                 ) AS document \
             FROM \
                 contrato \
