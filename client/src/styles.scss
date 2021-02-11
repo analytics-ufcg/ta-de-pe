@@ -281,8 +281,6 @@ td.numero {
   left: 0;
   z-index: 999;
   width: 100%;
-  background-color: #f2f7f3;
-  border-top: solid 2px #adb5bd;
   border-radius: 0.75rem;
 
   @media (min-width: 576px) {
@@ -296,9 +294,37 @@ td.numero {
     border-top: none;
   }
 }
-
+.nav-fill {
+  @media (min-width: 1000px) {
+    max-width: 50%;
+  }
+}
+.nav-item{
+  z-index: 100;
+}
 .navegacao-link {
+  background: #f2f7f3;
+  border-radius: 0.75rem 0.75rem 0 0 !important;
+  border-width: 1px;
+
+  border-bottom-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-left-style: solid;
+  color: $dark;
+  border-color: #ced4da;
+  border-bottom-color: #ced4da;
+  z-index: 1000;
+
   &.active {
+    background: $white;
+    color: $dark;
+    border-bottom-color: $white;
+
+    &:hover{
+      font-weight: bold;
+    }
+
     @media (max-width: 575.98px) {
       margin-top: -8px;
       padding-bottom: 16px;
@@ -306,6 +332,24 @@ td.numero {
       border-bottom-right-radius: 0;
     }
   }
+
+  &:hover{
+    color: $dark;
+    font-weight: bold;
+  }
+}
+
+.borda-navegacao {
+  background: #e6e6e6;
+  position: relative;
+  margin-top: -41px;
+  z-index: 1;
+  margin-bottom: 41px;
+}
+
+.icone-navegacao {
+  position: relative;
+  top: 2px;
 }
 
 .table th {
