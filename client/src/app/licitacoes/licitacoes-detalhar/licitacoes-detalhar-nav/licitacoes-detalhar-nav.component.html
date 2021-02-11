@@ -1,11 +1,12 @@
 <div class="navegacao">
-  <ul class="nav nav-pills nav-fill">
+  <ul class="nav nav-fill">
     <li class="nav-item">
       <a
         class="nav-link navegacao-link"
         [routerLink]="['./info']"
         routerLinkActive="active"
         replaceUrl="true">
+        <span class="icon-hammer icone-navegacao"></span>
         Resumo
       </a>
     </li>
@@ -15,6 +16,7 @@
         [routerLink]="['./contratos']"
         routerLinkActive="active"
         replaceUrl="true">
+        <span class="icon-file-text icone-navegacao"></span>
         Contratos
       </a>
     </li>
@@ -24,8 +26,10 @@
         [routerLink]="['./itens']"
         routerLinkActive="active"
         replaceUrl="true">
+        <span class="icon-file-text icon-shopping-cart"></span>
         Itens comprados
       </a>
     </li>
   </ul>
 </div>
+<hr class="borda-navegacao">

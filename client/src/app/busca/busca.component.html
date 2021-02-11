@@ -1,10 +1,7 @@
 <div class="view-container">
   <app-barra-titulo
-    class="mb-5"
-    *ngIf="municipioEscolhido"
-    titulo="{{ municipioEscolhido | titlecase }} – {{ siglaEstadoEscolhido }}"
+    [titulo]="'Resultados para &#34;' + termo + '&#34;'"
     [exibirVoltar]="false"></app-barra-titulo>
-
   <div class="container">
 
     <div class="navegacao">
@@ -12,28 +9,31 @@
         <li class="nav-item">
           <a
             class="nav-link navegacao-link"
-            [routerLink]="['./contratos']"
+            [routerLink]="['./municipio']"
+            queryParamsHandling="merge"
+            routerLinkActive="active">
+            <span class="icon-office icone-navegacao"></span>
+            Municípios
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link navegacao-link"
+            [routerLink]="['./produto']"
+            queryParamsHandling="merge"
+            routerLinkActive="active">
+            <span class="icon-shopping-cart icone-navegacao"></span>
+            Produtos
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link navegacao-link"
+            [routerLink]="['./contrato']"
+            queryParamsHandling="merge"
             routerLinkActive="active">
             <span class="icon-file-text icone-navegacao"></span>
             Contratos
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link navegacao-link"
-            [routerLink]="['./licitacoes']"
-            routerLinkActive="active">
-            <span class="icon-hammer icone-navegacao"></span>
-            Licitações
-          </a>
-        </li>
-        <li class="nav-item">
-          <a
-            class="nav-link navegacao-link"
-            [routerLink]="['./linha-do-tempo']"
-            routerLinkActive="active">
-            <span class="icon-git-commit icone-navegacao"></span>
-            Linha do Tempo
           </a>
         </li>
       </ul>
