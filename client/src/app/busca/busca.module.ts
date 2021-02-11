@@ -7,11 +7,15 @@ import { BuscaRoutingModule } from './busca-routing.module';
 import { SharedModule } from '../shared/components/shared.module';
 import { BuscaCompraComponent } from './busca-compra/busca-compra.component';
 import { BuscaItemComponent } from './busca-item/busca-item.component';
+import { BuscaComponent } from './busca.component';
+import { BuscaMunicipioComponent } from './busca-municipio/busca-municipio.component';
 
 @NgModule({
   declarations: [
     BuscaCompraComponent,
-    BuscaItemComponent
+    BuscaItemComponent,
+    BuscaComponent,
+    BuscaMunicipioComponent
   ],
   imports: [
     CommonModule,

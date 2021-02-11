@@ -8,11 +8,16 @@
   <div class="mb-4">
     <div class="row mt-4">
       <div class="col">
-        <span
+        <span *ngIf="licitacao?.status === 'Com compras'"
           class="badge"
-          [ngClass]="licitacao?.status === 'Com compras' ? 'badge-danger' : 'badge-info'">
-          {{ licitacao?.status }}
-        </span>
+            [ngClass]="'badge-danger'">
+            Com contratos
+          </span>
+          <span *ngIf="licitacao?.status === 'Sem compras'"
+            class="badge"
+            [ngClass]="'badge-info'">
+            Sem contratos
+          </span>
         <div
           *ngIf="licitacao?.assunto !== 'merenda'"
           class="mt-2">

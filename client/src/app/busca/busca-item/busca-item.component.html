@@ -1,10 +1,4 @@
 <div class="view-container">
-    <app-barra-titulo
-      [titulo]="'Resultados para &#34;' + termo + '&#34;'"
-      [exibirVoltar]="false"></app-barra-titulo>
-
-
-
     <div class="container mt-2 pt-2">
 
         <div class="row">
@@ -86,7 +80,7 @@
                     </td>
                     <td class="align-middle text-right">
                         <a
-                        [routerLink]="['/compras/' + itemSemelhante.id_contrato]"
+                        [routerLink]="['/contratos/' + itemSemelhante.id_contrato]"
                         target="_blank">
                         <ngb-highlight
                             [result]="itemSemelhante.nr_contrato+'/'+itemSemelhante.ano_licitacao"

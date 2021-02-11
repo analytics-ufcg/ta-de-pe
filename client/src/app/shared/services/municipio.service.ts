@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Municipio } from '../models/municipio.model';
@@ -17,6 +17,11 @@ export class MunicipioService {
 
     getMunicipios(): Observable<Municipio[]> {
         return this.http.get<Municipio[]>(this.url);
+    }
+
+    buscar(termo: string): Observable<Municipio[]> {
+      const params = new HttpParams().set('termo', termo);
+      return this.http.get<Municipio[]>(this.url + '/busca', { params });
     }
 
 }
