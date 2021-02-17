@@ -1,7 +1,7 @@
 <div class="view-container">
     <div class="container">
     <ngb-alert [dismissible]="false">
-        <strong>Atenção</strong>: 
+        <strong>Atenção</strong>:
         essa tabela foi gerada a partir da busca na descrição do produto licitado. É necessário checar se os produtos listados possuem qualidade e quantidade semelhante para uma comparação correta.
     </ngb-alert>
     <div class="row">
@@ -11,14 +11,14 @@
             <input
               class="form-control"
               type="text"
-              placeholder="Buscar nos itens..."
+              placeholder="Filtrar nos produtos..."
               name="termoBusca"
               [(ngModel)]="listaService.termoBusca">
           </div>
         </form>
       </div>
     </div>
-    <p *ngIf="((listaService.dados$ | async)?.length === 0) && (loading$ | async) === false">Não há itens com este termo.</p>
+    <p *ngIf="((listaService.dados$ | async)?.length === 0) && (loading$ | async) === false">Não há produtos com este termo.</p>
     <app-spinner *ngIf="loading$ | async"></app-spinner>
     <div *ngIf="(loading$ | async) === false">
       <div
