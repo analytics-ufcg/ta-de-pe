@@ -1,109 +1,108 @@
 <div class="view-container">
-    <app-barra-titulo
-      [titulo]="'Resultados para &#34;' + termo + '&#34;'"
-      [exibirVoltar]="false"></app-barra-titulo>
-
-
-
-    <div class="container mt-2 pt-2">
-
-        <div class="row">
-            <div class="col-lg-6">
-              <form>
-                <div class="form-group">
-                  <input
-                    class="form-control"
-                    type="text"
-                    placeholder="Buscar nos itens..."
-                    name="termoBusca"
-                    [(ngModel)]="listaService.termoBusca">
-                </div>
-              </form>
-            </div>
+    <div class="container">
+    <ngb-alert [dismissible]="false">
+        <strong>Atenção</strong>:
+        essa tabela foi gerada a partir da busca na descrição do produto licitado. É necessário checar se os produtos listados possuem qualidade e quantidade semelhante para uma comparação correta.
+    </ngb-alert>
+    <div class="row">
+      <div class="col-lg-6">
+        <form>
+          <div class="form-group">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Filtrar nos produtos..."
+              name="termoBusca"
+              [(ngModel)]="listaService.termoBusca">
           </div>
-      <p *ngIf="((listaService.dados$ | async)?.length === 0) && (loading$ | async) === false">
-        Não há itens com este termo.
-      </p>
-      <app-spinner *ngIf="loading$ | async"></app-spinner>
-      <div *ngIf="(loading$ | async) === false">
-        <div *ngIf="((listaService.dados$ | async)?.length > 0) && (loading$ | async) === false" class="table-wrapper">
+        </form>
+      </div>
+    </div>
+    <p *ngIf="((listaService.dados$ | async)?.length === 0) && (loading$ | async) === false">Não há produtos com este termo.</p>
+    <app-spinner *ngIf="loading$ | async"></app-spinner>
+    <div *ngIf="(loading$ | async) === false">
+      <div
+        *ngIf="((listaService.dados$ | async)?.length > 0) && (loading$ | async) === false"
+        class="table-wrapper">
         <div class="table-responsive">
-            <table class="table table-sm table-hover">
+          <table class="table table-sm table-hover">
             <thead>
-                <tr>
+              <tr>
                 <th
-                    scope="col"
-                    class="align-middle table-th-dividido-up"
-                    ordenavel="ds_item"
-                    (ordenar)="onOrdenar($event)"
-                    appOrdenavel>
-                    Produto
+                  scope="col"
+                  class="align-middle table-th-dividido-up"
+                  ordenavel="ds_item"
+                  (ordenar)="onOrdenar($event)"
+                  appOrdenavel>
+                  Produto
                 </th>
                 <th
-                    scope="col"
-                    class="table-th-monospace table-th-dividido-up"
-                    ordenavel="nome_municipio"
-                    (ordenar)="onOrdenar($event)"
-                    appOrdenavel>
-                    Município
+                  scope="col"
+                  class="table-th-monospace table-th-dividido-up"
+                  ordenavel="nome_municipio"
+                  (ordenar)="onOrdenar($event)"
+                  appOrdenavel>
+                  Município
                 </th>
                 <th
-                    scope="col"
-                    class="table-th-monospace text-right table-th-dividido-up"
-                    ordenavel="ano_licitacao"
-                    (ordenar)="onOrdenar($event)"
-                    appOrdenavel>
-                    Contrato
+                  scope="col"
+                  class="table-th-monospace text-right table-th-dividido-up"
+                  ordenavel="ano_licitacao"
+                  (ordenar)="onOrdenar($event)"
+                  appOrdenavel>
+                  Contrato
                 </th>
                 <th
-                    scope="col"
-                    class="table-th-monospace text-right table-th-dividido-up"
-                    ordenavel="vl_item_contrato"
-                    direcao="desc"
-                    (ordenar)="onOrdenar($event)"
-                    appOrdenavel>
-                    Valor por
-                    <br />
-                    unidade (R$)
+                  scope="col"
+                  class="table-th-monospace text-right table-th-dividido-up"
+                  ordenavel="vl_item_contrato"
+                  direcao="desc"
+                  (ordenar)="onOrdenar($event)"
+                  appOrdenavel>
+                  Valor por
+                  <br>
+                  unidade (R$)
                 </th>
-                </tr>
+              </tr>
             </thead>
             <tbody>
-                <tr *ngFor="let itemSemelhante of listaService.dadosProcessados$ | async; index as i" class>
-                    <td class="align-middle">
-                        <app-descricao-item
-                            [item]="itemSemelhante"
-                            [temLink]="true"
-                            [comUnidade]="false"
-                            [comHighlight]="true"
-                            [termo]="listaService.termoBusca"></app-descricao-item>
-                    </td>
-                    <td class="align-middle nowrap">
-                        <ngb-highlight
-                            [result]="itemSemelhante.nome_municipio | titlecase"
-                            [term]="listaService.termoBusca">
-                        </ngb-highlight>
-                    </td>
-                    <td class="align-middle text-right">
-                        <a
-                        [routerLink]="['/contratos/' + itemSemelhante.id_contrato]"
-                        target="_blank">
-                        <ngb-highlight
-                            [result]="itemSemelhante.nr_contrato+'/'+itemSemelhante.ano_licitacao"
-                            [term]="listaService.termoBusca">
-                        </ngb-highlight>
+              <tr
+                *ngFor="let itemSemelhante of listaService.dadosProcessados$ | async; index as i"
+                class>
+                <td class="align-middle">
+                  <app-descricao-item
+                    [item]="itemSemelhante"
+                    [temLink]="true"
+                    [comUnidade]="false"
+                    [comHighlight]="true"
+                    [termo]="listaService.termoBusca"></app-descricao-item>
+                </td>
+                <td class="align-middle nowrap">
+                  <ngb-highlight
+                    [result]="itemSemelhante.nome_municipio | titlecase"
+                    [term]="listaService.termoBusca">
+                  </ngb-highlight>
+                </td>
+                <td class="align-middle text-right">
+                  <a
+                    [routerLink]="['/contratos/' + itemSemelhante.id_contrato]"
+                    target="_blank">
+                    <ngb-highlight
+                      [result]="itemSemelhante.nr_contrato+'/'+itemSemelhante.ano_licitacao"
+                      [term]="listaService.termoBusca">
+                    </ngb-highlight>
 
-                        </a>
-                    </td>
-                    <td class="numero align-middle">
-                        {{ itemSemelhante.vl_item_contrato | currency: "":"" }}
-                    </td>
-                </tr>
+                  </a>
+                </td>
+                <td class="numero align-middle">
+                  {{ itemSemelhante.vl_item_contrato | currency: "":"" }}
+                </td>
+              </tr>
             </tbody>
-            </table>
-        </div>
+          </table>
         </div>
       </div>
     </div>
-
   </div>
+
+</div>

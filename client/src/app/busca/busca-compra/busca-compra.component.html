@@ -1,8 +1,4 @@
 <div class="view-container">
-    <app-barra-titulo
-      [titulo]="'Resultados para &#34;' + termo + '&#34;'"
-      [exibirVoltar]="false"></app-barra-titulo>
-
     <div class="container mt-4">
       <p *ngIf="((contratos$ | async)?.length === 0) && (loading$ | async) === false">
         Não há contratos com este termo.
