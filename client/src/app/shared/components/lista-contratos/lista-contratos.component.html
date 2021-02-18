@@ -119,13 +119,7 @@
               </div>
             </div>
           </td>
-          <td class="text-left">
-            <app-tooltip-ajuda
-              *ngIf="contrato.info_alerta"
-              [tipo]="'alerta'"
-              [descricao]="contrato.info_alerta">
-            </app-tooltip-ajuda>
-          </td>
+          
           <td class="descricao-fornecedor">
             <div *ngIf="contrato.nr_documento_contratado">
               <a [routerLink]="['/fornecedores/' + contrato?.nr_documento_contratado]">
