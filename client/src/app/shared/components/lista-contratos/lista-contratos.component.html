@@ -26,14 +26,6 @@
           </th>
           <th
             scope="col"
-            class="text-left"
-            ordenavel="info_alerta"
-            (ordenar)="onOrdenar($event)"
-            appOrdenavel>
-            Alerta
-          </th>
-          <th
-            scope="col"
             class="text-left th-espacoso"
             ordenavel="nm_fornecedor"
             (ordenar)="onOrdenar($event)"
@@ -95,13 +87,39 @@
                 [termoHighlight]="listaService.termoBusca"></app-descricao-contrato>
             </div>
             <div *ngIf="!contrato.descricao_objeto_contrato">(Descrição não encontrada)</div>
+
+            <div *ngIf="contrato.tipo_alerta">
+              <div>
+                <span
+                  *ngIf="contrato.tipo_alerta === 1"
+                  class="badge-pill badge-warning tooltip-base" 
+                  placement="top"
+                  ngbTooltip="O fornecedor foi contratado em menos de um mês após a abertura do CNPJ na Receita Federal.">
+                  Empresa recém-aberta
+                </span>
+                <ngb-alert [dismissible]="false" *ngIf="contrato.tipo_alerta === 1" 
+                class="custom-alert-card hidden-app visible-print pt-1 mt-1">
+                  <span class="tooltip-base tooltip-warning icon-shopping-cart mr-1"></span>
+                  O fornecedor foi contratado em menos de um mês após a abertura do CNPJ na Receita Federal.
+                </ngb-alert>
+              </div>
+              <div>
+                <span
+                  *ngIf="contrato.tipo_alerta === 2"
+                  class="badge-pill badge-prod-atipico tooltip-base" 
+                  placement="top"
+                  ngbTooltip="A empresa forneceu produtos que não são comuns com base em suas atividades econômicas declaradas na Receita Federal.">
+                  Produtos atípicos
+                </span>
+                 <ngb-alert [dismissible]="false" *ngIf="contrato.tipo_alerta === 2" 
+                class="custom-alert-card hidden-app visible-print pt-1 mt-1">
+                  <span class="tooltip-base tooltip-warning icon-shopping-cart mr-1"></span>
+                  A empresa forneceu produtos que não são comuns com base em suas atividades econômicas declaradas na Receita Federal.
+                </ngb-alert>
+              </div>
+            </div>
           </td>
-          <td class="text-left">
-            <app-tooltip-ajuda
-              *ngIf="contrato.info_alerta"
-              [tipo]="'alerta'"
-              [descricao]="contrato.info_alerta"></app-tooltip-ajuda>
-          </td>
+          
           <td class="descricao-fornecedor">
             <div *ngIf="contrato.nr_documento_contratado">
               <a [routerLink]="['/fornecedores/' + contrato?.nr_documento_contratado]">
