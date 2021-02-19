@@ -87,7 +87,7 @@ router.get("/administracoes/busca", (req, res) => {
       
     }
   })
-    .then(adminitracoes => res.status(SUCCESS).json(adminitracoes))
+    .then(administracoes => res.status(SUCCESS).json(administracoes))
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
