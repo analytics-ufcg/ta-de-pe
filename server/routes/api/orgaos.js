@@ -63,4 +63,32 @@ router.get("/municipios/busca", (req, res) => {
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
+router.get("/administracoes/busca", (req, res) => {
+  const termo = req.query.termo;
+
+  Orgaos.findAll({
+    attributes: [
+      [
+        Sequelize.fn("DISTINCT", Sequelize.col("nome_administracao")),
+        "nome_administracao"
+      ],
+      "sigla_estado"
+    ],
+    where: {
+      [Op.or]: {
+        nome_administracao: {
+          [Op.ne]: null,
+          [Op.iLike]: '%'.concat(termo).concat('%')
+        },
+        sigla_estado: {
+          [Op.iLike]: '%'.concat(termo).concat('%')
+        }
+      }
+      
+    }
+  })
+    .then(adminitracoes => res.status(SUCCESS).json(adminitracoes))
+    .catch(err => res.status(BAD_REQUEST).json({ err }));
+});
+
 module.exports = router;
