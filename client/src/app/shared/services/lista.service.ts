@@ -88,11 +88,14 @@ export class ListaContratosService extends ListaService {
 
   corresponde(dados: any, texto: string, pipe: PipeTransform) {
     const termo = texto.toLowerCase();
+    const nuContratoCompleto = dados.nr_contrato + '/' + new Date(dados.dt_inicio_vigencia).getFullYear();
     dados.nm_fornecedor = dados.nm_fornecedor ? dados.nm_fornecedor : '';
+    dados.nome_municipio = dados.nome_municipio ? dados.nome_municipio : '';
     dados.nr_documento_contratado = dados.nr_documento_contratado ? dados.nr_documento_contratado.toString() : '';
-    return dados.nr_contrato.includes(termo)
+    return nuContratoCompleto.includes(termo)
         || dados.nm_fornecedor.toLowerCase().includes(termo)
         || dados.descricao_objeto_contrato.toLowerCase().includes(termo)
+        || dados.nome_municipio.toLowerCase().includes(termo)
         || dados.nr_documento_contratado.includes(termo);
   }
 }
