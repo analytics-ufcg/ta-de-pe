@@ -139,6 +139,7 @@ router.get("/search", (req, res) => {
             dt_final_vigencia, \
             tipo_instrumento_contrato, \
             id_orgao, \
+            sigla_estado, \
             (\
               SELECT \
               nome_municipio \
