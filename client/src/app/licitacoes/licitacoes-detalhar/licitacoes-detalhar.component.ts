@@ -37,7 +37,7 @@ export class LicitacoesDetalharComponent implements OnInit, OnDestroy {
           if (accumulator) {
             return true;
           }
-          return (currentValue.tipo_instrumento_contrato === 'Contrato');
+          return (currentValue.tipo_instrumento_contrato !== 'Compra');
         }, false);
       });
   }

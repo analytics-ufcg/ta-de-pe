@@ -5,13 +5,13 @@
   <div *ngIf="contrato?.tipo_instrumento_contrato === 'Compra'">
     <app-barra-titulo
       [titulo]="'Compra sem número de contrato'"
-      [subtitulo]="contrato?.nm_orgao"
+      [subtitulo]="contrato?.nm_orgao + ' - ' + contrato?.sigla_estado"
       [exibirVoltar]="true"></app-barra-titulo>
   </div>
   <div *ngIf="contrato?.tipo_instrumento_contrato !== 'Compra'">
     <app-barra-titulo
       [titulo]="'Contrato nº ' + contrato?.nr_contrato + '/' + contrato?.ano_contrato"
-      [subtitulo]="contrato?.nm_orgao"
+      [subtitulo]="contrato?.nm_orgao + ' - ' + contrato?.sigla_estado"
       [exibirVoltar]="true"></app-barra-titulo>
   </div>
 
