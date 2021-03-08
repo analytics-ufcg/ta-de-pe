@@ -11,6 +11,8 @@ export class BarraTituloComponent implements OnInit {
   @Input() titulo: string;
   @Input() subtitulo: string;
   @Input() exibirVoltar = false;
+  @Input() exibirTooltip = false;
+  @Input() textoTooltip = '';
 
   constructor(private location: Location) { }
 
