@@ -6,7 +6,9 @@
     <app-barra-titulo
       [titulo]="'Compra sem número de contrato'"
       [subtitulo]="contrato?.nm_orgao + ' - ' + contrato?.sigla_estado"
-      [exibirVoltar]="true"></app-barra-titulo>
+      [exibirVoltar]="true"
+      [exibirTooltip]="contrato?.tipo_instrumento_contrato === 'Compra'"
+      [textoTooltip]="'O  processo licitatório utilizado não produz um número de contrato.'"></app-barra-titulo>
   </div>
   <div *ngIf="contrato?.tipo_instrumento_contrato !== 'Compra'">
     <app-barra-titulo
@@ -44,7 +46,7 @@
       <div class="col-sm-12 mb-4">
         <div class="dados-linha">
           <strong>Objeto do contrato ou compra</strong>
-          <app-tooltip-ajuda
+          <app-tooltip-ajuda class="custom-tooltip"
             [posicao]="'right'"
             [descricao]="'Os dados do contrato foram informados pelo município para o TCE'"></app-tooltip-ajuda>
         </div>
