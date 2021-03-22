@@ -103,8 +103,11 @@ export class InfoContratoComponent implements OnInit {
                       } else {
                         item.percentual_vs_estado = (item.vl_item_contrato - item.mediana_valor) / item.mediana_valor;
                       }
-                      item.percentual_vs_estimado = (item.vl_item_contrato - item.vl_unitario_estimado)
-                        / item.vl_unitario_estimado;
+
+                      if (item.vl_unitario_estimado) {
+                        item.percentual_vs_estimado = (item.vl_item_contrato - item.vl_unitario_estimado)
+                          / item.vl_unitario_estimado;
+                      }
                       return item;
                     })
                   ).pipe(
@@ -148,7 +151,7 @@ export class InfoContratoComponent implements OnInit {
     if (alerta) {
       alerta.alertaItens.forEach(itemAtipico => {
         if (itemAtipico.id_item_contrato === item.id_item_contrato) {
-            alertaAtipico = itemAtipico;
+          alertaAtipico = itemAtipico;
         }
       });
     }
