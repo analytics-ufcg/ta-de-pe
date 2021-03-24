@@ -5,7 +5,7 @@
   <div *ngIf="contrato?.tipo_instrumento_contrato === 'Compra'">
     <app-barra-titulo
       [titulo]="'Compra sem número de contrato'"
-      [subtitulo]="contrato?.nm_orgao"
+      [subtitulo]="contrato?.nm_orgao + ' - ' + contrato?.sigla_estado"
       [exibirVoltar]="true"
       [exibirTooltip]="contrato?.tipo_instrumento_contrato === 'Compra'"
       [textoTooltip]="'O  processo licitatório utilizado não produz um número de contrato.'"></app-barra-titulo>
@@ -13,7 +13,7 @@
   <div *ngIf="contrato?.tipo_instrumento_contrato !== 'Compra'">
     <app-barra-titulo
       [titulo]="'Contrato nº ' + contrato?.nr_contrato + '/' + contrato?.ano_contrato"
-      [subtitulo]="contrato?.nm_orgao"
+      [subtitulo]="contrato?.nm_orgao + ' - ' + contrato?.sigla_estado"
       [exibirVoltar]="true"></app-barra-titulo>
   </div>
 
@@ -46,7 +46,8 @@
       <div class="col-sm-12 mb-4">
         <div class="dados-linha">
           <strong>Objeto do contrato ou compra</strong>
-          <app-tooltip-ajuda class="custom-tooltip"
+          <app-tooltip-ajuda
+            class="custom-tooltip"
             [posicao]="'right'"
             [descricao]="'Os dados do contrato foram informados pelo município para o TCE'"></app-tooltip-ajuda>
         </div>
@@ -112,24 +113,31 @@
       </div>
     </div>
 
-    <ngb-alert [dismissible]="false" *ngIf="contrato?.contratoAlerta?.id_tipo" class="container custom-alert-card">
-      <p class="mt-2 custom-alert-text"><strong>Alerta gerado pela Malha Fina</strong>:</p>
+    <ngb-alert
+      [dismissible]="false"
+      *ngIf="contrato?.contratoAlerta?.id_tipo"
+      class="container custom-alert-card">
+      <p class="mt-2 custom-alert-text">
+        <strong>Alerta gerado pela Malha Fina</strong>
+        :
+      </p>
       <div class="row mt-2 ml-1 mb-2">
         <div class="col-lg-12">
-            <p *ngIf="contrato?.contratoAlerta?.id_tipo === 1" class="custom-alert-text">
-              <span class="tooltip-base tooltip-warning icon-alert-triangle  mr-1">
-              </span>
-              O fornecedor foi contratado em menos de um mês após a abertura do CNPJ na Receita Federal.
-            </p>
-            <p *ngIf="contrato?.contratoAlerta?.id_tipo === 2" class="custom-alert-text">
-              <span class="tooltip-base tooltip-warning icon-alert-triangle mr-1">
-              </span>
-              A empresa forneceu produtos que não são comuns com base em suas atividades econômicas declaradas na Receita Federal.
-            </p>
+          <p
+            *ngIf="contrato?.contratoAlerta?.id_tipo === 1"
+            class="custom-alert-text">
+            <span class="tooltip-base tooltip-warning icon-alert-triangle  mr-1"></span>
+            O fornecedor foi contratado em menos de um mês após a abertura do CNPJ na Receita Federal.
+          </p>
+          <p
+            *ngIf="contrato?.contratoAlerta?.id_tipo === 2"
+            class="custom-alert-text">
+            <span class="tooltip-base tooltip-warning icon-alert-triangle mr-1"></span>
+            A empresa forneceu produtos que não são comuns com base em suas atividades econômicas declaradas na Receita Federal.
+          </p>
         </div>
       </div>
     </ngb-alert>
-
 
     <app-spinner *ngIf="loading$ | async"></app-spinner>
 
@@ -319,7 +327,7 @@
                 <div
                   class="pr-3"
                   *ngIf="item?.itensSemelhantes?.length <= 1 || item?.servico; else mostraPercentualEstado">
-                   <app-tooltip-ajuda
+                  <app-tooltip-ajuda
                     *ngIf="item?.itensSemelhantes?.length <= 1"
                     [tipo]="'info'"
                     [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
@@ -338,12 +346,22 @@
                 *ngIf="!radioGroupForm.value['showTotal']"
                 [title]="item.vl_unitario_estimado">
                 {{ item.vl_unitario_estimado | currency:'':'' }}
+                <app-tooltip-ajuda
+                  *ngIf="!item?.percentual_vs_estimado"
+                  [tipo]="'info'"
+                  [descricao]="'O valor estimado não foi informado.'"></app-tooltip-ajuda>
               </td>
               <td
                 class="numero align-middle"
                 *ngIf="radioGroupForm.value['showTotal']"
                 [title]="item.vl_unitario_estimado * item.qt_itens_contrato">
-                {{ item.qt_itens_contrato * item.vl_unitario_estimado | currency:'':'' }}
+                <span *ngIf="item?.vl_unitario_estimado">
+                  {{ item.qt_itens_contrato * item.vl_unitario_estimado | currency:'':'' }}
+                </span>
+                <app-tooltip-ajuda
+                  *ngIf="!item?.percentual_vs_estimado"
+                  [tipo]="'info'"
+                  [descricao]="'O valor estimado não foi informado.'"></app-tooltip-ajuda>
               </td>
               <td
                 class="numero align-middle"
@@ -352,6 +370,10 @@
                 [style.color]="defineCor(item.percentual_vs_estimado)">
                 <span *ngIf="item.percentual_vs_estimado > 0">+</span>
                 {{ item.percentual_vs_estimado | percent:'1.1' }}
+                <app-tooltip-ajuda
+                  *ngIf="!item?.percentual_vs_estimado"
+                  [tipo]="'info'"
+                  [descricao]="'O valor estimado não foi informado.'"></app-tooltip-ajuda>
               </td>
             </tr>
           </tbody>

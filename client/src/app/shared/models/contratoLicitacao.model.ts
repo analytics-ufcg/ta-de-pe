@@ -26,4 +26,6 @@ export interface ContratoLicitacao {
   tipo_instrumento_contrato: string;
   resumido: boolean;
   contratoAlerta: any;
+  sigla_estado: string;
+  id_estado: number;
 }
