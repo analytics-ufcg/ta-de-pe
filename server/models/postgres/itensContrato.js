@@ -18,6 +18,8 @@ module.exports = (sequelize, type) => {
       ano_contrato: type.STRING,
       dt_inicio_vigencia: type.STRING,
       tp_instrumento_contrato: type.STRING,
+      id_estado: type.STRING,
+      sigla_estado: type.STRING,
       nr_item: type.STRING,
       qt_itens_contrato: type.REAL,
       vl_item_contrato: type.DECIMAL(15, 2),
