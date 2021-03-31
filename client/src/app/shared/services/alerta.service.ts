@@ -61,7 +61,7 @@ export class AlertaService {
 
       let pesquisaNome = a.alertaFornecedor.nm_pessoa + a.alertaFornecedor.nr_documento;
 
-      if (a.alertaContrato !== null) {
+      if (a.alertaContrato !== null && a.alertaContrato.contratosOrgao !== null) {
         pesquisaNome = pesquisaNome + a.alertaContrato.contratosOrgao.nome_municipio;
       }
 
