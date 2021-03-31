@@ -6,6 +6,8 @@ export interface ItensContrato {
   itensSemelhantes: any[];
   mediana_valor: number;
   media_total: number;
+  id_estado: string;
+  sigla_estado: string;
   percentual_vs_estado: number;
   percentual_vs_estimado: number;
   itensLicitacaoItensContrato: any;
