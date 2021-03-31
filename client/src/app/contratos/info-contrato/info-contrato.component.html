@@ -347,8 +347,8 @@
                 [title]="item.vl_unitario_estimado">
                 {{ item.vl_unitario_estimado | currency:'':'' }}
                 <app-tooltip-ajuda
-                  *ngIf="!item?.percentual_vs_estimado"
-                  [tipo]="'info'"
+                  *ngIf="!item?.vl_unitario_estimado"
+                  [tipo]="'alerta'"
                   [descricao]="'O valor estimado não foi informado.'"></app-tooltip-ajuda>
               </td>
               <td
@@ -359,8 +359,8 @@
                   {{ item.qt_itens_contrato * item.vl_unitario_estimado | currency:'':'' }}
                 </span>
                 <app-tooltip-ajuda
-                  *ngIf="!item?.percentual_vs_estimado"
-                  [tipo]="'info'"
+                  *ngIf="!item?.vl_unitario_estimado"
+                  [tipo]="'alerta'"
                   [descricao]="'O valor estimado não foi informado.'"></app-tooltip-ajuda>
               </td>
               <td
@@ -371,8 +371,8 @@
                 <span *ngIf="item.percentual_vs_estimado > 0">+</span>
                 {{ item.percentual_vs_estimado | percent:'1.1' }}
                 <app-tooltip-ajuda
-                  *ngIf="!item?.percentual_vs_estimado"
-                  [tipo]="'info'"
+                  *ngIf="!item?.vl_unitario_estimado"
+                  [tipo]="'alerta'"
                   [descricao]="'O valor estimado não foi informado.'"></app-tooltip-ajuda>
               </td>
             </tr>
