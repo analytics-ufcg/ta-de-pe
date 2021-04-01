@@ -20,6 +20,8 @@ export class AlertaService {
 
   private filtro = new BehaviorSubject<any>({});
 
+  readonly ESTADO_PADRAO = '0';
+
   constructor(private http: HttpClient) {
     this.alertas
       .pipe(
@@ -73,7 +75,8 @@ export class AlertaService {
         : filtered;
       filtered = filtrosAlerta && filtered ? this.isTipoAlertaFiltrado(a.id_tipo, filtrosAlerta) : filtered;
 
-      filtered = estado && estado !== '0' && filtered ? this.isEstadoSelecionado(a.alertaContrato, estado): filtered;
+      filtered = estado && estado !== this.ESTADO_PADRAO && filtered ?
+        this.isEstadoSelecionado(a.alertaContrato, estado) : filtered;
 
       return filtered;
     });
