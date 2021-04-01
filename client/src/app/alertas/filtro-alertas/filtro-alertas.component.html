@@ -1,7 +1,7 @@
 <div class="container">
-  <div class="row justify-content-md-center">
-    <div class="filtro-wrapper">
-      <div class="form-group">
+  <div class="filtro-wrapper mb-2">
+    <div class="row no-gutters">
+      <div class="col-10">
         <input
           type="text"
           class="form-control"
@@ -9,6 +9,20 @@
           placeholder="Buscar município ou fornecedor"
           [(ngModel)]="nomePesquisado"
           (ngModelChange)="aplicarFiltro()">
+      </div>
+      <div class="col-2">
+        <select
+          class="app-seletor"
+          #mySelector
+          [(ngModel)]="estadoSelecionado"
+          (ngModelChange)="aplicarFiltro()">
+          <option
+            *ngFor="let e of estadoFiltro"
+            [value]="e.estado_slug"
+            [selected]="e.estado_slug == estadoSelecionado">
+            {{ e.estado }}
+          </option>
+        </select>
       </div>
     </div>
   </div>

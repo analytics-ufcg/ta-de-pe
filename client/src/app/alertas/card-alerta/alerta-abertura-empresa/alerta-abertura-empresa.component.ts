@@ -9,10 +9,12 @@ import { Component, Input, OnInit } from '@angular/core';
 export class AlertaAberturaEmpresaComponent implements OnInit {
 
   @Input() alerta;
+  diferencaAbertura: number;
 
   constructor(private alertaService: AlertaService) { }
 
   ngOnInit() {
+    this.diferencaAbertura = this.diffAberturaEmpresaContrato(this.alerta);
   }
 
   diffAberturaEmpresaContrato(alerta) {

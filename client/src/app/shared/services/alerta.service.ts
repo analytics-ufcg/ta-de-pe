@@ -55,6 +55,7 @@ export class AlertaService {
   private filter(alerta: Alerta[], filtro: any) {
     const pesquisa = filtro.nomePesquisado;
     const filtrosAlerta = filtro.tiposAlertas;
+    const estado = filtro.estado;
 
     return alerta.filter(a => {
       let filtered = true;
@@ -68,9 +69,12 @@ export class AlertaService {
       pesquisaNome = this.processaNome(pesquisaNome);
 
       filtered = pesquisa && filtered
-          ? pesquisaNome.includes(this.processaNome(pesquisa))
-          : filtered;
+        ? pesquisaNome.includes(this.processaNome(pesquisa))
+        : filtered;
       filtered = filtrosAlerta && filtered ? this.isTipoAlertaFiltrado(a.id_tipo, filtrosAlerta) : filtered;
+
+      filtered = estado && estado !== '0' && filtered ? this.isEstadoSelecionado(a.alertaContrato, estado): filtered;
+
       return filtered;
     });
   }
@@ -78,7 +82,8 @@ export class AlertaService {
   // Verifica se filtro foi alterado
   private compareFilter(p: any, q: any) {
     return p.nomePesquisado === q.nomePesquisado &&
-    p.tiposAlertas === q.tiposAlertas;
+      p.tiposAlertas === q.tiposAlertas &&
+      p.estado === q.estado;
   }
 
   // Processa string passada removendo acentuação, pontuação e deixando tudo minúsculo.
@@ -90,13 +95,20 @@ export class AlertaService {
     return idSelecionados.includes(idAlerta);
   }
 
+  isEstadoSelecionado(alertaContrato, estado) {
+    if (alertaContrato !== null) {
+      return Number(estado) === alertaContrato.id_estado;
+    }
+    return false;
+  }
+
   diffAberturaEmpresaContrato(inicio, fim) {
     const ONE_DAY = 1000 * 60 * 60 * 24;
 
     const inicioEmpresa = Date.parse(inicio);
     const assinaturaContrato = Date.parse(fim);
 
-    const differenceMs = Math.abs(assinaturaContrato - inicioEmpresa);
+    const differenceMs = assinaturaContrato - inicioEmpresa;
 
     return Math.round(differenceMs / ONE_DAY);
   }
