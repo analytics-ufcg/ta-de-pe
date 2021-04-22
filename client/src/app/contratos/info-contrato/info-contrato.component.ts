@@ -109,11 +109,6 @@ export class InfoContratoComponent implements OnInit {
                       }
                       return item;
                     })
-                  ).pipe(
-                    map(itemComAlerta => {
-                      itemComAlerta.alertaAtipico = this.getAlertaAtipico(itemComAlerta);
-                      return itemComAlerta;
-                    })
                   );
               }),
               reduce((acc: Array<any>, element: any) => [...acc, element], [])
@@ -142,19 +137,6 @@ export class InfoContratoComponent implements OnInit {
       .domain([-1, 0, 1])
       .range(['#72a5b6', '#ffffff', '#d7856c']);
     return cor(valor);
-  }
-
-  getAlertaAtipico(item) {
-    const alerta = this.contrato.contratoAlerta;
-    let alertaAtipico;
-    if (alerta) {
-      alerta.alertaItens.forEach(itemAtipico => {
-        if (itemAtipico.id_item_contrato === item.id_item_contrato) {
-          alertaAtipico = itemAtipico;
-        }
-      });
-    }
-    return alertaAtipico;
   }
 
   defineCor(valor: number): string {

@@ -6,6 +6,7 @@ const models = require("../../models/index");
 const { Sequelize } = require("sequelize");
 
 const itensContrato = models.itensContrato;
+const ItemAtipico = models.itemAtipico;
 const Orgao = models.orgao;
 const Contrato = models.contrato;
 const Fornecedor = models.fornecedor;
@@ -38,12 +39,16 @@ router.get("/item/:id", (req, res) => {
 // Recupera itens de contrato a partir do id do contrato
 router.get("/contrato/:id", (req, res) => {
   itensContrato.findAll({
-    raw: true,
     include: [
       {
         model: itensLicitacao,
         attributes: [],
         as: "itensLicitacaoItensContrato"
+      },
+      {
+        model: ItemAtipico,
+        attributes: ["id_item_contrato", "total_vendas_item", "n_vendas_semelhantes", "perc_vendas_semelhantes"],
+        as: "alertaAtipico"
       }
     ],
     where: {
