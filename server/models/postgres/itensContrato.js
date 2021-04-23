@@ -61,6 +61,11 @@ module.exports = (sequelize, type) => {
       sourceKey: "categoria",
       as: 'itensSemelhantes'
     });
+    itensContrato.hasOne(models.itemAtipico, {
+      foreignKey: "id_item_contrato",
+      sourceKey: "id_item_contrato",
+      as: "alertaAtipico"
+    });
   };
   return itensContrato;
 }
