@@ -151,7 +151,7 @@ router.get("/search", (req, res) => {
                       OR \
                       ( \
                         char_length(ds_item) >= 3  \
-                        AND ds_item LIKE '%${termo}%' \
+                        AND ds_item ILIKE '%${termo}%' \
                       ) \
                       ORDER BY ts_rank(item_search.document, to_tsquery('portuguese', '${termo}')) DESC, id_item_contrato ASC;`
 
