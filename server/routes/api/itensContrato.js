@@ -143,8 +143,16 @@ router.get("/search", (req, res) => {
                       vl_total_item_contrato, ds_item, dt_inicio_vigencia, qt_itens_contrato, nome_municipio, \
                       ts_rank(item_search.document, to_tsquery('portuguese', '${termo}')) as rel, \ 
                       sg_unidade_medida \
-                      FROM item_search WHERE item_search.document @@ to_tsquery('portuguese', '${termo}') \
-                      AND ts_rank(item_search.document, to_tsquery('portuguese', '${termo}')) >= 0.65\
+                      FROM item_search WHERE \
+                      ( \
+                        item_search.document @@ to_tsquery('portuguese', '${termo}') \
+                        AND ts_rank(item_search.document, to_tsquery('portuguese', '${termo}')) >= 0.65 \
+                      ) \
+                      OR \
+                      ( \
+                        char_length(ds_item) >= 3  \
+                        AND ds_item ILIKE '%${termo}%' \
+                      ) \
                       ORDER BY ts_rank(item_search.document, to_tsquery('portuguese', '${termo}')) DESC, id_item_contrato ASC;`
 
   models.sequelize.query(query, {
