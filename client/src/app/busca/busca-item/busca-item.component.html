@@ -72,7 +72,7 @@
                 <td class="align-middle">
                   <app-descricao-item
                     [item]="itemSemelhante"
-                    [temLink]="true"
+                    [temLink]="itemSemelhante?.itensSemelhantes?.length > 1 && !itemSemelhante?.servico"
                     [comUnidade]="false"
                     [comHighlight]="true"
                     [termo]="listaService.termoBusca"></app-descricao-item>
