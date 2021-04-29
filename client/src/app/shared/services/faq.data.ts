@@ -18,7 +18,7 @@ export const faqsData = [
  },
  {
    titulo: `Não encontro o meu município no site Tá de Pé, o que devo fazer?`,
-   texto: `Nesta primeira fase do projeto, estamos divulgando apenas os contratos, licitações e empenhos dos municípios do Rio Grande do Sul, cujo Tribunal de Contas do Estado apresenta melhores dados, especificamente o preço por item contratado, que permite realizar análises comparativas. Infelizmente, esta não é a realidade dos dados de contratação apresentadas pelos demais estados. Ainda assim apresentaremos em breve análises com dados de outros estados. Precisaremos do apoio de indivíduos para abrir essas informações. Se você tem interesse em ajudar para que possamos oferecer a análise, entre em contato por e-mail no endereço tadepe@transparencia.org.br, informando seu município e estado.`
+   texto: `Nesta primeira fase do projeto, estamos divulgando apenas os contratos, licitações e empenhos dos municípios do Rio Grande do Sul e de Pernambuco, cujos tribunais de contas estaduais publicam dados com boa qualidade, especificamente o preço por item contratado, que permite realizar análises comparativas. Infelizmente, esta não é a realidade dos dados de contratação publicados pelos demais estados. Ainda assim apresentaremos em breve análises com dados de outros estados. Precisaremos do apoio de indivíduos para abrir essas informações. Se você tem interesse em ajudar para que possamos oferecer a análise, entre em contato por e-mail no endereço tadepe@transparencia.org.br, informando seu município e estado.`
  },
  {
    titulo: `O que é a Malha Fina da Transparência Brasil?`,
