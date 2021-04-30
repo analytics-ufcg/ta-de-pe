@@ -27,11 +27,18 @@ const routes: Routes = [
   {
     path: 'fornecedores',
     loadChildren: () => import('./fornecedores/fornecedores.module').then(m => m.FornecedoresModule)
-  }
-  ,
+  },
+  {
+    path: 'busca',
+    loadChildren: () => import('./busca/busca.module').then(m => m.BuscaModule)
+  },
   {
     path: 'duvidas',
     loadChildren: () => import('./faq/faq.module').then(m => m.FaqModule)
+  },
+  {
+    path: 'malhaFina',
+    loadChildren: () => import('./alertas/alertas.module').then(m => m.AlertasModule)
   },
   {
     path: '',

@@ -81,10 +81,15 @@
           {{ licitacao.data_abertura | date:'LLL/y' }}
         </td>
         <td class="text-center">
-          <span
+          <span *ngIf="licitacao?.status === 'Com compras'"
             class="badge"
-            [ngClass]="licitacao?.status === 'Com contratos' ? 'badge-danger' : 'badge-info'">
-            {{ licitacao?.status }}
+            [ngClass]="'badge-danger'">
+            Com contratos
+          </span>
+          <span *ngIf="licitacao?.status === 'Sem compras'"
+            class="badge"
+            [ngClass]="'badge-info'">
+            Sem contratos
           </span>
         </td>
       </tr>

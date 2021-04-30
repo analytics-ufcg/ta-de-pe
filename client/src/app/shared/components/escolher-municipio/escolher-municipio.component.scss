@@ -1,0 +1,21 @@
+
+.input-group {
+  background: white;
+  border-radius: 0.35rem;
+  width: 96%
+}
+
+:host::ng-deep.form-control {
+  border: 2px solid transparent;
+}
+
+.icon-search-home {
+  line-height: 2.4;
+  position: absolute;
+  right: 4%;
+  background: white;
+}
+
+app-input-busca-geral {
+  min-width: 100%;
+}

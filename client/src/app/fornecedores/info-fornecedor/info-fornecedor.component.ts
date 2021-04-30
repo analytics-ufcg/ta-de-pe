@@ -2,7 +2,7 @@ import { DecimalPipe } from '@angular/common';
 import { EventoOrd } from './../../shared/models/lista.model';
 import { OrdenavelDirective } from 'src/app/shared/directives/ordenavel.directive';
 import { take, takeUntil, map } from 'rxjs/operators';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Subject } from 'rxjs';
 import { Component, OnInit, ViewChildren, QueryList, SimpleChanges } from '@angular/core';
 
@@ -23,8 +23,11 @@ export class InfoFornecedorComponent implements OnInit {
 
   public fornecedor: Fornecedor;
   public isLoading = true;
+  public showSocios = 5;
+  public showAtividades = 5;
 
   constructor(
+    private router: Router,
     private activatedRoute: ActivatedRoute,
     private fornecedorService: FornecedorService,
     public listaService: ListaContratosFornecedorService
@@ -71,6 +74,28 @@ export class InfoFornecedorComponent implements OnInit {
 
     this.listaService.colunaOrd = coluna;
     this.listaService.direcaoOrd = direcao;
+  }
+
+  mostraMaisSocios() {
+    if (this.showSocios < this.fornecedor.fornecedorDadosCadastrais.dadosCadastraisSocios.length) {
+      this.showSocios = this.fornecedor.fornecedorDadosCadastrais.dadosCadastraisSocios.length;
+    } else {
+      this.showSocios = 5;
+    }
+  }
+
+  mostraMaisAtividadesEconomicas() {
+    if (this.showAtividades < this.fornecedor.fornecedorCnaesSecundarios.length) {
+      this.showAtividades = this.fornecedor.fornecedorCnaesSecundarios.length;
+    } else {
+      this.showAtividades = 5;
+    }
+  }
+
+  onClickAlerta(idFornecedor) {
+    if (idFornecedor) {
+      this.router.navigate(['/malhaFina'], { queryParams: {search: idFornecedor, page: 1}});
+    }
   }
 
 }

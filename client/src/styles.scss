@@ -86,6 +86,45 @@ a.link-light:visited {
   }
 }
 
+.card-alert {
+  border-left: solid 0.25rem;
+
+  &:hover {
+    cursor: pointer;
+    left: -1px;
+  }
+}
+
+.card-alert-disabled {
+  cursor: default;
+  color: rgb(150, 150, 150) !important;
+  background: rgba(245, 245, 245, 0.185);
+}
+
+.cor-alerta-abertura-empresa:before {
+  background: $warning;
+}
+
+.cor-alerta-item-atipico:before {
+  background: $blue;
+}
+
+.cor-borda-esquerda-abertura-empresa {
+  border-left-color: $warning !important;
+}
+
+.cor-borda-esquerda-item-atipico {
+  border-left-color: $blue !important;
+}
+
+.cor-borda-inferior-abertura-empresa {
+  border-bottom-color: $warning !important;
+}
+
+.cor-borda-inferior-item-atipico {
+  border-bottom-color: $blue !important;
+}
+
 .text-contratacao {
   color: $success;
 }
@@ -126,6 +165,12 @@ td.numero {
   font-size: 0.9rem;
 }
 
+.table-th-monospace-md {
+  width: 300px;
+  font-weight: normal;
+  font-size: 0.9rem;
+}
+
 .accordion {
   > .card {
     > .card-header {
@@ -135,9 +180,16 @@ td.numero {
         padding-bottom: 1rem;
         font-size: 1.1rem;
         text-align: left;
+        background-color: #fff;
+        border-color: #fff;
       }
     }
   }
+}
+
+.btn-link {
+  border-color: #fff !important;
+  background-color: #fff !important;
 }
 
 .toggle-wrapper {
@@ -236,8 +288,6 @@ td.numero {
   left: 0;
   z-index: 999;
   width: 100%;
-  background-color: #f2f7f3;
-  border-top: solid 2px #adb5bd;
   border-radius: 0.75rem;
 
   @media (min-width: 576px) {
@@ -251,9 +301,37 @@ td.numero {
     border-top: none;
   }
 }
-
+.nav-fill {
+  @media (min-width: 1000px) {
+    max-width: 50%;
+  }
+}
+.nav-item{
+  z-index: 100;
+}
 .navegacao-link {
+  background: #f2f7f3;
+  border-radius: 0.75rem 0.75rem 0 0 !important;
+  border-width: 1px;
+
+  border-bottom-style: solid;
+  border-top-style: solid;
+  border-right-style: solid;
+  border-left-style: solid;
+  color: $dark;
+  border-color: #ced4da;
+  border-bottom-color: #ced4da;
+  z-index: 1000;
+
   &.active {
+    background: $white;
+    color: $dark;
+    border-bottom-color: $white;
+
+    &:hover{
+      font-weight: bold;
+    }
+
     @media (max-width: 575.98px) {
       margin-top: -8px;
       padding-bottom: 16px;
@@ -261,6 +339,24 @@ td.numero {
       border-bottom-right-radius: 0;
     }
   }
+
+  &:hover{
+    color: $dark;
+    font-weight: bold;
+  }
+}
+
+.borda-navegacao {
+  background: #e6e6e6;
+  position: relative;
+  margin-top: -41px;
+  z-index: 1;
+  margin-bottom: 41px;
+}
+
+.icone-navegacao {
+  position: relative;
+  top: 2px;
 }
 
 .table th {
@@ -275,14 +371,19 @@ td.numero {
   min-width: 120px;
 }
 
+.th-pequeno {
+  width: 100px;
+}
+
 th[ordenavel] {
   cursor: pointer;
   user-select: none;
   -webkit-user-select: none;
 }
 
-th[ordenavel].asc:before, th[ordenavel].desc:before {
-  font-family: 'icomoon'!important;
+th[ordenavel].asc:before,
+th[ordenavel].desc:before {
+  font-family: "icomoon" !important;
   display: inline;
 
   font-style: normal;
@@ -296,10 +397,41 @@ th[ordenavel].asc:before, th[ordenavel].desc:before {
   -moz-osx-font-smoothing: grayscale;
 }
 
-th[ordenavel].asc:before {
-  content: '\e90d';
+th[ordenavel].desc:before {
+  content: "\e915";
 }
 
-th[ordenavel].desc:before {
-  content: '\e911';
+th[ordenavel].asc:before {
+  content: "\e919";
+}
+
+.hidden-app {
+  display: none;
+}
+
+@media print {
+  /**
+  *  Use these for toggling content for print.
+  **/
+  .visible-print {
+    display: block !important;
+  }
+
+  .hidden-print {
+    display: none !important;
+  }
+
+  .navbar {
+    position: absolute;
+    top: 0;
+  }
+
+  * {
+    -webkit-print-color-adjust: exact !important;
+    color-adjust: exact;
+  }
+
+  td {
+    color: black !important;
+  }
 }

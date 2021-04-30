@@ -4,4 +4,7 @@ export interface Fornecedor {
     nr_documento: string;
     total_de_contratos: number;
     data_primeiro_contrato: Date;
+    fornecedorDadosCadastrais: any;
+    fornecedorCnaesSecundarios: any;
+    fornecedorAlerta: any;
 }

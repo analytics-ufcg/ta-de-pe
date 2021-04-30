@@ -13,22 +13,41 @@
 </div>
 <div class="container app-container">
   <div class="row">
-    <div class="col-md-6">
+    <div class="mt-4 col-lg-7">
       <h1 class="headline text-info">
-        Como está a compra de merenda na sua cidade?
+        Como estão as compras para o combate ao COVID em sua cidade?
       </h1>
+    </div>
+    <div class="col-lg-6">
       <p>
         Nesta plataforma, desenvolvida pela
         <strong>Transparência Brasil</strong>,
         é possível acompanhar dados oficiais de licitações e
-        contratos de alimentação escolar dos municípios brasileiros.
+        contratos de combate ao COVID-19.
       </p>
 
-      <div class="call-to-action">
-        <app-escolher-municipio></app-escolher-municipio>
-        Disponível por enquanto apenas para o Rio Grande do Sul.
-          <a routerLink="/duvidas">Saiba mais</a>
+      <div class="mt-5">
+        <a routerLink="/malhaFina">
+          <button
+            type="button"
+            class="btn btn-warning button-explore text-white">
+            <strong>Explore</strong>
+          </button>
+        </a>
+        o que a Malha Fina da Transparência Brasil encontrou
       </div>
+      <div class="mt-1 mb-1 text-dark">
+        <strong>ou</strong>
+      </div>
+      <app-escolher-municipio></app-escolher-municipio>
+
+      <span class="text-muted">
+        <small>
+          Disponível por enquanto apenas para o Rio Grande do Sul.
+          <a routerLink="/duvidas">Saiba mais</a>
+        </small>
+      </span>
+
     </div>
   </div>
 </div>

@@ -2,10 +2,18 @@
   class="view-container"
   [hidden]="!contrato">
 
-  <app-barra-titulo
-    [titulo]="'Contrato ' + contrato?.nr_contrato + '/' + contrato?.ano_contrato"
-    [subtitulo]="contrato?.nm_orgao"
-    [exibirVoltar]="true"></app-barra-titulo>
+  <div *ngIf="contrato?.tipo_instrumento_contrato === 'Compra'">
+    <app-barra-titulo
+      [titulo]="'Compra sem número de contrato'"
+      [subtitulo]="contrato?.nm_orgao"
+      [exibirVoltar]="true"></app-barra-titulo>
+  </div>
+  <div *ngIf="contrato?.tipo_instrumento_contrato !== 'Compra'">
+    <app-barra-titulo
+      [titulo]="'Contrato nº ' + contrato?.nr_contrato + '/' + contrato?.ano_contrato"
+      [subtitulo]="contrato?.nm_orgao"
+      [exibirVoltar]="true"></app-barra-titulo>
+  </div>
 
   <div class="container">
     <div class="row mt-4">
@@ -20,20 +28,22 @@
         </div>
       </div>
       <div class="col-sm-12 col-md-9 mb-4">
-        <div class="dados-linha">
-          <strong>Fornecedor</strong>
-        </div>
-        <div class="dados-linha">
-          <a [routerLink]="['/fornecedores/' + contrato?.nr_documento_contratado]">
-            {{ contrato?.contratoFornecedor.nm_pessoa }}
-          </a>
-          <br>
-          ({{ contrato?.nr_documento_contratado | formatCpfCnpj }})
+        <div *ngIf="contrato?.nr_documento_contratado">
+          <div class="dados-linha">
+            <strong>Fornecedor</strong>
+          </div>
+          <div class="dados-linha">
+            <a [routerLink]="['/fornecedores/' + contrato?.nr_documento_contratado]">
+              {{ contrato?.contratoFornecedor?.nm_pessoa ? contrato?.contratoFornecedor?.nm_pessoa : 'Pessoa física (nome não divulgado)' }}
+            </a>
+            <br>
+            ({{ contrato?.nr_documento_contratado | formatCpfCnpj }})
+          </div>
         </div>
       </div>
       <div class="col-sm-12 mb-4">
         <div class="dados-linha">
-          <strong>Objeto do contrato</strong>
+          <strong>Objeto do contrato ou compra</strong>
           <app-tooltip-ajuda
             [posicao]="'right'"
             [descricao]="'Os dados do contrato foram informados pelo município para o TCE'"></app-tooltip-ajuda>
@@ -47,7 +57,10 @@
           <strong>Vigência</strong>
         </div>
         <div class="dados-linha">
-          {{ contrato?.dt_inicio_vigencia | date: "dd/MM/yyyy" }} à {{ contrato?.dt_final_vigencia | date: "dd/MM/yyyy" }}
+          {{ contrato?.dt_inicio_vigencia | date: "dd/MM/yyyy" }}
+          <span *ngIf="contrato?.dt_final_vigencia">
+            à {{ contrato?.dt_final_vigencia | date: "dd/MM/yyyy" }}
+          </span>
         </div>
       </div>
       <div class="col-sm-6 col-md-6 col-lg-3 mb-4">
@@ -56,7 +69,9 @@
         </div>
         <div class="dados-linha">
           {{ contrato?.vl_contrato | currency: "R$" }}
-          <div class="mt-2">
+          <div
+            *ngIf="contrato?.tipo_instrumento_contrato === 'Contrato'"
+            class="mt-2">
             <app-progress
               [value]="contrato?.total_pago"
               [max]="contrato?.valor_contratado"
@@ -71,7 +86,9 @@
           </div>
         </div>
       </div>
-      <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
+      <div
+        *ngIf="contrato?.tipo_instrumento_contrato === 'Contrato'"
+        class="col-sm-6 col-md-6 col-lg-6 mb-4">
         <div class="dados-linha">
           <strong>Diferença com estimado</strong>
 
@@ -92,6 +109,25 @@
         </div>
       </div>
     </div>
+
+    <ngb-alert [dismissible]="false" *ngIf="contrato?.contratoAlerta?.id_tipo" class="container custom-alert-card">
+      <p class="mt-2 custom-alert-text"><strong>Alerta gerado pela Malha Fina</strong>:</p>
+      <div class="row mt-2 ml-1 mb-2">
+        <div class="col-lg-12">
+            <p *ngIf="contrato?.contratoAlerta?.id_tipo === 1" class="custom-alert-text">
+              <span class="tooltip-base tooltip-warning icon-alert-triangle  mr-1">
+              </span>
+              O fornecedor foi contratado em menos de um mês após a abertura do CNPJ na Receita Federal.
+            </p>
+            <p *ngIf="contrato?.contratoAlerta?.id_tipo === 2" class="custom-alert-text">
+              <span class="tooltip-base tooltip-warning icon-alert-triangle mr-1">
+              </span>
+              A empresa forneceu produtos que não são comuns com base em suas atividades econômicas declaradas na Receita Federal.
+            </p>
+        </div>
+      </div>
+    </ngb-alert>
+
 
     <app-spinner *ngIf="loading$ | async"></app-spinner>
 
@@ -131,7 +167,7 @@
                 ordenavel="ds_item"
                 (ordenar)="onOrdenar($event)"
                 appOrdenavel>
-                Produto
+                Produto/serviço
               </th>
               <th
                 scope="col"
@@ -221,8 +257,9 @@
               <td class="align-middle descricao">
                 <app-descricao-item
                   [item]="item"
-                  [temLink]="item?.itensSemelhantes?.length > 1"></app-descricao-item>
+                  [temLink]="item?.itensSemelhantes?.length > 1 && !item?.servico"></app-descricao-item>
               </td>
+
               <td
                 class="numero align-middle"
                 *ngIf="!radioGroupForm.value['showTotal']">
@@ -239,10 +276,15 @@
                 [title]="item.mediana_valor">
                 <div
                   class="pr-3"
-                  *ngIf="item?.itensSemelhantes?.length <= 1; else mostraMedianaEstado">
+                  *ngIf="item?.itensSemelhantes?.length <= 1 || item?.servico; else mostraMedianaEstado">
                   <app-tooltip-ajuda
-                  [tipo]="'alerta'"
-                  [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
+                    *ngIf="item?.itensSemelhantes?.length <= 1"
+                    [tipo]="'info'"
+                    [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
+                  <app-tooltip-ajuda
+                    *ngIf="item?.servico"
+                    [tipo]="'info'"
+                    [descricao]="'Não realizamos comparações entre serviços, pois eles variam muito em descrição e especificação.'"></app-tooltip-ajuda>
                 </div>
                 <ng-template #mostraMedianaEstado>
                   {{ item.mediana_valor | currency:'':'' }}
@@ -254,10 +296,15 @@
                 [title]="item.mediana_valor * item.qt_itens_contrato">
                 <div
                   class="pr-3"
-                  *ngIf="item?.itensSemelhantes?.length <= 1; else mostraMedianaTotalEstado">
+                  *ngIf="item?.itensSemelhantes?.length <= 1 || item?.servico; else mostraMedianaTotalEstado">
                   <app-tooltip-ajuda
-                  [tipo]="'alerta'"
-                  [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
+                    *ngIf="item?.itensSemelhantes?.length <= 1"
+                    [tipo]="'info'"
+                    [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
+                  <app-tooltip-ajuda
+                    *ngIf="item?.servico"
+                    [tipo]="'info'"
+                    [descricao]="'Não realizamos comparações entre serviços, pois eles variam muito em descrição e especificação.'"></app-tooltip-ajuda>
                 </div>
                 <ng-template #mostraMedianaTotalEstado>
                   {{ item.mediana_valor * item.qt_itens_contrato | currency:'':'' }}
@@ -266,17 +313,23 @@
               <td
                 class="numero align-middle"
                 [title]="item.mediana_valor"
-                [style.background-color]="item?.itensSemelhantes?.length > 1 ? defineCorFundo(item.percentual_vs_estado) : 'white'"
+                [style.background-color]="item?.itensSemelhantes?.length > 1 && !item?.servico ? defineCorFundo(item.percentual_vs_estado) : 'white'"
                 [style.color]="defineCor(item.percentual_vs_estado)">
                 <div
                   class="pr-3"
-                  *ngIf="item?.itensSemelhantes?.length <= 1; else mostraPercentualEstado">
+                  *ngIf="item?.itensSemelhantes?.length <= 1 || item?.servico; else mostraPercentualEstado">
+                   <app-tooltip-ajuda
+                    *ngIf="item?.itensSemelhantes?.length <= 1"
+                    [tipo]="'info'"
+                    [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                   <app-tooltip-ajuda
-                  [tipo]="'alerta'"
-                  [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
+                    *ngIf="item?.servico"
+                    [tipo]="'info'"
+                    [descricao]="'Não realizamos comparações entre serviços, pois eles variam muito em descrição e especificação.'"></app-tooltip-ajuda>
                 </div>
                 <ng-template #mostraPercentualEstado>
-                  <span *ngIf="item.percentual_vs_estado > 0">+</span>{{ item.percentual_vs_estado | percent:'1.1' }}
+                  <span *ngIf="item.percentual_vs_estado > 0">+</span>
+                  {{ item.percentual_vs_estado | percent:'1.1' }}
                 </ng-template>
               </td>
               <td
@@ -296,7 +349,8 @@
                 [title]="item.vl_unitario_estimado"
                 [style.background-color]="defineCorFundo(item.percentual_vs_estimado)"
                 [style.color]="defineCor(item.percentual_vs_estimado)">
-                <span *ngIf="item.percentual_vs_estimado > 0">+</span>{{ item.percentual_vs_estimado | percent:'1.1' }}
+                <span *ngIf="item.percentual_vs_estimado > 0">+</span>
+                {{ item.percentual_vs_estimado | percent:'1.1' }}
               </td>
             </tr>
           </tbody>

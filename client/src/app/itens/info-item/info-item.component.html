@@ -1,7 +1,7 @@
 <div class="view-container" *ngIf="item">
   <app-barra-titulo
     [titulo]="item.ds_item_resumido | titlecase"
-    [subtitulo]="item.itensContratoOrgao.nm_orgao + ' &#9474; Contrato ' + item.nr_contrato + '/' + item.ano_contrato"
+    [subtitulo]="item.itensContratoOrgao.nm_orgao + ' &#9474; Contrato nº ' + item.nr_contrato + '/' + item.ano_contrato"
     [exibirVoltar]="true"></app-barra-titulo>
 
   <div class="container">
@@ -90,7 +90,7 @@
                 ordenavel="ano_licitacao"
                 (ordenar)="onOrdenar($event)"
                 appOrdenavel>
-                Contrato
+                Compra
               </th>
               <th
                 scope="col"
@@ -118,7 +118,7 @@
                 <a
                   [routerLink]="['/contratos/' + itemSemelhante.id_contrato]"
                   target="_blank">
-                  {{ itemSemelhante.nr_contrato }}/{{ itemSemelhante.ano_licitacao }}
+                  nº {{ itemSemelhante.nr_contrato }}/{{ itemSemelhante.ano_licitacao }}
                 </a>
               </td>
               <td class="numero align-middle">

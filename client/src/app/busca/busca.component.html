@@ -1,0 +1,46 @@
+<div class="view-container">
+  <app-barra-titulo
+    [titulo]="'Resultados para &#34;' + termo + '&#34;'"
+    [exibirVoltar]="false"></app-barra-titulo>
+  <div class="container">
+
+    <div class="navegacao">
+      <ul class="nav nav-fill">
+        <li class="nav-item">
+          <a
+            class="nav-link navegacao-link"
+            [routerLink]="['./municipio']"
+            queryParamsHandling="merge"
+            routerLinkActive="active">
+            <span class="icon-office icone-navegacao"></span>
+            Municípios
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link navegacao-link"
+            [routerLink]="['./produto']"
+            queryParamsHandling="merge"
+            routerLinkActive="active">
+            <span class="icon-shopping-cart icone-navegacao"></span>
+            Produtos
+          </a>
+        </li>
+        <li class="nav-item">
+          <a
+            class="nav-link navegacao-link"
+            [routerLink]="['./contrato']"
+            queryParamsHandling="merge"
+            routerLinkActive="active">
+            <span class="icon-file-text icone-navegacao"></span>
+            Contratos
+          </a>
+        </li>
+      </ul>
+    </div>
+    <hr class="borda-navegacao">
+
+    <router-outlet></router-outlet>
+  </div>
+
+</div>

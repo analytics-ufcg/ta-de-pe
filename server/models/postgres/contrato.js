@@ -27,7 +27,8 @@ module.exports = (sequelize, type) => {
         descricao_objeto_contrato: type.STRING,
         justificativa_contratacao: type.STRING,
         obs_contrato: type.STRING,
-        tipo_instrumento_contrato: type.STRING
+        tipo_instrumento_contrato: type.STRING,
+        language: type.STRING
 
       },
       {
@@ -61,6 +62,11 @@ module.exports = (sequelize, type) => {
         foreignKey: "id_contrato",
         sourceKey: "id_contrato",
         as: "contratoNovidade"
+      });
+      contrato.hasOne(models.alerta, {
+        foreignKey: "id_contrato",
+        sourceKey: "id_contrato",
+        as: "contratoAlerta"
       });
     };
     return contrato;

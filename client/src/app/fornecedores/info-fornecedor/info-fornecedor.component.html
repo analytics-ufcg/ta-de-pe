@@ -1,20 +1,18 @@
-<div
-  class="view-container"
-  *ngIf="fornecedor">
-  <app-barra-titulo
-    [titulo]="fornecedor?.nm_pessoa ? fornecedor?.nm_pessoa : 'Nome não encontrado'"
-    [subtitulo]="(fornecedor.nr_documento |formatCpfCnpj)"
-    [exibirVoltar]="true">
+<div class="view-container" *ngIf="fornecedor">
+  <app-barra-titulo [titulo]="
+      fornecedor?.nm_pessoa ? fornecedor?.nm_pessoa : 'Pessoa física (nome não divulgado)'
+    " [subtitulo]="fornecedor.nr_documento | formatCpfCnpj" [exibirVoltar]="true">
   </app-barra-titulo>
 
   <div class="container">
+    <h4 class="titulo-sessao mt-4">Dados Cadastrais</h4>
     <div class="row mt-4">
       <div class="col-sm-6 col-md-6 col-lg-3 mb-4">
         <div class="dados-linha">
           <strong>Data do primeiro contrato</strong>
-          <app-tooltip-ajuda
-            [posicao]="'top'"
-            [descricao]="'Data que o fornecedor realizou seu primeiro contrato independente do assunto'">
+          <app-tooltip-ajuda [posicao]="'top'" [descricao]="
+              'Data em que o fornecedor teve seu primeiro contrato com uma prefeitura ou outros órgãos públicos no estado.'
+            ">
           </app-tooltip-ajuda>
         </div>
         <div class="dados-linha">
@@ -22,30 +20,221 @@
         </div>
       </div>
 
-      <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
+      <div class="col-sm-6 col-md-6 col-lg-3 mb-4">
         <div class="dados-linha">
           <strong>Total de contratos</strong>
 
-          <app-tooltip-ajuda
-            [posicao]="'top'"
-            [descricao]="'Quantidade total de contratos que o fornecedor já participou independente do assunto'">
+          <app-tooltip-ajuda [posicao]="'top'" [descricao]="
+              'Quantidade de contratos fechados entre este fornecedor e órgãos públicos no estado.'
+            ">
           </app-tooltip-ajuda>
         </div>
-        <div class="dados-linha">{{fornecedor?.total_de_contratos}}</div>
+        <div class="dados-linha">{{ fornecedor?.total_de_contratos }}</div>
+      </div>
+
+      <div class="col-sm-6 col-md-6 col-lg-3 mb-4">
+        <div class="dados-linha">
+          <strong>Data de início das atividades</strong>
+          <app-tooltip-ajuda [posicao]="'top'" [descricao]="'Data em que a empresa iniciou suas atividades.'">
+          </app-tooltip-ajuda>
+        </div>
+        <div *ngIf="fornecedor?.fornecedorDadosCadastrais?.data_inicio_atividade" class="dados-linha">
+          {{
+            fornecedor?.fornecedorDadosCadastrais?.data_inicio_atividade
+              | date: "dd/MM/yyyy"
+          }}
+        </div>
+        <div *ngIf="!fornecedor?.fornecedorDadosCadastrais?.data_inicio_atividade" class="dados-linha">
+          Informação não encontrada
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
+        <div class="dados-linha">
+          <strong>Endereço</strong>
+          <app-tooltip-ajuda [posicao]="'top'" [descricao]="'Informação fornecida pela Receita Federal'">
+          </app-tooltip-ajuda>
+        </div>
+        <div *ngIf="fornecedor?.fornecedorDadosCadastrais?.logradouro" class="dados-linha">
+          <span>
+            {{ fornecedor?.fornecedorDadosCadastrais?.descricao_tipo_logradouro | titlecase }}
+            {{ fornecedor?.fornecedorDadosCadastrais?.logradouro | titlecase }},
+            {{ fornecedor?.fornecedorDadosCadastrais?.numero }}
+          </span>
+          -
+          <span>
+            {{ fornecedor?.fornecedorDadosCadastrais?.bairro | titlecase }},
+            {{ fornecedor?.fornecedorDadosCadastrais?.municipio | titlecase }} -
+            {{ fornecedor?.fornecedorDadosCadastrais?.uf }}
+          </span>
+          <br>
+          <small *ngIf="fornecedor?.fornecedorDadosCadastrais?.complemento">
+            <ngb-highlight [result]="fornecedor?.fornecedorDadosCadastrais?.complemento | titlecase"></ngb-highlight>
+          </small>
+        </div>
+        <div *ngIf="!fornecedor?.fornecedorDadosCadastrais?.logradouro" class="dados-linha">
+          Informação não encontrada
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
+        <div class="dados-linha">
+          <strong>Contato</strong>
+        </div>
+        <div class="dados-linha">
+          <span *ngIf="fornecedor?.fornecedorDadosCadastrais?.ddd_telefone_1">
+            <small>telefone:</small>
+            {{ fornecedor?.fornecedorDadosCadastrais?.ddd_telefone_1 }}
+            <br>
+          </span>
+          <span *ngIf="fornecedor?.fornecedorDadosCadastrais?.correio_eletronico">
+            <small>email:</small>
+            {{ fornecedor?.fornecedorDadosCadastrais?.correio_eletronico | lowercase }}
+          </span>
+        </div>
+        <div
+          *ngIf="!fornecedor?.fornecedorDadosCadastrais?.ddd_telefone_1 && !fornecedor?.fornecedorDadosCadastrais?.correio_eletronico"
+          class="dados-linha">
+          Informação não encontrada
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
+        <div class="dados-linha">
+          <strong>Capital Social</strong>
+        </div>
+        <div *ngIf="fornecedor?.fornecedorDadosCadastrais?.capital_social_empresa" class="dados-linha">
+          <span>
+            {{ fornecedor?.fornecedorDadosCadastrais?.capital_social_empresa | currency: "R$" }}
+          </span>
+        </div>
+        <div *ngIf="!fornecedor?.fornecedorDadosCadastrais?.capital_social_empresa" class="dados-linha">
+          Informação não encontrada
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
+        <div class="dados-linha">
+          <strong>Porte da Empresa</strong>
+        </div>
+        <div class="dados-linha">
+          <span *ngIf="fornecedor?.fornecedorDadosCadastrais?.porte_empresa">
+            {{ fornecedor?.fornecedorDadosCadastrais?.porte_empresa }}
+            <br>
+          </span>
+        </div>
+        <div *ngIf="!fornecedor?.fornecedorDadosCadastrais?.porte_empresa" class="dados-linha">
+          Informação não encontrada
+        </div>
+      </div>
+      <div class="col-sm-6 col-md-6 col-lg-6 mb-4">
+        <div class="dados-linha">
+          <strong>Natureza Jurídica</strong>
+        </div>
+        <div *ngIf="fornecedor?.fornecedorDadosCadastrais?.dadosCadastraisNatureza?.desc_natureza" class="dados-linha">
+          <span>
+            {{ fornecedor?.fornecedorDadosCadastrais?.dadosCadastraisNatureza?.desc_natureza }}
+          </span>
+        </div>
+        <div *ngIf="!fornecedor?.fornecedorDadosCadastrais?.dadosCadastraisNatureza?.desc_natureza" class="dados-linha">
+          Informação não encontrada
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-2">
+      <div class="col-sm-8 col-md-8 col-lg-6 mb-4">
+        <div class="dados-linha">
+          <strong>Sócios</strong>
+          <app-tooltip-ajuda [posicao]="'top'" [descricao]="'Informação fornecida pela Receita Federal'">
+          </app-tooltip-ajuda>
+        </div>
+        <div *ngIf="fornecedor?.fornecedorDadosCadastrais?.dadosCadastraisSocios?.length" class="dados-linha">
+          {{ fornecedor?.fornecedorDadosCadastrais?.dadosCadastraisSocios?.length }}
+          sócio<span *ngIf="fornecedor?.fornecedorDadosCadastrais?.dadosCadastraisSocios?.length > 1">s</span>:
+          <ul>
+            <li
+              *ngFor="let item of fornecedor?.fornecedorDadosCadastrais?.dadosCadastraisSocios|slice:0:showSocios let i=index">
+              {{item?.nome_socio | titlecase }} <small>(<span [hidden]="i !== 0">desde
+                </span>{{item?.data_entrada | date: "LLL/y" }})</small>
+
+              <button type="button" class="btn btn-sm btn-outline-secondary ml-1" *ngIf="i==showSocios-1"
+                (click)="mostraMaisSocios()">
+                ...
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="!fornecedor?.fornecedorDadosCadastrais?.dadosCadastraisSocios?.length" class="dados-linha">
+          Informação não encontrada
+        </div>
+      </div>
+      <div class="col-sm-8 col-md-8 col-lg-6 mb-4">
+        <div class="dados-linha">
+          <strong>Atividades econômicas</strong>
+          <app-tooltip-ajuda [posicao]="'top'" [descricao]="'Informação fornecida pela Receita Federal'">
+          </app-tooltip-ajuda>
+        </div>
+        <div *ngIf="fornecedor?.fornecedorDadosCadastrais?.dadosCadastraisCnaeFiscal" class="dados-linha">
+          {{ fornecedor?.fornecedorCnaesSecundarios?.length + 1 }} atividade<span
+            *ngIf="fornecedor?.fornecedorCnaesSecundarios?.length > 0">s</span>:
+          <ul>
+            <li>
+              <strong>{{fornecedor?.fornecedorDadosCadastrais?.dadosCadastraisCnaeFiscal?.nm_cnae | initialcase }}
+                <small>(cnae fiscal
+                  {{ fornecedor?.fornecedorDadosCadastrais?.dadosCadastraisCnaeFiscal?.id_cnae }})</small>
+              </strong>
+            </li>
+            <li *ngFor="let item of fornecedor?.fornecedorCnaesSecundarios|slice:0:showAtividades let i=index">
+              {{item?.cnaeSecundarioCnae?.nm_cnae | initialcase }} <small>(<span [hidden]="i !== 0">cnae secundário
+                </span>{{ item?.id_cnae }})</small>
+
+              <button type="button" class="btn btn-sm btn-outline-secondary ml-1" *ngIf="i==showAtividades-1"
+                (click)="mostraMaisAtividadesEconomicas()">
+                ...
+              </button>
+            </li>
+          </ul>
+        </div>
+        <div *ngIf="!fornecedor?.fornecedorDadosCadastrais?.dadosCadastraisCnaeFiscal" class="dados-linha">
+          Informação não encontrada
+        </div>
       </div>
     </div>
   </div>
 
+  <ngb-alert [dismissible]="false" *ngIf="fornecedor?.fornecedorAlerta?.length" class="container custom-alert-card">
+    <p class="mt-2 custom-alert-text"><strong>Alertas gerados pela Malha Fina</strong>:</p>
+    <div class="row mt-2 ml-1 mb-2">
+      <div class="col-lg-12">
+        <div *ngFor="let alerta of fornecedor?.fornecedorAlerta | filterUniqueAlertas">
+          <p *ngIf="alerta?.id_tipo === 1" class="custom-alert-text cursor-pointer" (click)="onClickAlerta(fornecedor?.nr_documento)">
+            <span class="tooltip-base tooltip-warning icon-alert-triangle mr-1">
+            </span>
+            O fornecedor foi contratado em menos de um mês após a abertura do CNPJ na Receita Federal.
+          </p>
+          <p *ngIf="alerta?.id_tipo === 2" class="custom-alert-text cursor-pointer" (click)="onClickAlerta(fornecedor?.nr_documento)">
+            <span class="tooltip-base tooltip-warning icon-alert-triangle mr-1">
+            </span>
+            A empresa forneceu produtos que não são comuns com base em suas atividades econômicas declaradas na Receita Federal.
+          </p>
+        </div>
+      </div>
+    </div>
+  </ngb-alert>
+
   <div class="container">
+    <h4 class="titulo-sessao mt-4">Contratos</h4>
     <div class="row">
       <div class="col-lg-6">
         <form>
           <div class="form-group">
-            <input
-              class="form-control"
-              type="text"
-              placeholder="Buscar nos contratos..."
-              name="termoBusca"
+            <input class="form-control" type="text" placeholder="Buscar nos contratos..." name="termoBusca"
               [(ngModel)]="listaService.termoBusca">
           </div>
         </form>
@@ -54,69 +243,45 @@
 
     <app-spinner *ngIf="isLoading"></app-spinner>
 
-    <div
-      *ngIf="!isLoading"
-      class="container table-wrapper">
+    <div *ngIf="!isLoading" class="container table-wrapper">
       <div class="table-responsive">
         <table class="table table-hover">
           <thead>
             <tr>
-              <th
-                scope="col"
-                class="text-center th-medio"
-                ordenavel="nr_contrato"
-                (ordenar)="onOrdenar($event)"
+              <th scope="col" class="text-center th-medio" ordenavel="nr_contrato" (ordenar)="onOrdenar($event)"
                 appOrdenavel>
                 Contrato
               </th>
-              <th
-                scope="col"
-                class="th-espacoso"
-                ordenavel="descricao_objeto_contrato"
-                (ordenar)="onOrdenar($event)"
+              <th scope="col" class="th-espacoso" ordenavel="descricao_objeto_contrato" (ordenar)="onOrdenar($event)"
                 appOrdenavel>
                 Descrição
               </th>
-              <th
-                scope="col"
-                class="text-center"
-                ordenavel="vl_contrato"
-                (ordenar)="onOrdenar($event)"
-                appOrdenavel>
+              <th scope="col" class="text-center" ordenavel="vl_contrato" (ordenar)="onOrdenar($event)" appOrdenavel>
                 Valor contratado
               </th>
-              <th
-                scope="col"
-                class="text-center th-medio"
-                ordenavel="dt_inicio_vigencia"
-                (ordenar)="onOrdenar($event)"
+              <th scope="col" class="text-center th-medio" ordenavel="dt_inicio_vigencia" (ordenar)="onOrdenar($event)"
                 appOrdenavel>
                 Início&nbsp;da vigência
               </th>
-              <th
-                scope="col"
-                class="text-center"
-                ordenavel="dt_final_vigencia"
-                (ordenar)="onOrdenar($event)"
+              <th scope="col" class="text-center" ordenavel="dt_final_vigencia" (ordenar)="onOrdenar($event)"
                 appOrdenavel>
                 Fim da vigência
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let contrato of listaService.dadosProcessados$ | async; index as i">
+            <tr *ngFor="
+                let contrato of listaService.dadosProcessados$ | async;
+                index as i
+              ">
               <td class="text-center">
                 <a [routerLink]="['/contratos/' + contrato.id_contrato]">
-                  <ngb-highlight
-                    [result]="contrato.nr_contrato"
-                    [term]="listaService.termoBusca"></ngb-highlight>
+                  nº <ngb-highlight [result]="contrato.nr_contrato" [term]="listaService.termoBusca"></ngb-highlight>
                 </a>
               </td>
               <td>
                 <span *ngIf="contrato.descricao_objeto_contrato">
-                  <ngb-highlight
-                    [result]="contrato.descricao_objeto_contrato"
-                    [term]="listaService.termoBusca">
+                  <ngb-highlight [result]="contrato.descricao_objeto_contrato" [term]="listaService.termoBusca">
                   </ngb-highlight>
                 </span>
                 <span *ngIf="!contrato.descricao_objeto_contrato">(Descrição não encontrada)</span>
@@ -125,10 +290,10 @@
                 {{ contrato.vl_contrato | currency: "R$" }}
               </td>
               <td class="text-center">
-                {{ contrato.dt_inicio_vigencia | date:'LLL/y' }}
+                {{ contrato.dt_inicio_vigencia | date: "LLL/y" }}
               </td>
               <td class="text-center">
-                {{ contrato.dt_final_vigencia | date:'LLL/y' }}
+                {{ contrato.dt_final_vigencia | date: "LLL/y" }}
               </td>
             </tr>
           </tbody>
@@ -136,5 +301,4 @@
       </div>
     </div>
   </div>
-
 </div>

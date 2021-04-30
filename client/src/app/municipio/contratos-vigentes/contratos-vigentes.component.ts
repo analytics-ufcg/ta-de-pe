@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Subject, Observable, BehaviorSubject } from 'rxjs';
-import { takeUntil, debounceTime } from 'rxjs/operators';
+import { takeUntil, debounceTime, map } from 'rxjs/operators';
 
 import { UserService } from '../../shared/services/user.service';
 import { ContratoService } from '../../shared/services/contrato.service';

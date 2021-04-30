@@ -13,6 +13,8 @@ export class DescricaoItemComponent implements OnInit {
   @Input() temLink: boolean;
   @Input() itemResumido = true;
   @Input() comUnidade = true;
+  @Input() comHighlight = false;
+  @Input() termo = '';
 
   constructor() { }
 
@@ -20,4 +22,10 @@ export class DescricaoItemComponent implements OnInit {
     this.item.resumido = this.itemResumido;
   }
 
+  formatProp(proporcaoCompleta) {
+    if (!proporcaoCompleta || proporcaoCompleta.toString().length <= 5) {
+      return proporcaoCompleta;
+    }
+    return proporcaoCompleta.toString().substring(0, 5);
+  }
 }

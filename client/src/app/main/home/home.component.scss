@@ -10,18 +10,14 @@
   }
 }
 
-.call-to-action {
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-  @media (min-width: 576px) {
-    padding-top: 4rem;
-    padding-bottom: 4rem;
-  }
-}
-
 .headline {
   font-family: "Fredoka One", cursive;
   text-transform: uppercase;
+  color: black !important;
+}
+
+.button-explore {
+  border-radius: 0.35rem;
 }
 
 .banner {
@@ -32,4 +28,14 @@
 
 .banner-img {
   width: 150px;
+}
+
+.pesquisa {
+  @media (min-width: 576px) {
+    margin-top: 2rem;
+  }
+}
+
+p {
+  margin-bottom: 0.25rem;
 }

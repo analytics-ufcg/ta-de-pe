@@ -9,6 +9,15 @@ const contratoModel = "./postgres/contrato.js";
 const itensContratoModel = "./postgres/itensContrato.js"
 const fornecedorModel = "./postgres/fornecedor.js"
 const documentoLicitacaoModel = "./postgres/documentoLicitacao.js"
+const dadosCadastraisModel = "./postgres/dadosCadastrais.js"
+const sociosModel = "./postgres/socios.js"
+const cnaeModel = "./postgres/cnae.js"
+const cnaeSecundarioModel = "./postgres/cnaeSecundario.js"
+const naturezaJuridicaModel = "./postgres/naturezaJuridica.js"
+const tipoAlertaModel = "./postgres/tipoAlerta.js"
+const alertaModel = "./postgres/alerta.js"
+const itemAtipicoModel = "./postgres/item-atipico.js"
+
 
 if (!global.hasOwnProperty("models")) {
   const db = process.env.POSTGRESURI;
@@ -40,7 +49,15 @@ if (!global.hasOwnProperty("models")) {
     contrato: sequelize.import(contratoModel),
     itensContrato: sequelize.import(itensContratoModel),
     fornecedor: sequelize.import(fornecedorModel),
-    documentoLicitacao: sequelize.import(documentoLicitacaoModel)
+    dadosCadastrais: sequelize.import(dadosCadastraisModel),
+    socios: sequelize.import(sociosModel),
+    documentoLicitacao: sequelize.import(documentoLicitacaoModel),
+    cnae: sequelize.import(cnaeModel),
+    cnaeSecundario: sequelize.import(cnaeSecundarioModel),
+    naturezaJuridica: sequelize.import(naturezaJuridicaModel),
+    tipoAlerta: sequelize.import(tipoAlertaModel),
+    alerta: sequelize.import(alertaModel),
+    itemAtipico: sequelize.import(itemAtipicoModel)
     //add your others models here
   };
 

@@ -21,7 +21,7 @@
 }
 
 .btn-buscar:after {
-  content: " Buscar município";
+  content: " Busque municípios, produtos ou contratos";
 }
 
 .btn-retraido {
@@ -33,19 +33,8 @@
   content: none;
 }
 
-.inp-expandido {
-  border-bottom-right-radius: 0px;
-  border-top-right-radius: 0px;
-  border: 0px;
-}
-
 .hide-busca {
   opacity: 0;
-}
-
-::ng-deep.dropdown-menu.show {
-  max-height: 70vh;
-  overflow-y: auto;
 }
 
 .nome {
@@ -58,7 +47,7 @@
 .brand {
   font-family: 'Fredoka One', cursive;
   color: #ffffff;
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   padding-top: 0.3rem;
 
   @media (min-width: 576px) {
@@ -75,4 +64,13 @@
     padding-right: 0;
     padding-left: 0;
   }
+}
+
+.input-group {
+  background: white;
+  border-radius: 0.35rem;
+}
+
+:host::ng-deep.form-control {
+  border: 2px solid transparent;
 }

@@ -1,0 +1,15 @@
+$border: #ebebeb;
+
+.title-border {
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 0.95rem;
+    line-height: 1;
+    margin: 0 0 0.75rem 0;
+    padding: 0 0 0.25rem 0;
+    border-bottom: 0.125rem solid $border;
+}
+
+.custom-alert-card {
+    margin-bottom: 0rem;
+}

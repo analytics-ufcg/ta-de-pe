@@ -8,18 +8,11 @@
   <div class="mb-4">
     <div class="row mt-4">
       <div class="col">
-        <span
+        <span *ngIf="licitacao?.status === 'Com compras'"
           class="badge"
-          [ngClass]="licitacao?.status === 'Com contratos' ? 'badge-danger' : 'badge-info'">
+          [ngClass]="licitacao?.status === 'Com compras' ? 'badge-danger' : 'badge-info'">
           {{ licitacao?.status }}
         </span>
-        <div
-          *ngIf="licitacao?.assunto !== 'merenda'"
-          class="mt-2">
-          <ngb-alert [dismissible]="false">
-            <strong>Atenção</strong>: não temos certeza se essa licitação envolve alimentação escolar. É preciso checar no edital ou no portal de transparência do município.
-          </ngb-alert>
-        </div>
       </div>
     </div>
     <div class="row mt-4">
@@ -37,7 +30,7 @@
         class="col-sm-6 col-md-3 col-lg-2 mb-4"
         [hidden]="licitacao?.qt_contratos === 0">
         <div class="dados-linha">
-          <strong>Contratos</strong>
+          <strong>Compras</strong>
         </div>
         <div class="dados-linha">{{ licitacao?.qt_contratos }}</div>
       </div>

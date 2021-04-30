@@ -1,10 +1,10 @@
-<nav class="navbar navbar-expand-lg navbar-dark fixed-top bg-dark">
+<nav class="navbar navbar-expand-lg navbar-dark hidden-print fixed-top bg-dark">
   <div class="container">
     <a
       class="navbar-brand brand"
       href="#"
       routerLink="/">
-      TÁ DE PÉ &#9474; MERENDA
+      TÁ DE PÉ &#9474; COMPRAS EMERGENCIAIS
       <small>beta</small>
     </a>
     <button
@@ -24,22 +24,14 @@
       [ngClass]="{ 'show': navbarOpen }">
       <ul class="navbar-nav ml-auto">
         <li [hidden]="isURLHome">
-          <div class="input-group">
-            <input
+            <div class="input-group">
+              <app-input-busca-geral 
+              class="inp-expandido"
               [hidden]="!show"
-              id="typeahead-focus"
-              type="text"
-              class="form-control inp-expandido"
-              placeholder="{{placeholder}}"
-              [(ngModel)]="municipioSelecionado"
-              [ngbTypeahead]="search"
-              onclick="this.select()"
-              onfocus="this.select()"
-              (focus)="focus$.next($any($event).target.value)"
-              (click)="click$.next($any($event).target.value)"
-              [editable]="false"
-              (selectItem)="salvarMunicipio($event.item)"
-              #instance="ngbTypeahead">
+              (buscavelSelecionadoEvent)="reciverSelecionado($event)"
+              [directSearch]="true" 
+              >
+            </app-input-busca-geral>
             <button
               class="btn btn-link btn-buscar nav-link"
               [ngClass]="{'btn-retraido': show}"
@@ -70,3 +62,15 @@
     </div>
   </div>
 </nav>
+
+<div class="navbar navbar-expand-lg navbar-dark hidden-app visible-print bg-dark">
+  <div class="container">
+    <a
+      class="navbar-brand brand"
+      href="#"
+      routerLink="/">
+      TÁ DE PÉ &#9474; MERENDA
+      <small>beta</small>
+    </a>
+  </div>
+</div>

@@ -23,4 +23,7 @@ export interface ContratoLicitacao {
   dias_vigente: number;
   contratosLicitacao: any;
   descricao_objeto_contrato: string;
+  tipo_instrumento_contrato: string;
+  resumido: boolean;
+  contratoAlerta: any;
 }

@@ -6,7 +6,13 @@ import { Pipe, PipeTransform } from '@angular/core';
 export class ResumirTextoPipe implements PipeTransform {
 
   transform(descricao: string): string {
-    const tamanho = window.innerWidth <= 500 ? 20 : window.innerWidth / 45; // muda de acordo com o tamanho da tela
+    let tamanho = 20;
+    // muda de acordo com o tamanho da tela
+    if (window.innerWidth >= 1500) {
+      tamanho = window.innerWidth / 65;
+    } else if (window.innerWidth >= 500) {
+      tamanho = window.innerWidth / 55;
+    }
     const split = descricao.split(/\s+|:|,/);
     let str = '';
     let i = 0;

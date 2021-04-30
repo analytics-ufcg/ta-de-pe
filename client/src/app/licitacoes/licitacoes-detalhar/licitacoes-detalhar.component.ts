@@ -17,6 +17,7 @@ export class LicitacoesDetalharComponent implements OnInit, OnDestroy {
   private unsubscribe = new Subject();
 
   public licitacao: Licitacao;
+  public temContrato = false;
 
   constructor(
     private activatedroute: ActivatedRoute,
@@ -32,6 +33,12 @@ export class LicitacoesDetalharComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(licitacao => {
         this.licitacao = licitacao;
+        this.temContrato = this.licitacao.contratosLicitacao.reduce((accumulator, currentValue) => {
+          if (accumulator) {
+            return true;
+          }
+          return (currentValue.tipo_instrumento_contrato === 'Contrato');
+        }, false);
       });
   }
 

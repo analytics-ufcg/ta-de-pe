@@ -24,7 +24,7 @@ fonts/icomoon.eot     client/src/assets/fonts/icomoon.eot
 fonts/icomoon.svg     client/src/assets/fonts/icomoon.svg
 fonts/icomoon.ttf     client/src/assets/fonts/icomoon.ttf
 fonts/icomoon.woff    client/src/assets/fonts/icomoon.woff
-fonts.css             client/src/assets/styles/fonts.scss
+style.css             client/src/assets/styles/fonts.scss
 ```
 
 No arquivo `icons.scss`, substituir o caminho relativo para os arquivos de fonte de acordo com o caminho do projeto. Ex.:
