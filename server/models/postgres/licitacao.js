@@ -22,7 +22,8 @@ module.exports = (sequelize, type) => {
       tp_licitacao: type.STRING,
       assunto: type.STRING,
       tipo_licitacao: type.STRING,
-      tipo_modalidade_licitacao: type.STRING
+      tipo_modalidade_licitacao: type.STRING,
+      sigla_estado: type.STRING
     },
     {
       freezeTableName: true,

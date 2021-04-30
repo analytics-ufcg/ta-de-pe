@@ -38,14 +38,15 @@
     ({{ item.qt_itens_contrato }} {{ item.sg_unidade_medida | lowercase }})
   </span>
 
-  <app-tooltip-ajuda
-    class="hidden-print"
-    *ngIf="item.alertaAtipico"
-    [tipo]="'alerta'"
-    [descricao]="'De acordo com nossos dados, este produto foi fornecido '+ item.alertaAtipico?.total_vendas_item + ' vezes, mas apenas '+ item.alertaAtipico?.n_vendas_semelhantes + ' vez(es) (' + formatProp(item.alertaAtipico?.perc_vendas_semelhantes) +'% dos casos) por empresas com essas atividades econômicas.'"></app-tooltip-ajuda>
+  <div>
+    <span
+   *ngIf="item.alertaAtipico"
+    class="badge-pill badge-prod-atipico tooltip-base" placement="top" ngbTooltip="De acordo com nossos dados, este produto foi fornecido {{item.alertaAtipico?.total_vendas_item}} vezes, mas apenas {{item.alertaAtipico?.n_vendas_semelhantes}} vez(es) ({{formatProp(item.alertaAtipico?.perc_vendas_semelhantes)}} % dos casos) por empresas com essas atividades econômicas.">Produto atípico</span>
 
     <ngb-alert [dismissible]="false" *ngIf="item.alertaAtipico" class="custom-alert-card hidden-app visible-print pt-1 mt-1">
       <span class="tooltip-base tooltip-warning icon-shopping-cart mr-1"></span>
       De acordo com nossos dados, este produto foi fornecido {{item.alertaAtipico?.total_vendas_item}} vezes, mas apenas {{item.alertaAtipico?.n_vendas_semelhantes}} vez(es) ({{formatProp(item.alertaAtipico?.perc_vendas_semelhantes)}} % dos casos) por empresas com essas atividades econômicas.
     </ngb-alert>
+  </div>
+
 </div>

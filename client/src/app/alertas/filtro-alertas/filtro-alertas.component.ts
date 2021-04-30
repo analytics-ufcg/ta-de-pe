@@ -11,19 +11,26 @@ export class FiltroAlertasComponent implements OnInit {
   @Output() filterChange = new EventEmitter<any>();
 
   nomePesquisado: string;
+  estadoSelecionado: string;
+
+  estadoFiltro: any[] = [
+    { estado: 'Estados', estado_slug: '0' },
+    { estado: 'PE', estado_slug: '26' },
+    { estado: 'RS', estado_slug: '43' }];
 
   constructor(
     private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.estadoSelecionado = '0';
     this.updateFiltroViaURL();
   }
 
   aplicarFiltro() {
     const filtro = {
-      nomePesquisado: this.nomePesquisado
+      nomePesquisado: this.nomePesquisado,
+      estado: this.estadoSelecionado
     };
-
     this.filterChange.emit(filtro);
   }
 

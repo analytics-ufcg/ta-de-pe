@@ -5,7 +5,7 @@
         <input
           class="form-control"
           type="text"
-          placeholder="Buscar nos contratos..."
+          placeholder="Filtrar nos contratos..."
           name="termoBusca"
           [(ngModel)]="listaService.termoBusca">
       </div>
@@ -23,14 +23,6 @@
             (ordenar)="onOrdenar($event)"
             appOrdenavel>
             Contrato
-          </th>
-          <th
-            scope="col"
-            class="text-left"
-            ordenavel="info_alerta"
-            (ordenar)="onOrdenar($event)"
-            appOrdenavel>
-            Alerta
           </th>
           <th
             scope="col"
@@ -70,10 +62,18 @@
       <tbody>
         <tr *ngFor="let contrato of listaService.dadosProcessados$ | async; index as i">
           <td>
-            <div>
+            <small
+              *ngIf="contrato.nome_municipio"
+              class="text-secondary">
+              <ngb-highlight
+                [result]="('MUNICÍPIO ' + contrato.nome_municipio | titlecase) + ' - ' + contrato.sigla_estado"
+                [term]="listaService.termoBusca">
+              </ngb-highlight>
+            </small>
+            <div class="mt-1">
               <a [routerLink]="['/contratos/' + contrato.id_contrato]">
                 <span *ngIf="contrato.tipo_instrumento_contrato === 'Compra'">Compra sem número de contrato</span>
-                <span *ngIf="contrato.tipo_instrumento_contrato === 'Contrato'">
+                <span *ngIf="contrato.tipo_instrumento_contrato !== 'Compra'">
                   <ngb-highlight
                     [result]="'Contrato nº ' + contrato.nr_contrato + '/' + (contrato.dt_inicio_vigencia | date:'y')"
                     [term]="listaService.termoBusca"></ngb-highlight>
@@ -86,13 +86,39 @@
                 [termoHighlight]="listaService.termoBusca"></app-descricao-contrato>
             </div>
             <div *ngIf="!contrato.descricao_objeto_contrato">(Descrição não encontrada)</div>
+
+            <div *ngIf="contrato.tipo_alerta">
+              <div>
+                <span
+                  *ngIf="contrato.tipo_alerta === 1"
+                  class="badge-pill badge-warning tooltip-base"
+                  placement="top"
+                  ngbTooltip="O fornecedor foi contratado em menos de um mês após a abertura do CNPJ na Receita Federal.">
+                  Empresa recém-aberta
+                </span>
+                <ngb-alert [dismissible]="false" *ngIf="contrato.tipo_alerta === 1"
+                class="custom-alert-card hidden-app visible-print pt-1 mt-1">
+                  <span class="tooltip-base tooltip-warning icon-shopping-cart mr-1"></span>
+                  O fornecedor foi contratado em menos de um mês após a abertura do CNPJ na Receita Federal.
+                </ngb-alert>
+              </div>
+              <div>
+                <span
+                  *ngIf="contrato.tipo_alerta === 2"
+                  class="badge-pill badge-prod-atipico tooltip-base"
+                  placement="top"
+                  ngbTooltip="A empresa forneceu produtos que não são comuns com base em suas atividades econômicas declaradas na Receita Federal.">
+                  Produtos atípicos
+                </span>
+                 <ngb-alert [dismissible]="false" *ngIf="contrato.tipo_alerta === 2"
+                class="custom-alert-card hidden-app visible-print pt-1 mt-1">
+                  <span class="tooltip-base tooltip-warning icon-shopping-cart mr-1"></span>
+                  A empresa forneceu produtos que não são comuns com base em suas atividades econômicas declaradas na Receita Federal.
+                </ngb-alert>
+              </div>
+            </div>
           </td>
-          <td class="text-left">
-            <app-tooltip-ajuda
-                *ngIf="contrato.info_alerta"
-                [tipo]="'alerta'"
-                [descricao]="contrato.info_alerta"></app-tooltip-ajuda>
-          </td>
+
           <td class="descricao-fornecedor">
             <div *ngIf="contrato.nr_documento_contratado">
               <a [routerLink]="['/fornecedores/' + contrato?.nr_documento_contratado]">
@@ -106,10 +132,13 @@
               <small>
                 <ngb-highlight
                   [result]="contrato.nr_documento_contratado | formatCpfCnpj"
-                  [term]="listaService.termoBusca"></ngb-highlight>
+                  [term]="listaService.termoBusca">
+                </ngb-highlight>
               </small>
             </div>
-            <div [hidden]="contrato.nr_documento_contratado" class="text-center">
+            <div
+              [hidden]="contrato.nr_documento_contratado"
+              class="text-center">
               <app-tooltip-ajuda
                 [tipo]="'alerta'"
                 [descricao]="'Não há informação sobre o fornecedor deste contrato'"></app-tooltip-ajuda>
@@ -123,7 +152,9 @@
           </td>
           <td class="text-center">
             {{ contrato.dt_final_vigencia | date:'LLL/y' }}
-            <div [hidden]="contrato.dt_final_vigencia" class="text-center">
+            <div
+              [hidden]="contrato.dt_final_vigencia"
+              class="text-center">
               <app-tooltip-ajuda
                 [tipo]="'alerta'"
                 [descricao]="'O prazo para a conclusão do contrato não foi informado pelo órgão gestor'"></app-tooltip-ajuda>
