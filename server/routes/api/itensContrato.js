@@ -42,7 +42,7 @@ router.get("/contrato/:id", (req, res) => {
     include: [
       {
         model: itensLicitacao,
-        attributes: [],
+        attributes: ["vl_unitario_estimado"],
         as: "itensLicitacaoItensContrato"
       },
       {
