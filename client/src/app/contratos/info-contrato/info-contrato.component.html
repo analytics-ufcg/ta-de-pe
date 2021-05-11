@@ -344,34 +344,34 @@
               <td
                 class="numero align-middle"
                 *ngIf="!radioGroupForm.value['showTotal']"
-                [title]="item.itensLicitacaoItensContrato.vl_unitario_estimado">
-                {{ item.itensLicitacaoItensContrato.vl_unitario_estimado | currency:'':'' }}
+                [title]="item?.itensLicitacaoItensContrato?.vl_unitario_estimado">
+                {{ item?.itensLicitacaoItensContrato?.vl_unitario_estimado | currency:'':'' }}
                 <app-tooltip-ajuda
-                  *ngIf="!item?.itensLicitacaoItensContrato.vl_unitario_estimado"
+                  *ngIf="!item?.itensLicitacaoItensContrato?.vl_unitario_estimado"
                   [tipo]="'alerta'"
                   [descricao]="'O valor estimado não foi informado.'"></app-tooltip-ajuda>
               </td>
               <td
                 class="numero align-middle"
                 *ngIf="radioGroupForm.value['showTotal']"
-                [title]="item.itensLicitacaoItensContrato.vl_unitario_estimado * item.qt_itens_contrato">
-                <span *ngIf="item?.itensLicitacaoItensContrato.vl_unitario_estimado">
-                  {{ item.qt_itens_contrato * item.itensLicitacaoItensContrato.vl_unitario_estimado | currency:'':'' }}
+                [title]="item?.itensLicitacaoItensContrato?.vl_unitario_estimado * item.qt_itens_contrato">
+                <span *ngIf="item?.itensLicitacaoItensContrato?.vl_unitario_estimado">
+                  {{ item.qt_itens_contrato * item?.itensLicitacaoItensContrato?.vl_unitario_estimado | currency:'':'' }}
                 </span>
                 <app-tooltip-ajuda
-                  *ngIf="!item?.itensLicitacaoItensContrato.vl_unitario_estimado"
+                  *ngIf="!item?.itensLicitacaoItensContrato?.vl_unitario_estimado"
                   [tipo]="'alerta'"
                   [descricao]="'O valor estimado não foi informado.'"></app-tooltip-ajuda>
               </td>
               <td
                 class="numero align-middle"
-                [title]="item.itensLicitacaoItensContrato.vl_unitario_estimado"
+                [title]="item?.itensLicitacaoItensContrato?.vl_unitario_estimado"
                 [style.background-color]="defineCorFundo(item.percentual_vs_estimado)"
                 [style.color]="defineCor(item.percentual_vs_estimado)">
                 <span *ngIf="item.percentual_vs_estimado > 0">+</span>
                 {{ item.percentual_vs_estimado | percent:'1.1' }}
                 <app-tooltip-ajuda
-                  *ngIf="!item?.itensLicitacaoItensContrato.vl_unitario_estimado"
+                  *ngIf="!item?.itensLicitacaoItensContrato?.vl_unitario_estimado"
                   [tipo]="'alerta'"
                   [descricao]="'O valor estimado não foi informado.'"></app-tooltip-ajuda>
               </td>
