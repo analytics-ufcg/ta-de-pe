@@ -285,9 +285,9 @@
                 [title]="item.mediana_valor">
                 <div
                   class="pr-3"
-                  *ngIf="item?.itensSemelhantes?.length <= 1 || item?.servico; else mostraMedianaEstado">
+                  *ngIf="item?.itensSemelhantes?.length <= 3 || item?.servico; else mostraMedianaEstado">
                   <app-tooltip-ajuda
-                    *ngIf="item?.itensSemelhantes?.length <= 1"
+                    *ngIf="item?.itensSemelhantes?.length <= 3"
                     [tipo]="'info'"
                     [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                   <app-tooltip-ajuda
@@ -305,9 +305,9 @@
                 [title]="item.mediana_valor * item.qt_itens_contrato">
                 <div
                   class="pr-3"
-                  *ngIf="item?.itensSemelhantes?.length <= 1 || item?.servico; else mostraMedianaTotalEstado">
+                  *ngIf="item?.itensSemelhantes?.length <= 3 || item?.servico; else mostraMedianaTotalEstado">
                   <app-tooltip-ajuda
-                    *ngIf="item?.itensSemelhantes?.length <= 1"
+                    *ngIf="item?.itensSemelhantes?.length <= 3"
                     [tipo]="'info'"
                     [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                   <app-tooltip-ajuda
@@ -322,13 +322,13 @@
               <td
                 class="numero align-middle"
                 [title]="item.mediana_valor"
-                [style.background-color]="item?.itensSemelhantes?.length > 1 && !item?.servico ? defineCorFundo(item.percentual_vs_estado) : 'white'"
+                [style.background-color]="item?.itensSemelhantes?.length > 3 && !item?.servico ? defineCorFundo(item.percentual_vs_estado) : 'white'"
                 [style.color]="defineCor(item.percentual_vs_estado)">
                 <div
                   class="pr-3"
-                  *ngIf="item?.itensSemelhantes?.length <= 1 || item?.servico; else mostraPercentualEstado">
+                  *ngIf="item?.itensSemelhantes?.length <= 3 || item?.servico; else mostraPercentualEstado">
                   <app-tooltip-ajuda
-                    *ngIf="item?.itensSemelhantes?.length <= 1"
+                    *ngIf="item?.itensSemelhantes?.length <= 3"
                     [tipo]="'info'"
                     [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                   <app-tooltip-ajuda

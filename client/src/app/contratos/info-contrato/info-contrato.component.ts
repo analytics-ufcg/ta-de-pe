@@ -96,10 +96,14 @@ export class InfoContratoComponent implements OnInit {
                     map(itemComMediana => {
                       item = itemComMediana;
                       // Se não houver itens similares, o valor da mediana será NaN
-                      // Este trecho atribui um valor bem pequeno para que todos os itens sem semelhantes fiquem ordenados primeiro
-                      if (isNaN(item.mediana_valor) || (item.itensSemelhantes && item.itensSemelhantes.length === 1)) {
-                        item.mediana_valor = -1; // Não existem itens com preços negativos
-                        item.percentual_vs_estado = -1000000000; // Valor pequeno e improvável de ter algum item com preço menor
+                      // Este trecho atribui um valor bem pequeno para que todos os itens sem similares fiquem ordenados corretamente
+                      if (isNaN(item.mediana_valor) || (item.itensSemelhantes && item.itensSemelhantes.length <= 3)) {
+                        let denominador = 1; // denominador usado para ordenar itens entre 1 e nenhum item similar
+                        if (item.itensSemelhantes && item.itensSemelhantes !== null) {
+                          denominador = item.itensSemelhantes.length;
+                        }
+                        item.mediana_valor = -1 / denominador; // Não existem itens com preços negativos
+                        item.percentual_vs_estado = -1e10 / denominador; // Valor pequeno e improvável de ter algum item com preço menor
                       } else {
                         item.percentual_vs_estado = (item.vl_item_contrato - item.mediana_valor) / item.mediana_valor;
                       }
