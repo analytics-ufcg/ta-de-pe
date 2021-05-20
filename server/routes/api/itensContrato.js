@@ -140,7 +140,7 @@ router.get("/search", (req, res) => {
 
   const termo = req.query.termo.replace(/[&|!<()\\:',]/gi, '').replace( /\s+/g, ' ').trim().split(' ').join(' & ');
   let query = `SELECT ano_licitacao, id_item_contrato, id_contrato, nr_contrato, id_licitacao, vl_item_contrato, \
-                      vl_total_item_contrato, ds_item, dt_inicio_vigencia, qt_itens_contrato, nome_municipio, \
+                      vl_total_item_contrato, ds_item, dt_inicio_vigencia, qt_itens_contrato, nome_municipio, sigla_estado, \
                       ts_rank(item_search.document, to_tsquery('portuguese', '${termo}')) as rel, \ 
                       sg_unidade_medida \
                       FROM item_search WHERE \
