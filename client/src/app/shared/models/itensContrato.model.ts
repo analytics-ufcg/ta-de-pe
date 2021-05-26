@@ -23,4 +23,6 @@ export interface ItensContrato {
   itensContratoOrgao: any;
   alertaAtipico: any;
   resumido: boolean;
+  tp_instrumento_contrato: string;
+  nr_licitacao: string;
 }

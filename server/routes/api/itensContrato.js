@@ -117,6 +117,7 @@ router.post("/similares", (req, res) => {
   dataFinal = dataFinal.toJSON().slice(0, 10);
 
   let query = `SELECT ano_licitacao, id_item_contrato, id_contrato, nr_contrato, id_licitacao, vl_item_contrato, \
+                      nr_licitacao, tipo_instrumento_contrato, \
                       vl_total_item_contrato, ds_item, dt_inicio_vigencia, qt_itens_contrato, nome_municipio, id_estado,\
                       ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) as rel, \ 
                       sg_unidade_medida \
