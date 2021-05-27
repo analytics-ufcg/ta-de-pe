@@ -321,7 +321,6 @@
               </td>
               <td
                 class="numero align-middle"
-                [title]="item.mediana_valor"
                 [style.background-color]="item?.itensSemelhantes?.length > 1 && !item?.servico ? defineCorFundo(item.percentual_vs_estado) : 'white'"
                 [style.color]="defineCor(item.percentual_vs_estado)">
                 <div
@@ -337,8 +336,19 @@
                     [descricao]="'Não realizamos comparações entre serviços, pois eles variam muito em descrição e especificação.'"></app-tooltip-ajuda>
                 </div>
                 <ng-template #mostraPercentualEstado>
-                  <span *ngIf="item.percentual_vs_estado > 0">+</span>
-                  {{ item.percentual_vs_estado | percent:'1.1' }}
+                  <div
+                    *ngIf="item?.itensSemelhantes?.length <= 3"
+                    class='mediana'
+                    placement="top"
+                    ngbTooltip="A mediana foi calculada com base em poucos ({{ item?.itensSemelhantes?.length }}) produtos semelhantes">
+                    <span *ngIf="item.percentual_vs_estado > 0">+</span>
+                    {{ item.percentual_vs_estado | percent:'1.1' }}&nbsp;*
+                  </div>
+                  <div
+                    *ngIf="item?.itensSemelhantes?.length > 3">
+                    <span *ngIf="item.percentual_vs_estado > 0">+</span>
+                    {{ item.percentual_vs_estado | percent:'1.1' }}&nbsp;&nbsp;
+                  </div>
                 </ng-template>
               </td>
               <td
