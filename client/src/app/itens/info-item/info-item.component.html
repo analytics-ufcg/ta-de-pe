@@ -16,7 +16,7 @@
       </div>
       <div class="col-lg-5">
         <div class="row">
-          <div class="col-md-6 text-right" *ngIf="item?.itensSemelhantes?.length > 3">
+          <div class="col-md-6 text-right" *ngIf="item?.itensSemelhantes?.length > 1">
             <div>
               <strong>Mediana do estado</strong>
             </div>
@@ -24,7 +24,7 @@
               {{ item.mediana_valor | currency: "R$" }}
             </div>
           </div>
-          <div class="col-md-6 text-right" *ngIf="item?.itensSemelhantes?.length <= 3"></div>
+          <div class="col-md-6 text-right" *ngIf="item?.itensSemelhantes?.length <= 1"></div>
 
           <div class="col-md-6 text-right">
             <div>
@@ -33,7 +33,7 @@
             <div class="numero numero-destaque">
               {{ item.vl_item_contrato | currency: "R$" }}
             </div>
-            <div class="small" *ngIf="item?.itensSemelhantes?.length > 3">
+            <div class="small" *ngIf="item?.itensSemelhantes?.length > 1">
               <span
                 *ngIf="(item.vl_item_contrato - item.mediana_valor) < 0"
                 class="negativo">
