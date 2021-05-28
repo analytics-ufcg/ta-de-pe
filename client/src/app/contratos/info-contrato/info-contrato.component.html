@@ -340,7 +340,7 @@
                     *ngIf="item?.itensSemelhantes?.length <= 3"
                     class='mediana'
                     placement="top"
-                    ngbTooltip="A mediana foi calculada com base em poucos ({{ item?.itensSemelhantes?.length }}) produtos semelhantes">
+                    ngbTooltip="A mediana foi calculada com base em poucos ({{ item?.itensSemelhantes?.length - 1 }}) produtos semelhantes">
                     <span *ngIf="item.percentual_vs_estado > 0">+</span>
                     {{ item.percentual_vs_estado | percent:'1.1' }}&nbsp;*
                   </div>
