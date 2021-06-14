@@ -9,3 +9,4 @@
 <app-lista-contratos
   *ngIf="((contratosVigentes$ | async)?.length > 0) && (loading$ | async) === false"
   [contratos$]="contratosVigentes$"></app-lista-contratos>
+

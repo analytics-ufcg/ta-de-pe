@@ -20,6 +20,7 @@ export class LicitacoesComponent implements OnInit {
 
   public loading$ = new BehaviorSubject<boolean>(true);
   public municipioEscolhido: string;
+  public p = 1;
 
   @ViewChildren(OrdenavelDirective) cabecalhos: QueryList<OrdenavelDirective>;
 
@@ -66,6 +67,10 @@ export class LicitacoesComponent implements OnInit {
 
     this.listaService.colunaOrd = coluna;
     this.listaService.direcaoOrd = direcao;
+  }
+
+  pageChange(p: number) {
+    this.p = p;
   }
 
 }

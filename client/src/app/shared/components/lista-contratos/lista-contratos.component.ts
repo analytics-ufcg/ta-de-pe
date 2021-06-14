@@ -12,10 +12,12 @@ import { OrdenavelDirective } from '../../directives/ordenavel.directive';
   selector: 'app-lista-contratos',
   templateUrl: './lista-contratos.component.html',
   styleUrls: ['./lista-contratos.component.scss'],
-  providers: [ListaContratosService, DecimalPipe]
+  providers: [ListaContratosService, DecimalPipe],
 })
-export class ListaContratosComponent implements OnChanges {
+export class ListaContratosComponent implements OnChanges{
   @Input() contratos$: Observable<ContratoLicitacao[]>;
+
+  public p = 1;
 
   @ViewChildren(OrdenavelDirective) cabecalhos: QueryList<OrdenavelDirective>;
 
@@ -40,5 +42,9 @@ export class ListaContratosComponent implements OnChanges {
 
     this.listaService.colunaOrd = coluna;
     this.listaService.direcaoOrd = direcao;
+  }
+
+  pageChange(p: number) {
+    this.p = p;
   }
 }
