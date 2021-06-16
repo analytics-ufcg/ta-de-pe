@@ -14,7 +14,7 @@ import { OrdenavelDirective } from '../../directives/ordenavel.directive';
   styleUrls: ['./lista-contratos.component.scss'],
   providers: [ListaContratosService, DecimalPipe],
 })
-export class ListaContratosComponent implements OnChanges{
+export class ListaContratosComponent implements OnChanges {
   @Input() contratos$: Observable<ContratoLicitacao[]>;
 
   public p = 1;
