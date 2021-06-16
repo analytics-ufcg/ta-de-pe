@@ -10,6 +10,9 @@
       [(ngModel)]="listaService.termoBusca" />
   </div>
 </form>
+<div class="col-2">
+  <app-filtro-municipio (filterChange)="filter($event)"></app-filtro-municipio>
+</div>
 
 <p *ngIf="((listaService.dadosProcessados$ | async)?.length === 0) && (loading$ | async) === false">
   Não há licitações.

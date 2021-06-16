@@ -18,7 +18,7 @@ export class ListaContratosComponent implements OnChanges {
   @Input() contratos$: Observable<ContratoLicitacao[]>;
 
   @ViewChildren(OrdenavelDirective) cabecalhos: QueryList<OrdenavelDirective>;
-
+ 
   constructor(public listaService: ListaContratosService) {
     this.listaService.colunaOrd = 'dt_inicio_vigencia';
     this.listaService.direcaoOrd = 'desc';
@@ -40,5 +40,5 @@ export class ListaContratosComponent implements OnChanges {
 
     this.listaService.colunaOrd = coluna;
     this.listaService.direcaoOrd = direcao;
-  }
+   }
 }

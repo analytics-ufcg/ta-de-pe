@@ -1,0 +1,17 @@
+
+<div class="col-2">
+        <select
+          class="app-seletor"
+          #mySelector
+          [(ngModel)]="estadoSelecionado"
+          (ngModelChange)="aplicarFiltroMunicipio()">
+          <option
+            *ngFor="let e of estadoFiltro"
+            [value]="e.estado_slug"
+            [selected]="e.estado_slug == estadoSelecionado">
+            {{ e.estado }}
+          </option>
+        </select>
+</div>
+
+  

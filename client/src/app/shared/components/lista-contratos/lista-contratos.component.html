@@ -12,6 +12,9 @@
     </form>
   </div>
 </div>
+<div class="col-2">
+  <app-filtro-municipio (filterChange)="search($event)"></app-filtro-municipio>
+</div>
 <div class="table-wrapper">
   <div class="table-responsive">
     <table class="table table-hover">

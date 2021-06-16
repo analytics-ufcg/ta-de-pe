@@ -17,6 +17,7 @@ import { DescricaoItemComponent } from './descricao-item/descricao-item.componen
 import { OrdenavelDirective } from '../directives/ordenavel.directive';
 import { DescricaoContratoComponent } from './descricao-contrato/descricao-contrato.component';
 import { InputBuscaGeralComponent } from './input-busca-geral/input-busca-geral.component';
+import { FiltroMunicipioComponent } from './filtro-municipio/filtro-municipio.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { InputBuscaGeralComponent } from './input-busca-geral/input-busca-geral.
     DescricaoItemComponent,
     OrdenavelDirective,
     DescricaoContratoComponent,
-    InputBuscaGeralComponent
+    InputBuscaGeralComponent,
+    FiltroMunicipioComponent
   ],
   imports: [
     CommonModule,
@@ -49,7 +51,8 @@ import { InputBuscaGeralComponent } from './input-busca-geral/input-busca-geral.
     ProgressComponent,
     BarraTituloComponent,
     DescricaoItemComponent,
-    OrdenavelDirective
+    OrdenavelDirective,
+    FiltroMunicipioComponent
   ]
 })
 export class SharedModule { }
