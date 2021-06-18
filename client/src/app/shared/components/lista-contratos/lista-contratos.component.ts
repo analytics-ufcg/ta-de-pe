@@ -17,6 +17,8 @@ import { OrdenavelDirective } from '../../directives/ordenavel.directive';
 export class ListaContratosComponent implements OnChanges {
   @Input() contratos$: Observable<ContratoLicitacao[]>;
 
+  public p = 1;
+
   @ViewChildren(OrdenavelDirective) cabecalhos: QueryList<OrdenavelDirective>;
 
   constructor(public listaService: ListaContratosService) {
@@ -28,7 +30,7 @@ export class ListaContratosComponent implements OnChanges {
     this.listaService.dados$ = this.contratos$;
   }
 
-  onOrdenar({coluna, direcao}: EventoOrd) {
+  onOrdenar({ coluna, direcao }: EventoOrd) {
     // Reseta outros cabeçalhos
     this.cabecalhos.forEach(cab => {
       if (cab.ordenavel !== coluna) {
@@ -40,5 +42,9 @@ export class ListaContratosComponent implements OnChanges {
 
     this.listaService.colunaOrd = coluna;
     this.listaService.direcaoOrd = direcao;
+  }
+
+  pageChange(p: number) {
+    this.p = p;
   }
 }
