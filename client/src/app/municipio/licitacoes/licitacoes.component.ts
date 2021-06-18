@@ -28,10 +28,10 @@ export class LicitacoesComponent implements OnInit {
     private userService: UserService,
     private licitacaoService: LicitacaoService,
     public listaService: ListaLicitacoesService
-    ) {
-      this.listaService.colunaOrd = 'data_abertura';
-      this.listaService.direcaoOrd = 'desc';
-    }
+  ) {
+    this.listaService.colunaOrd = 'data_abertura';
+    this.listaService.direcaoOrd = 'desc';
+  }
 
   ngOnInit() {
     this.userService
@@ -55,7 +55,7 @@ export class LicitacoesComponent implements OnInit {
       });
   }
 
-  onOrdenar({coluna, direcao}: EventoOrd) {
+  onOrdenar({ coluna, direcao }: EventoOrd) {
     // Reseta outros cabeçalhos
     this.cabecalhos.forEach(cab => {
       if (cab.ordenavel !== coluna) {

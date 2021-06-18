@@ -12,7 +12,7 @@ import { OrdenavelDirective } from '../../directives/ordenavel.directive';
   selector: 'app-lista-contratos',
   templateUrl: './lista-contratos.component.html',
   styleUrls: ['./lista-contratos.component.scss'],
-  providers: [ListaContratosService, DecimalPipe],
+  providers: [ListaContratosService, DecimalPipe]
 })
 export class ListaContratosComponent implements OnChanges {
   @Input() contratos$: Observable<ContratoLicitacao[]>;
@@ -30,7 +30,7 @@ export class ListaContratosComponent implements OnChanges {
     this.listaService.dados$ = this.contratos$;
   }
 
-  onOrdenar({coluna, direcao}: EventoOrd) {
+  onOrdenar({ coluna, direcao }: EventoOrd) {
     // Reseta outros cabeçalhos
     this.cabecalhos.forEach(cab => {
       if (cab.ordenavel !== coluna) {
