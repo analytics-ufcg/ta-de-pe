@@ -21,7 +21,7 @@ router.get("/", (req, res) => {
     include: [
       {
         model: Contrato,
-        attributes: ["id_contrato", "nm_orgao", "nr_contrato", "ano_contrato", "dt_inicio_vigencia", "vl_contrato", "tipo_instrumento_contrato"],
+        attributes: ["id_contrato", "id_estado", "sigla_estado", "nm_orgao", "nr_contrato", "ano_contrato", "dt_inicio_vigencia", "vl_contrato", "tipo_instrumento_contrato"],
         as: "alertaContrato",
         include: [
           {

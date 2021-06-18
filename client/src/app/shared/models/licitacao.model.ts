@@ -19,6 +19,7 @@ export interface Licitacao {
   vl_contratado: number;
   descricao_objeto: string;
   assunto: string;
+  sigla_estado: string;
   contratosLicitacao: ContratoLicitacao[];
   docsLicitacao: DocumentoLicitacao[];
 }

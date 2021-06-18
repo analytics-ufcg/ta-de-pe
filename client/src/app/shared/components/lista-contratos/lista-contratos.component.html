@@ -67,15 +67,14 @@
               *ngIf="contrato.nome_municipio"
               class="text-secondary">
               <ngb-highlight
-                [result]="'MUNICÍPIO ' + contrato.nome_municipio"
+                [result]="('MUNICÍPIO ' + contrato.nome_municipio | titlecase) + ' - ' + contrato.sigla_estado"
                 [term]="listaService.termoBusca">
               </ngb-highlight>
             </small>
-
             <div class="mt-1">
               <a [routerLink]="['/contratos/' + contrato.id_contrato]">
                 <span *ngIf="contrato.tipo_instrumento_contrato === 'Compra'">Compra sem número de contrato</span>
-                <span *ngIf="contrato.tipo_instrumento_contrato === 'Contrato'">
+                <span *ngIf="contrato.tipo_instrumento_contrato !== 'Compra'">
                   <ngb-highlight
                     [result]="'Contrato nº ' + contrato.nr_contrato + '/' + (contrato.dt_inicio_vigencia | date:'y')"
                     [term]="listaService.termoBusca"></ngb-highlight>
@@ -115,6 +114,7 @@
                   ngbTooltip="A empresa forneceu produtos que não são comuns com base em suas atividades econômicas declaradas na Receita Federal.">
                   Produtos atípicos
                 </span>
+
                 <ngb-alert
                   [dismissible]="false"
                   *ngIf="contrato.tipo_alerta === 2"

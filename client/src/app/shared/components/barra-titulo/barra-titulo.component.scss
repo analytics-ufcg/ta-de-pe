@@ -27,3 +27,10 @@
 .view-subtitle {
   font-size: 0.8rem;
 }
+
+.view-group-title {
+  @media (min-width: 576px) {
+    position: relative;
+    top:3px;
+  }
+}

@@ -31,9 +31,9 @@ router.get("/vigentes", (req, res) => {
     raw: true,
     attributes: {
       include: [[Sequelize.col('contratoFornecedor.nm_pessoa'), 'nm_fornecedor'],
-                [Sequelize.col('contratoFornecedor.tp_pessoa'), 'tp_fornecedor'],
-                [Sequelize.col('contratoAlerta.id_tipo'), 'tipo_alerta'],
-                "id_contrato", "id_licitacao", "nr_contrato", "nr_documento_contratado", "vl_contrato", "dt_inicio_vigencia", "dt_final_vigencia"]
+      [Sequelize.col('contratoFornecedor.tp_pessoa'), 'tp_fornecedor'],
+      [Sequelize.col('contratoAlerta.id_tipo'), 'tipo_alerta'],
+        "id_contrato", "id_licitacao", "nr_contrato", "nr_documento_contratado", "vl_contrato", "dt_inicio_vigencia", "dt_final_vigencia"]
     },
     include: [
       {
@@ -41,7 +41,9 @@ router.get("/vigentes", (req, res) => {
         model: Orgao,
         as: "contratosOrgao",
         where: {
-          nome_municipio: municipio
+          nome_municipio: {
+            [Op.iLike]: municipio.toUpperCase()
+          }
         },
         required: true
       },
@@ -80,8 +82,8 @@ router.get("/licitacao/:id", (req, res) => {
     raw: true,
     attributes: {
       include: [[Sequelize.col('contratoFornecedor.nm_pessoa'), 'nm_fornecedor'],
-                [Sequelize.col('contratoFornecedor.tp_pessoa'), 'tp_fornecedor'],
-                "id_contrato", "id_licitacao", "nr_contrato", "nr_documento_contratado", "vl_contrato", "dt_inicio_vigencia", "dt_final_vigencia"]
+      [Sequelize.col('contratoFornecedor.tp_pessoa'), 'tp_fornecedor'],
+        "id_contrato", "id_licitacao", "nr_contrato", "nr_documento_contratado", "vl_contrato", "dt_inicio_vigencia", "dt_final_vigencia"]
     },
     include: [
       {
@@ -94,21 +96,21 @@ router.get("/licitacao/:id", (req, res) => {
       id_licitacao: req.params.id
     }
   })
-  .then(contratos => res.status(SUCCESS).json(contratos))
-  .catch(err => res.status(BAD_REQUEST).json({ err }));
+    .then(contratos => res.status(SUCCESS).json(contratos))
+    .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
 
 router.get("/fornecedor/:id", (req, res) => {
   Contrato.findAll({
     raw: true,
-    attributes:["id_contrato", "id_licitacao", 
-                "id_orgao", "nr_contrato", "ano_contrato", 
-                "nr_licitacao", "ano_licitacao", "cd_tipo_modalidade", 
-                "tp_instrumento_contrato", "dt_inicio_vigencia", 
-                "dt_final_vigencia", "vl_contrato", "descricao_objeto_contrato", 
-                [Sequelize.col('contratosOrgao.nome_municipio'), 'nome_municipio']
-               ]
+    attributes: ["id_contrato", "id_licitacao",
+      "id_orgao", "nr_contrato", "ano_contrato",
+      "nr_licitacao", "ano_licitacao", "cd_tipo_modalidade",
+      "tp_instrumento_contrato", "dt_inicio_vigencia",
+      "dt_final_vigencia", "vl_contrato", "descricao_objeto_contrato",
+      [Sequelize.col('contratosOrgao.nome_municipio'), 'nome_municipio']
+    ]
     ,
     include: [
       {
@@ -121,13 +123,13 @@ router.get("/fornecedor/:id", (req, res) => {
       nr_documento_contratado: req.params.id
     }
   })
-  .then(contratos => res.status(SUCCESS).json(contratos))
-  .catch(err => res.status(BAD_REQUEST).json({ err }));
+    .then(contratos => res.status(SUCCESS).json(contratos))
+    .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
 router.get("/search", (req, res) => {
-  const termos = req.query.termo.replace(/[&|!<()\\:',]/gi, '').replace( /\s+/g, ' ').trim().split(' ').join(' & ');
-  
+  const termos = req.query.termo.replace(/[&|!<()\\:',]/gi, '').replace(/\s+/g, ' ').trim().split(' ').join(' & ');
+
   let query = `SELECT \
             id_contrato, \
             nr_contrato, \
@@ -139,6 +141,7 @@ router.get("/search", (req, res) => {
             dt_final_vigencia, \
             tipo_instrumento_contrato, \
             id_orgao, \
+            sigla_estado, \
             (\
               SELECT \
               nome_municipio \
@@ -177,12 +180,12 @@ router.get("/search", (req, res) => {
             p_search.document, \
             to_tsquery('portuguese', '${termos}') \
         ) DESC; `
-        
+
   models.sequelize.query(query, {
-      model: Contrato,
-      mapToModel: true
+    model: Contrato,
+    mapToModel: true
   }).then(contratos => res.status(SUCCESS).json(contratos))
-      .catch(err => res.status(BAD_REQUEST).json({ err }));
+    .catch(err => res.status(BAD_REQUEST).json({ err }));
 
 });
 
