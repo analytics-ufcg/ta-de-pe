@@ -35,7 +35,9 @@ router.get("/municipio/:nome_municipio", (req, res) => {
         model: Orgao,
         as: "licitacoesOrgao",
         where: {
-          nome_municipio: municipio
+          nome_municipio: {
+            [Op.iLike]: municipio.toUpperCase()
+          }
         },
         required: true
       }
@@ -56,7 +58,9 @@ router.get("/abertas", (req, res) => {
         model: Orgao,
         as: "licitacoesOrgao",
         where: {
-          nome_municipio: municipio
+          nome_municipio: {
+            [Op.iLike]: municipio.toUpperCase()
+          }
         },
         required: true
       }

@@ -24,4 +24,6 @@ export interface ItensContrato {
   alertaAtipico: any;
   resumido: boolean;
   servico: boolean;
+  tp_instrumento_contrato: string;
+  nr_licitacao: string;
 }

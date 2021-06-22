@@ -16,7 +16,6 @@
       [subtitulo]="contrato?.nm_orgao + ' - ' + contrato?.sigla_estado"
       [exibirVoltar]="true"></app-barra-titulo>
   </div>
-
   <div class="container">
     <div class="row mt-4">
       <div class="col-sm-12 col-md-3 mb-4">
@@ -322,7 +321,6 @@
               </td>
               <td
                 class="numero align-middle"
-                [title]="item.mediana_valor"
                 [style.background-color]="item?.itensSemelhantes?.length > 1 && !item?.servico ? defineCorFundo(item.percentual_vs_estado) : 'white'"
                 [style.color]="defineCor(item.percentual_vs_estado)">
                 <div
@@ -338,41 +336,52 @@
                     [descricao]="'Não realizamos comparações entre serviços, pois eles variam muito em descrição e especificação.'"></app-tooltip-ajuda>
                 </div>
                 <ng-template #mostraPercentualEstado>
-                  <span *ngIf="item.percentual_vs_estado > 0">+</span>
-                  {{ item.percentual_vs_estado | percent:'1.1' }}
+                  <div
+                    *ngIf="item?.itensSemelhantes?.length <= 3"
+                    class='mediana'
+                    placement="top"
+                    ngbTooltip="A mediana foi calculada com base em poucos ({{ item?.itensSemelhantes?.length - 1 }}) produtos semelhantes">
+                    <span *ngIf="item.percentual_vs_estado > 0">+</span>
+                    {{ item.percentual_vs_estado | percent:'1.1' }}&nbsp;*
+                  </div>
+                  <div
+                    *ngIf="item?.itensSemelhantes?.length > 3">
+                    <span *ngIf="item.percentual_vs_estado > 0">+</span>
+                    {{ item.percentual_vs_estado | percent:'1.1' }}&nbsp;&nbsp;
+                  </div>
                 </ng-template>
               </td>
               <td
                 class="numero align-middle"
                 *ngIf="!radioGroupForm.value['showTotal']"
-                [title]="item.vl_unitario_estimado">
-                {{ item.vl_unitario_estimado | currency:'':'' }}
+                [title]="item?.itensLicitacaoItensContrato?.vl_unitario_estimado">
+                {{ item?.itensLicitacaoItensContrato?.vl_unitario_estimado | currency:'':'' }}
                 <app-tooltip-ajuda
-                  *ngIf="!item?.vl_unitario_estimado"
+                  *ngIf="!item?.itensLicitacaoItensContrato?.vl_unitario_estimado"
                   [tipo]="'alerta'"
                   [descricao]="'O valor estimado não foi informado.'"></app-tooltip-ajuda>
               </td>
               <td
                 class="numero align-middle"
                 *ngIf="radioGroupForm.value['showTotal']"
-                [title]="item.vl_unitario_estimado * item.qt_itens_contrato">
-                <span *ngIf="item?.vl_unitario_estimado">
-                  {{ item.qt_itens_contrato * item.vl_unitario_estimado | currency:'':'' }}
+                [title]="item?.itensLicitacaoItensContrato?.vl_unitario_estimado * item.qt_itens_contrato">
+                <span *ngIf="item?.itensLicitacaoItensContrato?.vl_unitario_estimado">
+                  {{ item.qt_itens_contrato * item?.itensLicitacaoItensContrato?.vl_unitario_estimado | currency:'':'' }}
                 </span>
                 <app-tooltip-ajuda
-                  *ngIf="!item?.vl_unitario_estimado"
+                  *ngIf="!item?.itensLicitacaoItensContrato?.vl_unitario_estimado"
                   [tipo]="'alerta'"
                   [descricao]="'O valor estimado não foi informado.'"></app-tooltip-ajuda>
               </td>
               <td
                 class="numero align-middle"
-                [title]="item.vl_unitario_estimado"
+                [title]="item?.itensLicitacaoItensContrato?.vl_unitario_estimado"
                 [style.background-color]="defineCorFundo(item.percentual_vs_estimado)"
                 [style.color]="defineCor(item.percentual_vs_estimado)">
                 <span *ngIf="item.percentual_vs_estimado > 0">+</span>
                 {{ item.percentual_vs_estimado | percent:'1.1' }}
                 <app-tooltip-ajuda
-                  *ngIf="!item?.vl_unitario_estimado"
+                  *ngIf="!item?.itensLicitacaoItensContrato?.vl_unitario_estimado"
                   [tipo]="'alerta'"
                   [descricao]="'O valor estimado não foi informado.'"></app-tooltip-ajuda>
               </td>
