@@ -28,7 +28,6 @@ import { DecimalPipe } from '@angular/common';
 export class InfoItemComponent implements OnInit {
 
   public item: ItensContrato;
-  public p = 1;
 
   @ViewChildren(OrdenavelDirective) cabecalhos: QueryList<OrdenavelDirective>;
 
@@ -123,8 +122,5 @@ export class InfoItemComponent implements OnInit {
     }
     return '';
   }
-  
-  pageChange(p: number) {
-    this.p = p;
-  }
+
 }
