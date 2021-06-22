@@ -63,7 +63,7 @@
       <tbody>
         <ng-template ngFor let-contrato [ngForOf]="listaService.dadosProcessados$ | async | paginate: { itemsPerPage: 15, currentPage: p }" let-i="index">
         <tr>
-          <td rowspan="2">
+          <td>
             <small
               *ngIf="contrato.nome_municipio"
               class="text-secondary">
@@ -128,7 +128,7 @@
             </div>
           </td>
 
-          <td rowspan="2" class="descricao-fornecedor">
+          <td class="descricao-fornecedor">
             <div *ngIf="contrato.nr_documento_contratado">
               <a [routerLink]="['/fornecedores/' + contrato?.nr_documento_contratado]">
                 <ngb-highlight
@@ -154,7 +154,7 @@
               </app-tooltip-ajuda>
             </div>
           </td>
-          <td rowspan="2" class="text-right numero">
+          <td class="text-right numero">
             {{ contrato.vl_contrato | currency: "R$" }}
           </td>
           <td class="text-center">
@@ -162,6 +162,7 @@
           </td>
           <td class="text-center">
             {{ contrato.dt_final_vigencia | date:'LLL/y' }}
+            <span *ngIf="getIsEncerrado(contrato)" class="badge badge-danger">encerrado</span>
             <div
               [hidden]="contrato.dt_final_vigencia"
               class="text-center">
@@ -172,9 +173,11 @@
             </div>
           </td>
         </tr>
-        <tr>
-          <td colspan="2" class="row-badge text-center"><span class="badge badge-danger">Encerrado</span></td>
-        </tr>
+        <!-- <tr>
+          <td colspan="2" class="row-badge text-center">
+            <span *ngIf="getIsEncerrado(contrato)" class="badge badge-danger">Encerrado</span>
+          </td>
+        </tr> -->
       </ng-template>
       </tbody>
     </table>
