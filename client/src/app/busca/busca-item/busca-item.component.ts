@@ -68,7 +68,7 @@ export class BuscaItemComponent implements OnInit {
   pageChange(p: number) {
     this.p = p;
   }
-  
+
   onOrdenar({coluna, direcao}: EventoOrd) {
     // Reseta outros cabeçalhos
     this.cabecalhos.forEach(cab => {
@@ -82,7 +82,6 @@ export class BuscaItemComponent implements OnInit {
     this.listaService.colunaOrd = coluna;
     this.listaService.direcaoOrd = direcao;
   }
-
 
 
 }
