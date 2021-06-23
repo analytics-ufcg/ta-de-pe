@@ -5,7 +5,7 @@
   <div *ngIf="contrato?.tipo_instrumento_contrato === 'Compra'">
     <app-barra-titulo
       [titulo]="'Compra sem número de contrato'"
-      [subtitulo]="contrato?.nm_orgao + ' - ' + contrato?.sigla_estado"
+      [subtitulo]="(contrato?.nm_orgao | uppercase) + ' - ' + contrato?.sigla_estado"
       [exibirVoltar]="true"
       [exibirTooltip]="contrato?.tipo_instrumento_contrato === 'Compra'"
       [textoTooltip]="'O  processo licitatório utilizado não produz um número de contrato.'"></app-barra-titulo>
@@ -13,7 +13,7 @@
   <div *ngIf="contrato?.tipo_instrumento_contrato !== 'Compra'">
     <app-barra-titulo
       [titulo]="'Contrato nº ' + contrato?.nr_contrato + '/' + contrato?.ano_contrato"
-      [subtitulo]="contrato?.nm_orgao + ' - ' + contrato?.sigla_estado"
+      [subtitulo]="(contrato?.nm_orgao | uppercase) + ' - ' + contrato?.sigla_estado"
       [exibirVoltar]="true"></app-barra-titulo>
   </div>
   <div class="container">
