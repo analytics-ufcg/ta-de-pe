@@ -20,6 +20,7 @@ export class LicitacoesComponent implements OnInit {
 
   public loading$ = new BehaviorSubject<boolean>(true);
   public municipioEscolhido: string;
+  public p = 1;
 
   @ViewChildren(OrdenavelDirective) cabecalhos: QueryList<OrdenavelDirective>;
 
@@ -27,10 +28,10 @@ export class LicitacoesComponent implements OnInit {
     private userService: UserService,
     private licitacaoService: LicitacaoService,
     public listaService: ListaLicitacoesService
-    ) {
-      this.listaService.colunaOrd = 'data_abertura';
-      this.listaService.direcaoOrd = 'desc';
-    }
+  ) {
+    this.listaService.colunaOrd = 'data_abertura';
+    this.listaService.direcaoOrd = 'desc';
+  }
 
   ngOnInit() {
     this.userService
@@ -54,7 +55,7 @@ export class LicitacoesComponent implements OnInit {
       });
   }
 
-  onOrdenar({coluna, direcao}: EventoOrd) {
+  onOrdenar({ coluna, direcao }: EventoOrd) {
     // Reseta outros cabeçalhos
     this.cabecalhos.forEach(cab => {
       if (cab.ordenavel !== coluna) {
@@ -66,6 +67,10 @@ export class LicitacoesComponent implements OnInit {
 
     this.listaService.colunaOrd = coluna;
     this.listaService.direcaoOrd = direcao;
+  }
+
+  pageChange(p: number) {
+    this.p = p;
   }
 
 }
