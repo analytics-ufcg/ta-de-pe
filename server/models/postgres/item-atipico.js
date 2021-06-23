@@ -19,6 +19,15 @@ module.exports = (sequelize, type) => {
         timestamps: false
       }
     );
+
+    itemAtipico.associate = function (models) {
+      itemAtipico.belongsTo(models.itensContrato, {
+        foreignKey: "id_item_contrato",
+        sourceKey: "id_item_contrato",
+        as: "itemAtipicoItensContrato"
+      });
+    };
+
     return itemAtipico;
   };
   

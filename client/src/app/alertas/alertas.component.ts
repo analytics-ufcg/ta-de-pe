@@ -95,16 +95,17 @@ export class AlertasComponent implements OnInit, OnDestroy, AfterContentInit {
     }
     this.filtros = {
       nomePesquisado: filtro.nomePesquisado,
-      tiposAlertas: this.filtros.tiposAlertas
+      tiposAlertas: this.filtros.tiposAlertas,
+      estado: filtro.estado
     };
-
     this.alertaService.search(this.filtros);
   }
 
   filterAlertas(filtroPorTipo) {
     this.filtros = {
       nomePesquisado: this.filtros.nomePesquisado,
-      tiposAlertas: filtroPorTipo.alertasSelecionados
+      tiposAlertas: filtroPorTipo.alertasSelecionados,
+      estado: this.filtros.estado
     };
     this.alertaService.search(this.filtros);
   }

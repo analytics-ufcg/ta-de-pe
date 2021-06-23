@@ -51,7 +51,9 @@ router.get("/", novidadesValidator.validate, (req, res) => {
   const municipio = req.query.nome_municipio
 
   if (municipio !== undefined && municipio !== "") {
-    whereClause.nome_municipio = municipio.toUpperCase()
+    whereClause.nome_municipio = {
+      [Op.iLike]: municipio.toUpperCase()
+    }
     limitClause = null
   }
 

@@ -1,5 +1,5 @@
 .descricao {
-  min-width: 400px;
+  min-width: 300px;
 }
 
 .texto-invisivel {
@@ -8,4 +8,9 @@
 
 .custom-alert-card {
   padding: 0.1rem 1.25rem !important;
+}
+
+.tooltip-base {
+  color: white;
+  cursor: pointer;
 }

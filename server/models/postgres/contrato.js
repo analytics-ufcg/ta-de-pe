@@ -28,8 +28,9 @@ module.exports = (sequelize, type) => {
         justificativa_contratacao: type.STRING,
         obs_contrato: type.STRING,
         tipo_instrumento_contrato: type.STRING,
-        language: type.STRING
-
+        language: type.STRING,
+        sigla_estado: type.STRING,
+        id_estado: type.STRING
       },
       {
         freezeTableName: true,

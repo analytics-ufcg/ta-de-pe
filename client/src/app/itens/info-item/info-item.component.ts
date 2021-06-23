@@ -112,4 +112,14 @@ export class InfoItemComponent implements OnInit {
   defineCor(valor: number): string {
     return (valor >= 0.7 || valor <= -0.7) ? 'white' : 'black';
   }
+
+  getNomeContrato(item: ItensContrato) {
+    if (item !== null && item !== undefined) {
+      if (item.tp_instrumento_contrato === 'Compra') {
+        return 'Compra sem contrato (licitação ' + item.nr_licitacao + '/' + item.ano_licitacao + ')';
+      }
+      return 'Contrato nº ' + item.nr_contrato + '/' + item.ano_contrato;
+    }
+    return '';
+  }
 }
