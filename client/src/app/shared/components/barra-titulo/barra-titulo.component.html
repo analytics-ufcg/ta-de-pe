@@ -2,13 +2,17 @@
   <div class="container">
     <h2 class="view-title">
       <a
-        [routerLink]=""
+        [routerLink]
         (click)="voltar()"
         [hidden]="!exibirVoltar"
-        class="mr-1">
+        class="mr-1 view-group-title">
         <span class="small icon-arrow-left"></span>
       </a>
-      <span>{{ titulo }}</span>
+      <span class="view-group-title">{{ titulo }}</span>
+      <app-tooltip-ajuda
+        *ngIf="exibirTooltip"
+        [posicao]="'bottom'"
+        [descricao]=[textoTooltip]></app-tooltip-ajuda>
     </h2>
     <span class="view-subtitle">{{ subtitulo }}</span>
   </div>

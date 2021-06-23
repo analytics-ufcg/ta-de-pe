@@ -74,7 +74,8 @@ export class InfoContratoComponent implements OnInit {
 
       // Calcula valor estimado do contrato
       this.contrato.valor_estimado = itensContrato.reduce((sum, item) => {
-        return sum + (item.vl_unitario_estimado * item.qt_itens_contrato);
+        const valorUnitarioEstimado = item.itensLicitacaoItensContrato !== null ? item.itensLicitacaoItensContrato.vl_unitario_estimado : 0;
+        return sum + (valorUnitarioEstimado * item.qt_itens_contrato);
       }, 0);
     });
   }
@@ -102,14 +103,14 @@ export class InfoContratoComponent implements OnInit {
                       } else {
                         item.percentual_vs_estado = (item.vl_item_contrato - item.mediana_valor) / item.mediana_valor;
                       }
-                      item.percentual_vs_estimado = (item.vl_item_contrato - item.vl_unitario_estimado)
-                        / item.vl_unitario_estimado;
+
+                      if (item.itensLicitacaoItensContrato !== null) {
+                        if (item.itensLicitacaoItensContrato.vl_unitario_estimado) {
+                          item.percentual_vs_estimado = (item.vl_item_contrato - item.itensLicitacaoItensContrato.vl_unitario_estimado)
+                            / item.itensLicitacaoItensContrato.vl_unitario_estimado;
+                        }
+                      }
                       return item;
-                    })
-                  ).pipe(
-                    map(itemComAlerta => {
-                      itemComAlerta.alertaAtipico = this.getAlertaAtipico(itemComAlerta);
-                      return itemComAlerta;
                     })
                   );
               }),
@@ -139,19 +140,6 @@ export class InfoContratoComponent implements OnInit {
       .domain([-1, 0, 1])
       .range(['#72a5b6', '#ffffff', '#d7856c']);
     return cor(valor);
-  }
-
-  getAlertaAtipico(item) {
-    const alerta = this.contrato.contratoAlerta;
-    let alertaAtipico;
-    if (alerta) {
-      alerta.alertaItens.forEach(itemAtipico => {
-        if (itemAtipico.id_item_contrato === item.id_item_contrato) {
-            alertaAtipico = itemAtipico;
-        }
-      });
-    }
-    return alertaAtipico;
   }
 
   defineCor(valor: number): string {

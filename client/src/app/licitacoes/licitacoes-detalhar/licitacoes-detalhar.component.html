@@ -4,7 +4,7 @@
 
   <app-barra-titulo
     [titulo]="'Licitação nº ' + licitacao?.nr_licitacao + '/' + licitacao?.ano_licitacao"
-    [subtitulo]="licitacao?.nm_orgao"
+    [subtitulo]="(licitacao?.nm_orgao | uppercase) + ' - ' + licitacao?.sigla_estado"
     [exibirVoltar]="true"></app-barra-titulo>
 
   <div class="container">

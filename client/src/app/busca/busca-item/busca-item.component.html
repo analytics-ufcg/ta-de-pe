@@ -79,7 +79,7 @@
                 </td>
                 <td class="align-middle nowrap">
                   <ngb-highlight
-                    [result]="itemSemelhante.nome_municipio | titlecase"
+                    [result]="(itemSemelhante.nome_municipio | titlecase) + ' - ' + itemSemelhante?.sigla_estado"
                     [term]="listaService.termoBusca">
                   </ngb-highlight>
                 </td>

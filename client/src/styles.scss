@@ -432,3 +432,16 @@ th[ordenavel].asc:before {
 .badge-prod-atipico {
   background: #90448e;
 }
+
+.app-seletor {
+  height: calc(1.5em + .75rem + 4px);
+  padding: .375rem .75rem;
+  font-size: 1rem;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 2px solid #ced4da;
+  border-radius: .75rem;
+}

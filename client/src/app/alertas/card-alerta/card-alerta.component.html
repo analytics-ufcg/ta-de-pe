@@ -1,5 +1,5 @@
 <div
- 
+
   class="card card-alert mb-2"
   [ngClass]="getStyleCard(alerta?.id_tipo)">
   <div
@@ -28,7 +28,7 @@
       </small>
 
       <span *ngIf="alerta?.id_contrato">
-        em {{ alerta?.alertaContrato?.contratosOrgao?.nome_municipio | titlecase }}
+        em {{ alerta?.alertaContrato?.contratosOrgao?.nome_municipio | titlecase }} - {{alerta?.alertaContrato?.sigla_estado }}
       </span>
     </div>
 

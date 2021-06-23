@@ -1,7 +1,7 @@
 <div class="view-container" *ngIf="item">
   <app-barra-titulo
     [titulo]="item.ds_item_resumido | titlecase"
-    [subtitulo]="item.itensContratoOrgao.nm_orgao + ' &#9474; Contrato nº ' + item.nr_contrato + '/' + item.ano_contrato"
+    [subtitulo]="item.itensContratoOrgao.nm_orgao + ' &#9474; ' + getNomeContrato(item)"
     [exibirVoltar]="true"></app-barra-titulo>
 
   <div class="container">
@@ -16,7 +16,7 @@
       </div>
       <div class="col-lg-5">
         <div class="row">
-          <div class="col-md-6 text-right">
+          <div class="col-md-6 text-right" *ngIf="item?.itensSemelhantes?.length > 1">
             <div>
               <strong>Mediana do estado</strong>
             </div>
@@ -24,6 +24,8 @@
               {{ item.mediana_valor | currency: "R$" }}
             </div>
           </div>
+          <div class="col-md-6 text-right" *ngIf="item?.itensSemelhantes?.length <= 1"></div>
+
           <div class="col-md-6 text-right">
             <div>
               <strong>Valor por unidade</strong>
@@ -31,7 +33,7 @@
             <div class="numero numero-destaque">
               {{ item.vl_item_contrato | currency: "R$" }}
             </div>
-            <div class="small">
+            <div class="small" *ngIf="item?.itensSemelhantes?.length > 1">
               <span
                 *ngIf="(item.vl_item_contrato - item.mediana_valor) < 0"
                 class="negativo">
@@ -57,13 +59,19 @@
     </div>
 
     <h4>
-      Produtos semelhantes comprados em outros municípios
+      Produtos semelhantes comprados em outros contratos
     </h4>
-    <ngb-alert [dismissible]="false">
+
+    <ngb-alert [dismissible]="false" *ngIf="item?.itensSemelhantes?.length > 1">
       <strong>Atenção</strong>: essa tabela foi gerada de forma automatizada a partir da descrição do objeto licitado. É necessário checar se os objetos listados possuem qualidade e quantidade semelhante para uma comparação correta.
       <a [routerLink]="['/duvidas']">Saiba mais</a>.
     </ngb-alert>
-    <div class="table-wrapper">
+    <ngb-alert [dismissible]="false" *ngIf="item?.itensSemelhantes?.length <= 1">
+      Não existem produtos no estado com descrição e quantidade semelhantes para comparação.
+      <a [routerLink]="['/duvidas']">Saiba mais</a>.
+    </ngb-alert>
+
+    <div class="table-wrapper" *ngIf="item?.itensSemelhantes?.length > 1">
       <div class="table-responsive">
         <table class="table table-sm table-hover">
           <thead>
@@ -90,7 +98,7 @@
                 ordenavel="ano_licitacao"
                 (ordenar)="onOrdenar($event)"
                 appOrdenavel>
-                Compra
+                Contrato
               </th>
               <th
                 scope="col"
@@ -116,9 +124,16 @@
               <td class="align-middle nowrap">{{ itemSemelhante.nome_municipio | titlecase }}</td>
               <td class="align-middle text-right">
                 <a
+                  *ngIf="itemSemelhante?.tipo_instrumento_contrato !== 'Compra'"
                   [routerLink]="['/contratos/' + itemSemelhante.id_contrato]"
                   target="_blank">
                   nº {{ itemSemelhante.nr_contrato }}/{{ itemSemelhante.ano_licitacao }}
+                </a>
+                <a
+                  *ngIf="itemSemelhante?.tipo_instrumento_contrato === 'Compra'"
+                  [routerLink]="['/contratos/' + itemSemelhante.id_contrato]"
+                  target="_blank">
+                  Compra sem contrato (licitação {{ itemSemelhante?.nr_licitacao }}/{{ itemSemelhante?.ano_licitacao }})
                 </a>
               </td>
               <td class="numero align-middle">
