@@ -16,5 +16,13 @@ module.exports = (sequelize, type) => {
     }
   );
 
+  municipio.associate = function (models) {
+    municipio.belongsTo(models.orgao, {
+      foreignKey: "cd_municipio_ibge",
+      sourceKey: "cd_municipio_ibge",
+      as: "municipioOrgao"
+    });
+  };
+
   return municipio;
 };
