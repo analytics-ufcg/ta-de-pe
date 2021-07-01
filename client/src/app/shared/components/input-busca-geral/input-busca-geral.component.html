@@ -30,7 +30,7 @@
 
   <ngb-highlight
     class="custom-description"
-    [result]="r?.descricao"
+    [result]="r?.descricao | titlecase"
     [term]="t">
   </ngb-highlight>
   <span *ngIf="r?.tipoBusca=='MUNICIPIO'">– {{ r?.siglaEstado}}</span>

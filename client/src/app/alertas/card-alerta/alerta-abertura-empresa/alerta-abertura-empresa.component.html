@@ -2,7 +2,7 @@
   <span class="text-muted">
     A empresa abriu em {{alerta?.alertaDadosFornecedorReceita.data_inicio_atividade | date: "dd/MM/yyyy"}} e foi contratada
     <span *ngIf="diferencaAbertura >= 0">{{ diferencaAbertura }} dias depois</span>
-    <span *ngIf="diferencaAbertura < 0">{{ diferencaAbertura }} dias antes</span>
+    <span *ngIf="diferencaAbertura < 0">dias antes</span>
     como fornecedora.
   </span>
 

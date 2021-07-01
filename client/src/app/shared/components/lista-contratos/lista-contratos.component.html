@@ -60,8 +60,9 @@
         </tr>
       </thead>
 
-      <tbody class="pb-1">
-        <tr *ngFor="let contrato of listaService.dadosProcessados$ | async | paginate: { itemsPerPage: 15, currentPage: p }; index as i">
+      <tbody>
+        <ng-template ngFor let-contrato [ngForOf]="listaService.dadosProcessados$ | async | paginate: { itemsPerPage: 15, currentPage: p }" let-i="index">
+        <tr>
           <td>
             <small
               *ngIf="contrato.nome_municipio"
@@ -161,6 +162,7 @@
           </td>
           <td class="text-center">
             {{ contrato.dt_final_vigencia | date:'LLL/y' }}
+            <span *ngIf="getIsEncerrado(contrato)" class="badge badge-danger">encerrado</span>
             <div
               [hidden]="contrato.dt_final_vigencia"
               class="text-center">
@@ -171,6 +173,7 @@
             </div>
           </td>
         </tr>
+      </ng-template>
       </tbody>
     </table>
   </div>

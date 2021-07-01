@@ -58,20 +58,7 @@ router.get("/vigentes", (req, res) => {
         as: "contratoAlerta"
       }
     ],
-    where: {
-      dt_inicio_vigencia: {
-        [Op.lte]: new Date()
-      },
-      dt_final_vigencia: {
-        [Op.or]: {
-          [Op.gte]: new Date(),
-          [Op.eq]: null
-        }
-      },
-
-    },
-    order: [["dt_inicio_vigencia", "DESC"]],
-    limit: 50
+    order: [["dt_inicio_vigencia", "DESC"]]
   })
     .then(contratos => res.status(SUCCESS).json(contratos))
     .catch(err => res.status(BAD_REQUEST).json({ err }));

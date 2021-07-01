@@ -47,4 +47,9 @@ export class ListaContratosComponent implements OnChanges {
   pageChange(p: number) {
     this.p = p;
   }
+
+  getIsEncerrado(contrato) {
+    const fim = new Date(contrato.dt_final_vigencia);
+    return (fim < new Date());
+  }
 }
