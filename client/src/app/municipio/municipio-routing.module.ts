@@ -8,7 +8,7 @@ import { NovidadesComponent } from './novidades/novidades.component';
 
 const routes: Routes = [
   {
-    path: '',
+    path: ':slug',
     component: MunicipioComponent,
     children: [
       {
@@ -29,10 +29,6 @@ const routes: Routes = [
         component: NovidadesComponent
       },
     ]
-  },
-  {
-    path: ':slug',
-    component: MunicipioComponent
   }
 ];
 

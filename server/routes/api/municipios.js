@@ -45,4 +45,15 @@ router.get("/busca", (req, res) => {
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
+router.get("/:slug", (req, res) => {
+  const slug = req.params.slug;
+  Municipios.findOne({
+    where: {
+      slug_municipio: slug
+    }
+  })
+    .then(municipio => res.status(SUCCESS).json(municipio))
+    .catch(err => res.status(BAD_REQUEST).json({ err }));
+});
+
 module.exports = router;

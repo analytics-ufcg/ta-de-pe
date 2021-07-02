@@ -25,7 +25,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/vigentes", (req, res) => {
-  const municipio = req.query.nome_municipio;
+  const municipio = req.query.cd_municipio_ibge;
 
   Contrato.findAll({
     raw: true,
@@ -41,9 +41,7 @@ router.get("/vigentes", (req, res) => {
         model: Orgao,
         as: "contratosOrgao",
         where: {
-          nome_municipio: {
-            [Op.iLike]: municipio.toUpperCase()
-          }
+          cd_municipio_ibge: municipio
         },
         required: true
       },

@@ -50,7 +50,6 @@ export class InputBuscaGeralComponent implements OnInit {
 
   ngOnInit() {
     this.getMunicipios();
-    this.getMunicipioSalvo();
   }
 
   getMunicipios() {
@@ -62,18 +61,9 @@ export class InputBuscaGeralComponent implements OnInit {
         this.municipios = municipios.map((response: any) => {
           const nome = response.nome_municipio.split(' ')[0].toLowerCase();
           const tipo = (nome === 'estado') ? TipoBusca.Estado : TipoBusca.Municipio;
-          buscaveis.push(new Buscavel(response.nome_municipio, tipo, response.sigla_estado));
+          buscaveis.push(new Buscavel(response.nome_municipio, tipo, response.sigla_estado, response.slug_municipio));
         });
         this.municipios = buscaveis;
-      });
-  }
-
-  getMunicipioSalvo() {
-    this.userService
-      .getMunicipioEscolhido()
-      .pipe(take(1))
-      .subscribe(municipio => {
-        this.buscavelSelecionado = new Buscavel(municipio, TipoBusca.Municipio);
       });
   }
 
@@ -124,7 +114,7 @@ export class InputBuscaGeralComponent implements OnInit {
   buscarOnClick(buscavel: Buscavel) {
     if (typeof buscavel !== 'undefined' && buscavel.descricao !== '') {
       if (buscavel.tipoBusca === TipoBusca.Municipio || buscavel.tipoBusca === TipoBusca.Estado) {
-        this.router.navigate(['municipio']);
+        this.router.navigate(['municipio/' + buscavel.slugMunicipio]);
       } else if (buscavel.tipoBusca === TipoBusca.Compra) {
         this.router.navigate(['busca/contrato'], { queryParams: { termo: buscavel.descricao }});
       } else if (buscavel.tipoBusca === TipoBusca.Item) {

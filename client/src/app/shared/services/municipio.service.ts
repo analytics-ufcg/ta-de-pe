@@ -19,6 +19,10 @@ export class MunicipioService {
         return this.http.get<Municipio[]>(this.url);
     }
 
+    getBySlug(slug: string): Observable<Municipio> {
+        return this.http.get<Municipio>(this.url + '/' + slug);
+    }
+
     buscar(termo: string): Observable<Municipio[]> {
       const params = new HttpParams().set('termo', termo);
       return this.http.get<Municipio[]>(this.url + '/busca', { params });
