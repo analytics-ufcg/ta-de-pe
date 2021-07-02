@@ -24,7 +24,7 @@ export class ContratosVigentesComponent implements OnInit {
     private contratoService: ContratoService,
     private municipioService: MunicipioService,
     private activatedRoute: ActivatedRoute
-    ) {}
+  ) { }
 
   ngOnInit() {
     this.activatedRoute.parent.paramMap
