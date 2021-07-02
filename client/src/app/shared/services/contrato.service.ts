@@ -20,8 +20,8 @@ export class ContratoService {
   }
 
   // Recupera contratos vigentes
-  getVigentes(municipio: string): Observable<ContratoLicitacao[]> {
-    const params = new HttpParams().set('nome_municipio', municipio);
+  getVigentes(cdMunicipioIbge: number): Observable<ContratoLicitacao[]> {
+    const params = new HttpParams().set('cd_municipio_ibge', '' + cdMunicipioIbge);
     return this.http.get<ContratoLicitacao[]>(this.url + '/vigentes', { params });
   }
 
