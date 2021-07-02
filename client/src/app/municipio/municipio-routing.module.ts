@@ -27,8 +27,12 @@ const routes: Routes = [
       {
         path: 'linha-do-tempo',
         component: NovidadesComponent
-      }
+      },
     ]
+  },
+  {
+    path: ':slug',
+    component: MunicipioComponent
   }
 ];
 
