@@ -51,8 +51,7 @@
                     class>
                     <td class="align-middle nowrap">
                       <a
-                        routerLink="/municipio"
-                        (click)="onClick(municipio)">
+                        [routerLink]="['/municipio/' + municipio?.slug_municipio]">
                         <ngb-highlight
                           [result]="municipio?.nome_municipio | titlecase"
                           [term]="listaService.termoBusca">

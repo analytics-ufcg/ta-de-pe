@@ -11,10 +11,10 @@ import { EstadoLista, DirecaoOrd } from '../models/lista.model';
 })
 class ListaService {
 
-  private busca$ = new Subject<void>();
+  public busca$ = new Subject<void>();
   private pDadosProcessados$ = new BehaviorSubject<any[]>([]);
 
-  public dados$: Observable<any[]>;
+  public dados$ = new Observable<any[]>();
 
   public estado: EstadoLista = {
     termoBusca: '',

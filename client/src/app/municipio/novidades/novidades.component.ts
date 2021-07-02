@@ -4,9 +4,9 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import { Subject, BehaviorSubject } from 'rxjs';
 import { takeUntil, debounceTime, skip } from 'rxjs/operators';
 
-import { UserService } from '../../shared/services/user.service';
 import { Novidade } from '../../shared/models/novidade.model';
 import { NovidadeService } from '../../shared/services/novidade.service';
+import { MunicipioService } from 'src/app/shared/services/municipio.service';
 import { indicate } from '../../shared/functions/indicate.function';
 
 @Component({
@@ -28,24 +28,21 @@ export class NovidadesComponent implements OnInit, OnDestroy {
 
   constructor(
     private novidadesServices: NovidadeService,
-    private userService: UserService,
+    private municipioService: MunicipioService,
     private activatedRoute: ActivatedRoute,
     private router: Router) {
   }
 
   ngOnInit() {
-    this.getMunicipio();
-  }
-
-  getMunicipio() {
-    this.userService
-      .getMunicipioEscolhido()
-      .pipe(
-        debounceTime(300),
-        takeUntil(this.unsubscribe))
-      .subscribe(municipio => {
-        this.municipioEscolhido = municipio;
-        this.getNovidades(this.municipioEscolhido);
+    this.activatedRoute.parent.paramMap
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(params => {
+        const slug = params.get('slug');
+        if (slug !== undefined && slug !== null) {
+          this.municipioService.getBySlug(slug).subscribe(municipio => {
+            this.getNovidades(municipio.nome_municipio);
+          });
+        }
       });
   }
 

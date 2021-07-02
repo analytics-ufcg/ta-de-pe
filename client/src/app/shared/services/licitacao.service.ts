@@ -25,8 +25,8 @@ export class LicitacaoService {
     return this.http.get<Licitacao>(this.url + '/' + id);
   }
 
-  getLicitacoes(municipio: string): Observable<Licitacao[]> {
-    return this.http.get<Licitacao[]>(this.url + '/municipio/' + municipio);
+  getLicitacoes(cdMunicipioIbge: number): Observable<Licitacao[]> {
+    return this.http.get<Licitacao[]>(this.url + '/municipio/' + cdMunicipioIbge);
   }
 
   // Recupera contratos de uma licitação

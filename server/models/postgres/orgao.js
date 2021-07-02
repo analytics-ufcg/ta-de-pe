@@ -22,6 +22,11 @@ module.exports = (sequelize, type) => {
   );
 
   orgao.associate = function (models) {
+    orgao.hasOne(models.municipio, {
+      foreignKey: "cd_municipio_ibge",
+      sourceKey: "cd_municipio_ibge",
+      as: "municipioOrgao"
+    });
     orgao.hasMany(models.licitacao, {
       foreignKey: "id_orgao",
       sourceKey: "id_orgao",
