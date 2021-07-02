@@ -2,9 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Subject } from 'rxjs';
-import { takeUntil, debounceTime } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 
-import { UserService } from '../shared/services/user.service';
+import { Municipio } from '../shared/models/municipio.model';
+import { MunicipioService } from '../shared/services/municipio.service';
 
 @Component({
   selector: 'app-municipio',
@@ -15,48 +16,27 @@ export class MunicipioComponent implements OnInit {
 
   private unsubscribe = new Subject();
 
-  public municipioEscolhido: string;
-  public siglaEstadoEscolhido: string;
-
-  public slug: string;
+  public municipio: Municipio;
 
   constructor(
-    private userService: UserService,
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private municipioService: MunicipioService) { }
 
 
   ngOnInit() {
     this.getMunicipio();
-    this.getSiglaEstado();
   }
 
   getMunicipio() {
-    //
-    this.activatedRoute.paramMap.pipe(takeUntil(this.unsubscribe)).subscribe(param => {
-      this.slug = param.get('slug');
+    this.activatedRoute.paramMap.pipe(takeUntil(this.unsubscribe))
+    .subscribe(param => {
+      const slug = param.get('slug');
 
-      if (this.slug !== undefined) {
-        this.userService
-          .getMunicipioEscolhido()
-          .pipe(
-            debounceTime(300),
-            takeUntil(this.unsubscribe))
-          .subscribe(municipio => {
-            this.municipioEscolhido = municipio;
-          });
+      if (slug !== undefined) {
+        this.municipioService.getBySlug(slug).subscribe(municipio => {
+          this.municipio = municipio;
+        });
       }
     });
   }
-
-  getSiglaEstado() {
-    this.userService
-      .getSiglaEstadoEscolhido()
-      .pipe(
-        debounceTime(300),
-        takeUntil(this.unsubscribe))
-      .subscribe(siglaEstado => {
-        this.siglaEstadoEscolhido = siglaEstado;
-      });
-  }
-
 }
