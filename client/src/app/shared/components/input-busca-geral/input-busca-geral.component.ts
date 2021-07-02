@@ -16,7 +16,6 @@ import {
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 
 import { MunicipioService } from '../../services/municipio.service';
-import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-input-busca-geral',
@@ -42,8 +41,7 @@ export class InputBuscaGeralComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private buscaMunicipioService: MunicipioService,
-    private userService: UserService
+    private buscaMunicipioService: MunicipioService
   ) {
     this.municipios = [];
   }
@@ -73,10 +71,6 @@ export class InputBuscaGeralComponent implements OnInit {
 
   salvarBuscavel(buscavel: Buscavel) {
     this.buscavelSelecionadoEvent.emit(buscavel);
-    if (buscavel.tipoBusca === TipoBusca.Municipio || buscavel.tipoBusca === TipoBusca.Estado) {
-      this.userService.setMunicipioEscolhido(buscavel.descricao);
-      this.userService.setSiglaEstadoEscolhido(buscavel.siglaEstado);
-    }
 
     if (this.directSearch) {
       this.buscarOnClick(buscavel);

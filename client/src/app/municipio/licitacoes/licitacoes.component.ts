@@ -7,7 +7,6 @@ import { map, takeUntil, tap } from 'rxjs/operators';
 
 import { EventoOrd } from 'src/app/shared/models/lista.model';
 import { OrdenavelDirective } from 'src/app/shared/directives/ordenavel.directive';
-import { UserService } from '../../shared/services/user.service';
 import { LicitacaoService } from '../../shared/services/licitacao.service';
 import { ListaLicitacoesService } from 'src/app/shared/services/lista.service';
 import { MunicipioService } from 'src/app/shared/services/municipio.service';
@@ -29,7 +28,6 @@ export class LicitacoesComponent implements OnInit {
   @ViewChildren(OrdenavelDirective) cabecalhos: QueryList<OrdenavelDirective>;
 
   constructor(
-    private userService: UserService,
     private licitacaoService: LicitacaoService,
     public listaService: ListaLicitacoesService,
     private municipioService: MunicipioService,
