@@ -45,7 +45,7 @@ export class MunicipioComponent implements OnInit {
             this.municipioEscolhido = municipio;
           });
       }
-    })
+    });
   }
 
   getSiglaEstado() {
