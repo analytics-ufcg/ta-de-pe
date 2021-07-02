@@ -6,7 +6,6 @@ import { BehaviorSubject } from 'rxjs';
 
 import { ListaMunicipiosService } from 'src/app/shared/services/lista.service';
 import { MunicipioService } from 'src/app/shared/services/municipio.service';
-import { UserService } from 'src/app/shared/services/user.service';
 import { EventoOrd } from 'src/app/shared/models/lista.model';
 import { OrdenavelDirective } from 'src/app/shared/directives/ordenavel.directive';
 
@@ -30,7 +29,6 @@ export class BuscaMunicipioComponent implements OnInit {
   constructor(
     private activatedroute: ActivatedRoute,
     private municipioService: MunicipioService,
-    private userService: UserService,
     public listaService: ListaMunicipiosService,
   ) {
     this.listaService.colunaOrd = 'nome_municipio';
@@ -61,11 +59,6 @@ export class BuscaMunicipioComponent implements OnInit {
 
     this.listaService.colunaOrd = coluna;
     this.listaService.direcaoOrd = direcao;
-  }
-
-  onClick(municipio) {
-    this.userService.setMunicipioEscolhido(municipio.nome_municipio);
-    this.userService.setSiglaEstadoEscolhido(municipio.sigla_estado);
   }
 
 }
