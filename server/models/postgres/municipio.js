@@ -8,7 +8,8 @@ module.exports = (sequelize, type) => {
       },
       nome_municipio: type.STRING,
       id_estado: type.INTEGER,
-      sigla_estado: type.STRING
+      sigla_estado: type.STRING,
+      slug_municipio: type.STRING
     },
     {
       freezeTableName: true,

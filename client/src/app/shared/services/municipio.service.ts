@@ -11,7 +11,7 @@ import { environment } from '../../../environments/environment';
 })
 export class MunicipioService {
 
-    private url = environment.apiUrl + 'orgaos/municipios';
+    private url = environment.apiUrl + 'municipios';
 
     constructor(private http: HttpClient) { }
 

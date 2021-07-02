@@ -16,4 +16,33 @@ router.get("/", (req, res) => {
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
+router.get("/busca", (req, res) => {
+  const termo = req.query.termo;
+
+  Municipios.findAll({
+    attributes: [
+      [
+        Sequelize.fn("DISTINCT", Sequelize.col("nome_municipio")),
+        "nome_municipio"
+      ],
+      "slug_municipio",
+      "sigla_estado",
+    ],
+    where: {
+      [Op.or]: {
+        nome_municipio: {
+          [Op.ne]: null,
+          [Op.iLike]: '%'.concat(termo).concat('%')
+        },
+        sigla_estado: {
+          [Op.iLike]: '%'.concat(termo).concat('%')
+        }
+      }
+      
+    }
+  })
+    .then(municipios => res.status(SUCCESS).json(municipios))
+    .catch(err => res.status(BAD_REQUEST).json({ err }));
+});
+
 module.exports = router;
