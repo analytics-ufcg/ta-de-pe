@@ -41,7 +41,7 @@ export class NovidadesComponent implements OnInit, OnDestroy {
         if (slug !== undefined && slug !== null) {
           this.municipioService.getBySlug(slug).subscribe(municipio => {
             this.getNovidades(municipio.nome_municipio);
-          })
+          });
         }
       });
   }
