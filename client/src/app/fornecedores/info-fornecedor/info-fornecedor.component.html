@@ -265,6 +265,10 @@
                 appOrdenavel>
                 Fim da vigência
               </th>
+              <th scope="col" class="text-center" ordenavel="municipio_contrato"
+                appOrdenavel>
+                Município
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -292,6 +296,13 @@
               </td>
               <td class="text-center">
                 {{ contrato.dt_final_vigencia | date: "LLL/y" }}
+              </td>
+              <td>
+                <span *ngIf="contrato.nome_municipio">
+                  <ngb-highlight [result]="contrato.nome_municipio" [term]="listaService.termoBusca">
+                  </ngb-highlight>
+                </span>
+                <span *ngIf="!contrato.nome_municipio">(Nome do município não encontrado)</span>
               </td>
             </tr>
           </tbody>
