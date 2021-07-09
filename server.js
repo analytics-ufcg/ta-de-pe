@@ -5,6 +5,7 @@ const cors = require("cors");
 const compression = require("compression");
 const forceSsl = require("force-ssl-heroku");
 
+const municipios = require("./server/routes/api/municipios");
 const orgaos = require("./server/routes/api/orgaos");
 const licitacoes = require("./server/routes/api/licitacoes");
 const novidades = require("./server/routes/api/novidades");
@@ -42,6 +43,7 @@ app.get("/api", (req, res) => {
   res.json({ "status": "OK"});
 });
 
+app.use("/api/municipios", municipios);
 app.use("/api/orgaos", orgaos);
 app.use("/api/licitacoes", licitacoes);
 app.use("/api/novidades", novidades);

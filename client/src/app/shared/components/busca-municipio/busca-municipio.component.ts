@@ -8,7 +8,6 @@ import {
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 
 import { MunicipioService } from '../../services/municipio.service';
-import { UserService } from '../../services/user.service';
 import { Router, NavigationStart } from '@angular/router';
 
 @Component({
@@ -29,8 +28,7 @@ export class BuscaMunicipioComponent implements OnInit, OnDestroy {
 
   constructor(
     private router: Router,
-    private buscaMunicipioService: MunicipioService,
-    private userService: UserService
+    private buscaMunicipioService: MunicipioService
   ) {
     router.events
       .pipe(filter(event => event instanceof NavigationStart))
