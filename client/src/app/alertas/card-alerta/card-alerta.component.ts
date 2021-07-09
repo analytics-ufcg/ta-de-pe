@@ -10,6 +10,8 @@ import { Alerta } from 'src/app/shared/models/alerta.model';
 })
 export class CardAlertaComponent implements OnInit {
 
+  public TIPOS_ALERTAS_FORNECEDORES = [3];
+
   @Input() alerta: Alerta;
 
   constructor(private router: Router) { }
@@ -22,14 +24,18 @@ export class CardAlertaComponent implements OnInit {
       return { 'cor-borda-esquerda-abertura-empresa': true };
     } else if (2 === idAlerta) {
       return { 'cor-borda-esquerda-item-atipico': true };
+    } else if (3 === idAlerta) {
+      return { 'cor-borda-esquerda-inidoneo': true };
     }
   }
 
 
 
-  onClickCard(idContrato) {
+  onClickCard(idContrato, nrDocumento, tipoAlerta) {
     if (idContrato) {
       this.router.navigate(['/contratos/' + idContrato]);
+    } else if (nrDocumento && this.TIPOS_ALERTAS_FORNECEDORES.includes(tipoAlerta)) {
+      this.router.navigate(['/fornecedores/' + nrDocumento]);
     }
   }
 

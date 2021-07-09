@@ -4,8 +4,8 @@
   [ngClass]="getStyleCard(alerta?.id_tipo)">
   <div
     class="card-body"
-    (click)="onClickCard(alerta?.id_contrato )"
-    [ngClass]="!alerta?.id_contrato ? 'card-alert-disabled' : ''">
+    (click)="onClickCard(alerta?.id_contrato, alerta?.nr_documento, alerta?.id_tipo)"
+    [ngClass]="!alerta?.id_contrato && !TIPOS_ALERTAS_FORNECEDORES.includes(alerta?.id_tipo) ? 'card-alert-disabled' : ''">
     <div class="text-muted title-border">
       <small>
         <strong>{{ alerta?.AlertaTipo?.titulo }}</strong>
@@ -39,7 +39,13 @@
     <div *ngIf="alerta?.id_tipo === 2">
       <app-alerta-item-atipico [alerta]="alerta"></app-alerta-item-atipico>
     </div>
-    <ngb-alert [dismissible]="false" type="light" *ngIf="!alerta?.id_contrato" class="container custom-alert-card mt-3 mb-1">
+
+    <div *ngIf="alerta?.id_tipo === 3">
+      <app-alerta-inidoneos [alerta]="alerta"></app-alerta-inidoneos>
+    </div>
+
+    <ngb-alert [dismissible]="false" type="light" *ngIf="!alerta?.id_contrato && !TIPOS_ALERTAS_FORNECEDORES.includes(alerta?.id_tipo)" 
+      class="container custom-alert-card mt-3 mb-1">
       <small >
         <strong>
           Este contrato não está presente na base de dados do site por estar relacionado a outro contexto.

@@ -43,6 +43,8 @@ export class MenuAlertaComponent implements OnInit, OnDestroy {
       return { 'cor-borda-inferior-abertura-empresa': true };
     } else if (2 === idAlerta) {
       return { 'cor-borda-inferior-item-atipico': true };
+    } else if (3 === idAlerta) {
+      return { 'cor-borda-inferior-inidoneo': true };
     }
   }
 
@@ -51,6 +53,8 @@ export class MenuAlertaComponent implements OnInit, OnDestroy {
       return { 'cor-alerta-abertura-empresa': true };
     } else if (2 === idAlerta) {
       return { 'cor-alerta-item-atipico': true };
+    } else if (3 === idAlerta) {
+      return { 'cor-alerta-inidoneo': true };
     }
   }
 
