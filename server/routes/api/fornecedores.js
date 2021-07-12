@@ -79,4 +79,35 @@ router.get("/:id", (req, res) => {
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
+// CNPF, nome, CPF nm_pessoa, nr_documento,
+router.get("/search", (req, res) => {
+
+  const termo = req.query.termo.replace(/[&|!<()\\:',]/gi, '').replace( /\s+/g, ' ').trim().split(' ').join(' & ');
+  let query = `SELECT \
+                nm_pessoa, \
+                nr_documento, \
+                (\
+                  SELECT \
+                  nm_pessoa as nm_fornecedor \
+                  FROM \
+                  fornecedor \
+                  WHERE \
+                  fornecedor.nr_documento = p_search.nr_documento_contratado
+                ) \
+              FROM p_search \
+              WHERE \
+              p_search.document @to_tsquery('portuguese', '${termo}') \
+              ORDER BY \
+              ts_rank( \
+                p_search.document, \
+                to_tsquery('portuguese', '${termo}') \
+              ) DESC; `
+  models.sequelize.query(query, {
+    model: Fornecedor,
+    mapToModel: true
+  }).then(fornecedor => {res.status(SUCCESS).json(fornecedor)
+  })
+    .catch(err => res.status(BAD_REQUEST).json({ err }));
+});
+
 module.exports = router;
