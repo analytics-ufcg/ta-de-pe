@@ -22,6 +22,36 @@ router.get("/", (req, res) => {
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
+// CNPF, nome, CPF nm_pessoa, nr_documento
+router.get("/search", (req, res) => {
+  const termo = req.query.termo.replace(/[&|!<()\\:',]/gi, '').replace( /\s+/g, ' ').trim().split(' ').join(' & ');
+  let query = `SELECT \
+                nr_documento, \
+                nm_pessoa, \
+                total_de_contratos, \
+                data_primeiro_contrato
+              FROM \
+                (SELECT \
+                  *, \
+                  to_tsvector('portuguese', fornecedor.nm_pessoa) AS document
+                FROM \
+                  fornecedor) p_search \
+              WHERE \
+                p_search.document @@to_tsquery('portuguese', '${termo}') OR 
+                nr_documento LIKE '%${termo}%'\
+              ORDER BY \
+                ts_rank( \
+                  p_search.document, \
+                  to_tsquery('portuguese', '${termo}') \
+                ) DESC;`
+  models.sequelize.query(query, {
+    model: Fornecedor,
+    mapToModel: true
+  }).then(fornecedor => {res.status(SUCCESS).json(fornecedor)
+  })
+    .catch(err => res.status(BAD_REQUEST).json({ err }));
+});
+
 router.get("/:id", (req, res) => {
   Fornecedor.findOne({
     include: [
@@ -76,37 +106,6 @@ router.get("/:id", (req, res) => {
     }
   })
     .then(fornecedor => res.status(SUCCESS).json(fornecedor))
-    .catch(err => res.status(BAD_REQUEST).json({ err }));
-});
-
-// CNPF, nome, CPF nm_pessoa, nr_documento,
-router.get("/search", (req, res) => {
-
-  const termo = req.query.termo.replace(/[&|!<()\\:',]/gi, '').replace( /\s+/g, ' ').trim().split(' ').join(' & ');
-  let query = `SELECT \
-                nm_pessoa, \
-                nr_documento, \
-                (\
-                  SELECT \
-                  nm_pessoa as nm_fornecedor \
-                  FROM \
-                  fornecedor \
-                  WHERE \
-                  fornecedor.nr_documento = p_search.nr_documento_contratado
-                ) \
-              FROM p_search \
-              WHERE \
-              p_search.document @to_tsquery('portuguese', '${termo}') \
-              ORDER BY \
-              ts_rank( \
-                p_search.document, \
-                to_tsquery('portuguese', '${termo}') \
-              ) DESC; `
-  models.sequelize.query(query, {
-    model: Fornecedor,
-    mapToModel: true
-  }).then(fornecedor => {res.status(SUCCESS).json(fornecedor)
-  })
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
