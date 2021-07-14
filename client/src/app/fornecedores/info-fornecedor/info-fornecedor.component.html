@@ -220,6 +220,11 @@
             <span class="tooltip-base tooltip-warning icon-alert-triangle mr-1">
             </span>
             A empresa forneceu produtos que não são comuns com base em suas atividades econômicas declaradas na Receita Federal.
+          </p>          
+          <p *ngIf="alerta?.id_tipo === 3" class="custom-alert-text cursor-pointer" (click)="onClickAlerta(fornecedor?.nr_documento)">
+            <span class="tooltip-base tooltip-warning icon-alert-triangle mr-1">
+            </span>
+            {{ alerta?.info }}
           </p>
         </div>
       </div>

@@ -109,6 +109,10 @@ a.link-light:visited {
   background: #90448e;
 }
 
+.cor-alerta-inidoneo:before {
+  background: $green;
+}
+
 .cor-borda-esquerda-abertura-empresa {
   border-left-color: $warning !important;
 }
@@ -117,12 +121,20 @@ a.link-light:visited {
   border-left-color: #90448e !important;
 }
 
+.cor-borda-esquerda-inidoneo {
+  border-left-color: $green !important;
+}
+
 .cor-borda-inferior-abertura-empresa {
   border-bottom-color: $warning !important;
 }
 
 .cor-borda-inferior-item-atipico {
   border-bottom-color: #90448e !important;
+}
+
+.cor-borda-inferior-inidoneo {
+  border-bottom-color: $green !important;
 }
 
 .text-contratacao {

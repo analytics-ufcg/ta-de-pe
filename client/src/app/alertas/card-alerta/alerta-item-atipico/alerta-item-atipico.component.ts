@@ -1,17 +1,14 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'app-alerta-item-atipico',
   templateUrl: './alerta-item-atipico.component.html',
   styleUrls: ['./alerta-item-atipico.component.scss']
 })
-export class AlertaItemAtipicoComponent implements OnInit {
+export class AlertaItemAtipicoComponent {
 
   @Input() alerta;
 
   constructor() { }
-
-  ngOnInit() {
-  }
 
 }
