@@ -10,7 +10,6 @@ import { Alerta } from 'src/app/shared/models/alerta.model';
 })
 export class CardAlertaComponent implements OnInit {
 
-  public TIPOS_ALERTAS_FORNECEDORES = [3];
 
   @Input() alerta: Alerta;
 
@@ -31,11 +30,9 @@ export class CardAlertaComponent implements OnInit {
 
 
 
-  onClickCard(idContrato, nrDocumento, tipoAlerta) {
+  onClickCard(idContrato) {
     if (idContrato) {
       this.router.navigate(['/contratos/' + idContrato]);
-    } else if (nrDocumento && this.TIPOS_ALERTAS_FORNECEDORES.includes(tipoAlerta)) {
-      this.router.navigate(['/fornecedores/' + nrDocumento]);
     }
   }
 

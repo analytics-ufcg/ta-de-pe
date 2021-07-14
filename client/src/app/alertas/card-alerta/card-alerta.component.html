@@ -4,7 +4,7 @@
   [ngClass]="getStyleCard(alerta?.id_tipo)">
   <div
     class="card-body"
-    (click)="onClickCard(alerta?.id_contrato, alerta?.nr_documento, alerta?.id_tipo)"
+    (click)="onClickCard(alerta?.id_contrato)"
     [ngClass]="!alerta?.id_contrato && !TIPOS_ALERTAS_FORNECEDORES.includes(alerta?.id_tipo) ? 'card-alert-disabled' : ''">
     <div class="text-muted title-border">
       <small>
@@ -44,7 +44,7 @@
       <app-alerta-inidoneos [alerta]="alerta"></app-alerta-inidoneos>
     </div>
 
-    <ngb-alert [dismissible]="false" type="light" *ngIf="!alerta?.id_contrato && !TIPOS_ALERTAS_FORNECEDORES.includes(alerta?.id_tipo)" 
+    <ngb-alert [dismissible]="false" type="light" *ngIf="!alerta?.id_contrato" 
       class="container custom-alert-card mt-3 mb-1">
       <small >
         <strong>
