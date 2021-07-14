@@ -9,13 +9,15 @@ import { BuscaCompraComponent } from './busca-compra/busca-compra.component';
 import { BuscaItemComponent } from './busca-item/busca-item.component';
 import { BuscaComponent } from './busca.component';
 import { BuscaMunicipioComponent } from './busca-municipio/busca-municipio.component';
+import { BuscaFornecedorComponent } from './busca-fornecedor/busca-fornecedor.component';
 
 @NgModule({
   declarations: [
     BuscaCompraComponent,
     BuscaItemComponent,
     BuscaComponent,
-    BuscaMunicipioComponent
+    BuscaMunicipioComponent,
+    BuscaFornecedorComponent
   ],
   imports: [
     CommonModule,

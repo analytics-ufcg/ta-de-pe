@@ -56,12 +56,13 @@ class ListaService {
   }
 
   ordenar(dados: any[], coluna: string, direcao: string): any[] {
-    if (direcao === '') {
-      return dados;
-    } else {
-      const dadosOrdenados = dados.sort((a, b) => this.comparar(a[coluna], b[coluna]));
-      return direcao === 'asc' ? dadosOrdenados : dadosOrdenados.reverse();
-    }
+    // if (direcao === '') {
+    //   return dados;
+    // } else {
+    //   const dadosOrdenados = dados.sort((a, b) => this.comparar(a[coluna], b[coluna]));
+    //   return direcao === 'asc' ? dadosOrdenados : dadosOrdenados.reverse();
+    // }
+    return dados;
   }
 
   corresponde(dados: any, texto: string, pipe: PipeTransform) {
@@ -163,5 +164,20 @@ export class ListaMunicipiosService extends ListaService {
     const termo = texto.toLowerCase();
     return dados.nome_municipio.toLowerCase().includes(termo)
         || dados.sigla_estado.includes(termo);
+  }
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ListaFornecedoresService extends ListaService {
+
+  constructor(pipe: DecimalPipe) {
+    super(pipe);
+  }
+
+  corresponde(dados: any, texto: string, pipe: PipeTransform) {
+    const termo = texto.toLowerCase();
+    return dados.nm_fornecedor.toLowerCase().includes(termo);
   }
 }

@@ -254,6 +254,10 @@
                 appOrdenavel>
                 Descrição
               </th>
+              <th scope="col" class="text-center" ordenavel="municipio_contrato"
+              appOrdenavel>
+              Município
+            </th>
               <th scope="col" class="text-center" ordenavel="vl_contrato" (ordenar)="onOrdenar($event)" appOrdenavel>
                 Valor contratado
               </th>
@@ -264,10 +268,6 @@
               <th scope="col" class="text-center" ordenavel="dt_final_vigencia" (ordenar)="onOrdenar($event)"
                 appOrdenavel>
                 Fim da vigência
-              </th>
-              <th scope="col" class="text-center" ordenavel="municipio_contrato"
-                appOrdenavel>
-                Município
               </th>
             </tr>
           </thead>
@@ -288,6 +288,13 @@
                 </span>
                 <span *ngIf="!contrato.descricao_objeto_contrato">(Descrição não encontrada)</span>
               </td>
+              <td>
+                <span *ngIf="contrato.nome_municipio">
+                  <ngb-highlight [result]="contrato.nome_municipio" [term]="listaService.termoBusca">
+                  </ngb-highlight>
+                </span>
+                <span *ngIf="!contrato.nome_municipio">(Nome do município não encontrado)</span>
+              </td>
               <td class="text-right numero">
                 {{ contrato.vl_contrato | currency: "R$" }}
               </td>
@@ -296,13 +303,6 @@
               </td>
               <td class="text-center">
                 {{ contrato.dt_final_vigencia | date: "LLL/y" }}
-              </td>
-              <td>
-                <span *ngIf="contrato.nome_municipio">
-                  <ngb-highlight [result]="contrato.nome_municipio" [term]="listaService.termoBusca">
-                  </ngb-highlight>
-                </span>
-                <span *ngIf="!contrato.nome_municipio">(Nome do município não encontrado)</span>
               </td>
             </tr>
           </tbody>

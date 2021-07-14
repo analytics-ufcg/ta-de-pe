@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { Fornecedor } from './../models/fornecedor.model';
@@ -21,8 +21,17 @@ export class FornecedorService {
     return this.http.get<Fornecedor>(this.url + '/' + id);
   }
 
+  getFornecedores(): Observable<Fornecedor[]> {
+    return this.http.get<Fornecedor[]>(this.url);
+  }
+
   getContratos(nrDocumento: string): Observable<ContratoFornecedor[]> {
     return this.http.get<ContratoFornecedor[]>(this.urlContratos + '/fornecedor/' + nrDocumento);
+  }
+
+  buscar(termo: string): Observable<Fornecedor[]> {
+    const params = new HttpParams().set('termo', termo);
+    return this.http.get<Fornecedor[]>(this.url + '/busca', { params });
   }
 
 }
