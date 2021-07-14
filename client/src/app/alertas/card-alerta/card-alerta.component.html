@@ -44,7 +44,7 @@
       <app-alerta-inidoneos [alerta]="alerta"></app-alerta-inidoneos>
     </div>
 
-    <ngb-alert [dismissible]="false" type="light" *ngIf="!alerta?.id_contrato && !TIPOS_ALERTAS_FORNECEDORES.includes(alerta?.id_tipo)" 
+    <ngb-alert [dismissible]="false" type="light" *ngIf="!alerta?.id_contrato && !TIPOS_ALERTAS_FORNECEDORES.includes(alerta?.id_tipo)"
       class="container custom-alert-card mt-3 mb-1">
       <small >
         <strong>
