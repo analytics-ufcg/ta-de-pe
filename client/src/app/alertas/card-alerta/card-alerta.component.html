@@ -5,7 +5,7 @@
   <div
     class="card-body"
     (click)="onClickCard(alerta?.id_contrato)"
-    [ngClass]="!alerta?.id_contrato && !TIPOS_ALERTAS_FORNECEDORES.includes(alerta?.id_tipo) ? 'card-alert-disabled' : ''">
+    [ngClass]="!alerta?.id_contrato ? 'card-alert-disabled' : ''">
     <div class="text-muted title-border">
       <small>
         <strong>{{ alerta?.AlertaTipo?.titulo }}</strong>
