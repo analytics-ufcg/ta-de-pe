@@ -445,6 +445,10 @@ th[ordenavel].asc:before {
   background: #90448e;
 }
 
+.badge-inidoneo {
+  background: $green;
+}
+
 .app-seletor {
   height: calc(1.5em + .75rem + 4px);
   padding: .375rem .75rem;
