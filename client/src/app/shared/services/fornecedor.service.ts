@@ -31,7 +31,7 @@ export class FornecedorService {
 
   buscar(termo: string): Observable<Fornecedor[]> {
     const params = new HttpParams().set('termo', termo);
-    return this.http.get<Fornecedor[]>(this.url + '/busca', { params });
+    return this.http.get<Fornecedor[]>(this.url + '/search', { params });
   }
 
 }

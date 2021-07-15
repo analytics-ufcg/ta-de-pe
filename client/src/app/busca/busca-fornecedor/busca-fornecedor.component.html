@@ -41,26 +41,26 @@
                       ordenavel="sigla_estado"
                       (ordenar)="onOrdenar($event)"
                       appOrdenavel>
-                      Estado
+                      Total de Contratos
                     </th>
                   </tr>
                 </thead>
                 <tbody>
                   <tr
-                    *ngFor="let municipio of listaService.dadosProcessados$ | async; index as i"
+                    *ngFor="let fornecedor of listaService.dadosProcessados$ | async; index as i"
                     class>
                     <td class="align-middle nowrap">
                       <a
-                        [routerLink]="['/municipio/' + municipio?.slug_municipio]">
+                      [routerLink]="['/fornecedores/' + fornecedor?.nr_documento]">
                         <ngb-highlight
-                          [result]="municipio?.nome_municipio | titlecase"
+                          [result]="fornecedor?.nm_pessoa | titlecase"
                           [term]="listaService.termoBusca">
                         </ngb-highlight>
                       </a>
                     </td>
                     <td class="align-middle text-right">
                       <ngb-highlight
-                        [result]="municipio?.sigla_estado"
+                        [result]="fornecedor?.total_de_contratos"
                         [term]="listaService.termoBusca">
                       </ngb-highlight>
                     </td>
