@@ -2,6 +2,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { NgxPaginationModule } from 'ngx-pagination';
+
 
 import { BuscaRoutingModule } from './busca-routing.module';
 import { SharedModule } from '../shared/components/shared.module';
@@ -24,7 +26,8 @@ import { BuscaFornecedorComponent } from './busca-fornecedor/busca-fornecedor.co
     SharedModule,
     BuscaRoutingModule,
     FormsModule,
-    NgbModule
+    NgbModule,
+    NgxPaginationModule
   ]
 })
 export class BuscaModule { }

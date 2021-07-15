@@ -96,6 +96,7 @@ export class InputBuscaGeralComponent implements OnInit {
             buscaveisTemp.unshift (new Buscavel(term, TipoBusca.Compra));
             buscaveisTemp.unshift (new Buscavel(term, TipoBusca.Item));
             buscaveisTemp.unshift (new Buscavel(term, TipoBusca.MunicipioBusca));
+            buscaveisTemp.unshift (new Buscavel(term, TipoBusca.Fornecedor));
             return buscaveisTemp;
         } else {
           return [];
@@ -114,6 +115,8 @@ export class InputBuscaGeralComponent implements OnInit {
       } else if (buscavel.tipoBusca === TipoBusca.Item) {
         this.router.navigate(['busca/produto'], { queryParams: { termo: buscavel.descricao }});
       } else if (buscavel.tipoBusca === TipoBusca.MunicipioBusca) {
+        this.router.navigate(['busca/municipio'], { queryParams: { termo: buscavel.descricao }});
+      } else if (buscavel.tipoBusca === TipoBusca.Fornecedor) {
         this.router.navigate(['busca/municipio'], { queryParams: { termo: buscavel.descricao }});
       }
     }
