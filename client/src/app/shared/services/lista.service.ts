@@ -56,12 +56,12 @@ class ListaService {
   }
 
   ordenar(dados: any[], coluna: string, direcao: string): any[] {
-    // if (direcao === '') {
-    //   return dados;
-    // } else {
-    //   const dadosOrdenados = dados.sort((a, b) => this.comparar(a[coluna], b[coluna]));
-    //   return direcao === 'asc' ? dadosOrdenados : dadosOrdenados.reverse();
-    // }
+    if (direcao === '') {
+      return dados;
+    } else {
+      const dadosOrdenados = dados.sort((a, b) => this.comparar(a[coluna], b[coluna]));
+      return direcao === 'asc' ? dadosOrdenados : dadosOrdenados.reverse();
+    }
     return dados;
   }
 
