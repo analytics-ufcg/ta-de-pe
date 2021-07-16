@@ -1,0 +1,84 @@
+<div class="view-container">
+  <div class="container mt-4">
+
+    <div class="row">
+      <div class="col-lg-6">
+        <form>
+          <div class="form-group">
+            <input
+              class="form-control"
+              type="text"
+              placeholder="Filtrar nos fornecedores..."
+              name="termoBusca"
+              [(ngModel)]="listaService.termoBusca">
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <p *ngIf="((listaService.dados$ | async)?.length === 0) && (loading$ | async) === false">Não há fornecedores com este termo.</p>
+    <app-spinner *ngIf="loading$ | async"></app-spinner>
+    <div *ngIf="(loading$ | async) === false">
+      <div
+        *ngIf="((listaService.dados$ | async)?.length > 0) && (loading$ | async) === false"
+        class="table-wrapper">
+        <div class="table-responsive">
+          <table class="table table-sm table-hover">
+            <thead>
+              <tr>
+                <th
+                  scope="col"
+                  class="table-th-dividido-up"
+                  ordenavel="nm_pessoa"
+                  (ordenar)="onOrdenar($event)"
+                  appOrdenavel>
+                  Fornecedor
+                </th>
+                <th
+                  scope="col"
+                  class="text-right table-th-dividido-up"
+                  ordenavel="total_de_contratos"
+                  (ordenar)="onOrdenar($event)"
+                  appOrdenavel>
+                  Total de Contratos
+                </th>
+                <th
+                  scope="col"
+                  class="text-right table-th-dividido-up"
+                  ordenavel="data_primeiro_contrato"
+                  (ordenar)="onOrdenar($event)"
+                  appOrdenavel>
+                  Primeiro contrato
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr
+                *ngFor="let fornecedor of listaService.dadosProcessados$ | async; index as i"
+                class>
+                <td class="align-middle nowrap">
+                  <a [routerLink]="['/fornecedores/' + fornecedor?.nr_documento]">
+                    <ngb-highlight
+                      [result]="fornecedor?.nm_pessoa | titlecase"
+                      [term]="listaService.termoBusca">
+                    </ngb-highlight>
+                  </a>
+                </td>
+                <td class="align-middle text-right">
+                  <ngb-highlight
+                    [result]="fornecedor?.total_de_contratos"
+                    [term]="listaService.termoBusca">
+                  </ngb-highlight>
+                </td>
+                <td class="align-middle text-right">
+                  {{ fornecedor?.data_primeiro_contrato | date:'dd/MM/y' }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

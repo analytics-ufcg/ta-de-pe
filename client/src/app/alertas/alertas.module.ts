@@ -14,6 +14,7 @@ import { CardAlertaComponent } from './card-alerta/card-alerta.component';
 import { FiltroAlertasComponent } from './filtro-alertas/filtro-alertas.component';
 import { AlertaAberturaEmpresaComponent } from './card-alerta/alerta-abertura-empresa/alerta-abertura-empresa.component';
 import { AlertaItemAtipicoComponent } from './card-alerta/alerta-item-atipico/alerta-item-atipico.component';
+import { AlertaInidoneosComponent } from './card-alerta/alerta-inidoneos/alerta-inidoneos.component';
 import { MenuAlertaComponent } from './menu-alerta/menu-alerta.component';
 
 @NgModule({
@@ -22,7 +23,8 @@ import { MenuAlertaComponent } from './menu-alerta/menu-alerta.component';
     FiltroAlertasComponent,
     AlertaAberturaEmpresaComponent,
     AlertaItemAtipicoComponent,
-    MenuAlertaComponent],
+    MenuAlertaComponent,
+    AlertaInidoneosComponent],
   imports: [
     CommonModule,
     FormsModule,
