@@ -306,14 +306,17 @@ td.numero {
     border-top: none;
   }
 }
-.nav-fill {
-  @media (min-width: 1000px) {
+
+.nav-fill-sm {
+  @media (min-width: 1200px) {
     max-width: 50%;
   }
 }
-.nav-item{
+
+.nav-item {
   z-index: 100;
 }
+
 .navegacao-link {
   background: #f2f7f3;
   border-radius: 0.75rem 0.75rem 0 0 !important;
@@ -345,7 +348,7 @@ td.numero {
     }
   }
 
-  &:hover{
+  &:hover {
     color: $dark;
     font-weight: bold;
   }

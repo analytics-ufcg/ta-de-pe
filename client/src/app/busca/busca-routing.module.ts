@@ -5,6 +5,7 @@ import { BuscaComponent } from './busca.component';
 import { BuscaItemComponent } from './busca-item/busca-item.component';
 import { BuscaCompraComponent } from './busca-compra/busca-compra.component';
 import { BuscaMunicipioComponent } from './busca-municipio/busca-municipio.component';
+import { BuscaFornecedorComponent } from './busca-fornecedor/busca-fornecedor.component';
 
 const routes: Routes = [
   {
@@ -27,6 +28,10 @@ const routes: Routes = [
       {
         path: 'municipio',
         component: BuscaMunicipioComponent
+      },
+      {
+        path: 'fornecedor',
+        component: BuscaFornecedorComponent
       }
     ]
   }
