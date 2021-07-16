@@ -30,8 +30,8 @@ export class BuscaFornecedorComponent implements OnInit {
     private fornecedorService: FornecedorService,
     public listaService: ListaFornecedoresService,
   ) {
-    this.listaService.colunaOrd = 'nm_fornecedor';
-    this.listaService.direcaoOrd = 'desc';
+    this.listaService.colunaOrd = 'nm_pessoa';
+    this.listaService.direcaoOrd = 'asc';
   }
 
   ngOnInit() {
@@ -39,9 +39,6 @@ export class BuscaFornecedorComponent implements OnInit {
       this.termo = params.get('termo');
       this.listaService.dados$ = this.fornecedorService
         .buscar(this.termo);
-
-      this.listaService.colunaOrd = 'nm_fornecedor';
-      this.listaService.direcaoOrd = 'desc';
       this.loading$.next(false);
     });
   }
