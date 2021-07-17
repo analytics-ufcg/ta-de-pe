@@ -134,6 +134,12 @@
             <span class="tooltip-base tooltip-warning icon-alert-triangle mr-1"></span>
             A empresa forneceu produtos que não são comuns com base em suas atividades econômicas declaradas na Receita Federal.
           </p>
+          <p
+            *ngIf="contrato?.contratoAlerta?.id_tipo === 3"
+            class="custom-alert-text">
+            <span class="tooltip-base tooltip-warning icon-alert-triangle mr-1"></span>
+            {{ contrato?.contratoAlerta?.info}}
+          </p>
         </div>
       </div>
     </ngb-alert>

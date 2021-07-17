@@ -109,6 +109,10 @@ a.link-light:visited {
   background: #90448e;
 }
 
+.cor-alerta-inidoneo:before {
+  background: $green;
+}
+
 .cor-borda-esquerda-abertura-empresa {
   border-left-color: $warning !important;
 }
@@ -117,12 +121,20 @@ a.link-light:visited {
   border-left-color: #90448e !important;
 }
 
+.cor-borda-esquerda-inidoneo {
+  border-left-color: $green !important;
+}
+
 .cor-borda-inferior-abertura-empresa {
   border-bottom-color: $warning !important;
 }
 
 .cor-borda-inferior-item-atipico {
   border-bottom-color: #90448e !important;
+}
+
+.cor-borda-inferior-inidoneo {
+  border-bottom-color: $green !important;
 }
 
 .text-contratacao {
@@ -294,14 +306,17 @@ td.numero {
     border-top: none;
   }
 }
-.nav-fill {
-  @media (min-width: 1000px) {
+
+.nav-fill-sm {
+  @media (min-width: 1200px) {
     max-width: 50%;
   }
 }
-.nav-item{
+
+.nav-item {
   z-index: 100;
 }
+
 .navegacao-link {
   background: #f2f7f3;
   border-radius: 0.75rem 0.75rem 0 0 !important;
@@ -333,7 +348,7 @@ td.numero {
     }
   }
 
-  &:hover{
+  &:hover {
     color: $dark;
     font-weight: bold;
   }
@@ -431,6 +446,10 @@ th[ordenavel].asc:before {
 
 .badge-prod-atipico {
   background: #90448e;
+}
+
+.badge-inidoneo {
+  background: $green;
 }
 
 .app-seletor {

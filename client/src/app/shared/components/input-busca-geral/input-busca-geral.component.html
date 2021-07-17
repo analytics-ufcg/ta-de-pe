@@ -3,8 +3,9 @@
   let-r="result"
   let-t="term">
   <span
-    *ngIf="r?.tipoBusca=='COMPRA' || r?.tipoBusca=='ITEM' || r?.tipoBusca=='MUNICIPIO_BUSCA'"
+    *ngIf="r?.tipoBusca=='COMPRA' || r?.tipoBusca=='ITEM' || r?.tipoBusca=='MUNICIPIO_BUSCA' || r?.tipoBusca=='FORNECEDOR'"
     class="icon-search mr-1"></span>
+
   <span *ngIf="r?.tipoBusca=='COMPRA'">
     Buscar
     <strong>contratos</strong>
@@ -18,6 +19,11 @@
   <span *ngIf="r?.tipoBusca=='MUNICIPIO_BUSCA'">
     Buscar
     <strong>municípios</strong>
+    com o termo "</span>
+
+  <span *ngIf="r?.tipoBusca=='FORNECEDOR'">
+    Buscar
+    <strong>fornecedores</strong>
     com o termo "</span>
 
   <span
@@ -34,7 +40,7 @@
     [term]="t">
   </ngb-highlight>
   <span *ngIf="r?.tipoBusca=='MUNICIPIO'">– {{ r?.siglaEstado}}</span>
-  <span *ngIf="r?.tipoBusca=='COMPRA' || r?.tipoBusca=='ITEM' || r?.tipoBusca=='MUNICIPIO_BUSCA'">"</span>
+  <span *ngIf="r?.tipoBusca=='COMPRA' || r?.tipoBusca=='ITEM' || r?.tipoBusca=='MUNICIPIO_BUSCA' || r?.tipoBusca=='FORNECEDOR'">"</span>
   <hr *ngIf="r?.tipoBusca=='COMPRA'">
 </ng-template>
 

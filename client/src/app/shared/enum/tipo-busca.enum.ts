@@ -3,5 +3,6 @@ export enum TipoBusca {
     Municipio = 'MUNICIPIO',
     Compra = 'COMPRA',
     Item = 'ITEM',
-    MunicipioBusca = 'MUNICIPIO_BUSCA'
+    MunicipioBusca = 'MUNICIPIO_BUSCA',
+    Fornecedor = 'FORNECEDOR'
 }
