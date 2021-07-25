@@ -5,6 +5,9 @@
       </p>
       <app-spinner *ngIf="loading$ | async"></app-spinner>
       <div *ngIf="(loading$ | async) === false">
+
+        <h6 class="mb-4">{{ (contratos$ | async)?.length }} resultados encontrados</h6>
+
         <app-lista-contratos
           *ngIf="((contratos$ | async)?.length > 0) && (loading$ | async) === false"
           [contratos$]="contratos$"></app-lista-contratos>
