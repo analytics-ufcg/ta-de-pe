@@ -30,7 +30,7 @@ export class FornecedorService {
   }
 
   buscar(termo: string): Observable<Fornecedor[]> {
-    const parsedTermo = termo.replace(/[-.\/]/g,'');
+    const parsedTermo = termo.replace(/[-.\/]/g, '');
     const params = new HttpParams().set('termo', parsedTermo);
     return this.http.get<Fornecedor[]>(this.url + '/search', { params });
   }
