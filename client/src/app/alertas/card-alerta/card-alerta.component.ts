@@ -22,6 +22,8 @@ export class CardAlertaComponent {
       return { 'cor-borda-esquerda-item-atipico': true };
     } else if (3 === idAlerta) {
       return { 'cor-borda-esquerda-inidoneo': true };
+    } else if (4 === idAlerta) {
+      return { 'cor-borda-esquerda-contratos-grandes': true };
     }
   }
 
@@ -32,5 +34,4 @@ export class CardAlertaComponent {
       this.router.navigate(['/contratos/' + idContrato]);
     }
   }
-
 }

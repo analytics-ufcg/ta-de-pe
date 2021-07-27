@@ -46,7 +46,7 @@ export class MenuAlertaComponent implements OnInit, OnDestroy {
     } else if (3 === idAlerta) {
       return { 'cor-borda-inferior-inidoneo': true };
     } else if (4 === idAlerta) {
-      return { 'cor-borda-contrato-grande': true };
+      return { 'cor-borda-inferior-contratos-grandes': true };
     }
   }
 
@@ -58,7 +58,7 @@ export class MenuAlertaComponent implements OnInit, OnDestroy {
     } else if (3 === idAlerta) {
       return { 'cor-alerta-inidoneo': true };
     } else if (4 === idAlerta) {
-      return { 'cor-borda-contrato-grande': true };
+      return { 'cor-alerta-contratos-grandes': true };
     }
   }
 
