@@ -97,8 +97,9 @@ a.link-light:visited {
 
 .card-alert-disabled {
   cursor: default;
-  color: rgb(150, 150, 150) !important;
+  color: #000 !important;
   background: rgba(245, 245, 245, 0.185);
+  cursor: pointer;
 }
 
 .cor-alerta-abertura-empresa:before {

@@ -29,7 +29,10 @@ export class CardAlertaComponent {
 
 
 
-  onClickCard(idContrato) {
+  onClickCard(nrDocumento, idContrato) {
+    if (nrDocumento) {
+      this.router.navigate(['/fornecedores/' + nrDocumento]);
+    }
     if (idContrato) {
       this.router.navigate(['/contratos/' + idContrato]);
     }
