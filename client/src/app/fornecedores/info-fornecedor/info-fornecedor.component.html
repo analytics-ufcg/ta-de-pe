@@ -229,7 +229,7 @@
           <p *ngIf="alerta?.id_tipo === 4" class="custom-alert-text">
             <span class="tooltip-base tooltip-warning icon-alert-triangle mr-1">
             </span>
-            Total contratado em um ano excede o faturamento permitido pelo porte da empresa. 
+            Total contratado em um ano excede o faturamento permitido pelo porte da empresa.
           </p>
         </div>
       </div>
@@ -295,6 +295,30 @@
                 <span *ngIf="contrato.descricao_objeto_contrato">
                   <ngb-highlight [result]="contrato.descricao_objeto_contrato" [term]="listaService.termoBusca">
                   </ngb-highlight>
+                </span>
+                <br>
+                <span
+                  *ngIf="contrato.id_tipo === 1"
+                  class="badge-pill badge-warning tooltip-base"
+                  placement="top"
+                  ngbTooltip="O fornecedor foi contratado em menos de um mês após a abertura do CNPJ na Receita Federal.">
+                  Empresa recém-aberta
+                </span>
+
+                <span
+                  *ngIf="contrato.id_tipo === 2"
+                  class="badge-pill badge-prod-atipico tooltip-base"
+                  placement="top"
+                  ngbTooltip="A empresa forneceu produtos que não são comuns com base em suas atividades econômicas declaradas na Receita Federal.">
+                  Produtos atípicos
+                </span>
+
+                <span
+                  *ngIf="contrato.id_tipo === 3"
+                  class="badge-pill badge-inidoneo tooltip-base"
+                  placement="top"
+                  ngbTooltip="O fornecedor estava com uma sanção vigente no momento da contratação.">
+                  Contratado inidôneo
                 </span>
                 <span *ngIf="!contrato.descricao_objeto_contrato">(Descrição não encontrada)</span>
               </td>
