@@ -22,15 +22,19 @@ export class CardAlertaComponent {
       return { 'cor-borda-esquerda-item-atipico': true };
     } else if (3 === idAlerta) {
       return { 'cor-borda-esquerda-inidoneo': true };
+    } else if (4 === idAlerta) {
+      return { 'cor-borda-esquerda-contratos-grandes': true };
     }
   }
 
 
 
-  onClickCard(idContrato) {
+  onClickCard(nrDocumento, idContrato) {
+    if (nrDocumento) {
+      this.router.navigate(['/fornecedores/' + nrDocumento]);
+    }
     if (idContrato) {
       this.router.navigate(['/contratos/' + idContrato]);
     }
   }
-
 }
