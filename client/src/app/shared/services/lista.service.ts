@@ -62,6 +62,7 @@ class ListaService {
       const dadosOrdenados = dados.sort((a, b) => this.comparar(a[coluna], b[coluna]));
       return direcao === 'asc' ? dadosOrdenados : dadosOrdenados.reverse();
     }
+    return dados;
   }
 
   corresponde(dados: any, texto: string, pipe: PipeTransform) {
@@ -163,5 +164,23 @@ export class ListaMunicipiosService extends ListaService {
     const termo = texto.toLowerCase();
     return dados.nome_municipio.toLowerCase().includes(termo)
         || dados.sigla_estado.includes(termo);
+  }
+}
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ListaFornecedoresService extends ListaService {
+
+  constructor(pipe: DecimalPipe) {
+    super(pipe);
+  }
+
+  corresponde(dados: any, texto: string, pipe: PipeTransform) {
+    const termo = texto.toLowerCase();
+    if (dados.nm_pessoa !== null) {
+      return dados.nm_pessoa.toLowerCase().includes(termo);
+    }
+    return true;
   }
 }
