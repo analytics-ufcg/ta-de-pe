@@ -97,8 +97,9 @@ a.link-light:visited {
 
 .card-alert-disabled {
   cursor: default;
-  color: rgb(150, 150, 150) !important;
+  color: #000 !important;
   background: rgba(245, 245, 245, 0.185);
+  cursor: pointer;
 }
 
 .cor-alerta-abertura-empresa:before {
@@ -113,8 +114,16 @@ a.link-light:visited {
   background: $green;
 }
 
+.cor-alerta-contratos-grandes:before {
+  background: #B93858;
+}
+
 .cor-borda-esquerda-abertura-empresa {
   border-left-color: $warning !important;
+}
+
+.cor-borda-esquerda-contratos-grandes {
+  border-left-color: #B93858 !important;
 }
 
 .cor-borda-esquerda-item-atipico {
@@ -127,6 +136,10 @@ a.link-light:visited {
 
 .cor-borda-inferior-abertura-empresa {
   border-bottom-color: $warning !important;
+}
+
+.cor-borda-inferior-contratos-grandes {
+  border-bottom-color: #B93858 !important;
 }
 
 .cor-borda-inferior-item-atipico {
