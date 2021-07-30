@@ -1,6 +1,8 @@
 <div class="view-container">
   <div class="container mt-4">
 
+    <h6 class="mb-4">{{ (listaService.dados$ | async)?.length }} resultados encontrados</h6>
+
     <div class="row">
       <div class="col-lg-6">
         <form>
@@ -59,10 +61,17 @@
                 <td class="align-middle nowrap">
                   <a [routerLink]="['/fornecedores/' + fornecedor?.nr_documento]">
                     <ngb-highlight
-                      [result]="fornecedor?.nm_pessoa | titlecase"
+                      [result]="fornecedor?.nm_pessoa ? fornecedor?.nm_pessoa : 'Pessoa física (nome não divulgado)' | titlecase"
                       [term]="listaService.termoBusca">
                     </ngb-highlight>
                   </a>
+                  <br>
+                  <small>
+                    <ngb-highlight
+                      [result]="fornecedor?.nr_documento | formatCpfCnpj"
+                      [term]="listaService.termoBusca">
+                    </ngb-highlight>
+                  </small>
                 </td>
                 <td class="align-middle text-right">
                   <ngb-highlight
