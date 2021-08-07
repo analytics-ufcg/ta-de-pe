@@ -1,8 +1,9 @@
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, take } from 'rxjs/operators';
 import { Subject } from 'rxjs';
 import { TipoAlerta } from './../../shared/models/tipoAlerta.model';
 import { AlertaService } from './../../shared/services/alerta.service';
 import { Component, OnInit, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-menu-alerta',
@@ -17,7 +18,9 @@ export class MenuAlertaComponent implements OnInit, OnDestroy {
 
   alertasDisponiveis;
 
-  constructor(private alertaService: AlertaService) { }
+  constructor(
+    private alertaService: AlertaService,
+    private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.getTiposAlertas();
@@ -33,8 +36,8 @@ export class MenuAlertaComponent implements OnInit, OnDestroy {
           [item[key], item])).values()].map((alerta: TipoAlerta) => {
             return ({ idAlerta: alerta.id_tipo, descricaoAlerta: alerta.titulo, selected: true });
           });
-
         this.alertasDisponiveis = tiposAlerta;
+        this.updateFiltroViaURL();
       });
   }
 
@@ -71,6 +74,23 @@ export class MenuAlertaComponent implements OnInit, OnDestroy {
       }
     });
     this.alertaFilterChange.emit(alertas);
+  }
+
+  updateFiltroViaURL() {
+    this.activatedRoute.queryParams
+      .pipe(take(1))
+      .subscribe(params => {
+        const alertas = params.alertas;
+
+        if (alertas && alertas !== null) {
+          const alertasParsed = JSON.parse(alertas);
+
+          this.alertasDisponiveis.forEach(alerta => {
+            alerta.selected = alertasParsed.includes(alerta.idAlerta);
+          });
+          this.alertaFilterChange.emit( { alertasSelecionados: alertasParsed });
+        }
+      });
   }
 
   ngOnDestroy() {
