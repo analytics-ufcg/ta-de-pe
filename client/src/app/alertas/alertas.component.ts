@@ -89,7 +89,7 @@ export class AlertasComponent implements OnInit, OnDestroy, AfterContentInit {
     const params = {
       page: 1,
       search: filtro.nomePesquisado,
-      estado: filtro.estado ? filtro.estado : '' 
+      estado: filtro.estado ? filtro.estado : ''
     };
 
     this.updateURL(params);
@@ -106,7 +106,7 @@ export class AlertasComponent implements OnInit, OnDestroy, AfterContentInit {
     if (filtroPorTipo.alertasSelecionados) {
       const alertas = JSON.stringify(filtroPorTipo.alertasSelecionados);
       this.pageChange(1);
-      this.updateURL({ page: 1, alertas: alertas });
+      this.updateURL({ page: 1, alertas });
     }
     this.filtros = {
       nomePesquisado: this.filtros.nomePesquisado,
