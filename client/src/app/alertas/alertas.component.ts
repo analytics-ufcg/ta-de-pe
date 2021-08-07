@@ -85,14 +85,15 @@ export class AlertasComponent implements OnInit, OnDestroy, AfterContentInit {
   }
 
   search(filtro) {
-    if (Object.keys(filtro).indexOf('nomePesquisado') !== -1) {
-      if (filtro.nomePesquisado && filtro.nomePesquisado !== '') {
-        this.pageChange(1);
-        this.updateURL({ page: 1, search: filtro.nomePesquisado });
-      } else {
-        this.updateURL({search: ''});
-      }
-    }
+    this.pageChange(1);
+    const params = {
+      page: 1,
+      search: filtro.nomePesquisado,
+      estado: filtro.estado ? filtro.estado : '' 
+    };
+
+    this.updateURL(params);
+
     this.filtros = {
       nomePesquisado: filtro.nomePesquisado,
       tiposAlertas: this.filtros.tiposAlertas,
