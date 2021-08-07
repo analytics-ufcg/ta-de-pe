@@ -76,7 +76,7 @@ export class AlertaService {
       filtered = filtrosAlerta && filtered ? this.isTipoAlertaFiltrado(a.id_tipo, filtrosAlerta) : filtered;
 
       filtered = estado && estado !== this.ESTADO_PADRAO && filtered ?
-        this.isEstadoSelecionado(a.alertaContrato, estado) : filtered;
+        this.isEstadoSelecionado(a, estado) : filtered;
 
       return filtered;
     });
@@ -98,9 +98,11 @@ export class AlertaService {
     return idSelecionados.includes(idAlerta);
   }
 
-  isEstadoSelecionado(alertaContrato, estado) {
-    if (alertaContrato !== null) {
-      return Number(estado) === alertaContrato.id_estado;
+  isEstadoSelecionado(a, estado) {
+    if (a.alertaContrato !== null) {
+      return Number(estado) === a.alertaContrato.id_estado;
+    } else if (a.alertaFornecedor !== null) {
+      return Number(estado) === a.alertaFornecedor.id_estado;
     }
     return false;
   }
@@ -117,6 +119,7 @@ export class AlertaService {
   }
 
   search(filtro) {
+    console.log(filtro);
     this.filtro.next(filtro);
   }
 

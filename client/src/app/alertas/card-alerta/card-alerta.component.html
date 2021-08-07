@@ -48,7 +48,7 @@
       <app-alerta-contrato-grande [alerta]="alerta"></app-alerta-contrato-grande>
     </div>
 
-    <ngb-alert [dismissible]="false" type="light" *ngIf="!(alerta?.id_contrato || alerta?.nr_documento)"
+    <ngb-alert [dismissible]="false" type="light" *ngIf="!(alerta?.id_contrato) && !ALERTAS_FORNECEDOR.includes(alerta?.id_tipo)"
       class="container custom-alert-card mt-3 mb-1">
       <small >
         <strong>
