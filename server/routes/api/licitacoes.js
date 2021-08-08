@@ -20,8 +20,8 @@ router.get("/", (req, res) => {
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
-router.get("/municipio/:nome_municipio", (req, res) => {
-  const municipio = req.params.nome_municipio;
+router.get("/municipio/:cd_municipio_ibge", (req, res) => {
+  const municipio = req.params.cd_municipio_ibge;
 
   Licitacao.findAll({
     include: [
@@ -35,9 +35,7 @@ router.get("/municipio/:nome_municipio", (req, res) => {
         model: Orgao,
         as: "licitacoesOrgao",
         where: {
-          nome_municipio: {
-            [Op.iLike]: municipio.toUpperCase()
-          }
+          cd_municipio_ibge: municipio
         },
         required: true
       }
