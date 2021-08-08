@@ -3,8 +3,7 @@ import { Buscavel } from './../../models/buscavel.model';
 import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { Observable, Subject, merge } from 'rxjs';
-import { UserService } from '../../services/user.service';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-escolher-municipio',
@@ -19,10 +18,9 @@ export class EscolherMunicipioComponent implements OnInit, OnDestroy {
   focus$ = new Subject<string>();
   click$ = new Subject<string>();
 
-  constructor(private router: Router,
-              private userService: UserService) {}
+  constructor(private router: Router) {}
 
-  ngOnInit() { this.getMunicipioSalvo(); }
+  ngOnInit() { }
 
   buscarOnClick() {
     if (typeof this.buscavelSelecionado !== 'undefined' && this.buscavelSelecionado.descricao !== '') {
@@ -34,16 +32,6 @@ export class EscolherMunicipioComponent implements OnInit, OnDestroy {
         this.router.navigate(['busca/produto'], { queryParams: { termo: this.buscavelSelecionado.descricao }});
       }
     }
-  }
-
-  getMunicipioSalvo() {
-    this.userService
-      .getMunicipioEscolhido()
-      .subscribe(municipio => {
-        if (municipio) {
-          this.buscavelSelecionado = new Buscavel(municipio, TipoBusca.Municipio);
-        }
-      });
   }
 
   reciverSelecionado(buscavelSelecionado) {

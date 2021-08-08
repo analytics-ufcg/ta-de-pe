@@ -16,7 +16,6 @@ import {
 import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 
 import { MunicipioService } from '../../services/municipio.service';
-import { UserService } from '../../services/user.service';
 
 @Component({
   selector: 'app-input-busca-geral',
@@ -29,7 +28,7 @@ export class InputBuscaGeralComponent implements OnInit {
 
   private unsubscribe = new Subject();
 
-  public placeholder = 'Busque municípios, produtos ou contratos';
+  public placeholder = 'Busque municípios, produtos, contratos ou fornecedores';
   public municipios: any[];
   public buscavelSelecionado: Buscavel;
   public termoPesquisado = '';
@@ -42,15 +41,13 @@ export class InputBuscaGeralComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private buscaMunicipioService: MunicipioService,
-    private userService: UserService
+    private buscaMunicipioService: MunicipioService
   ) {
     this.municipios = [];
   }
 
   ngOnInit() {
     this.getMunicipios();
-    this.getMunicipioSalvo();
   }
 
   getMunicipios() {
@@ -62,18 +59,9 @@ export class InputBuscaGeralComponent implements OnInit {
         this.municipios = municipios.map((response: any) => {
           const nome = response.nome_municipio.split(' ')[0].toLowerCase();
           const tipo = (nome === 'estado') ? TipoBusca.Estado : TipoBusca.Municipio;
-          buscaveis.push(new Buscavel(response.nome_municipio, tipo, response.sigla_estado));
+          buscaveis.push(new Buscavel(response.nome_municipio, tipo, response.sigla_estado, response.slug_municipio));
         });
         this.municipios = buscaveis;
-      });
-  }
-
-  getMunicipioSalvo() {
-    this.userService
-      .getMunicipioEscolhido()
-      .pipe(take(1))
-      .subscribe(municipio => {
-        this.buscavelSelecionado = new Buscavel(municipio, TipoBusca.Municipio);
       });
   }
 
@@ -83,10 +71,6 @@ export class InputBuscaGeralComponent implements OnInit {
 
   salvarBuscavel(buscavel: Buscavel) {
     this.buscavelSelecionadoEvent.emit(buscavel);
-    if (buscavel.tipoBusca === TipoBusca.Municipio || buscavel.tipoBusca === TipoBusca.Estado) {
-      this.userService.setMunicipioEscolhido(buscavel.descricao);
-      this.userService.setSiglaEstadoEscolhido(buscavel.siglaEstado);
-    }
 
     if (this.directSearch) {
       this.buscarOnClick(buscavel);
@@ -112,6 +96,7 @@ export class InputBuscaGeralComponent implements OnInit {
             buscaveisTemp.unshift (new Buscavel(term, TipoBusca.Compra));
             buscaveisTemp.unshift (new Buscavel(term, TipoBusca.Item));
             buscaveisTemp.unshift (new Buscavel(term, TipoBusca.MunicipioBusca));
+            buscaveisTemp.unshift (new Buscavel(term, TipoBusca.Fornecedor));
             return buscaveisTemp;
         } else {
           return [];
@@ -124,13 +109,15 @@ export class InputBuscaGeralComponent implements OnInit {
   buscarOnClick(buscavel: Buscavel) {
     if (typeof buscavel !== 'undefined' && buscavel.descricao !== '') {
       if (buscavel.tipoBusca === TipoBusca.Municipio || buscavel.tipoBusca === TipoBusca.Estado) {
-        this.router.navigate(['municipio']);
+        this.router.navigate(['municipio/' + buscavel.slugMunicipio]);
       } else if (buscavel.tipoBusca === TipoBusca.Compra) {
         this.router.navigate(['busca/contrato'], { queryParams: { termo: buscavel.descricao }});
       } else if (buscavel.tipoBusca === TipoBusca.Item) {
         this.router.navigate(['busca/produto'], { queryParams: { termo: buscavel.descricao }});
       } else if (buscavel.tipoBusca === TipoBusca.MunicipioBusca) {
         this.router.navigate(['busca/municipio'], { queryParams: { termo: buscavel.descricao }});
+      } else if (buscavel.tipoBusca === TipoBusca.Fornecedor) {
+        this.router.navigate(['busca/fornecedor'], { queryParams: { termo: buscavel.descricao }});
       }
     }
     this.limpaInputPesquisa();

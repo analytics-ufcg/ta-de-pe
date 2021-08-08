@@ -1,6 +1,8 @@
 <div class="view-container">
   <div class="container mt-2 pt-2">
 
+    <h6 class="mb-4">{{ (listaService.dados$ | async)?.length }} resultados encontrados</h6>
+
     <div class="row">
       <div class="col-lg-6">
         <form>
@@ -51,8 +53,7 @@
                     class>
                     <td class="align-middle nowrap">
                       <a
-                        routerLink="/municipio"
-                        (click)="onClick(municipio)">
+                        [routerLink]="['/municipio/' + municipio?.slug_municipio]">
                         <ngb-highlight
                           [result]="municipio?.nome_municipio | titlecase"
                           [term]="listaService.termoBusca">

@@ -1,14 +1,15 @@
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
+import { DecimalPipe } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
-import { BehaviorSubject } from 'rxjs';
+import { Subject, BehaviorSubject } from 'rxjs';
+import { map, takeUntil, tap } from 'rxjs/operators';
 
-import { UserService } from '../../shared/services/user.service';
+import { EventoOrd } from 'src/app/shared/models/lista.model';
+import { OrdenavelDirective } from 'src/app/shared/directives/ordenavel.directive';
 import { LicitacaoService } from '../../shared/services/licitacao.service';
 import { ListaLicitacoesService } from 'src/app/shared/services/lista.service';
-import { DecimalPipe } from '@angular/common';
-import { OrdenavelDirective } from 'src/app/shared/directives/ordenavel.directive';
-import { EventoOrd } from 'src/app/shared/models/lista.model';
-import { map, tap } from 'rxjs/operators';
+import { MunicipioService } from 'src/app/shared/services/municipio.service';
 
 @Component({
   selector: 'app-licitacoes',
@@ -18,6 +19,8 @@ import { map, tap } from 'rxjs/operators';
 })
 export class LicitacoesComponent implements OnInit {
 
+  private unsubscribe = new Subject();
+
   public loading$ = new BehaviorSubject<boolean>(true);
   public municipioEscolhido: string;
   public p = 1;
@@ -25,33 +28,39 @@ export class LicitacoesComponent implements OnInit {
   @ViewChildren(OrdenavelDirective) cabecalhos: QueryList<OrdenavelDirective>;
 
   constructor(
-    private userService: UserService,
     private licitacaoService: LicitacaoService,
-    public listaService: ListaLicitacoesService
+    public listaService: ListaLicitacoesService,
+    private municipioService: MunicipioService,
+    private activatedRoute: ActivatedRoute
   ) {
     this.listaService.colunaOrd = 'data_abertura';
     this.listaService.direcaoOrd = 'desc';
   }
 
   ngOnInit() {
-    this.userService
-      .getMunicipioEscolhido()
-      .subscribe(municipio => {
-        this.municipioEscolhido = municipio;
-        this.listaService.dados$ = this.licitacaoService
-          .getLicitacoes(municipio)
-          .pipe(
-            map(licitacoes => {
-              licitacoes.map(licitacao => {
-                licitacao.qt_contratos = licitacao.contratosLicitacao.length;
-                licitacao.status = licitacao.qt_contratos === 0 ? 'Sem compras' : 'Com compras';
-                licitacao.vl_contratado = licitacao.contratosLicitacao
-                  .reduce((sum, contrato) => sum + contrato.vl_contrato, 0);
-              });
-              return licitacoes.slice().sort((l1, l2) => l2.status.localeCompare(l1.status));
-            }),
-            tap(() => this.loading$.next(false))
-          );
+    this.activatedRoute.parent.paramMap
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe(params => {
+        const slug = params.get('slug');
+        if (slug !== undefined && slug !== null) {
+          this.municipioService.getBySlug(slug).subscribe(municipio => {
+            this.listaService.dados$ = this.licitacaoService
+              .getLicitacoes(municipio.cd_municipio_ibge)
+              .pipe(
+                map(licitacoes => {
+                  licitacoes.map(licitacao => {
+                    licitacao.qt_contratos = licitacao.contratosLicitacao.length;
+                    licitacao.status = licitacao.qt_contratos === 0 ? 'Sem compras' : 'Com compras';
+                    licitacao.vl_contratado = licitacao.contratosLicitacao
+                      .reduce((sum, contrato) => sum + contrato.vl_contrato, 0);
+                  });
+                  return licitacoes.slice().sort((l1, l2) => l2.status.localeCompare(l1.status));
+                }),
+                tap(() => this.loading$.next(false))
+              );
+            this.listaService.busca$.next();
+          });
+        }
       });
   }
 

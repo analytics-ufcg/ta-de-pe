@@ -9,8 +9,10 @@ import { ItensService } from 'src/app/shared/services/itens.service';
 import { ItensContrato } from 'src/app/shared/models/itensContrato.model';
 import { Component, OnInit, ViewChildren, QueryList } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import { BehaviorSubject, Observable } from 'rxjs';
+import { PipesModule } from 'src/app/shared/pipes/pipes.module';
 
 @Component({
   selector: 'app-busca-item',
@@ -20,13 +22,16 @@ import { BehaviorSubject, Observable } from 'rxjs';
     TermosImportantesPipe,
     ResumirTextoPipe,
     ListaItensService,
-    DecimalPipe
+    DecimalPipe,
+    PipesModule,
+    NgxPaginationModule
   ]
 })
 export class BuscaItemComponent implements OnInit {
 
   public loading$ = new BehaviorSubject<boolean>(true);
   public termo = '';
+  public p = 1;
 
   @ViewChildren(OrdenavelDirective) cabecalhos: QueryList<OrdenavelDirective>;
 
@@ -60,6 +65,10 @@ export class BuscaItemComponent implements OnInit {
     });
   }
 
+  pageChange(p: number) {
+    this.p = p;
+  }
+
   onOrdenar({coluna, direcao}: EventoOrd) {
     // Reseta outros cabeçalhos
     this.cabecalhos.forEach(cab => {
@@ -73,7 +82,6 @@ export class BuscaItemComponent implements OnInit {
     this.listaService.colunaOrd = coluna;
     this.listaService.direcaoOrd = direcao;
   }
-
 
 
 }

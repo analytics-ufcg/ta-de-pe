@@ -213,15 +213,25 @@
     <div class="row mt-2 ml-1 mb-2">
       <div class="col-lg-12">
         <div *ngFor="let alerta of fornecedor?.fornecedorAlerta | filterUniqueAlertas">
-          <p *ngIf="alerta?.id_tipo === 1" class="custom-alert-text cursor-pointer" (click)="onClickAlerta(fornecedor?.nr_documento)">
+          <p *ngIf="alerta?.id_tipo === 1" class="custom-alert-text " >
             <span class="tooltip-base tooltip-warning icon-alert-triangle mr-1">
             </span>
             O fornecedor foi contratado em menos de um mês após a abertura do CNPJ na Receita Federal.
           </p>
-          <p *ngIf="alerta?.id_tipo === 2" class="custom-alert-text cursor-pointer" (click)="onClickAlerta(fornecedor?.nr_documento)">
+          <p *ngIf="alerta?.id_tipo === 2" class="custom-alert-text" >
             <span class="tooltip-base tooltip-warning icon-alert-triangle mr-1">
             </span>
             A empresa forneceu produtos que não são comuns com base em suas atividades econômicas declaradas na Receita Federal.
+          </p>
+          <p *ngIf="alerta?.id_tipo === 3" class="custom-alert-text " >
+            <span class="tooltip-base tooltip-warning icon-alert-triangle mr-1">
+            </span>
+            {{ alerta?.info }}
+          </p>
+          <p *ngIf="alerta?.id_tipo === 4" class="custom-alert-text">
+            <span class="tooltip-base tooltip-warning icon-alert-triangle mr-1">
+            </span>
+            Total contratado em um ano excede o faturamento permitido pelo porte da empresa.
           </p>
         </div>
       </div>
@@ -256,6 +266,10 @@
                 appOrdenavel>
                 Descrição
               </th>
+              <th scope="col" class="text-center" ordenavel="contratosOrgao.nome_municipio" (ordenar)="onOrdenar($event)"
+              appOrdenavel>
+              Município
+            </th>
               <th scope="col" class="text-center" ordenavel="vl_contrato" (ordenar)="onOrdenar($event)" appOrdenavel>
                 Valor contratado
               </th>
@@ -284,7 +298,36 @@
                   <ngb-highlight [result]="contrato.descricao_objeto_contrato" [term]="listaService.termoBusca">
                   </ngb-highlight>
                 </span>
+                <br>
+                <span
+                  *ngIf="contrato.id_tipo === 1"
+                  class="badge-pill badge-warning tooltip-base"
+                  placement="top"
+                  ngbTooltip="O fornecedor foi contratado em menos de um mês após a abertura do CNPJ na Receita Federal.">
+                  Contratado logo após a abertura
+                </span>
+                <span
+                  *ngIf="contrato.id_tipo === 2"
+                  class="badge-pill badge-prod-atipico tooltip-base"
+                  placement="top"
+                  ngbTooltip="A empresa forneceu produtos que não são comuns com base em suas atividades econômicas declaradas na Receita Federal.">
+                  Produtos atípicos
+                </span>
+                <span
+                  *ngIf="contrato.id_tipo === 3"
+                  class="badge-pill badge-inidoneo tooltip-base"
+                  placement="top"
+                  ngbTooltip="O fornecedor estava com uma sanção vigente no momento da contratação.">
+                  Contratado inidôneo
+                </span>
                 <span *ngIf="!contrato.descricao_objeto_contrato">(Descrição não encontrada)</span>
+              </td>
+              <td>
+                <span *ngIf="contrato.nome_municipio">
+                  <ngb-highlight [result]="contrato.nome_municipio" [term]="listaService.termoBusca">
+                  </ngb-highlight>
+                </span>
+                <span *ngIf="!contrato.nome_municipio">(Nome do município não encontrado)</span>
               </td>
               <td class="text-right numero">
                 {{ contrato.vl_contrato | currency: "R$" }}
