@@ -1,14 +1,13 @@
 <div class="view-container">
   <app-barra-titulo
     class="mb-5"
-    *ngIf="municipioEscolhido"
-    titulo="{{ municipioEscolhido | titlecase }} – {{ siglaEstadoEscolhido }}"
+    titulo="{{ municipio?.nome_municipio | titlecase }} – {{ municipio?.sigla_estado }}"
     [exibirVoltar]="false"></app-barra-titulo>
 
   <div class="container">
 
     <div class="navegacao">
-      <ul class="nav nav-fill">
+      <ul class="nav nav-fill nav-fill-sm">
         <li class="nav-item">
           <a
             class="nav-link navegacao-link"

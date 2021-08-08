@@ -4,22 +4,21 @@ import { DecimalPipe } from '@angular/common';
 
 import { BehaviorSubject } from 'rxjs';
 
-import { ListaMunicipiosService } from 'src/app/shared/services/lista.service';
-import { MunicipioService } from 'src/app/shared/services/municipio.service';
+import { ListaFornecedoresService } from 'src/app/shared/services/lista.service';
+import { FornecedorService } from 'src/app/shared/services/fornecedor.service';
 import { EventoOrd } from 'src/app/shared/models/lista.model';
 import { OrdenavelDirective } from 'src/app/shared/directives/ordenavel.directive';
 
-
 @Component({
-  selector: 'app-busca-municipio',
-  templateUrl: './busca-municipio.component.html',
-  styleUrls: ['./busca-municipio.component.scss'],
+  selector: 'app-busca-fornecedor',
+  templateUrl: './busca-fornecedor.component.html',
+  styleUrls: ['./busca-fornecedor.component.scss'],
   providers: [
-    ListaMunicipiosService,
-    DecimalPipe
+    DecimalPipe,
+    ListaFornecedoresService
   ]
 })
-export class BuscaMunicipioComponent implements OnInit {
+export class BuscaFornecedorComponent implements OnInit {
 
   public loading$ = new BehaviorSubject<boolean>(true);
   public termo = '';
@@ -28,21 +27,18 @@ export class BuscaMunicipioComponent implements OnInit {
 
   constructor(
     private activatedroute: ActivatedRoute,
-    private municipioService: MunicipioService,
-    public listaService: ListaMunicipiosService,
+    private fornecedorService: FornecedorService,
+    public listaService: ListaFornecedoresService,
   ) {
-    this.listaService.colunaOrd = 'nome_municipio';
-    this.listaService.direcaoOrd = 'desc';
+    this.listaService.colunaOrd = 'nm_pessoa';
+    this.listaService.direcaoOrd = 'asc';
   }
 
   ngOnInit() {
     this.activatedroute.queryParamMap.subscribe(params => {
       this.termo = params.get('termo');
-      this.listaService.dados$ = this.municipioService
+      this.listaService.dados$ = this.fornecedorService
         .buscar(this.termo);
-
-      this.listaService.colunaOrd = 'nome_municipio';
-      this.listaService.direcaoOrd = 'desc';
       this.loading$.next(false);
     });
   }

@@ -125,6 +125,15 @@
                   Receita Federal.
                 </ngb-alert>
               </div>
+              <div>
+                <span
+                  *ngIf="contrato.tipo_alerta === 3"
+                  class="badge-pill badge-inidoneo tooltip-base"
+                  placement="top"
+                  ngbTooltip="O fornecedor estava com uma sanção vigente no momento da contratação.">
+                  Contratado inidôneo
+                </span>
+              </div>
             </div>
           </td>
 

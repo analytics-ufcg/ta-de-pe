@@ -25,7 +25,7 @@ router.get("/", (req, res) => {
 });
 
 router.get("/vigentes", (req, res) => {
-  const municipio = req.query.nome_municipio;
+  const municipio = req.query.cd_municipio_ibge;
 
   Contrato.findAll({
     raw: true,
@@ -41,9 +41,7 @@ router.get("/vigentes", (req, res) => {
         model: Orgao,
         as: "contratosOrgao",
         where: {
-          nome_municipio: {
-            [Op.iLike]: municipio.toUpperCase()
-          }
+          cd_municipio_ibge: municipio
         },
         required: true
       },
@@ -70,13 +68,18 @@ router.get("/licitacao/:id", (req, res) => {
     attributes: {
       include: [[Sequelize.col('contratoFornecedor.nm_pessoa'), 'nm_fornecedor'],
       [Sequelize.col('contratoFornecedor.tp_pessoa'), 'tp_fornecedor'],
-        "id_contrato", "id_licitacao", "nr_contrato", "nr_documento_contratado", "vl_contrato", "dt_inicio_vigencia", "dt_final_vigencia"]
+        "id_contrato", "id_licitacao", "nr_contrato", "nr_documento_contratado", "vl_contrato", "dt_inicio_vigencia", "dt_final_vigencia"],
     },
     include: [
       {
         model: Fornecedor,
         attributes: [],
         as: "contratoFornecedor"
+      },
+      {
+        model: Alerta,
+        attributes: ["id_tipo"],
+        as: "contratoAlerta"
       }
     ],
     where: {
@@ -96,7 +99,8 @@ router.get("/fornecedor/:id", (req, res) => {
       "nr_licitacao", "ano_licitacao", "cd_tipo_modalidade",
       "tp_instrumento_contrato", "dt_inicio_vigencia",
       "dt_final_vigencia", "vl_contrato", "descricao_objeto_contrato",
-      [Sequelize.col('contratosOrgao.nome_municipio'), 'nome_municipio']
+      [Sequelize.col('contratosOrgao.nome_municipio'), 'nome_municipio'],
+      [Sequelize.col('contratoAlerta.id_tipo'), 'id_tipo']
     ]
     ,
     include: [
@@ -104,6 +108,11 @@ router.get("/fornecedor/:id", (req, res) => {
         model: Orgao,
         attributes: ["nome_municipio"],
         as: "contratosOrgao"
+      },
+      {
+        model: Alerta,
+        attributes: ["id_tipo"],
+        as: "contratoAlerta"
       }
     ],
     where: {

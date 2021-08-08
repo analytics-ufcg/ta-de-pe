@@ -1,5 +1,6 @@
 const Sequelize = require("sequelize");
 
+const MunicipioModel = "./postgres/municipio.js";
 const OrgaoModel = "./postgres/orgao.js";
 const LicitacaoModel = "./postgres/licitacao.js";
 const NovidadeModel = "./postgres/novidade.js";
@@ -41,6 +42,7 @@ if (!global.hasOwnProperty("models")) {
   global.models = {
     Sequelize: Sequelize,
     sequelize: sequelize,
+    municipio: sequelize.import(MunicipioModel),
     orgao: sequelize.import(OrgaoModel),
     licitacao: sequelize.import(LicitacaoModel),
     novidade: sequelize.import(NovidadeModel),
