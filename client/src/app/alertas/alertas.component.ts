@@ -85,14 +85,15 @@ export class AlertasComponent implements OnInit, OnDestroy, AfterContentInit {
   }
 
   search(filtro) {
-    if (Object.keys(filtro).indexOf('nomePesquisado') !== -1) {
-      if (filtro.nomePesquisado !== undefined && filtro.nomePesquisado !== '') {
-        this.pageChange(1);
-        this.router.navigate([], { queryParams: { page: 1, search: filtro.nomePesquisado }, queryParamsHandling: 'merge' });
-      } else {
-        this.router.navigate([], { queryParams: { search: '' }, queryParamsHandling: 'merge' });
-      }
-    }
+    this.pageChange(1);
+    const params = {
+      page: 1,
+      search: filtro.nomePesquisado,
+      estado: filtro.estado ? filtro.estado : ''
+    };
+
+    this.updateURL(params);
+
     this.filtros = {
       nomePesquisado: filtro.nomePesquisado,
       tiposAlertas: this.filtros.tiposAlertas,
@@ -102,6 +103,11 @@ export class AlertasComponent implements OnInit, OnDestroy, AfterContentInit {
   }
 
   filterAlertas(filtroPorTipo) {
+    if (filtroPorTipo.alertasSelecionados) {
+      const alertas = JSON.stringify(filtroPorTipo.alertasSelecionados);
+      this.pageChange(1);
+      this.updateURL({ page: 1, alertas });
+    }
     this.filtros = {
       nomePesquisado: this.filtros.nomePesquisado,
       tiposAlertas: filtroPorTipo.alertasSelecionados,
@@ -110,6 +116,9 @@ export class AlertasComponent implements OnInit, OnDestroy, AfterContentInit {
     this.alertaService.search(this.filtros);
   }
 
+  updateURL(params) {
+    this.router.navigate([], { queryParams: params, queryParamsHandling: 'merge' });
+  }
 
   ngOnDestroy() {
     this.unsubscribe.next();
