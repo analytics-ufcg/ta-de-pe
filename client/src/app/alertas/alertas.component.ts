@@ -104,7 +104,7 @@ export class AlertasComponent implements OnInit, OnDestroy, AfterContentInit {
 
   filterAlertas(filtroPorTipo) {
     if (filtroPorTipo.alertasSelecionados) {
-      const alertas = JSON.stringify(filtroPorTipo.alertasSelecionados);
+      const alertas = filtroPorTipo.alertasSelecionados.join(',');
       this.pageChange(1);
       this.updateURL({ page: 1, alertas });
     }
