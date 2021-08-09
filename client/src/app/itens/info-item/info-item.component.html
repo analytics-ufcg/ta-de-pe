@@ -16,7 +16,25 @@
       </div>
       <div class="col-lg-5">
         <div class="row">
-          <div class="col-md-6 text-right" *ngIf="item?.itensSemelhantes?.length > 1">
+          <div class="col-md-4 text-left" *ngIf="item?.itensSemelhantes?.length > 1">
+            <div>
+              <strong>Contrato</strong>
+            </div>
+              <a
+              *ngIf="item?.tipo_instrumento_contrato !== 'Compra'"
+              [routerLink]="['/contratos/' + item.id_contrato]"
+              target="_blank">
+              nº {{ item.nr_contrato }}/{{ item.ano_licitacao }}
+            </a>
+            <a
+              *ngIf="item?.tipo_instrumento_contrato === 'Compra'"
+              [routerLink]="['/contratos/' + item.id_contrato]"
+              target="_blank">
+              Compra sem contrato (licitação {{ item?.nr_licitacao }}/{{ item?.ano_licitacao }})
+            </a>
+          </div>
+
+          <div class="col-md-4 text-center" *ngIf="item?.itensSemelhantes?.length > 1">
             <div>
               <strong>Mediana do estado</strong>
             </div>
@@ -24,9 +42,9 @@
               {{ item.mediana_valor | currency: "R$" }}
             </div>
           </div>
-          <div class="col-md-6 text-right" *ngIf="item?.itensSemelhantes?.length <= 1"></div>
+          <div class="col-md-4 text-right" *ngIf="item?.itensSemelhantes?.length <= 1"></div>
 
-          <div class="col-md-6 text-right">
+          <div class="col-md-4 text-right">
             <div>
               <strong>Valor por unidade</strong>
             </div>
