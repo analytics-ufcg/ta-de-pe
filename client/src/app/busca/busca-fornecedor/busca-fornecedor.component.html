@@ -1,7 +1,9 @@
 <div class="view-container">
   <div class="container mt-4">
 
-    <h6 class="mb-4">{{ (listaService.dados$ | async)?.length }} resultados encontrados</h6>
+    <h6 class="mb-4">
+      {{ (listaService.dados$ | async)?.length }} resultados encontrados
+    </h6>
 
     <div class="row">
       <div class="col-lg-6">
@@ -73,12 +75,7 @@
                     </ngb-highlight>
                   </small>
                 </td>
-                <td class="align-middle text-right">
-                  <ngb-highlight
-                    [result]="fornecedor?.total_de_contratos"
-                    [term]="listaService.termoBusca">
-                  </ngb-highlight>
-                </td>
+                <td class="align-middle text-right">{{ fornecedor?.total_de_contratos }}</td>
                 <td class="align-middle text-right">
                   {{ fornecedor?.data_primeiro_contrato | date:'dd/MM/y' }}
                 </td>
