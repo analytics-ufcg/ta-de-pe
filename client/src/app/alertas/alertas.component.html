@@ -16,18 +16,18 @@
     class="container mt-4">
     <div class="container">
       <div class="row justify-content-md-center">
-        <div class="col-13 col-sm-13 col-md-4 d-print-none">
+        <div class="col-md-4 d-print-none">
           <span class="text-muted">Selecione o tipo de alerta:</span>
           <app-menu-alerta
             (alertaFilterChange)="filterAlertas($event)"
             *ngIf="alertas"></app-menu-alerta>
         </div>
-        <div class="col-13 col-sm-13 col-md-8">
+        <div class="col-md-8">
+
+          <h6 class="mb-4" *ngIf="alertas?.length !== 1">{{alertas?.length}} alertas encontrados</h6>
+          <h6 class="mb-4" *ngIf="alertas?.length === 1">{{alertas?.length}} alerta encontrado</h6>
+
           <app-filtro-alertas (filterChange)="search($event)"></app-filtro-alertas>
-          <div class="d-flex flex-row-reverse">
-            <small *ngIf="alertas?.length !== 1" class="text-secondary">{{alertas?.length}} alertas encontrados</small>
-            <small *ngIf="alertas?.length === 1" class="text-secondary">{{alertas?.length}} alerta encontrado</small>
-          </div>
 
           <div *ngIf="alertas?.length === 0">Nenhum alerta encontrado.</div>
           <div>
@@ -39,6 +39,7 @@
           <pagination-template
             #pag="paginationApi"
             maxSize="5"
+            *ngIf="alertas?.length !== 0"
             (pageChange)="pageChange($event)">
             <nav
               aria-label="Paginação"
