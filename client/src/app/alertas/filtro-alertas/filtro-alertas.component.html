@@ -1,17 +1,17 @@
-<div class="filtro-wrapper mb-2">
-  <div class="row no-gutters">
-    <div class="col-8 col-md-10">
+<div class="filtro-wrapper mb-4">
+  <div class="row gutters-sm">
+    <div class="col-9">
       <input
         type="text"
         class="form-control"
         id="searchAlerta"
-        placeholder="Buscar município ou fornecedor"
+        placeholder="Filtrar município ou fornecedor"
         [(ngModel)]="nomePesquisado"
         (ngModelChange)="aplicarFiltro()">
     </div>
-    <div class="col-2">
+    <div class="col-3">
       <select
-        class="app-seletor"
+        class="form-control app-seletor"
         #mySelector
         [(ngModel)]="estadoSelecionado"
         (ngModelChange)="aplicarFiltro()">
