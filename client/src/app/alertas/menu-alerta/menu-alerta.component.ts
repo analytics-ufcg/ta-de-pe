@@ -83,7 +83,7 @@ export class MenuAlertaComponent implements OnInit, OnDestroy {
         const alertas = params.alertas;
 
         if (alertas && alertas !== null) {
-          const alertasParsed = alertas.split(',').map(a => parseInt(a));
+          const alertasParsed = alertas.split(',').map(a => Number(a));
 
           this.alertasDisponiveis.forEach(alerta => {
             alerta.selected = alertasParsed.includes(alerta.idAlerta);
