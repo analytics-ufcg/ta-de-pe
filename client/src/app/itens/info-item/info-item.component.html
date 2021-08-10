@@ -21,15 +21,15 @@
               <strong>Contrato</strong>
             </div>
               <a
-              *ngIf="item?.tipo_instrumento_contrato !== 'Compra'"
+              *ngIf="item?.tp_instrumento_contrato !== 'Compra'"
               [routerLink]="['/contratos/' + item.id_contrato]"
-              target="_blank">
+              >
               nº {{ item.nr_contrato }}/{{ item.ano_licitacao }}
             </a>
             <a
-              *ngIf="item?.tipo_instrumento_contrato === 'Compra'"
+              *ngIf="item?.tp_instrumento_contrato === 'Compra'"
               [routerLink]="['/contratos/' + item.id_contrato]"
-              target="_blank">
+              >
               Compra sem contrato (licitação {{ item?.nr_licitacao }}/{{ item?.ano_licitacao }})
             </a>
           </div>
@@ -42,9 +42,9 @@
               {{ item.mediana_valor | currency: "R$" }}
             </div>
           </div>
-          <div class="col-md-4 text-right" *ngIf="item?.itensSemelhantes?.length <= 1"></div>
+          <div class="col-md-6 text-right" *ngIf="item?.itensSemelhantes?.length <= 1"></div>
 
-          <div class="col-md-4 text-right">
+          <div class="col-md-6 text-right">
             <div>
               <strong>Valor por unidade</strong>
             </div>
