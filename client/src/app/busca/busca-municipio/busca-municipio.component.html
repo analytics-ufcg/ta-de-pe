@@ -17,7 +17,27 @@
         </form>
       </div>
     </div>
-    <p *ngIf="((listaService.dados$ | async)?.length === 0) && (loading$ | async) === false">Não há municípios com este termo.</p>
+    <p *ngIf="((listaService.dados$ | async)?.length === 0) && (loading$ | async) === false">Não há municípios com este termo. Experimente pesquisar em
+      <a
+        [routerLink]="['/busca/produto']"
+        queryParamsHandling="merge"
+        routerLinkActive="active">
+        Produtos,
+      </a>
+      <a
+        [routerLink]="['/busca/contrato']"
+        queryParamsHandling="merge"
+        routerLinkActive="active">
+        Contratos
+      </a>
+      ou
+      <a
+        [routerLink]="['/busca/fornecedor']"
+        queryParamsHandling="merge"
+        routerLinkActive="active">
+        Fornecedores.
+      </a>
+    </p>
     <app-spinner *ngIf="loading$ | async"></app-spinner>
     <div *ngIf="(loading$ | async) === false">
       <div class="row">
