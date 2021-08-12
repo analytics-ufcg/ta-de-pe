@@ -178,8 +178,12 @@ export class ListaFornecedoresService extends ListaService {
 
   corresponde(dados: any, texto: string, pipe: PipeTransform) {
     const termo = texto.toLowerCase();
+    const parsedTermo = termo.replace(/[-.\/]/g, '');
     if (dados.nm_pessoa !== null) {
-      return dados.nm_pessoa.toLowerCase().includes(termo);
+      return dados.nm_pessoa.toLowerCase().includes(termo)
+        || dados.nr_documento.includes(parsedTermo);
+    } else {
+      return dados.nr_documento.includes(parsedTermo);
     }
     return true;
   }

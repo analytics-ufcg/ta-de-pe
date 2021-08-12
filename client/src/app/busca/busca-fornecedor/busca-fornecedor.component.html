@@ -1,7 +1,9 @@
 <div class="view-container">
   <div class="container mt-4">
 
-    <h6 class="mb-4">{{ (listaService.dados$ | async)?.length }} resultados encontrados</h6>
+    <h6 class="mb-4">
+      {{ (listaService.dados$ | async)?.length }} resultados encontrados
+    </h6>
 
     <div class="row">
       <div class="col-lg-6">
@@ -18,7 +20,27 @@
       </div>
     </div>
 
-    <p *ngIf="((listaService.dados$ | async)?.length === 0) && (loading$ | async) === false">Não há fornecedores com este termo.</p>
+    <p *ngIf="((listaService.dados$ | async)?.length === 0) && (loading$ | async) === false">Não há fornecedores com este termo. Experimente pesquisar em
+      <a
+        [routerLink]="['/busca/municipio']"
+        queryParamsHandling="merge"
+        routerLinkActive="active">
+        Municípios,
+      </a>
+      <a
+        [routerLink]="['/busca/produto']"
+        queryParamsHandling="merge"
+        routerLinkActive="active">
+        Produtos
+      </a>
+      ou
+      <a
+        [routerLink]="['/busca/contrato']"
+        queryParamsHandling="merge"
+        routerLinkActive="active">
+        Contratos.
+      </a>
+    </p>
     <app-spinner *ngIf="loading$ | async"></app-spinner>
     <div *ngIf="(loading$ | async) === false">
       <div
@@ -73,12 +95,7 @@
                     </ngb-highlight>
                   </small>
                 </td>
-                <td class="align-middle text-right">
-                  <ngb-highlight
-                    [result]="fornecedor?.total_de_contratos"
-                    [term]="listaService.termoBusca">
-                  </ngb-highlight>
-                </td>
+                <td class="align-middle text-right">{{ fornecedor?.total_de_contratos }}</td>
                 <td class="align-middle text-right">
                   {{ fornecedor?.data_primeiro_contrato | date:'dd/MM/y' }}
                 </td>
