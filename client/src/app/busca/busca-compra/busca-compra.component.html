@@ -1,7 +1,26 @@
 <div class="view-container">
     <div class="container mt-4">
       <p *ngIf="((contratos$ | async)?.length === 0) && (loading$ | async) === false">
-        Não há contratos com este termo.
+        Não há contratos com este termo. Experimente pesquisar em
+        <a
+          [routerLink]="['/busca/municipio']"
+          queryParamsHandling="merge"
+          routerLinkActive="active">
+          Municípios,
+        </a>
+        <a
+          [routerLink]="['/busca/produto']"
+          queryParamsHandling="merge"
+          routerLinkActive="active">
+          Produtos
+        </a>
+        ou
+        <a
+          [routerLink]="['/busca/fornecedor']"
+          queryParamsHandling="merge"
+          routerLinkActive="active">
+          Fornecedores.
+        </a>
       </p>
       <app-spinner *ngIf="loading$ | async"></app-spinner>
       <div *ngIf="(loading$ | async) === false">

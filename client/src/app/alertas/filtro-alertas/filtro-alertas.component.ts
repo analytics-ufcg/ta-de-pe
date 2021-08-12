@@ -1,3 +1,4 @@
+import { take } from 'rxjs/operators';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -36,13 +37,20 @@ export class FiltroAlertasComponent implements OnInit {
 
   updateFiltroViaURL() {
     this.activatedRoute.queryParams
+      .pipe(take(1))
       .subscribe(params => {
         const search = params.search;
+        const estado = params.estado;
 
-        if (search !== undefined && search !== null) {
+        if (search && search !== null) {
           this.nomePesquisado = search;
-          this.aplicarFiltro();
         }
+
+        if (estado && estado !== null) {
+          this.estadoSelecionado = estado;
+        }
+
+        this.aplicarFiltro();
       });
   }
 
