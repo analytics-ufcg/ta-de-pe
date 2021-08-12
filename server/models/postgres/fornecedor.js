@@ -6,6 +6,9 @@ module.exports = (sequelize, type) => {
         type: type.STRING,
         primaryKey: true
       },
+      id_estado: {
+        type: type.STRING
+      },
       nm_pessoa: type.STRING,
       tp_pessoa: type.STRING,
       total_de_contratos: type.STRING,

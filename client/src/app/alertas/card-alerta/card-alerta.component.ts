@@ -10,8 +10,9 @@ import { Alerta } from 'src/app/shared/models/alerta.model';
 })
 export class CardAlertaComponent {
 
-
   @Input() alerta: Alerta;
+  // tipos de alerta do fornecedor
+  readonly ALERTAS_FORNECEDOR = [4];
 
   constructor(private router: Router) { }
 

@@ -26,4 +26,5 @@ export interface ItensContrato {
   servico: boolean;
   tp_instrumento_contrato: string;
   nr_licitacao: string;
+  id_contrato: string;
 }
