@@ -6,7 +6,7 @@
 
   <div class="container">
     <div class="row item-destaque-wrapper d-flex align-items-center">
-      <div class="col-lg-7">
+      <div class="col-lg-6">
         <strong>Descrição informada</strong>
         <app-descricao-item
           [item]="item"
@@ -16,7 +16,7 @@
       </div>
       <div class="col-lg-5">
         <div class="row">
-          <div class="col-md-4 text-left" *ngIf="item?.itensSemelhantes?.length > 1">
+          <div class="col" *ngIf="item?.itensSemelhantes?.length > 1">
             <div>
               <strong>Contrato</strong>
             </div>
@@ -34,7 +34,7 @@
             </a>
           </div>
 
-          <div class="col-md-4 text-center" *ngIf="item?.itensSemelhantes?.length > 1">
+          <div class="col" *ngIf="item?.itensSemelhantes?.length > 1">
             <div>
               <strong>Mediana do estado</strong>
             </div>
@@ -42,9 +42,9 @@
               {{ item.mediana_valor | currency: "R$" }}
             </div>
           </div>
-          <div class="col-md-6 text-right" *ngIf="item?.itensSemelhantes?.length <= 1"></div>
+          <div class="col" *ngIf="item?.itensSemelhantes?.length <= 1"></div>
 
-          <div class="col-md-6 text-right">
+          <div class="col">
             <div>
               <strong>Valor por unidade</strong>
             </div>
