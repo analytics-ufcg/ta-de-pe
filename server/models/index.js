@@ -1,25 +1,4 @@
-const Sequelize = require("sequelize");
-
-const MunicipioModel = "./postgres/municipio.js";
-const OrgaoModel = "./postgres/orgao.js";
-const LicitacaoModel = "./postgres/licitacao.js";
-const NovidadeModel = "./postgres/novidade.js";
-const tipoNovidadeModel = "./postgres/tipoNovidade.js";
-const itensLicitacaoModel = "./postgres/itensLicitacao.js";
-const contratoModel = "./postgres/contrato.js";
-const itensContratoModel = "./postgres/itensContrato.js"
-const fornecedorModel = "./postgres/fornecedor.js"
-const documentoLicitacaoModel = "./postgres/documentoLicitacao.js"
-const dadosCadastraisModel = "./postgres/dadosCadastrais.js"
-const sociosModel = "./postgres/socios.js"
-const cnaeModel = "./postgres/cnae.js"
-const cnaeSecundarioModel = "./postgres/cnaeSecundario.js"
-const naturezaJuridicaModel = "./postgres/naturezaJuridica.js"
-const tipoAlertaModel = "./postgres/tipoAlerta.js"
-const alertaModel = "./postgres/alerta.js"
-const itemAtipicoModel = "./postgres/item-atipico.js"
-
-
+const { Sequelize, DataTypes } = require("sequelize");
 if (!global.hasOwnProperty("models")) {
   const db = process.env.POSTGRESURI;
 
@@ -39,27 +18,47 @@ if (!global.hasOwnProperty("models")) {
     }
   });
 
+
+  const MunicipioModel = require("./postgres/municipio.js")(sequelize, DataTypes);
+  const OrgaoModel = require("./postgres/orgao.js")(sequelize, DataTypes);
+  const LicitacaoModel = require("./postgres/licitacao.js")(sequelize, DataTypes);
+  const NovidadeModel = require("./postgres/novidade.js")(sequelize, DataTypes);
+  const tipoNovidadeModel = require("./postgres/tipoNovidade.js")(sequelize, DataTypes);
+  const itensLicitacaoModel = require("./postgres/itensLicitacao.js")(sequelize, DataTypes);
+  const contratoModel = require("./postgres/contrato.js")(sequelize, DataTypes);
+  const itensContratoModel = require("./postgres/itensContrato.js")(sequelize, DataTypes);
+  const fornecedorModel = require("./postgres/fornecedor.js")(sequelize, DataTypes);
+  const documentoLicitacaoModel = require("./postgres/documentoLicitacao.js")(sequelize, DataTypes);
+  const dadosCadastraisModel = require("./postgres/dadosCadastrais.js")(sequelize, DataTypes);
+  const sociosModel = require("./postgres/socios.js")(sequelize, DataTypes);
+  const cnaeModel = require("./postgres/cnae.js")(sequelize, DataTypes);
+  const cnaeSecundarioModel = require("./postgres/cnaeSecundario.js")(sequelize, DataTypes);
+  const naturezaJuridicaModel = require("./postgres/naturezaJuridica.js")(sequelize, DataTypes);
+  const tipoAlertaModel = require("./postgres/tipoAlerta.js")(sequelize, DataTypes);
+  const alertaModel = require("./postgres/alerta.js")(sequelize, DataTypes);
+  const itemAtipicoModel = require("./postgres/item-atipico.js")(sequelize, DataTypes);
+
   global.models = {
     Sequelize: Sequelize,
     sequelize: sequelize,
-    municipio: sequelize.import(MunicipioModel),
-    orgao: sequelize.import(OrgaoModel),
-    licitacao: sequelize.import(LicitacaoModel),
-    novidade: sequelize.import(NovidadeModel),
-    tipoNovidade: sequelize.import(tipoNovidadeModel),
-    itensLicitacao: sequelize.import(itensLicitacaoModel),
-    contrato: sequelize.import(contratoModel),
-    itensContrato: sequelize.import(itensContratoModel),
-    fornecedor: sequelize.import(fornecedorModel),
-    dadosCadastrais: sequelize.import(dadosCadastraisModel),
-    socios: sequelize.import(sociosModel),
-    documentoLicitacao: sequelize.import(documentoLicitacaoModel),
-    cnae: sequelize.import(cnaeModel),
-    cnaeSecundario: sequelize.import(cnaeSecundarioModel),
-    naturezaJuridica: sequelize.import(naturezaJuridicaModel),
-    tipoAlerta: sequelize.import(tipoAlertaModel),
-    alerta: sequelize.import(alertaModel),
-    itemAtipico: sequelize.import(itemAtipicoModel)
+    municipio: MunicipioModel,
+    orgao: OrgaoModel,
+    licitacao: LicitacaoModel,
+    novidade: NovidadeModel,
+    tipoNovidade: tipoNovidadeModel,
+    itensLicitacao: itensLicitacaoModel,
+    contrato: contratoModel,
+    itensContrato: itensContratoModel,
+    fornecedor: fornecedorModel,
+    dadosCadastrais: dadosCadastraisModel,
+    socios: sociosModel,
+    documentoLicitacao: documentoLicitacaoModel,
+    cnae: cnaeModel,
+    cnaeSecundario: cnaeSecundarioModel,
+    naturezaJuridica: naturezaJuridicaModel,
+    tipoAlerta: tipoAlertaModel,
+    alerta: alertaModel,
+    itemAtipico: itemAtipicoModel
     //add your others models here
   };
 
@@ -69,7 +68,7 @@ if (!global.hasOwnProperty("models")) {
       global.models[modelName].associate(global.models);
     }
   });
-  
+
   sequelize.sync({ force: false }).then(() => {
     console.log("Conectado com o banco de dados");
   });
