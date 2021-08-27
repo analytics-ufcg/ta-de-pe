@@ -26,7 +26,7 @@
 
 .item-destaque-wrapper .row{
   display: grid;
-  grid-template-columns: repeat(3, max-content);
+  grid-template-columns: repeat(3, auto);
 }
 
 .table-th-dividido-up {
