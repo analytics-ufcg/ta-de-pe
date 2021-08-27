@@ -11,12 +11,9 @@
   },
   "private": true,
   "dependencies": {
-    "@angular-devkit/build-angular": "~12.2.1",
     "@angular/animations": "~12.2.1",
-    "@angular/cli": "~12.2.1",
     "@angular/common": "~12.2.1",
     "@angular/compiler": "~12.2.1",
-    "@angular/compiler-cli": "~12.2.1",
     "@angular/core": "^12.2.1",
     "@angular/forms": "~12.2.1",
     "@angular/language-service": "~12.2.1",
@@ -35,6 +32,9 @@
     "zone.js": "~0.11.4"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "~12.2.1",
+    "@angular/cli": "~12.2.1",
+    "@angular/compiler-cli": "~12.2.1",
     "@types/jasmine": "~3.6.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
