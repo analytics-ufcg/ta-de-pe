@@ -4,7 +4,8 @@
 
   <a
     *ngIf="temLink; else tituloSemLink"
-    [routerLink]="['/itens/'+ item.id_item_contrato]">
+    [routerLink]="['/itens/'+ item.id_item_contrato]"
+    target="_parent">
     <span *ngIf="item.resumido && !comHighlight">{{ item.ds_item_resumido }}</span>
     <span *ngIf="!item.resumido && !comHighlight">{{ item.ds_item }}</span>
 
