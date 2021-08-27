@@ -32,7 +32,8 @@
     "ngx-pagination": "^5.0.0",
     "rxjs": "~6.6.7",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.4"
+    "zone.js": "~0.11.4",
+    "typescript": "~4.3.5"
   },
   "devDependencies": {
     "@types/jasmine": "~3.6.0",
@@ -48,7 +49,6 @@
     "karma-jasmine-html-reporter": "^1.5.0",
     "protractor": "~7.0.0",
     "ts-node": "~7.0.0",
-    "tslint": "~6.1.0",
-    "typescript": "~4.3.5"
+    "tslint": "~6.1.0"
   }
 }
