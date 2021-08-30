@@ -8,7 +8,10 @@ if (!global.hasOwnProperty("models")) {
     dialect: "postgres",
     operatorsAliases: false,
     dialectOptions: {
-      ssl: process.env.NODE_ENV === 'production'
+      ssl: {
+        require: process.env.NODE_ENV === 'production',
+        rejectUnauthorized: false
+      }
     },
     pool: {
       max: 5,
