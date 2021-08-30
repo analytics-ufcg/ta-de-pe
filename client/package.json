@@ -31,9 +31,10 @@
     "d3-scale": "^3.2.1",
     "ngx-pagination": "^5.0.0",
     "rxjs": "~6.6.7",
+    "sprintf-js": "^1.1.2",
     "tslib": "^2.0.0",
-    "zone.js": "~0.11.4",
-    "typescript": "~4.3.5"
+    "typescript": "~4.3.5",
+    "zone.js": "~0.11.4"
   },
   "devDependencies": {
     "@types/jasmine": "~3.6.0",
