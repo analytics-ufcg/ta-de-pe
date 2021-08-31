@@ -114,10 +114,10 @@ export class InputBuscaGeralComponent implements OnInit {
         this.router.navigate(['busca/contrato'], { queryParams: { termo: buscavel.descricao }});
       } else if (buscavel.tipoBusca === TipoBusca.Item) {
         this.router.navigate(['busca/produto'], { queryParams: { termo: buscavel.descricao }});
-      } else if (buscavel.tipoBusca === TipoBusca.MunicipioBusca) {
-        this.router.navigate(['busca/municipio'], { queryParams: { termo: buscavel.descricao }});
       } else if (buscavel.tipoBusca === TipoBusca.Fornecedor) {
         this.router.navigate(['busca/fornecedor'], { queryParams: { termo: buscavel.descricao }});
+      } else if (buscavel.tipoBusca === TipoBusca.MunicipioBusca) {
+        this.router.navigate(['busca/municipio'], { queryParams: { termo: buscavel.descricao }});
       }
     }
     this.limpaInputPesquisa();
