@@ -95,8 +95,8 @@ export class InputBuscaGeralComponent implements OnInit {
             ).slice(0, 4);
             buscaveisTemp.unshift (new Buscavel(term, TipoBusca.Compra));
             buscaveisTemp.unshift (new Buscavel(term, TipoBusca.Item));
-            buscaveisTemp.unshift (new Buscavel(term, TipoBusca.MunicipioBusca));
             buscaveisTemp.unshift (new Buscavel(term, TipoBusca.Fornecedor));
+            buscaveisTemp.unshift (new Buscavel(term, TipoBusca.MunicipioBusca));
             return buscaveisTemp;
         } else {
           return [];
