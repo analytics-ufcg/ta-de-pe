@@ -34,6 +34,11 @@
             "styles": [
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/scss/merenda"
+              ]
+            },
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -43,7 +48,7 @@
             "namedChunks": true
           },
           "configurations": {
-            "production": {
+            "merenda": {
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -68,7 +73,44 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "src/scss/merenda"
+                ]
+              }
+            },
+            "covid": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ],
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "src/scss/covid"
+                ]
+              }
             }
           },
           "defaultConfiguration": ""
@@ -79,8 +121,11 @@
             "browserTarget": "ta-de-pe:build"
           },
           "configurations": {
-            "production": {
-              "browserTarget": "ta-de-pe:build:production"
+            "merenda": {
+              "browserTarget": "ta-de-pe:build:merenda"
+            },
+            "covid": {
+              "browserTarget": "ta-de-pe:build:covid"
             }
           }
         },
