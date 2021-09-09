@@ -5,8 +5,8 @@ if (!global.hasOwnProperty("models")) {
   if (process.env.NODE_ENV === 'production') {
     dialectOptions = {
       ssl: {
-        require: "1",
-        rejectUnauthorized: "0"
+        require: true,
+        rejectUnauthorized: false
       }
     }
   }
