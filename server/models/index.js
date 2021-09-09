@@ -1,18 +1,23 @@
 const { Sequelize, DataTypes } = require("sequelize");
 if (!global.hasOwnProperty("models")) {
   const db = process.env.POSTGRESURI;
+  let dialectOptions = {}
+  if (process.env.NODE_ENV === 'production') {
+    dialectOptions = {
+      ssl: {
+        require: "1",
+        rejectUnauthorized: "0"
+      }
+    }
+  }
+  
 
   // Connect to Postgres
   const sequelize = new Sequelize(db, {
     host: "localhost",
     dialect: "postgres",
-    operatorsAliases: false,
-    dialectOptions: {
-      ssl: {
-        require: process.env.NODE_ENV === 'production',
-        rejectUnauthorized: false
-      }
-    },
+    operatorsAliases: "0",
+    dialectOptions: dialectOptions,
     pool: {
       max: 5,
       min: 0,
@@ -74,6 +79,10 @@ if (!global.hasOwnProperty("models")) {
 
   sequelize.sync({ force: false }).then(() => {
     console.log("Conectado com o banco de dados");
+  }).catch((e) => {
+    console.log("Não foi possível conectar com o banco de dados");
+    console.log((process.env.NODE_ENV === 'production' ? "1" : "0"));
+    console.error(e);
   });
   // Retorna campos do tipo decimal como float e não como string
   Sequelize.postgres.DECIMAL.parse = function (value) { return parseFloat(value); };
