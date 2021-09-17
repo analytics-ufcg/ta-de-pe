@@ -71,7 +71,6 @@ if (!global.hasOwnProperty("models")) {
   };
 
   Object.keys(global.models).forEach(modelName => {
-    console.log(global.models[modelName].associate);
     if (global.models[modelName].associate !== undefined) {
       global.models[modelName].associate(global.models);
     }
@@ -81,7 +80,6 @@ if (!global.hasOwnProperty("models")) {
     console.log("Conectado com o banco de dados");
   }).catch((e) => {
     console.log("Não foi possível conectar com o banco de dados");
-    console.log((process.env.NODE_ENV === 'production' ? "1" : "0"));
     console.error(e);
   });
   // Retorna campos do tipo decimal como float e não como string
