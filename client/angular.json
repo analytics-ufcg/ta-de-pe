@@ -36,7 +36,7 @@
             ],
             "stylePreprocessorOptions": {
               "includePaths": [
-                "src/scss/merenda"
+                "src/environments/merenda/scss"
               ]
             },
             "scripts": [],
@@ -53,6 +53,10 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "src/app/shared/services/faq.data.ts",
+                  "with": "src/environments/merenda/faq.data.ts"
                 }
               ],
               "optimization": true,
@@ -76,7 +80,7 @@
               ],
               "stylePreprocessorOptions": {
                 "includePaths": [
-                  "src/scss/merenda"
+                  "src/environments/merenda/scss"
                 ]
               }
             },
@@ -85,6 +89,10 @@
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "src/app/shared/services/faq.data.ts",
+                  "with": "src/environments/covid/faq.data.ts"
                 }
               ],
               "optimization": true,
@@ -108,7 +116,7 @@
               ],
               "stylePreprocessorOptions": {
                 "includePaths": [
-                  "src/scss/covid"
+                  "src/environments/covid/scss"
                 ]
               }
             }
