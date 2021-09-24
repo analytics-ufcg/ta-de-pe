@@ -34,35 +34,35 @@ $grays: map-merge(
   $grays
 );
 
-$gray:    #E2E2E2 !default;
-$orange:  #da7144 !default;
-$green:   #63aa72 !default;
-$yellow:  #f9a521 !default;
+$blue:    #124C7D !default;
+$indigo:  #6610f2 !default;
+$purple:  #6f42c1 !default;
 $pink:    #e83e8c !default;
+$red:     #dc3545 !default;
+$orange:  #da7144 !default;
+$yellow:  #f9a521 !default;
+$green:   #63aa72 !default;
 $teal:    #80a997 !default;
 $cyan:    #41ACBD !default;
-$blue:    #124C7D !default;
-// $indigo:  #6610f2 !default;
-// $purple:  #6f42c1 !default;
-// $red:     #dc3545 !default;
+$gray:    #E2E2E2 !default;
 
 $colors: () !default;
 // stylelint-disable-next-line scss/dollar-variable-default
 $colors: map-merge(
   (
-    "orange":     $orange,
-    "gray":       $gray,
-    "pink":       $pink,
-    "yellow":     $yellow,
-    "cyan":       $cyan,
     "blue":       $blue,
-    // "indigo":     $indigo,
-    // "purple":     $purple,
-    // "red":        $red,
-    // "green":      $green,
-    // "teal":       $teal,
-    // "white":      $white,
-    // "gray-dark":  $gray-800
+    "indigo":     $indigo,
+    "purple":     $purple,
+    "pink":       $pink,
+    "red":        $red,
+    "orange":     $orange,
+    "yellow":     $yellow,
+    "green":      $green,
+    "teal":       $teal,
+    "cyan":       $cyan,
+    "white":      $white,
+    "gray":       $gray,
+    "gray-dark":  $gray-800
   ),
   $colors
 );
@@ -87,8 +87,7 @@ $theme-colors: map-merge(
     "warning":    $warning,
     "danger":     $danger,
     "light":      $light,
-    "dark":       $dark,
-    "blue":       $blue
+    "dark":       $dark
   ),
   $theme-colors
 );
@@ -178,7 +177,7 @@ $body-color:                $gray-900 !default;
 //
 // Style anchor elements.
 
-$link-color:                              theme-color("blue") !default;
+$link-color:                              theme-color("primary") !default;
 $link-decoration:                         none !default;
 $link-hover-color:                        darken($link-color, 15%) !default;
 $link-hover-decoration:                   underline !default;
