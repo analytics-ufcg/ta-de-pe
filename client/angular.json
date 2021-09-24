@@ -17,6 +17,13 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "pt-BR",
+        "locales": {
+          "pt-MR": "src/environments/merenda/locale.json",
+          "pt-CV": "src/environments/covid/locale.json"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -49,6 +56,7 @@
           },
           "configurations": {
             "merenda": {
+              "localize": ["pt-MR"],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
@@ -85,6 +93,7 @@
               }
             },
             "covid": {
+              "localize": ["pt-CV"],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
