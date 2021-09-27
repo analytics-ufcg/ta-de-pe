@@ -22,7 +22,7 @@
             ordenavel="nr_contrato"
             (ordenar)="onOrdenar($event)"
             appOrdenavel>
-            Contrato
+            Compra
           </th>
           <th
             scope="col"
@@ -77,7 +77,7 @@
                 <span *ngIf="contrato.tipo_instrumento_contrato === 'Compra'">Compra sem número de contrato</span>
                 <span *ngIf="contrato.tipo_instrumento_contrato !== 'Compra'">
                   <ngb-highlight
-                    [result]="'Contrato nº ' + contrato.nr_contrato + '/' + (contrato.dt_inicio_vigencia | date:'y')"
+                    [result]="'Compra nº ' + contrato.nr_contrato + '/' + (contrato.dt_inicio_vigencia | date:'y')"
                     [term]="listaService.termoBusca"></ngb-highlight>
                 </span>
               </a>
