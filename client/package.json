@@ -3,11 +3,12 @@
   "version": "0.0.2",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 0.0.0.0 --configuration=covid",
+    "start": "ng serve --host 0.0.0.0 --configuration=$npm_config_configuration",
     "build": "ng build --configuration=$npm_config_configuration",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "locale": "ng extract-i18n --output-path src/environments/merenda/ --format=json --out-file locale.json --progress"
   },
   "private": true,
   "dependencies": {
