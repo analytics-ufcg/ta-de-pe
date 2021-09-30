@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css?family=Work+Sans:500,700|Fredoka+One|Roboto+Mono&display=swap");
 
 @import "../node_modules/bootstrap/scss/functions";
-@import "assets/bootstrap/variables";
+@import "variables";
 @import "../node_modules/bootstrap/scss/bootstrap";
 @import "assets/bootstrap/overhide";
 @import "assets/styles/fonts";
@@ -200,7 +200,8 @@ td.numero {
   > .card {
     > .card-header {
       > .btn-link {
-        color: $yiq-text-dark;
+        // color: $yiq-text-dark;
+        // background-color: $bg-dark;
         padding-top: 1rem;
         padding-bottom: 1rem;
         font-size: 1.1rem;
