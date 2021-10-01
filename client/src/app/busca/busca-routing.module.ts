@@ -14,7 +14,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'municipio',
+        redirectTo: 'orgao',
         pathMatch: 'full'
       },
       {
@@ -26,7 +26,7 @@ const routes: Routes = [
         component: BuscaItemComponent
       },
       {
-        path: 'municipio',
+        path: 'orgao',
         component: BuscaMunicipioComponent
       },
       {

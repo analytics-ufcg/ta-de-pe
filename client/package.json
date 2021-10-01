@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 0.0.0.0 --configuration=$npm_config_configuration",
+    "start": "ng serve --host 0.0.0.0 --configuration=covid",
     "build": "ng build --configuration=$npm_config_configuration",
     "test": "ng test",
     "lint": "ng lint",

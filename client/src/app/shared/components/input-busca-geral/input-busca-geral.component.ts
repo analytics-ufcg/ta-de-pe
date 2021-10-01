@@ -109,7 +109,7 @@ export class InputBuscaGeralComponent implements OnInit {
   buscarOnClick(buscavel: Buscavel) {
     if (typeof buscavel !== 'undefined' && buscavel.descricao !== '') {
       if (buscavel.tipoBusca === TipoBusca.Municipio || buscavel.tipoBusca === TipoBusca.Estado) {
-        this.router.navigate(['municipio/' + buscavel.slugMunicipio]);
+        this.router.navigate(['orgao/' + buscavel.slugMunicipio]);
       } else if (buscavel.tipoBusca === TipoBusca.Compra) {
         this.router.navigate(['busca/contrato'], { queryParams: { termo: buscavel.descricao }});
       } else if (buscavel.tipoBusca === TipoBusca.Item) {
@@ -117,7 +117,7 @@ export class InputBuscaGeralComponent implements OnInit {
       } else if (buscavel.tipoBusca === TipoBusca.Fornecedor) {
         this.router.navigate(['busca/fornecedor'], { queryParams: { termo: buscavel.descricao }});
       } else if (buscavel.tipoBusca === TipoBusca.MunicipioBusca) {
-        this.router.navigate(['busca/municipio'], { queryParams: { termo: buscavel.descricao }});
+        this.router.navigate(['busca/orgao'], { queryParams: { termo: buscavel.descricao }});
       }
     }
     this.limpaInputPesquisa();
