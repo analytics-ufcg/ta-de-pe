@@ -5,8 +5,9 @@
   },
   "version": 1,
   "newProjectRoot": "projects",
+  "defaultProject": "ta-de-pe",
   "projects": {
-    "ta-na-mesa": {
+    "ta-de-pe": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -16,6 +17,13 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "pt-BR",
+        "locales": {
+          "pt-MR": "src/environments/merenda/locale.json",
+          "pt-CV": "src/environments/covid/locale.json"
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
@@ -33,6 +41,11 @@
             "styles": [
               "src/styles.scss"
             ],
+            "stylePreprocessorOptions": {
+              "includePaths": [
+                "src/environments/merenda/scss"
+              ]
+            },
             "scripts": [],
             "vendorChunk": true,
             "extractLicenses": false,
@@ -42,11 +55,16 @@
             "namedChunks": true
           },
           "configurations": {
-            "production": {
+            "merenda": {
+              "localize": ["pt-MR"],
               "fileReplacements": [
                 {
                   "replace": "src/environments/environment.ts",
                   "with": "src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "src/app/shared/services/faq.data.ts",
+                  "with": "src/environments/merenda/faq.data.ts"
                 }
               ],
               "optimization": true,
@@ -67,7 +85,49 @@
                   "maximumWarning": "6kb",
                   "maximumError": "10kb"
                 }
-              ]
+              ],
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "src/environments/merenda/scss"
+                ]
+              }
+            },
+            "covid": {
+              "localize": ["pt-CV"],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                },
+                {
+                  "replace": "src/app/shared/services/faq.data.ts",
+                  "with": "src/environments/covid/faq.data.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ],
+              "stylePreprocessorOptions": {
+                "includePaths": [
+                  "src/environments/covid/scss"
+                ]
+              }
             }
           },
           "defaultConfiguration": ""
@@ -75,18 +135,21 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "ta-na-mesa:build"
+            "browserTarget": "ta-de-pe:build"
           },
           "configurations": {
-            "production": {
-              "browserTarget": "ta-na-mesa:build:production"
+            "merenda": {
+              "browserTarget": "ta-de-pe:build:merenda"
+            },
+            "covid": {
+              "browserTarget": "ta-de-pe:build:covid"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "ta-na-mesa:build"
+            "browserTarget": "ta-de-pe:build"
           }
         },
         "test": {
@@ -123,15 +186,14 @@
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
             "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "ta-na-mesa:serve"
+            "devServerTarget": "ta-de-pe:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "ta-na-mesa:serve:production"
+              "devServerTarget": "ta-de-pe:serve:production"
             }
           }
         }
       }
-    }},
-  "defaultProject": "ta-na-mesa"
+    }}
 }

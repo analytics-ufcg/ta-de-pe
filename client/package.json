@@ -3,11 +3,12 @@
   "version": "0.0.2",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --host 0.0.0.0",
-    "build": "ng build --configuration production",
+    "start": "ng serve --host 0.0.0.0 --configuration=$npm_config_configuration",
+    "build": "ng build --configuration=$npm_config_configuration",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "locale": "ng extract-i18n --output-path src/environments/merenda/ --format=json --out-file locale.json --progress"
   },
   "private": true,
   "dependencies": {
@@ -23,6 +24,7 @@
     "@angular/platform-browser": "~12.2.1",
     "@angular/platform-browser-dynamic": "~12.2.1",
     "@angular/router": "~12.2.1",
+    "@angular/localize": "^12.2.1",
     "@ng-bootstrap/ng-bootstrap": "^10.0.0",
     "@types/d3-collection": "^1.0.8",
     "@types/sprintf-js": "^1.1.2",
