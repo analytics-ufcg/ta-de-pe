@@ -201,7 +201,7 @@
                                 </a>
                                 <br>
                                 <small>
-                                    <ngb-highlight [result]="item.nr_documento_contratado | formatCpfCnpj"></ngb-highlight>
+                                  <ngb-highlight [result]="item.nr_documento_contratado | formatCpfCnpj:item?.tp_fornecedor "></ngb-highlight>
                                 </small>
                             </div>
                             <div
