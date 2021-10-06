@@ -74,11 +74,18 @@
             </small>
             <div class="mt-1">
               <a [routerLink]="['/contratos/' + contrato.id_contrato]">
-                <span *ngIf="contrato.tipo_instrumento_contrato === 'Compra'">Compra sem número de contrato</span>
-                <span *ngIf="contrato.tipo_instrumento_contrato !== 'Compra'">
+                <span *ngIf="contrato.sigla_estado === 'BR'">
                   <ngb-highlight
-                    [result]="'Compra nº ' + contrato.nr_contrato + '/' + (contrato.dt_inicio_vigencia | date:'y')"
-                    [term]="listaService.termoBusca"></ngb-highlight>
+                  [result]="'Compra nº ' + contrato.nr_contrato + '/' + (contrato.dt_inicio_vigencia | date:'y')"
+                  [term]="listaService.termoBusca"></ngb-highlight>
+                </span>
+                <span *ngIf="contrato.sigla_estado !== 'BR'">
+                  <span *ngIf="contrato.tipo_instrumento_contrato === 'Compra'">Compra sem número de contrato</span>
+                  <span *ngIf="contrato.tipo_instrumento_contrato !== 'Compra'">
+                    <ngb-highlight
+                      [result]="'Compra nº ' + contrato.nr_contrato + '/' + (contrato.dt_inicio_vigencia | date:'y')"
+                      [term]="listaService.termoBusca"></ngb-highlight>
+                  </span>
                 </span>
               </a>
             </div>
