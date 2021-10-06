@@ -28,7 +28,7 @@ export class InputBuscaGeralComponent implements OnInit {
 
   private unsubscribe = new Subject();
 
-  public placeholder = 'Busque municípios, produtos, contratos ou fornecedores';
+  public placeholder = 'Busque municípios, órgãos, produtos, contratos ou fornecedores';
   public municipios: any[];
   public buscavelSelecionado: Buscavel;
   public termoPesquisado = '';
