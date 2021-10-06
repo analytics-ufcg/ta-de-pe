@@ -90,7 +90,7 @@
                   <br>
                   <small>
                     <ngb-highlight
-                      [result]="fornecedor?.nr_documento | formatCpfCnpj"
+                      [result]="fornecedor?.nr_documento | formatCpfCnpj:fornecedor?.tp_pessoa"
                       [term]="listaService.termoBusca">
                     </ngb-highlight>
                   </small>

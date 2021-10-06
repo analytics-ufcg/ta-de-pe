@@ -55,7 +55,7 @@
                       ordenavel="nome_municipio"
                       (ordenar)="onOrdenar($event)"
                       appOrdenavel>
-                      Município
+                      Município/Orgão
                     </th>
                     <th
                       scope="col"
@@ -73,7 +73,7 @@
                     class>
                     <td class="align-middle nowrap">
                       <a
-                        [routerLink]="['/municipio/' + municipio?.slug_municipio]">
+                        [routerLink]="['/orgao/' + municipio?.slug_municipio]">
                         <ngb-highlight
                           [result]="municipio?.nome_municipio | titlecase"
                           [term]="listaService.termoBusca">

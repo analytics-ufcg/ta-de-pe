@@ -1,7 +1,7 @@
 <div class="view-container" *ngIf="fornecedor">
   <app-barra-titulo [titulo]="
       fornecedor?.nm_pessoa ? fornecedor?.nm_pessoa : 'Pessoa física (nome não divulgado)'
-    " [subtitulo]="fornecedor.nr_documento | formatCpfCnpj" [exibirVoltar]="true">
+    " [subtitulo]="fornecedor.nr_documento | formatCpfCnpj:fornecedor?.tp_pessoa" [exibirVoltar]="true">
   </app-barra-titulo>
 
   <div class="container">

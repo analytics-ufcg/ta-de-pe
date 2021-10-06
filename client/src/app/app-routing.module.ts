@@ -10,7 +10,7 @@ const routerOptions: ExtraOptions = {
 
 const routes: Routes = [
   {
-    path: 'municipio',
+    path: 'orgao',
     loadChildren: () => import('./municipio/municipio.module').then(m => m.MunicipioModule)
   },
   {

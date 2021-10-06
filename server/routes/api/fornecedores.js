@@ -28,6 +28,7 @@ router.get("/search", (req, res) => {
   let query = `SELECT \
                 nr_documento, \
                 nm_pessoa, \
+                tp_pessoa,
                 total_de_contratos, \
                 data_primeiro_contrato
               FROM \
