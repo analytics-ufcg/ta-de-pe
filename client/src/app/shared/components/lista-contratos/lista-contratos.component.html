@@ -41,6 +41,7 @@
             Valor contratado
           </th>
           <th
+            *ngIf="!getIsBR();else isBR"
             scope="col"
             class="text-center th-medio"
             ordenavel="dt_inicio_vigencia"
@@ -49,7 +50,19 @@
             appOrdenavel>
             Início&nbsp;da vigência
           </th>
+          <ng-template #isBR >
+            <th
+              scope="col"
+              class="text-center th-medio"
+              ordenavel="dt_inicio_vigencia"
+              direcao="desc"
+              (ordenar)="onOrdenar($event)"
+              appOrdenavel>
+              Data de emissão
+            </th>
+          </ng-template>
           <th
+            *ngIf="!getIsBR()"
             scope="col"
             class="text-center"
             ordenavel="dt_final_vigencia"
@@ -169,7 +182,7 @@
           <td class="text-center">
             {{ contrato.dt_inicio_vigencia | date:'LLL/y' }}
           </td>
-          <td class="text-center">
+          <td class="text-center" *ngIf="contrato.sigla_estado !== 'BR'">
             {{ contrato.dt_final_vigencia | date:'LLL/y' }}
             <span *ngIf="getIsEncerrado(contrato)" class="badge badge-danger">encerrado</span>
             <div

@@ -52,4 +52,10 @@ export class ListaContratosComponent implements OnChanges {
     const fim = new Date(contrato.dt_final_vigencia);
     return (fim < new Date());
   }
+
+  getIsBR() {
+    return this.listaService.dados$.subscribe((contratos) => {
+        contratos[1].sigla_estado === 'BR';
+    });
+  }
 }
