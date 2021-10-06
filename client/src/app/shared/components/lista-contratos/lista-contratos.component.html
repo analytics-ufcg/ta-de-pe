@@ -41,7 +41,7 @@
             Valor contratado
           </th>
           <th
-            *ngIf="!getIsBR();else isBR"
+            *ngIf="getNotBR();else isBR"
             scope="col"
             class="text-center th-medio"
             ordenavel="dt_inicio_vigencia"
@@ -62,7 +62,7 @@
             </th>
           </ng-template>
           <th
-            *ngIf="!getIsBR()"
+            *ngIf="getNotBR()"
             scope="col"
             class="text-center"
             ordenavel="dt_final_vigencia"

@@ -53,9 +53,11 @@ export class ListaContratosComponent implements OnChanges {
     return (fim < new Date());
   }
 
-  getIsBR() {
-    return this.listaService.dados$.subscribe((contratos) => {
-        contratos[1].sigla_estado === 'BR';
+  getNotBR() {
+    return this.listaService.dadosProcessados$.subscribe((contratos) => {
+      if(contratos.length > 0) {
+        contratos[0].sigla_estado !== 'BR';
+      }
     });
   }
 }
