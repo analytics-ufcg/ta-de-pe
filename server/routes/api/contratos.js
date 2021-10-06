@@ -153,6 +153,14 @@ router.get("/search", (req, res) => {
               fornecedor \
               WHERE \
               fornecedor.nr_documento = p_search.nr_documento_contratado
+            ),
+            (\
+              SELECT \
+              tp_pessoa as tp_fornecedor \
+              FROM \
+              fornecedor \
+              WHERE \
+              fornecedor.nr_documento = p_search.nr_documento_contratado
             ) \
         FROM \
             ( \

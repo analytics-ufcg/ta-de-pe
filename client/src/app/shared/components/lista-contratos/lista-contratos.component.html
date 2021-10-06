@@ -156,7 +156,7 @@
               <br>
               <small>
                 <ngb-highlight
-                  [result]="contrato.nr_documento_contratado | formatCpfCnpj"
+                  [result]="contrato.nr_documento_contratado | formatCpfCnpj:contrato.tp_fornecedor"
                   [term]="listaService.termoBusca">
                 </ngb-highlight>
               </small>
