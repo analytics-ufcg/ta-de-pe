@@ -13,4 +13,5 @@ export interface ContratoFornecedor {
   vl_contrato: number;
   descricao_objeto_contrato: string;
   nome_municipio: string;
+  sigla_estado: string;
 }
