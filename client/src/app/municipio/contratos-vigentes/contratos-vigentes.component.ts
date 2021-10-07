@@ -36,7 +36,7 @@ export class ContratosVigentesComponent implements OnInit {
           this.municipioService.getBySlug(slug).subscribe(municipio => {
             this.contratosVigentes$ = this.contratoService.getVigentes(municipio.cd_municipio_ibge);
             this.contratosVigentes$.subscribe((contratos) => {
-              this.showFimVigencia = (contratos.length > 0 && contratos[0].sigla_estado !== "BR");
+              this.showFimVigencia = (contratos.length > 0 && contratos[0].sigla_estado !== 'BR');
             });
             this.loading$.next(false);
           });

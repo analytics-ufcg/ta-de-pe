@@ -29,7 +29,7 @@ export class LicitacoesDetalharContratosComponent implements OnInit {
         )
       );
     this.contratosLicitacao$.subscribe((contratos) => {
-      this.showFimVigencia = (contratos.length > 0 && contratos[0].sigla_estado !== "BR");
+      this.showFimVigencia = (contratos.length > 0 && contratos[0].sigla_estado !== 'BR');
     });
   }
 }
