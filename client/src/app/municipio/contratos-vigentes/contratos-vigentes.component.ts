@@ -18,6 +18,7 @@ export class ContratosVigentesComponent implements OnInit {
   private unsubscribe = new Subject();
 
   public contratosVigentes$: Observable<ContratoLicitacao[]>;
+  public showFimVigencia = false;
   public loading$ = new BehaviorSubject<boolean>(true);
 
   constructor(
@@ -34,6 +35,9 @@ export class ContratosVigentesComponent implements OnInit {
         if (slug !== undefined && slug !== null) {
           this.municipioService.getBySlug(slug).subscribe(municipio => {
             this.contratosVigentes$ = this.contratoService.getVigentes(municipio.cd_municipio_ibge);
+            this.contratosVigentes$.subscribe((contratos) => {
+              this.showFimVigencia = (contratos.length > 0 && contratos[0].sigla_estado !== "BR");
+            });
             this.loading$.next(false);
           });
         }

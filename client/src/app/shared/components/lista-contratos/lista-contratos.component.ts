@@ -16,6 +16,7 @@ import { OrdenavelDirective } from '../../directives/ordenavel.directive';
 })
 export class ListaContratosComponent implements OnChanges {
   @Input() contratos$: Observable<ContratoLicitacao[]>;
+  @Input() showFimVigencia = false;
 
   public p = 1;
 
@@ -53,11 +54,4 @@ export class ListaContratosComponent implements OnChanges {
     return (fim < new Date());
   }
 
-  getNotBR() {
-    return this.listaService.dadosProcessados$.subscribe((contratos) => {
-      if(contratos.length > 0) {
-        contratos[0].sigla_estado !== 'BR';
-      }
-    });
-  }
 }

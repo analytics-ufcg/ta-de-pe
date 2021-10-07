@@ -94,13 +94,23 @@ router.get("/licitacao/:id", (req, res) => {
 router.get("/fornecedor/:id", (req, res) => {
   Contrato.findAll({
     raw: true,
-    attributes: ["id_contrato", "id_licitacao",
-      "id_orgao", "nr_contrato", "ano_contrato",
-      "nr_licitacao", "ano_licitacao", "cd_tipo_modalidade",
-      "tp_instrumento_contrato", "dt_inicio_vigencia",
-      "dt_final_vigencia", "vl_contrato", "descricao_objeto_contrato",
+    attributes: [
+      "id_contrato",
+      "id_licitacao",
+      "id_orgao",
+      "nr_contrato",
+      "ano_contrato",
+      "nr_licitacao",
+      "ano_licitacao",
+      "cd_tipo_modalidade",
+      "tp_instrumento_contrato",
+      "dt_inicio_vigencia",
+      "dt_final_vigencia",
+      "vl_contrato",
+      "descricao_objeto_contrato",
       [Sequelize.col('contratosOrgao.nome_municipio'), 'nome_municipio'],
-      [Sequelize.col('contratoAlerta.id_tipo'), 'id_tipo']
+      [Sequelize.col('contratoAlerta.id_tipo'), 'id_tipo'],
+      "sigla_estado"
     ]
     ,
     include: [

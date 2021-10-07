@@ -15,6 +15,7 @@ import { LicitacaoService } from 'src/app/shared/services/licitacao.service';
 export class LicitacoesDetalharContratosComponent implements OnInit {
 
   public contratosLicitacao$: Observable<ContratoLicitacao[]>;
+  public showFimVigencia = false;
 
   constructor(
     private activatedroute: ActivatedRoute,
@@ -27,5 +28,8 @@ export class LicitacoesDetalharContratosComponent implements OnInit {
         concatMap(params => this.licitacaoService.getContratos(params.id)
         )
       );
+    this.contratosLicitacao$.subscribe((contratos) => {
+      this.showFimVigencia = (contratos.length > 0 && contratos[0].sigla_estado !== "BR");
+    });
   }
 }

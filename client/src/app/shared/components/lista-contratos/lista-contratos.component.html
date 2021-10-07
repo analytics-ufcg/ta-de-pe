@@ -41,7 +41,7 @@
             Valor contratado
           </th>
           <th
-            *ngIf="getNotBR();else isBR"
+            *ngIf="showFimVigencia;else isBR"
             scope="col"
             class="text-center th-medio"
             ordenavel="dt_inicio_vigencia"
@@ -50,7 +50,7 @@
             appOrdenavel>
             Início&nbsp;da vigência
           </th>
-          <ng-template #isBR >
+          <ng-template #isBR>
             <th
               scope="col"
               class="text-center th-medio"
@@ -62,7 +62,7 @@
             </th>
           </ng-template>
           <th
-            *ngIf="getNotBR()"
+            *ngIf="showFimVigencia"
             scope="col"
             class="text-center"
             ordenavel="dt_final_vigencia"
@@ -189,17 +189,27 @@
           <td class="text-center">
             {{ contrato.dt_inicio_vigencia | date:'LLL/y' }}
           </td>
-          <td class="text-center" *ngIf="contrato.sigla_estado !== 'BR'">
-            {{ contrato.dt_final_vigencia | date:'LLL/y' }}
-            <span *ngIf="getIsEncerrado(contrato)" class="badge badge-danger">encerrado</span>
-            <div
-              [hidden]="contrato.dt_final_vigencia"
-              class="text-center">
-              <app-tooltip-ajuda
-                [tipo]="'alerta'"
-                [descricao]="'O prazo para a conclusão do contrato não foi informado pelo órgão gestor'">
-              </app-tooltip-ajuda>
+          <td class="text-center" *ngIf="showFimVigencia">
+            <div *ngIf="contrato.sigla_estado !== 'BR'; else semFimVigencia">
+              {{ contrato.dt_final_vigencia | date:'LLL/y' }}
+              <span *ngIf="getIsEncerrado(contrato)" class="badge badge-danger">encerrado</span>
+              <div
+                [hidden]="contrato.dt_final_vigencia"
+                class="text-center">
+                <app-tooltip-ajuda
+                  [tipo]="'alerta'"
+                  [descricao]="'O prazo para a conclusão do contrato não foi informado pelo órgão gestor'">
+                </app-tooltip-ajuda>
+              </div>
             </div>
+            <ng-template #semFimVigencia>
+              <div class="text-center">
+                <app-tooltip-ajuda
+                  [tipo]="'alerta'"
+                  [descricao]="'Esta é uma compra pontual, sem vigência de contrato'">
+                </app-tooltip-ajuda>
+              </div>
+            </ng-template>
           </td>
         </tr>
       </ng-template>
