@@ -18,7 +18,7 @@
       "sourceRoot": "src",
       "prefix": "app",
       "i18n": {
-        "sourceLocale": "pt-BR",
+        "sourceLocale": "pt",
         "locales": {
           "pt-MR": "src/environments/merenda/locale.json",
           "pt-CV": "src/environments/covid/locale.json"
