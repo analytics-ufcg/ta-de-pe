@@ -236,6 +236,7 @@
                 <app-tooltip-ajuda [descricao]="'Diferença percentual entre o valor contratado e o valor mediano de produtos similares contratados em municípios do estado'"></app-tooltip-ajuda>
               </th>
               <th
+                *ngIf="contrato.sigla_estado !== 'BR'"
                 scope="col"
                 class="table-th-monospace text-right"
                 ordenavel="vl_unitario_estimado"
@@ -249,6 +250,7 @@
                 <app-tooltip-ajuda [descricao]="'Valor de referência obtido através de orçamentos feitos pelo ente público; uma previsão de quanto será gasto no contrato'"></app-tooltip-ajuda>
               </th>
               <th
+                *ngIf="contrato.sigla_estado !== 'BR'"
                 scope="col"
                 class="table-th-monospace text-right"
                 ordenavel="percentual_vs_estimado"
@@ -358,7 +360,7 @@
               </td>
               <td
                 class="numero align-middle"
-                *ngIf="!radioGroupForm.value['showTotal']"
+                *ngIf="contrato.sigla_estado !== 'BR' && !radioGroupForm.value['showTotal']"
                 [title]="item?.itensLicitacaoItensContrato?.vl_unitario_estimado">
                 {{ item?.itensLicitacaoItensContrato?.vl_unitario_estimado | currency:'':'' }}
                 <app-tooltip-ajuda
@@ -368,7 +370,7 @@
               </td>
               <td
                 class="numero align-middle"
-                *ngIf="radioGroupForm.value['showTotal']"
+                *ngIf="contrato.sigla_estado !== 'BR' && radioGroupForm.value['showTotal']"
                 [title]="item?.itensLicitacaoItensContrato?.vl_unitario_estimado * item.qt_itens_contrato">
                 <span *ngIf="item?.itensLicitacaoItensContrato?.vl_unitario_estimado">
                   {{ item.qt_itens_contrato * item?.itensLicitacaoItensContrato?.vl_unitario_estimado | currency:'':'' }}
@@ -380,6 +382,7 @@
               </td>
               <td
                 class="numero align-middle"
+                *ngIf="contrato.sigla_estado !== 'BR'"
                 [title]="item?.itensLicitacaoItensContrato?.vl_unitario_estimado"
                 [style.background-color]="defineCorFundo(item.percentual_vs_estimado)"
                 [style.color]="defineCor(item.percentual_vs_estimado)">
