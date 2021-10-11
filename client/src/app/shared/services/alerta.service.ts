@@ -1,4 +1,3 @@
-import { TipoAlerta } from './../models/tipoAlerta.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
@@ -7,6 +6,8 @@ import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs/operato
 
 import { environment } from '../../../environments/environment';
 import { Alerta } from '../models/alerta.model';
+import { TipoAlerta } from './../models/tipoAlerta.model';
+import { Estado } from './../models/estado.model';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +53,10 @@ export class AlertaService {
 
   getTiposAlertas(): Observable<TipoAlerta[]> {
     return this.http.get<TipoAlerta[]>(this.url + '/tipos');
+  }
+
+  getListaEstados(): Observable<Estado[]> {
+    return this.http.get<Estado[]>(this.url + '/estados');
   }
 
   private filter(alerta: Alerta[], filtro: any) {

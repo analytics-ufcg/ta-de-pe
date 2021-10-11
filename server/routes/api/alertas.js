@@ -58,4 +58,14 @@ router.get("/tipos", (req, res) => {
     .catch(err => res.status(BAD_REQUEST).json({ err }));
 });
 
+router.get("/estados", (req, res) => {
+  Contrato.findAll({
+    attributes: [
+      [Sequelize.fn('DISTINCT', Sequelize.col('id_estado')), 'id_estado'],
+      'sigla_estado'
+]})
+    .then(estados => res.status(SUCCESS).json(estados))
+    .catch(err => res.status(BAD_REQUEST).json({ err }));
+});
+
 module.exports = router;
