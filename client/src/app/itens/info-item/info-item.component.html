@@ -36,7 +36,7 @@
 
           <div class="col text-center" *ngIf="item?.itensSemelhantes?.length > 1">
             <div>
-              <strong>Mediana do estado</strong>
+              <strong>Mediana <br> com demais <br> compras</strong>
             </div>
             <div class="numero numero-destaque">
               {{ item.mediana_valor | currency: "R$" }}
@@ -85,7 +85,7 @@
       <a [routerLink]="['/duvidas']">Saiba mais</a>.
     </ngb-alert>
     <ngb-alert [dismissible]="false" *ngIf="item?.itensSemelhantes?.length <= 1">
-      Não existem produtos no estado com descrição e quantidade semelhantes para comparação.
+      Não existem produtos na região com descrição e quantidade semelhantes para comparação.
       <a [routerLink]="['/duvidas']">Saiba mais</a>.
     </ngb-alert>
 
