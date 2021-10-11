@@ -1,5 +1,5 @@
 import { take } from 'rxjs/operators';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Subject } from 'rxjs';
@@ -12,7 +12,7 @@ import { AlertaService } from '../../shared/services/alerta.service';
   templateUrl: './filtro-alertas.component.html',
   styleUrls: ['./filtro-alertas.component.scss']
 })
-export class FiltroAlertasComponent implements OnInit {
+export class FiltroAlertasComponent implements OnInit, OnDestroy {
 
   @Output() filterChange = new EventEmitter<any>();
 
@@ -46,7 +46,7 @@ export class FiltroAlertasComponent implements OnInit {
             estado_slug: String(estado.id_estado),
           };
           return parsedEstado;
-        })
+        });
         this.estadoFiltro = [...this.estadoFiltro, ...parsedEstados];
       });
   }
