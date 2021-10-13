@@ -216,10 +216,10 @@
                 appOrdenavel>
                 Mediana
                 <br>
-                <span class="nowrap">no estado</span>
+                <span class="nowrap">com demais <br> compras</span>
                 <br>
                 (R$)
-                <app-tooltip-ajuda [descricao]="'Mediana do preço de produtos similares contratados em municípios do estado seis meses antes ou depois da data do contrato'"></app-tooltip-ajuda>
+                <app-tooltip-ajuda [descricao]="'Mediana do preço de produtos similares contratados pelo órgão seis meses antes ou depois da data do contrato'"></app-tooltip-ajuda>
               </th>
               <th
                 scope="col"
@@ -230,10 +230,10 @@
                 appOrdenavel>
                 Diferença
                 <br>
-                <span class="nowrap">com estado</span>
+                <span class="nowrap">com demais <br> compras</span>
                 <br>
                 (%)
-                <app-tooltip-ajuda [descricao]="'Diferença percentual entre o valor contratado e o valor mediano de produtos similares contratados em municípios do estado'"></app-tooltip-ajuda>
+                <app-tooltip-ajuda [descricao]="'Diferença percentual entre o valor contratado e o valor mediano de produtos similares contratados pelo órgão'"></app-tooltip-ajuda>
               </th>
               <th
                 *ngIf="contrato.sigla_estado !== 'BR'"
@@ -296,7 +296,7 @@
                   <app-tooltip-ajuda
                     *ngIf="item?.itensSemelhantes?.length <= 1"
                     [tipo]="'info'"
-                    [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
+                    [descricao]="'Não existem produtos na região com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                   <app-tooltip-ajuda
                     *ngIf="item?.servico"
                     [tipo]="'info'"
@@ -316,7 +316,7 @@
                   <app-tooltip-ajuda
                     *ngIf="item?.itensSemelhantes?.length <= 1"
                     [tipo]="'info'"
-                    [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
+                    [descricao]="'Não existem produtos na região com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                   <app-tooltip-ajuda
                     *ngIf="item?.servico"
                     [tipo]="'info'"
@@ -336,7 +336,7 @@
                   <app-tooltip-ajuda
                     *ngIf="item?.itensSemelhantes?.length <= 1"
                     [tipo]="'info'"
-                    [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
+                    [descricao]="'Não existem produtos na região com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                   <app-tooltip-ajuda
                     *ngIf="item?.servico"
                     [tipo]="'info'"
