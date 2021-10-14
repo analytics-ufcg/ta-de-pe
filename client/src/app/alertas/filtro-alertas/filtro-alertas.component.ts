@@ -1,30 +1,54 @@
 import { take } from 'rxjs/operators';
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import { AlertaService } from '../../shared/services/alerta.service';
 
 @Component({
   selector: 'app-filtro-alertas',
   templateUrl: './filtro-alertas.component.html',
   styleUrls: ['./filtro-alertas.component.scss']
 })
-export class FiltroAlertasComponent implements OnInit {
+export class FiltroAlertasComponent implements OnInit, OnDestroy {
 
   @Output() filterChange = new EventEmitter<any>();
+
+  private unsubscribe = new Subject();
 
   nomePesquisado: string;
   estadoSelecionado: string;
 
-  estadoFiltro: any[] = [
-    { estado: 'Estados', estado_slug: '0' },
-    { estado: 'PE', estado_slug: '26' },
-    { estado: 'RS', estado_slug: '43' }];
+  estadoFiltro: any[] = [{ estado: 'Estados', estado_slug: '0' }];
 
   constructor(
-    private activatedRoute: ActivatedRoute) { }
+    private activatedRoute: ActivatedRoute,
+    private alertaService: AlertaService) { }
 
   ngOnInit() {
     this.estadoSelecionado = '0';
     this.updateFiltroViaURL();
+    this.getListaEstados();
+  }
+
+  getListaEstados() {
+    this.alertaService
+      .getListaEstados()
+      .pipe(
+        takeUntil(this.unsubscribe)
+      )
+      .subscribe(estados => {
+        const parsedEstados = estados.map(estado => {
+          const parsedEstado = {
+            estado: estado.sigla_estado,
+            estado_slug: String(estado.id_estado),
+          };
+          return parsedEstado;
+        });
+        this.estadoFiltro = [...this.estadoFiltro, ...parsedEstados];
+      });
   }
 
   aplicarFiltro() {
@@ -52,6 +76,11 @@ export class FiltroAlertasComponent implements OnInit {
 
         this.aplicarFiltro();
       });
+  }
+
+  ngOnDestroy() {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
 }
