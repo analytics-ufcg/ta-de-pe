@@ -22,7 +22,7 @@ export class InfoFornecedorComponent implements OnInit {
   @ViewChildren(OrdenavelDirective) cabecalhos: QueryList<OrdenavelDirective>;
 
   public fornecedor: Fornecedor;
-  public showFimVigencia = false;
+  public showFimVigencia = true;
   public isLoading = true;
   public showSocios = 5;
   public showAtividades = 5;
@@ -57,7 +57,6 @@ export class InfoFornecedorComponent implements OnInit {
       .pipe(map(contratos => {
         // itens ordenados pela data do inicio da vigencia
         contratos.sort((c1, c2) => new Date(c1.dt_inicio_vigencia).getTime() - new Date(c2.dt_inicio_vigencia).getTime());
-        this.showFimVigencia = (contratos.length > 0 && contratos[0].sigla_estado !== 'BR');
         this.isLoading = false;
         return contratos;
       }));
