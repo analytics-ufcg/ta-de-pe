@@ -57,7 +57,7 @@ app.use("/api/alertas", alertas);
 // Define diretório estático (site)
 app.use(express.static("client/build"));
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client", "build", process.env.NPM_BUILD_CONFIGURATION_PATH, "index.html"));
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
 
 // Levanta o servidor
