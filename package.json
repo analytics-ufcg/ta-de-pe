@@ -9,7 +9,7 @@
     "test": "npm test",
     "client": "npm start --prefix client",
     "heroku-postbuild": "npm install --prefix client && npm run build --prefix client",
-    "heroku-cleanup": "mv client/build/$NPM_BUILD_CONFIGURATION/* client/build/",
+    "heroku-cleanup": "mv client/build/$NPM_BUILD_CONFIGURATION_PATH/* client/build/",
     "locale": "npm run locale --prefix client"
   },
   "engines": {
