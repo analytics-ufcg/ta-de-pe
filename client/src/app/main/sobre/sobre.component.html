@@ -59,10 +59,29 @@
 
   <section class="sessao-texto sessao-light">
     <h2 class="text-center" i18n="titulo do financiamento|Caso o app não possua financiamento muda-se para doação">Financiamento</h2>
-    <div class="row d-flex justify-content-center">
+    <div class="row d-flex justify-content-center" *ngIf="!showDoacao">
       <div class="col-6 col-md-4">
         <img src="assets/imgs/logo-tinker-2019-white.png" alt="Tinker Foundation" width="100%">
       </div>
+    </div>
+    <div class="row d-flex justify-content-center" *ngIf="showDoacao">
+      <div class="col-6 col-md-4">
+        <img src="assets/imgs/doacao.png" alt="Doe" width="100%">
+      </div>
+    </div>
+    <div *ngIf="showDoacao">
+      <p>
+        Em função da pandemia, os processos de compras públicas estão acelerados para que produtos e serviços cheguem rápido a quem precisa. Exatamente por isso precisamos aumentar a fiscalização cidadã e detectar rapidamente possíveis fraudes e esquemas de  corrupção para que o dinheiro público seja efetivamente usado no combate a COVID-19.
+      </p>
+      <p>
+        Apoie o controle de compras emergenciais e ajude a garantir que os recursos públicos cheguem aonde devem chegar: na luta contra a pandemia.
+      </p>
+      <p class="text-center">
+        <a href="https://www.transparencia.org.br/apoie/doacoes"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="btn btn-success">Faça sua doação</a>
+      </p>
     </div>
   </section>
 
