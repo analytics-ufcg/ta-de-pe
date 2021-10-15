@@ -4,6 +4,7 @@ const path = require("path");
 const cors = require("cors");
 const compression = require("compression");
 const forceSsl = require("force-ssl-heroku");
+const fs = require('fs-extra');
 
 const municipios = require("./server/routes/api/municipios");
 const orgaos = require("./server/routes/api/orgaos");
@@ -56,8 +57,22 @@ app.use("/api/alertas", alertas);
 
 // Define diretório estático (site)
 app.use(express.static("client/build"));
+
+async function copyFiles () {
+  try {
+    await fs.copy(path.resolve(__dirname, "client", "build", process.env.NPM_BUILD_CONFIGURATION_PATH), 'client/build');
+    console.log('success!');
+  } catch (err) {
+    console.error(err);
+  }
+}
+
+if (process.env.NODE_ENV === 'production') {
+  copyFiles();
+}
+
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client", "build", process.env.NPM_BUILD_CONFIGURATION_PATH, "index.html"));
+  res.sendFile(path.resolve(__dirname, "client", "build", "index.html"));
 });
 
 // Levanta o servidor
