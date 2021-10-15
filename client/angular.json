@@ -18,10 +18,19 @@
       "sourceRoot": "src",
       "prefix": "app",
       "i18n": {
-        "sourceLocale": "pt",
+        "sourceLocale": {
+          "code": "pt",
+          "baseHref": "/"
+        },
         "locales": {
-          "pt-MR": "src/environments/merenda/locale.json",
-          "pt-CV": "src/environments/covid/locale.json"
+          "pt-MR": {
+            "baseHref": "/",
+            "translation": "src/environments/merenda/locale.json"
+          },
+          "pt-CV": {
+            "baseHref": "/",
+            "translation": "src/environments/covid/locale.json"
+          }
         }
       },
       "architect": {
