@@ -29,10 +29,13 @@
         <div class="dados-linha">
           <strong>Licitação</strong>
         </div>
-        <div class="dados-linha">
+        <div class="dados-linha" *ngIf="contrato?.nr_licitacao">
           <a [routerLink]="['/licitacoes/' + contrato?.id_licitacao + '/info/']">
             {{ contrato?.nr_licitacao }}/{{ contrato?.ano_licitacao }}
           </a>
+        </div>
+        <div class="dados-linha" *ngIf="!contrato?.nr_licitacao">
+          Não houve
         </div>
       </div>
       <div class="col-sm-12 col-md-9 mb-4">
