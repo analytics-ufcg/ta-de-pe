@@ -1,7 +1,4 @@
 <div class="descricao">
-
-
-
   <a
     *ngIf="temLink; else tituloSemLink"
     [routerLink]="['/itens/'+ item.id_item_contrato]"
@@ -36,7 +33,15 @@
     ...
   </button>
   <span class="text-muted">
-    ({{ item.qt_itens_contrato }} {{ item.sg_unidade_medida | lowercase }})
+    <span *ngIf="item.qt_itens_contrato && item.sg_unidade_medida">
+      ({{ item.qt_itens_contrato }} {{ item.sg_unidade_medida | lowercase }})
+    </span>
+    <span *ngIf="item.qt_itens_contrato && !item.sg_unidade_medida">
+      (Quantidade {{ item.qt_itens_contrato }} de unidade não informada)
+    </span>
+    <span *ngIf="!item.qt_itens_contrato && item.sg_unidade_medida">
+      (Quantidade não informada de {{ item.sg_unidade_medida | lowercase }})
+    </span>
   </span>
 
   <div>
