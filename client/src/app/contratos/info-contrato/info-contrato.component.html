@@ -321,7 +321,7 @@
                   class="pr-3"
                   *ngIf="item?.itensSemelhantes?.length <= 1 || item?.servico; else mostraMedianaEstado">
                   <app-tooltip-ajuda
-                    *ngIf="item?.itensSemelhantes?.length <= 1"
+                    *ngIf="!item?.servico && item?.itensSemelhantes?.length <= 1"
                     [tipo]="'info'"
                     [descricao]="'Não existem produtos na região com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                   <app-tooltip-ajuda
@@ -341,7 +341,7 @@
                   class="pr-3"
                   *ngIf="item?.itensSemelhantes?.length <= 1 || item?.servico; else mostraMedianaTotalEstado">
                   <app-tooltip-ajuda
-                    *ngIf="item?.itensSemelhantes?.length <= 1"
+                    *ngIf="!item?.servico && item?.itensSemelhantes?.length <= 1"
                     [tipo]="'info'"
                     [descricao]="'Não existem produtos na região com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                   <app-tooltip-ajuda
@@ -361,7 +361,7 @@
                   class="pr-3"
                   *ngIf="item?.itensSemelhantes?.length <= 1 || item?.servico; else mostraPercentualEstado">
                   <app-tooltip-ajuda
-                    *ngIf="item?.itensSemelhantes?.length <= 1"
+                    *ngIf="!item?.servico && item?.itensSemelhantes?.length <= 1"
                     [tipo]="'info'"
                     [descricao]="'Não existem produtos na região com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                   <app-tooltip-ajuda
