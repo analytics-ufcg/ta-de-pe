@@ -2,7 +2,13 @@
   class="view-container"
   [hidden]="!contrato">
 
-  <div *ngIf="contrato?.tipo_instrumento_contrato === 'Compra'">
+  <div *ngIf="contrato?.sigla_estado === 'BR'">
+    <app-barra-titulo
+      [titulo]="'Compra nº ' + contrato?.nr_contrato + '/' + contrato?.ano_contrato"
+      [subtitulo]="(contrato?.nm_orgao | uppercase) + ' - ' + contrato?.sigla_estado"
+      [exibirVoltar]="true"></app-barra-titulo>
+  </div>
+  <div *ngIf="contrato?.sigla_estado !== 'BR' && contrato?.tipo_instrumento_contrato === 'Compra'">
     <app-barra-titulo
       [titulo]="'Compra sem número de contrato'"
       [subtitulo]="(contrato?.nm_orgao | uppercase) + ' - ' + contrato?.sigla_estado"
@@ -10,22 +16,26 @@
       [exibirTooltip]="contrato?.tipo_instrumento_contrato === 'Compra'"
       [textoTooltip]="'O  processo licitatório utilizado não produz um número de contrato.'"></app-barra-titulo>
   </div>
-  <div *ngIf="contrato?.tipo_instrumento_contrato !== 'Compra'">
+  <div *ngIf="contrato?.sigla_estado !== 'BR' && contrato?.tipo_instrumento_contrato !== 'Compra'">
     <app-barra-titulo
       [titulo]="'Contrato nº ' + contrato?.nr_contrato + '/' + contrato?.ano_contrato"
       [subtitulo]="(contrato?.nm_orgao | uppercase) + ' - ' + contrato?.sigla_estado"
       [exibirVoltar]="true"></app-barra-titulo>
   </div>
+
   <div class="container">
     <div class="row mt-4">
       <div class="col-sm-12 col-md-3 mb-4">
         <div class="dados-linha">
           <strong>Licitação</strong>
         </div>
-        <div class="dados-linha">
+        <div class="dados-linha" *ngIf="contrato?.nr_licitacao">
           <a [routerLink]="['/licitacoes/' + contrato?.id_licitacao + '/info/']">
             {{ contrato?.nr_licitacao }}/{{ contrato?.ano_licitacao }}
           </a>
+        </div>
+        <div class="dados-linha" *ngIf="!contrato?.nr_licitacao">
+          Não houve
         </div>
       </div>
       <div class="col-sm-12 col-md-9 mb-4">
@@ -234,9 +244,9 @@
                 ordenavel="mediana_valor"
                 (ordenar)="onOrdenar($event)"
                 appOrdenavel>
-                Mediana
+                Mediana em
                 <br>
-                <span class="nowrap">com demais <br> compras</span>
+                <span class="nowrap">compras recentes</span>
                 <br>
                 (R$)
                 <app-tooltip-ajuda [descricao]="'Mediana do preço de produtos similares contratados pelo órgão seis meses antes ou depois da data do contrato'"></app-tooltip-ajuda>
@@ -248,9 +258,9 @@
                 direcao="desc"
                 (ordenar)="onOrdenar($event)"
                 appOrdenavel>
-                Diferença
+                Diferença em
                 <br>
-                <span class="nowrap">com demais <br> compras</span>
+                <span class="nowrap">compras recentes</span>
                 <br>
                 (%)
                 <app-tooltip-ajuda [descricao]="'Diferença percentual entre o valor contratado e o valor mediano de produtos similares contratados pelo órgão'"></app-tooltip-ajuda>
@@ -314,7 +324,7 @@
                   class="pr-3"
                   *ngIf="item?.itensSemelhantes?.length <= 1 || item?.servico; else mostraMedianaEstado">
                   <app-tooltip-ajuda
-                    *ngIf="item?.itensSemelhantes?.length <= 1"
+                    *ngIf="!item?.servico && item?.itensSemelhantes?.length <= 1"
                     [tipo]="'info'"
                     [descricao]="'Não existem produtos na região com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                   <app-tooltip-ajuda
@@ -334,7 +344,7 @@
                   class="pr-3"
                   *ngIf="item?.itensSemelhantes?.length <= 1 || item?.servico; else mostraMedianaTotalEstado">
                   <app-tooltip-ajuda
-                    *ngIf="item?.itensSemelhantes?.length <= 1"
+                    *ngIf="!item?.servico && item?.itensSemelhantes?.length <= 1"
                     [tipo]="'info'"
                     [descricao]="'Não existem produtos na região com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                   <app-tooltip-ajuda
@@ -354,7 +364,7 @@
                   class="pr-3"
                   *ngIf="item?.itensSemelhantes?.length <= 1 || item?.servico; else mostraPercentualEstado">
                   <app-tooltip-ajuda
-                    *ngIf="item?.itensSemelhantes?.length <= 1"
+                    *ngIf="!item?.servico && item?.itensSemelhantes?.length <= 1"
                     [tipo]="'info'"
                     [descricao]="'Não existem produtos na região com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                   <app-tooltip-ajuda
