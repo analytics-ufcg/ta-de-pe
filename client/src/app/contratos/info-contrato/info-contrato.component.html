@@ -309,12 +309,38 @@
               <td
                 class="numero align-middle"
                 *ngIf="!radioGroupForm.value['showTotal']">
-                {{ item.vl_item_contrato | currency:'':'' }}
+                <div
+                  *ngIf="item?.tem_alteracoes"
+                  class="mediana"
+                  placement="top"
+                  ngbTooltip="Item com histórico de alterações">
+                  {{ item.vl_item_contrato | currency:'':'' }}&nbsp;*
+                </div>
+                <div
+                  *ngIf="!item?.tem_alteracoes"
+                  class="mediana"
+                  placement="top"
+                  ngbTooltip="Item com histórico de alterações">
+                  {{ item.vl_item_contrato | currency:'':'' }}&nbsp;&nbsp;
+                </div>
               </td>
               <td
                 class="numero align-middle"
                 *ngIf="radioGroupForm.value['showTotal']">
-                {{ item.vl_total_item_contrato | currency:'':'' }}
+                <div
+                  *ngIf="item?.tem_alteracoes"
+                  class="mediana"
+                  placement="top"
+                  ngbTooltip="Item com histórico de alterações">
+                  {{ item.vl_total_item_contrato | currency:'':'' }}&nbsp;*
+                </div>
+                <div
+                  *ngIf="!item?.tem_alteracoes"
+                  class="mediana"
+                  placement="top"
+                  ngbTooltip="Item com histórico de alterações">
+                  {{ item.vl_total_item_contrato | currency:'':'' }}&nbsp;&nbsp;
+                </div>
               </td>
               <td
                 class="numero align-middle"
