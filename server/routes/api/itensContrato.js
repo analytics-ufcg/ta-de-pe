@@ -24,10 +24,17 @@ router.get("/", (req, res) => {
 // Recupera item de contrato a partir do id do item
 router.get("/item/:id", (req, res) => {
   itensContrato.findOne({
-    include: [{
-      model: Orgao,
-      as: "itensContratoOrgao"
-    }],
+    include: [
+      {
+        model: Orgao,
+        as: "itensContratoOrgao"
+      },
+      {
+        attributes: ["codigo_contrato"],
+        model: Contrato,
+        as: "itensContratoContrato"
+      }
+    ],
     where: {
       id_item_contrato: req.params.id
     }
