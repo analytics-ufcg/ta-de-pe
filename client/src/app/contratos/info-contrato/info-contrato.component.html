@@ -4,7 +4,7 @@
 
   <div *ngIf="contrato?.sigla_estado === 'BR'">
     <app-barra-titulo
-      [titulo]="'Compra nº ' + contrato?.nr_contrato + '/' + contrato?.ano_contrato"
+      [titulo]="'Compra nº ' + contrato?.nr_contrato"
       [subtitulo]="(contrato?.nm_orgao | uppercase) + ' - ' + contrato?.sigla_estado"
       [exibirVoltar]="true"></app-barra-titulo>
   </div>
