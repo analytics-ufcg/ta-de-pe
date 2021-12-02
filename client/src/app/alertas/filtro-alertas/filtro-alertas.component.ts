@@ -21,7 +21,7 @@ export class FiltroAlertasComponent implements OnInit, OnDestroy {
   nomePesquisado: string;
   estadoSelecionado: string;
 
-  estadoFiltro: any[] = [{ estado: 'Estados', estado_slug: '0' }];
+  estadoFiltro: any[] = [{ estado: 'Estado/Órgão', estado_slug: '0' }];
 
   constructor(
     private activatedRoute: ActivatedRoute,
