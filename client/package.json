@@ -8,7 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "locale": "ng extract-i18n --output-path src/environments/merenda/ --format=json --out-file locale.json --progress"
+    "locale": "ng extract-i18n --output-path src/environments --format=json --out-file locale.json --progress"
   },
   "private": true,
   "dependencies": {
