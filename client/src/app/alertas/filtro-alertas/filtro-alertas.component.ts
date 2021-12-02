@@ -20,8 +20,7 @@ export class FiltroAlertasComponent implements OnInit, OnDestroy {
 
   nomePesquisado: string;
   estadoSelecionado: string;
-
-  estadoFiltro: any[] = [{ estado: 'Estado/Órgão', estado_slug: '0' }];
+  estadoFiltro: any[];
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -47,6 +46,11 @@ export class FiltroAlertasComponent implements OnInit, OnDestroy {
           };
           return parsedEstado;
         });
+        if (parsedEstados.find(e => e.estado === 'BR')) {
+          this.estadoFiltro = [{ estado: 'Estado/Órgão', estado_slug: '0' }];
+        } else {
+          this.estadoFiltro = [{ estado: 'Estados', estado_slug: '0' }];
+        }
         this.estadoFiltro = [...this.estadoFiltro, ...parsedEstados];
       });
   }
