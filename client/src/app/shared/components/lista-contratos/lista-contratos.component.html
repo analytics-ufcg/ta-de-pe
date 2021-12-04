@@ -89,7 +89,7 @@
               <a [routerLink]="['/contratos/' + contrato.id_contrato]">
                 <span *ngIf="contrato.sigla_estado === 'BR'">
                   <ngb-highlight
-                  [result]="'Compra nº ' + contrato.nr_contrato + '/' + (contrato.dt_inicio_vigencia | date:'y')"
+                  [result]="'Compra nº ' + contrato.nr_contrato"
                   [term]="listaService.termoBusca"></ngb-highlight>
                 </span>
                 <span *ngIf="contrato.sigla_estado !== 'BR'">
