@@ -6,9 +6,18 @@
   <app-spinner *ngIf="loading$ | async"></app-spinner>
 
   <div class="container">
-      <p class="pl-3 pt-3">
-        A Malha Fina da Transparência Brasil é uma seleção de compras e contratos pouco comuns que merecem um olhar com atenção.
+    <div class="pl-3 pt-3">
+      <p>
+        A Malha Fina da Transparência Brasil é uma seleção automatizada de compras ou
+      fornecedores atípicas que merecem ser analisadas com atenção. São 4 tipos de
+      alertas diferentes detectados pela Malha Fina, e você pode selecioná-los abaixo.
       </p>
+      <p>
+        Para mais informações, acesse nossa seção de
+        <a [routerLink]="['/duvidas']">perguntas frequentes</a>
+        .
+      </p>
+    </div>
   </div>
 
   <div
@@ -24,8 +33,16 @@
         </div>
         <div class="col-md-8">
 
-          <h6 class="mb-4" *ngIf="alertas?.length !== 1">{{alertas?.length}} alertas encontrados</h6>
-          <h6 class="mb-4" *ngIf="alertas?.length === 1">{{alertas?.length}} alerta encontrado</h6>
+          <h6
+            class="mb-4"
+            *ngIf="alertas?.length !== 1">
+            {{alertas?.length}} alertas encontrados
+          </h6>
+          <h6
+            class="mb-4"
+            *ngIf="alertas?.length === 1">
+            {{alertas?.length}} alerta encontrado
+          </h6>
 
           <app-filtro-alertas (filterChange)="search($event)"></app-filtro-alertas>
 

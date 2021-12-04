@@ -116,10 +116,12 @@ Deve-se alterar os arquivos .js e .json em `client/src/environments/<contexto>` 
 
 ### Definindo os arquivos de textos do contexto
 
-Para gerar textos específicos pra cada contexto utiliza-se a ferramenta de localização do angular [ng extract-i18n](https://angular.io/cli/extract-i18n). Um comando de atalho já está configurado para isso:
+Para gerar textos específicos pra cada contexto utiliza-se a ferramenta de localização do angular [ng extract-i18n](https://angular.io/cli/extract-i18n). Cada contexto possui seu próprio arquivo de localização encontrados em `client/src/environments/<contexto>/locale.json` e são identificados pelo atributo locale neste arquivo (exemplo: pt-MR e pt-CV). Quando novas entradas de texto localizados forem introduzidas no HTML, é preciso gerar novamente esse arquivo utilizando o comando a seguir:
 
 ```
 npm run locale
 ```
 
-Este comando só é necessário quando novas entradas de texto forem produzidas no HTML. Para saber como gerar ou mudar entradas, [ler este artigo](https://angular.io/guide/i18n-common-prepare).
+Um novo arquivo padrão `locale.json` vai ser gerado em `client/src/environments` e o mesmo deve ser usado como base para criação dos locale específicos de cada contexto.
+
+Para saber como gerar ou mudar entradas, [ler este artigo](https://angular.io/guide/i18n-common-prepare).
