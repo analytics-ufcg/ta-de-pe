@@ -29,12 +29,16 @@
         <div class="dados-linha">
           <strong>Licitação</strong>
         </div>
-        <div class="dados-linha" *ngIf="contrato?.nr_licitacao">
+        <div
+          class="dados-linha"
+          *ngIf="contrato?.nr_licitacao">
           <a [routerLink]="['/licitacoes/' + contrato?.id_licitacao + '/info/']">
             {{ contrato?.nr_licitacao }}/{{ contrato?.ano_licitacao }}
           </a>
         </div>
-        <div class="dados-linha" *ngIf="!contrato?.nr_licitacao">
+        <div
+          class="dados-linha"
+          *ngIf="!contrato?.nr_licitacao">
           Não houve
         </div>
       </div>
@@ -128,7 +132,6 @@
       class="container custom-alert-card">
       <p class="mt-2 custom-alert-text">
         <strong>Alerta gerado pela Malha Fina</strong>
-        :
       </p>
       <div class="row mt-2 ml-1 mb-2">
         <div class="col-lg-12">
@@ -163,16 +166,19 @@
       </p>
       <div class="row mt-2 ml-1 mb-2">
         <div class="col-lg-12">
-          <p
-            class="custom-alert-text">
+          <p class="custom-alert-text">
             <span class="tooltip-base tooltip-warning icon-alert-triangle  mr-1"></span>
             Consulte a seção Documento Relacionados da
-            <a href="{{'https://www.portaldatransparencia.gov.br/despesas/empenho/' + contrato?.codigo_contrato + '?ordenarPor=fase&direcao=asc'}}"
-            target="_blank">página do empenho</a> no Portal de Transparência.
+            <a
+              href="{{'https://www.portaldatransparencia.gov.br/despesas/empenho/' + contrato?.codigo_contrato + '?ordenarPor=fase&direcao=asc'}}"
+              target="_blank">
+              página do empenho
+            </a>
+            no Portal de Transparência.
           </p>
         </div>
       </div>
-  </ngb-alert>
+    </ngb-alert>
 
     <app-spinner *ngIf="loading$ | async"></app-spinner>
 
@@ -211,7 +217,8 @@
                 class="text-left align-middle"
                 ordenavel="ds_item"
                 (ordenar)="onOrdenar($event)"
-                appOrdenavel i18n="produto">
+                appOrdenavel
+                i18n="produto">
                 Produto
               </th>
               <th
@@ -244,12 +251,19 @@
                 ordenavel="mediana_valor"
                 (ordenar)="onOrdenar($event)"
                 appOrdenavel>
-                Mediana em
+                Mediana
                 <br>
-                <span class="nowrap">compras recentes</span>
+                <span class="nowrap">com demais</span>
+                <br>
+                compras
                 <br>
                 (R$)
-                <app-tooltip-ajuda [descricao]="'Mediana do preço de produtos similares contratados pelo órgão seis meses antes ou depois da data do contrato'"></app-tooltip-ajuda>
+                <app-tooltip-ajuda
+                  *ngIf="contrato.sigla_estado !== 'BR'"
+                  [descricao]="'Mediana do preço de produtos similares contratados pelo órgão seis meses antes ou depois da data do contrato'"></app-tooltip-ajuda>
+                <app-tooltip-ajuda
+                  *ngIf="contrato.sigla_estado === 'BR'"
+                  [descricao]="'Comparação feita apenas entre contratos da mesma unidade federativa'"></app-tooltip-ajuda>
               </th>
               <th
                 scope="col"
@@ -258,9 +272,11 @@
                 direcao="desc"
                 (ordenar)="onOrdenar($event)"
                 appOrdenavel>
-                Diferença em
+                Diferença
                 <br>
-                <span class="nowrap">compras recentes</span>
+                <span class="nowrap">com demais</span>
+                <br>
+                compras
                 <br>
                 (%)
                 <app-tooltip-ajuda [descricao]="'Diferença percentual entre o valor contratado e o valor mediano de produtos similares contratados pelo órgão'"></app-tooltip-ajuda>
@@ -407,8 +423,7 @@
                     <span *ngIf="item.percentual_vs_estado > 0">+</span>
                     {{ item.percentual_vs_estado | percent:'1.1' }}&nbsp;*
                   </div>
-                  <div
-                    *ngIf="item?.itensSemelhantes?.length > 3">
+                  <div *ngIf="item?.itensSemelhantes?.length > 3">
                     <span *ngIf="item.percentual_vs_estado > 0">+</span>
                     {{ item.percentual_vs_estado | percent:'1.1' }}&nbsp;&nbsp;
                   </div>
