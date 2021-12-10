@@ -81,7 +81,7 @@
               *ngIf="contrato.nome_municipio"
               class="text-secondary">
               <ngb-highlight
-                [result]="('MUNICÍPIO ' + contrato.nome_municipio | titlecase) + ' - ' + contrato.sigla_estado"
+                [result]="(contrato.nome_municipio | titlecase) + ' - ' + contrato.sigla_estado"
                 [term]="listaService.termoBusca">
               </ngb-highlight>
             </small>
