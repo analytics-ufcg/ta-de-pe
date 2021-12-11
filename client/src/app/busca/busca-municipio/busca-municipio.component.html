@@ -10,14 +10,14 @@
             <input
               class="form-control"
               type="text"
-              placeholder="Filtrar nos municípios..."
+              placeholder="Filtrar nos municípios/órgãos..."
               name="termoBusca"
               [(ngModel)]="listaService.termoBusca">
           </div>
         </form>
       </div>
     </div>
-    <p *ngIf="((listaService.dados$ | async)?.length === 0) && (loading$ | async) === false">Não há municípios com este termo. Experimente pesquisar em
+    <p *ngIf="((listaService.dados$ | async)?.length === 0) && (loading$ | async) === false">Não há municípios/órgãos com este termo. Experimente pesquisar em
       <a
         [routerLink]="['/busca/produto']"
         queryParamsHandling="merge"
