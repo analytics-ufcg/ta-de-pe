@@ -320,12 +320,12 @@
               <td class="align-middle descricao">
                 <app-descricao-item
                   *ngIf="item?.tem_inconsistencia"
-                  [item]="item"></app-descricao-item>
+                  [item]="item"
+                  [comUnidade]="false"></app-descricao-item>
                 <app-descricao-item
                   *ngIf="!item?.tem_inconsistencia"
                   [item]="item"
-                  [temLink]="item?.itensSemelhantes?.length > 1 && !item?.servico"
-                  [comUnidade]="false"></app-descricao-item>
+                  [temLink]="item?.itensSemelhantes?.length > 1 && !item?.servico"></app-descricao-item>
               </td>
               <td
                 class="numero align-middle"
