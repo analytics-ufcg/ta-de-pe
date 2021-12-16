@@ -32,7 +32,7 @@
     [hidden]="item.ds_item.length === item.ds_item_resumido.length">
     ...
   </button>
-  <span class="text-muted">
+  <span class="text-muted" *ngIf="comUnidade">
     <span *ngIf="item.qt_itens_contrato && item.sg_unidade_medida">
       ({{ item.qt_itens_contrato }} {{ item.sg_unidade_medida | lowercase }})
     </span>
