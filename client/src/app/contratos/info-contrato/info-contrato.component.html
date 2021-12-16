@@ -319,6 +319,10 @@
               class="table-item">
               <td class="align-middle descricao">
                 <app-descricao-item
+                  *ngIf="item?.tem_inconsistencia"
+                  [item]="item"></app-descricao-item>
+                <app-descricao-item
+                  *ngIf="!item?.tem_inconsistencia"
                   [item]="item"
                   [temLink]="item?.itensSemelhantes?.length > 1 && !item?.servico"></app-descricao-item>
               </td>
@@ -326,17 +330,17 @@
                 class="numero align-middle"
                 *ngIf="!radioGroupForm.value['showTotal']">
                 <div
-                  *ngIf="item?.tem_alteracoes"
+                  *ngIf="item?.tem_inconsistencia"
                   class="mediana"
-                  placement="top"
-                  ngbTooltip="Item com histórico de alterações">
-                  {{ item.vl_item_contrato | currency:'':'' }}&nbsp;*
+                  placement="top">
+                  <app-tooltip-ajuda
+                    [tipo]="'info'"
+                    [descricao]="'Existem inconsistências nas operações sob o produto.'"></app-tooltip-ajuda>
                 </div>
                 <div
-                  *ngIf="!item?.tem_alteracoes"
+                  *ngIf="!item?.tem_inconsistencia"
                   class="mediana"
-                  placement="top"
-                  ngbTooltip="Item com histórico de alterações">
+                  placement="top">
                   {{ item.vl_item_contrato | currency:'':'' }}&nbsp;&nbsp;
                 </div>
               </td>
@@ -344,14 +348,14 @@
                 class="numero align-middle"
                 *ngIf="radioGroupForm.value['showTotal']">
                 <div
-                  *ngIf="item?.tem_alteracoes"
+                  *ngIf="item?.tem_inconsistencia"
                   class="mediana"
                   placement="top"
                   ngbTooltip="Item com histórico de alterações">
                   {{ item.vl_total_item_contrato | currency:'':'' }}&nbsp;*
                 </div>
                 <div
-                  *ngIf="!item?.tem_alteracoes"
+                  *ngIf="!item?.tem_inconsistencia"
                   class="mediana"
                   placement="top"
                   ngbTooltip="Item com histórico de alterações">
