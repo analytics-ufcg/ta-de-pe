@@ -12,7 +12,7 @@ export class DescricaoItemComponent implements OnInit {
   @Input() item: ItensContrato;
   @Input() temLink: boolean;
   @Input() itemResumido = true;
-  @Input() comUnidade:boolean | true;
+  @Input() comUnidade: boolean | true;
   @Input() comHighlight = false;
   @Input() termo = '';
 
