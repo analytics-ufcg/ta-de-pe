@@ -45,7 +45,7 @@
 
           <div
             class="col text-center"
-            *ngIf="item?.itensSemelhantes?.length > 1">
+            *ngIf="item?.itensSemelhantes?.length > 1 && !item?.tem_inconsistencia">
             <div>
               <strong>
                 Mediana em
@@ -61,7 +61,9 @@
             class="col"
             *ngIf="item?.itensSemelhantes?.length <= 1"></div>
 
-          <div class="col text-center">
+          <div 
+            class="col text-center"
+            *ngIf="!item?.tem_inconsistencia">
             <div>
               <strong>Valor por unidade</strong>
             </div>
@@ -97,10 +99,10 @@
 
     <ngb-alert
       [dismissible]="false"
-      *ngIf="item?.tem_alteracoes"
+      *ngIf="item?.tem_inconsistencia"
       class="container custom-alert-card">
       <p class="mt-2 custom-alert-text">
-        <strong>Item com histórico de alterações</strong>
+        <strong>Item com inconsistências no histórico</strong>
       </p>
       <div class="row mt-2 ml-1 mb-2">
         <div class="col-lg-12">
@@ -137,7 +139,7 @@
 
     <div
       class="table-wrapper"
-      *ngIf="item?.itensSemelhantes?.length > 1">
+      *ngIf="item?.itensSemelhantes?.length > 1 && !item?.tem_inconsistencia">
       <div class="table-responsive">
         <table class="table table-sm table-hover">
           <thead>
