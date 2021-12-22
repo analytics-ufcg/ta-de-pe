@@ -39,10 +39,12 @@ export class BuscaItemComponent implements OnInit {
     private activatedroute: ActivatedRoute,
     private resumirPipe: ResumirTextoPipe,
     private itensService: ItensService,
+    private isChecked: boolean,
     public listaService: ListaItensService
   ) {
     this.listaService.colunaOrd = 'vl_item_contrato';
     this.listaService.direcaoOrd = 'desc';
+    this.isChecked = false;
   }
 
   ngOnInit() {
@@ -70,8 +72,7 @@ export class BuscaItemComponent implements OnInit {
   }
 
   onChange() {
-    const isChecked = false;
-    //this.isChecked = !this.isChecked;
+    this.isChecked = !this.isChecked;
 
     const itens = [];
     itens.push(this.listaService.dados$)
