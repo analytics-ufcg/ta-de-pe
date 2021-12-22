@@ -69,6 +69,18 @@ export class BuscaItemComponent implements OnInit {
     this.p = p;
   }
 
+  onChange() {
+    const isChecked = false;
+    //this.isChecked = !this.isChecked;
+
+    const itens = [];
+    itens.push(this.listaService.dados$)
+    this.listaService.dadosProcessados$.forEach(dado => {
+      console.log(dado);
+    });
+    console.log(itens);
+  }
+
   onOrdenar({coluna, direcao}: EventoOrd) {
     // Reseta outros cabeçalhos
     this.cabecalhos.forEach(cab => {

@@ -20,6 +20,17 @@
           </div>
         </form>
       </div>
+      <div class="col-lg-6 align-middle">
+        <div class="row">
+          <p>
+            Mostrar itens com inconsistências
+            <input
+            class="itens-checkbox"
+            type="checkbox"
+            (change)="onChange()">
+          </p>
+        </div>
+      </div>
     </div>
     <p *ngIf="((listaService.dados$ | async)?.length === 0) && (loading$ | async) === false">Não há produtos com este termo. Experimente pesquisar em
       <a
