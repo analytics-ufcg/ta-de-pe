@@ -133,7 +133,7 @@ router.post("/similares", (req, res) => {
                       AND sg_unidade_medida = '${unidade}'\
                       AND id_estado = '${id_estado}'\
                       AND vl_item_contrato > 0 \
-                      AND tem_inconsistencia = 'false'\
+                      AND (tem_inconsistencia = 'false' OR tem_inconsistencia IS NULL)\
                       AND ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) >= 0.65\
                       ORDER BY ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) DESC, id_item_contrato ASC \
                       LIMIT 21;`
