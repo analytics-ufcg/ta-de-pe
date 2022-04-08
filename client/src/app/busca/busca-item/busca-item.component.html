@@ -112,10 +112,15 @@
                     [routerLink]="['/contratos/' + itemSemelhante.id_contrato]"
                     target="_blank">
                     <ngb-highlight
+                      *ngIf="itemSemelhante.sigla_estado === 'BR'"
+                      [result]="itemSemelhante.nr_contrato"
+                      [term]="listaService.termoBusca">
+                    </ngb-highlight>
+                    <ngb-highlight
+                      *ngIf="itemSemelhante.sigla_estado !== 'BR'"
                       [result]="itemSemelhante.nr_contrato+'/'+itemSemelhante.ano_licitacao"
                       [term]="listaService.termoBusca">
                     </ngb-highlight>
-
                   </a>
                 </td>
                 <td class="numero align-middle">

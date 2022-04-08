@@ -28,7 +28,7 @@ export class InputBuscaGeralComponent implements OnInit {
 
   private unsubscribe = new Subject();
 
-  public placeholder = 'Busque municípios, produtos, contratos ou fornecedores';
+  public placeholder = 'Busque municípios, órgãos, produtos, contratos ou fornecedores';
   public municipios: any[];
   public buscavelSelecionado: Buscavel;
   public termoPesquisado = '';
@@ -95,8 +95,8 @@ export class InputBuscaGeralComponent implements OnInit {
             ).slice(0, 4);
             buscaveisTemp.unshift (new Buscavel(term, TipoBusca.Compra));
             buscaveisTemp.unshift (new Buscavel(term, TipoBusca.Item));
-            buscaveisTemp.unshift (new Buscavel(term, TipoBusca.MunicipioBusca));
             buscaveisTemp.unshift (new Buscavel(term, TipoBusca.Fornecedor));
+            buscaveisTemp.unshift (new Buscavel(term, TipoBusca.MunicipioBusca));
             return buscaveisTemp;
         } else {
           return [];
@@ -109,15 +109,15 @@ export class InputBuscaGeralComponent implements OnInit {
   buscarOnClick(buscavel: Buscavel) {
     if (typeof buscavel !== 'undefined' && buscavel.descricao !== '') {
       if (buscavel.tipoBusca === TipoBusca.Municipio || buscavel.tipoBusca === TipoBusca.Estado) {
-        this.router.navigate(['municipio/' + buscavel.slugMunicipio]);
+        this.router.navigate(['orgao/' + buscavel.slugMunicipio]);
       } else if (buscavel.tipoBusca === TipoBusca.Compra) {
         this.router.navigate(['busca/contrato'], { queryParams: { termo: buscavel.descricao }});
       } else if (buscavel.tipoBusca === TipoBusca.Item) {
         this.router.navigate(['busca/produto'], { queryParams: { termo: buscavel.descricao }});
-      } else if (buscavel.tipoBusca === TipoBusca.MunicipioBusca) {
-        this.router.navigate(['busca/municipio'], { queryParams: { termo: buscavel.descricao }});
       } else if (buscavel.tipoBusca === TipoBusca.Fornecedor) {
         this.router.navigate(['busca/fornecedor'], { queryParams: { termo: buscavel.descricao }});
+      } else if (buscavel.tipoBusca === TipoBusca.MunicipioBusca) {
+        this.router.navigate(['busca/orgao'], { queryParams: { termo: buscavel.descricao }});
       }
     }
     this.limpaInputPesquisa();

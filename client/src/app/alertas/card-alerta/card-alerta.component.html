@@ -24,7 +24,7 @@
       </span>
       <span *ngIf="!alerta?.alertaFornecedor?.nm_pessoa">fornecedor sem nome cadastrado</span>
       <small class="font-weight-bold">
-        (<ngb-highlight [result]="alerta?.nr_documento | formatCpfCnpj"></ngb-highlight>)
+        (<ngb-highlight [result]="alerta?.nr_documento | formatCpfCnpj:alerta?.alertaFornecedor?.tp_pessoa"></ngb-highlight>)
       </small>
 
       <span *ngIf="alerta?.id_contrato">

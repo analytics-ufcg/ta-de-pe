@@ -78,12 +78,12 @@
                             (ordenar)="onOrdenar($event)"
                             appOrdenavel
                         >
-                            Mediana
+                            Mediana em
                             <br>
-                            <span class="nowrap">no estado</span>
+                            <span class="nowrap">compras recentes</span>
                             <br>
                             (R$)
-                            <app-tooltip-ajuda [descricao]="'Mediana do preço de produtos similares contratados em municípios do estado seis meses antes ou depois da data do início do contrato'"></app-tooltip-ajuda>
+                            <app-tooltip-ajuda [descricao]="'Mediana do preço de produtos similares contratados pelo órgão seis meses antes ou depois da data do início do contrato'"></app-tooltip-ajuda>
                         </th>
                         <th
                             scope="col"
@@ -95,10 +95,10 @@
                         >
                             Diferença
                             <br>
-                            <span class="nowrap">com estado</span>
+                            <span class="nowrap">em compras<br>recentes</span>
                             <br>
                             (%)
-                            <app-tooltip-ajuda [descricao]="'Diferença percentual entre o valor contratado e o valor mediano de produtos similares contratados em municípios do estado'"></app-tooltip-ajuda>
+                            <app-tooltip-ajuda [descricao]="'Diferença percentual entre o valor contratado e o valor mediano de produtos similares contratados pelo órgão'"></app-tooltip-ajuda>
                         </th>
                         <th
                             scope="col"
@@ -145,7 +145,7 @@
                             >
                                 <app-tooltip-ajuda
                                     [tipo]="'alerta'"
-                                    [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"
+                                    [descricao]="'Não existem produtos na região com descrição e quantidade semelhantes para comparação.'"
                                 ></app-tooltip-ajuda>
                             </div>
                             <ng-template #mostraMedianaEstado>
@@ -163,7 +163,7 @@
                             >
                                 <app-tooltip-ajuda
                                     [tipo]="'alerta'"
-                                    [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"
+                                    [descricao]="'Não existem produtos na região com descrição e quantidade semelhantes para comparação.'"
                                 ></app-tooltip-ajuda>
                             </div>
                             <ng-template #mostraMedianaTotalEstado>
@@ -182,7 +182,7 @@
                             >
                                 <app-tooltip-ajuda
                                     [tipo]="'alerta'"
-                                    [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"
+                                    [descricao]="'Não existem produtos na região com descrição e quantidade semelhantes para comparação.'"
                                 ></app-tooltip-ajuda>
                             </div>
                             <ng-template #mostraPercentualEstado>
@@ -201,7 +201,7 @@
                                 </a>
                                 <br>
                                 <small>
-                                    <ngb-highlight [result]="item.nr_documento_contratado | formatCpfCnpj"></ngb-highlight>
+                                  <ngb-highlight [result]="item.nr_documento_contratado | formatCpfCnpj:item?.tp_fornecedor "></ngb-highlight>
                                 </small>
                             </div>
                             <div

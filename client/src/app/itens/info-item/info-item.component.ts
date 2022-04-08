@@ -115,7 +115,9 @@ export class InfoItemComponent implements OnInit {
 
   getNomeContrato(item: ItensContrato) {
     if (item !== null && item !== undefined) {
-      if (item.tp_instrumento_contrato === 'Compra') {
+      if (item.sigla_estado === 'BR') {
+        return 'Contrato nº ' + item.nr_contrato;
+      } else if (item.tp_instrumento_contrato === 'Compra') {
         return 'Compra sem contrato (licitação ' + item.nr_licitacao + '/' + item.ano_licitacao + ')';
       }
       return 'Contrato nº ' + item.nr_contrato + '/' + item.ano_contrato;

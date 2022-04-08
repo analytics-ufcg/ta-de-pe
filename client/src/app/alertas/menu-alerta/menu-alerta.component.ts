@@ -34,7 +34,11 @@ export class MenuAlertaComponent implements OnInit, OnDestroy {
         const key = 'id_tipo';
         const tiposAlerta = [...new Map(tiposAlertas.map(item =>
           [item[key], item])).values()].map((alerta: TipoAlerta) => {
-            return ({ idAlerta: alerta.id_tipo, descricaoAlerta: alerta.titulo, selected: true });
+            return ({
+              idAlerta: alerta.id_tipo,
+              tituloAlerta: alerta.titulo,
+              descricaoAlerta: alerta.descricao,
+              selected: true });
           });
         this.alertasDisponiveis = tiposAlerta;
         this.updateFiltroViaURL();

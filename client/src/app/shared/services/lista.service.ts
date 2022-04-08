@@ -9,7 +9,7 @@ import { EstadoLista, DirecaoOrd } from '../models/lista.model';
 @Injectable({
   providedIn: 'root'
 })
-class ListaService {
+export class ListaService {
 
   public busca$ = new Subject<void>();
   private pDadosProcessados$ = new BehaviorSubject<any[]>([]);

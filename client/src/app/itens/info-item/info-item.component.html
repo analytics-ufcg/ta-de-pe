@@ -1,4 +1,6 @@
-<div class="view-container" *ngIf="item">
+<div
+  class="view-container"
+  *ngIf="item">
   <app-barra-titulo
     [titulo]="item.ds_item_resumido | titlecase"
     [subtitulo]="item.itensContratoOrgao.nm_orgao + ' &#9474; ' + getNomeContrato(item)"
@@ -6,7 +8,7 @@
 
   <div class="container">
     <div class="row item-destaque-wrapper d-flex align-items-center">
-      <div class="col-lg-7">
+      <div class="col-lg-6">
         <strong>Descrição informada</strong>
         <app-descricao-item
           [item]="item"
@@ -14,44 +16,63 @@
           [comUnidade]="false"
           [itemResumido]="false"></app-descricao-item>
       </div>
-      <div class="col-lg-5">
+      <div class="col-lg-6">
         <div class="row">
-          <div class="col-md-4 text-left" *ngIf="item?.itensSemelhantes?.length > 1">
+          <div
+            class="col text-center"
+            *ngIf="item?.itensSemelhantes?.length > 1">
             <div>
               <strong>Contrato</strong>
             </div>
-              <a
-              *ngIf="item?.tp_instrumento_contrato !== 'Compra'"
-              [routerLink]="['/contratos/' + item.id_contrato]"
-              >
+            <a
+              *ngIf="item?.sigla_estado !== 'BR' && item?.tp_instrumento_contrato !== 'Compra'"
+              [routerLink]="['/contratos/' + item.id_contrato]">
               nº {{ item.nr_contrato }}/{{ item.ano_licitacao }}
             </a>
             <a
-              *ngIf="item?.tp_instrumento_contrato === 'Compra'"
-              [routerLink]="['/contratos/' + item.id_contrato]"
-              >
+              *ngIf="item?.sigla_estado !== 'BR' && item?.tp_instrumento_contrato === 'Compra'"
+              [routerLink]="['/contratos/' + item.id_contrato]">
               Compra sem contrato (licitação {{ item?.nr_licitacao }}/{{ item?.ano_licitacao }})
+            </a>
+            <a
+              *ngIf="item?.sigla_estado === 'BR'"
+              [routerLink]="['/contratos/' + item.id_contrato]">
+              Compra nº
+              <br>
+              {{ item?.nr_contrato }}
             </a>
           </div>
 
-          <div class="col-md-4 text-center" *ngIf="item?.itensSemelhantes?.length > 1">
+          <div
+            class="col text-center"
+            *ngIf="item?.itensSemelhantes?.length > 1 && !item?.tem_inconsistencia">
             <div>
-              <strong>Mediana do estado</strong>
+              <strong>
+                Mediana em
+                <br>
+                compras recentes
+              </strong>
             </div>
             <div class="numero numero-destaque">
               {{ item.mediana_valor | currency: "R$" }}
             </div>
           </div>
-          <div class="col-md-6 text-right" *ngIf="item?.itensSemelhantes?.length <= 1"></div>
+          <div
+            class="col"
+            *ngIf="item?.itensSemelhantes?.length <= 1"></div>
 
-          <div class="col-md-6 text-right">
+          <div 
+            class="col text-center"
+            *ngIf="!item?.tem_inconsistencia">
             <div>
               <strong>Valor por unidade</strong>
             </div>
             <div class="numero numero-destaque">
               {{ item.vl_item_contrato | currency: "R$" }}
             </div>
-            <div class="small" *ngIf="item?.itensSemelhantes?.length > 1">
+            <div
+              class="small"
+              *ngIf="item?.itensSemelhantes?.length > 1">
               <span
                 *ngIf="(item.vl_item_contrato - item.mediana_valor) < 0"
                 class="negativo">
@@ -76,20 +97,49 @@
       </div>
     </div>
 
+    <ngb-alert
+      [dismissible]="false"
+      *ngIf="item?.tem_inconsistencia"
+      class="container custom-alert-card">
+      <p class="mt-2 custom-alert-text">
+        <strong>Item com inconsistências no histórico</strong>
+      </p>
+      <div class="row mt-2 ml-1 mb-2">
+        <div class="col-lg-12">
+          <p
+            class="custom-alert-text">
+            <span class="tooltip-base tooltip-warning icon-alert-triangle  mr-1"></span>
+            Consulte a seção Detalhamento do Gasto da
+            <a href="{{'https://www.portaldatransparencia.gov.br/despesas/empenho/' + item?.itensContratoContrato?.codigo_contrato + '?ordenarPor=fase&direcao=asc'}}"
+            target="_blank">página do empenho</a> no Portal da Transparência.
+          </p>
+        </div>
+      </div>
+    </ngb-alert>
+
     <h4>
       Produtos semelhantes comprados em outros contratos
     </h4>
 
-    <ngb-alert [dismissible]="false" *ngIf="item?.itensSemelhantes?.length > 1">
-      <strong>Atenção</strong>: essa tabela foi gerada de forma automatizada a partir da descrição do objeto licitado. É necessário checar se os objetos listados possuem qualidade e quantidade semelhante para uma comparação correta.
-      <a [routerLink]="['/duvidas']">Saiba mais</a>.
+    <ngb-alert
+      [dismissible]="false"
+      *ngIf="item?.itensSemelhantes?.length > 1">
+      <strong>Atenção</strong>
+      : essa tabela foi gerada de forma automatizada a partir da descrição do objeto licitado. É necessário checar se os objetos listados possuem qualidade e quantidade semelhante para uma comparação correta.
+      <a [routerLink]="['/duvidas']">Saiba mais</a>
+      .
     </ngb-alert>
-    <ngb-alert [dismissible]="false" *ngIf="item?.itensSemelhantes?.length <= 1">
-      Não existem produtos no estado com descrição e quantidade semelhantes para comparação.
-      <a [routerLink]="['/duvidas']">Saiba mais</a>.
+    <ngb-alert
+      [dismissible]="false"
+      *ngIf="item?.itensSemelhantes?.length <= 1">
+      Não existem produtos na região com descrição e quantidade semelhantes para comparação.
+      <a [routerLink]="['/duvidas']">Saiba mais</a>
+      .
     </ngb-alert>
 
-    <div class="table-wrapper" *ngIf="item?.itensSemelhantes?.length > 1">
+    <div
+      class="table-wrapper"
+      *ngIf="item?.itensSemelhantes?.length > 1 && !item?.tem_inconsistencia">
       <div class="table-responsive">
         <table class="table table-sm table-hover">
           <thead>
@@ -126,32 +176,42 @@
                 (ordenar)="onOrdenar($event)"
                 appOrdenavel>
                 Valor por
-                <br />
+                <br>
                 unidade (R$)
               </th>
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let itemSemelhante of listaService.dadosProcessados$ | async; index as i" class>
+            <tr
+              *ngFor="let itemSemelhante of listaService.dadosProcessados$ | async; index as i"
+              class>
               <td class="align-middle">
                 <app-descricao-item
-                    [item]="itemSemelhante"
-                    [temLink]="false"
-                    [comUnidade]="false"></app-descricao-item>
+                  [item]="itemSemelhante"
+                  [temLink]="true"
+                  [comUnidade]="false"></app-descricao-item>
               </td>
-              <td class="align-middle nowrap">{{ itemSemelhante.nome_municipio | titlecase }}</td>
+              <td class="align-middle nowrap">
+                {{ itemSemelhante.nome_municipio | titlecase }}
+              </td>
               <td class="align-middle text-right">
                 <a
-                  *ngIf="itemSemelhante?.tipo_instrumento_contrato !== 'Compra'"
+                  *ngIf="itemSemelhante?.sigla_estado !== 'BR' && itemSemelhante?.tipo_instrumento_contrato !== 'Compra'"
                   [routerLink]="['/contratos/' + itemSemelhante.id_contrato]"
                   target="_blank">
                   nº {{ itemSemelhante.nr_contrato }}/{{ itemSemelhante.ano_licitacao }}
                 </a>
                 <a
-                  *ngIf="itemSemelhante?.tipo_instrumento_contrato === 'Compra'"
+                  *ngIf="itemSemelhante?.sigla_estado !== 'BR' && itemSemelhante?.tipo_instrumento_contrato === 'Compra'"
                   [routerLink]="['/contratos/' + itemSemelhante.id_contrato]"
                   target="_blank">
                   Compra sem contrato (licitação {{ itemSemelhante?.nr_licitacao }}/{{ itemSemelhante?.ano_licitacao }})
+                </a>
+                <a
+                  *ngIf="itemSemelhante?.sigla_estado === 'BR'"
+                  [routerLink]="['/contratos/' + itemSemelhante.id_contrato]"
+                  target="_blank">
+                  Compra nº {{ itemSemelhante?.nr_contrato }}
                 </a>
               </td>
               <td class="numero align-middle">

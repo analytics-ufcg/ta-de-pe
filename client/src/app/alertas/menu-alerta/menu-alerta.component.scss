@@ -53,7 +53,7 @@ label:before {
     height: 17px;
     bottom: 1px;
     position: relative;
-    
+
 }
 
 .unstyled {
@@ -72,4 +72,8 @@ li {
     @media (min-width: 576px) {
         max-width: 100%;
     }
+}
+
+.menu-titulo {
+  margin-bottom: 0;
 }

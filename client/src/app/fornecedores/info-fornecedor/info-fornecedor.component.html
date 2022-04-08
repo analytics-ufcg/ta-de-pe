@@ -1,7 +1,7 @@
 <div class="view-container" *ngIf="fornecedor">
   <app-barra-titulo [titulo]="
       fornecedor?.nm_pessoa ? fornecedor?.nm_pessoa : 'Pessoa física (nome não divulgado)'
-    " [subtitulo]="fornecedor.nr_documento | formatCpfCnpj" [exibirVoltar]="true">
+    " [subtitulo]="fornecedor.nr_documento | formatCpfCnpj:fornecedor?.tp_pessoa" [exibirVoltar]="true">
   </app-barra-titulo>
 
   <div class="container">
@@ -11,7 +11,7 @@
         <div class="dados-linha">
           <strong>Data do primeiro contrato</strong>
           <app-tooltip-ajuda [posicao]="'top'" [descricao]="
-              'Data em que o fornecedor teve seu primeiro contrato com uma prefeitura ou outros órgãos públicos no estado.'
+              'Data em que o fornecedor teve seu primeiro contrato com uma prefeitura ou outros órgãos públicos do estado/governo federal.'
             ">
           </app-tooltip-ajuda>
         </div>
@@ -25,7 +25,7 @@
           <strong>Total de contratos</strong>
 
           <app-tooltip-ajuda [posicao]="'top'" [descricao]="
-              'Quantidade de contratos fechados entre este fornecedor e órgãos públicos no estado.'
+              'Quantidade de contratos fechados entre este fornecedor e órgãos públicos do estado/governo federal.'
             ">
           </app-tooltip-ajuda>
         </div>
@@ -207,7 +207,7 @@
   </div>
 
   <ngb-alert [dismissible]="false" *ngIf="fornecedor?.fornecedorAlerta?.length" class="container custom-alert-card">
-    <p class="mt-2 custom-alert-text"><strong>Alertas gerados pela Malha Fina</strong>:</p>
+    <p class="mt-2 custom-alert-text"><strong>Alertas gerados pela Malha Fina</strong></p>
     <div class="row mt-2 ml-1 mb-2">
       <div class="col-lg-12">
         <div *ngFor="let alerta of fornecedor?.fornecedorAlerta | filterUniqueAlertas">
@@ -271,11 +271,26 @@
               <th scope="col" class="text-center" ordenavel="vl_contrato" (ordenar)="onOrdenar($event)" appOrdenavel>
                 Valor contratado
               </th>
-              <th scope="col" class="text-center th-medio" ordenavel="dt_inicio_vigencia" (ordenar)="onOrdenar($event)"
+              <th
+                *ngIf="showFimVigencia;else isBR"
+                scope="col" class="text-center th-medio" ordenavel="dt_inicio_vigencia" (ordenar)="onOrdenar($event)"
                 appOrdenavel>
                 Início&nbsp;da vigência
               </th>
-              <th scope="col" class="text-center" ordenavel="dt_final_vigencia" (ordenar)="onOrdenar($event)"
+              <ng-template #isBR>
+                <th
+                  scope="col"
+                  class="text-center th-medio"
+                  ordenavel="dt_inicio_vigencia"
+                  direcao="desc"
+                  (ordenar)="onOrdenar($event)"
+                  appOrdenavel>
+                  Data da despesa
+                </th>
+              </ng-template>
+              <th
+                *ngIf="showFimVigencia"
+                scope="col" class="text-center" ordenavel="dt_final_vigencia" (ordenar)="onOrdenar($event)"
                 appOrdenavel>
                 Fim da vigência
               </th>
@@ -333,8 +348,18 @@
               <td class="text-center">
                 {{ contrato.dt_inicio_vigencia | date: "LLL/y" }}
               </td>
-              <td class="text-center">
-                {{ contrato.dt_final_vigencia | date: "LLL/y" }}
+              <td class="text-center" *ngIf="showFimVigencia">
+                <div *ngIf="contrato.sigla_estado !== 'BR'; else semFimVigencia">
+                  {{ contrato.dt_final_vigencia | date: "LLL/y" }}
+                </div>
+                <ng-template #semFimVigencia>
+                  <div class="text-center">
+                    <app-tooltip-ajuda
+                      [tipo]="'alerta'"
+                      [descricao]="'Esta é uma compra pontual, sem vigência de contrato'">
+                    </app-tooltip-ajuda>
+                  </div>
+                </ng-template>
               </td>
             </tr>
           </tbody>

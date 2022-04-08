@@ -30,7 +30,9 @@ module.exports = (sequelize, type) => {
         tipo_instrumento_contrato: type.STRING,
         language: type.STRING,
         sigla_estado: type.STRING,
-        id_estado: type.STRING
+        id_estado: type.STRING,
+        tem_alteracoes: type.BOOLEAN,
+        codigo_contrato: type.STRING
       },
       {
         freezeTableName: true,

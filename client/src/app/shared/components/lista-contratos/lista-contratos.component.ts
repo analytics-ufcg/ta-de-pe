@@ -16,6 +16,7 @@ import { OrdenavelDirective } from '../../directives/ordenavel.directive';
 })
 export class ListaContratosComponent implements OnChanges {
   @Input() contratos$: Observable<ContratoLicitacao[]>;
+  @Input() showFimVigencia = false;
 
   public p = 1;
 
@@ -52,4 +53,5 @@ export class ListaContratosComponent implements OnChanges {
     const fim = new Date(contrato.dt_final_vigencia);
     return (fim < new Date());
   }
+
 }

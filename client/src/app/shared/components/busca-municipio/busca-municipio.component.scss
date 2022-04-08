@@ -1,3 +1,7 @@
+.site-header {
+  text-transform: uppercase;
+}
+
 .busca-municipio {
   position: sticky;
   top: 0;
@@ -21,7 +25,7 @@
 }
 
 .btn-buscar:after {
-  content: " Busque municípios, produtos ou contratos";
+  content: " Busque municípios, órgãos, produtos ou contratos";
 }
 
 .btn-retraido {

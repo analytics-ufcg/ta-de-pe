@@ -26,4 +26,6 @@ export interface ItensContrato {
   tp_instrumento_contrato: string;
   nr_licitacao: string;
   id_contrato: string;
+  tem_inconsistencia: boolean;
+  itensContratoContrato: any;
 }

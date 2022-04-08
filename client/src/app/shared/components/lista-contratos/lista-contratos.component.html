@@ -22,7 +22,7 @@
             ordenavel="nr_contrato"
             (ordenar)="onOrdenar($event)"
             appOrdenavel>
-            Contrato
+            Compra
           </th>
           <th
             scope="col"
@@ -41,6 +41,7 @@
             Valor contratado
           </th>
           <th
+            *ngIf="showFimVigencia;else isBR"
             scope="col"
             class="text-center th-medio"
             ordenavel="dt_inicio_vigencia"
@@ -49,7 +50,19 @@
             appOrdenavel>
             Início&nbsp;da vigência
           </th>
+          <ng-template #isBR>
+            <th
+              scope="col"
+              class="text-center th-medio"
+              ordenavel="dt_inicio_vigencia"
+              direcao="desc"
+              (ordenar)="onOrdenar($event)"
+              appOrdenavel>
+              Data da despesa
+            </th>
+          </ng-template>
           <th
+            *ngIf="showFimVigencia"
             scope="col"
             class="text-center"
             ordenavel="dt_final_vigencia"
@@ -68,17 +81,24 @@
               *ngIf="contrato.nome_municipio"
               class="text-secondary">
               <ngb-highlight
-                [result]="('MUNICÍPIO ' + contrato.nome_municipio | titlecase) + ' - ' + contrato.sigla_estado"
+                [result]="(contrato.nome_municipio | titlecase) + ' - ' + contrato.sigla_estado"
                 [term]="listaService.termoBusca">
               </ngb-highlight>
             </small>
             <div class="mt-1">
               <a [routerLink]="['/contratos/' + contrato.id_contrato]">
-                <span *ngIf="contrato.tipo_instrumento_contrato === 'Compra'">Compra sem número de contrato</span>
-                <span *ngIf="contrato.tipo_instrumento_contrato !== 'Compra'">
+                <span *ngIf="contrato.sigla_estado === 'BR'">
                   <ngb-highlight
-                    [result]="'Contrato nº ' + contrato.nr_contrato + '/' + (contrato.dt_inicio_vigencia | date:'y')"
-                    [term]="listaService.termoBusca"></ngb-highlight>
+                  [result]="'Compra nº ' + contrato.nr_contrato"
+                  [term]="listaService.termoBusca"></ngb-highlight>
+                </span>
+                <span *ngIf="contrato.sigla_estado !== 'BR'">
+                  <span *ngIf="contrato.tipo_instrumento_contrato === 'Compra'">Compra sem número de contrato</span>
+                  <span *ngIf="contrato.tipo_instrumento_contrato !== 'Compra'">
+                    <ngb-highlight
+                      [result]="'Compra nº ' + contrato.nr_contrato + '/' + (contrato.dt_inicio_vigencia | date:'y')"
+                      [term]="listaService.termoBusca"></ngb-highlight>
+                  </span>
                 </span>
               </a>
             </div>
@@ -149,7 +169,7 @@
               <br>
               <small>
                 <ngb-highlight
-                  [result]="contrato.nr_documento_contratado | formatCpfCnpj"
+                  [result]="contrato.nr_documento_contratado | formatCpfCnpj:contrato.tp_fornecedor"
                   [term]="listaService.termoBusca">
                 </ngb-highlight>
               </small>
@@ -169,17 +189,27 @@
           <td class="text-center">
             {{ contrato.dt_inicio_vigencia | date:'LLL/y' }}
           </td>
-          <td class="text-center">
-            {{ contrato.dt_final_vigencia | date:'LLL/y' }}
-            <span *ngIf="getIsEncerrado(contrato)" class="badge badge-danger">encerrado</span>
-            <div
-              [hidden]="contrato.dt_final_vigencia"
-              class="text-center">
-              <app-tooltip-ajuda
-                [tipo]="'alerta'"
-                [descricao]="'O prazo para a conclusão do contrato não foi informado pelo órgão gestor'">
-              </app-tooltip-ajuda>
+          <td class="text-center" *ngIf="showFimVigencia">
+            <div *ngIf="contrato.sigla_estado !== 'BR'; else semFimVigencia">
+              {{ contrato.dt_final_vigencia | date:'LLL/y' }}
+              <span *ngIf="getIsEncerrado(contrato)" class="badge badge-danger">encerrado</span>
+              <div
+                [hidden]="contrato.dt_final_vigencia"
+                class="text-center">
+                <app-tooltip-ajuda
+                  [tipo]="'alerta'"
+                  [descricao]="'O prazo para a conclusão do contrato não foi informado pelo órgão gestor'">
+                </app-tooltip-ajuda>
+              </div>
             </div>
+            <ng-template #semFimVigencia>
+              <div class="text-center">
+                <app-tooltip-ajuda
+                  [tipo]="'alerta'"
+                  [descricao]="'Esta é uma compra pontual, sem vigência de contrato'">
+                </app-tooltip-ajuda>
+              </div>
+            </ng-template>
           </td>
         </tr>
       </ng-template>

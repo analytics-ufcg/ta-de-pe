@@ -24,10 +24,17 @@ router.get("/", (req, res) => {
 // Recupera item de contrato a partir do id do item
 router.get("/item/:id", (req, res) => {
   itensContrato.findOne({
-    include: [{
-      model: Orgao,
-      as: "itensContratoOrgao"
-    }],
+    include: [
+      {
+        model: Orgao,
+        as: "itensContratoOrgao"
+      },
+      {
+        attributes: ["codigo_contrato"],
+        model: Contrato,
+        as: "itensContratoContrato"
+      }
+    ],
     where: {
       id_item_contrato: req.params.id
     }
@@ -117,7 +124,7 @@ router.post("/similares", (req, res) => {
   dataFinal = dataFinal.toJSON().slice(0, 10);
 
   let query = `SELECT ano_licitacao, id_item_contrato, id_contrato, nr_contrato, id_licitacao, vl_item_contrato, \
-                      nr_licitacao, tipo_instrumento_contrato, \
+                      nr_licitacao, tipo_instrumento_contrato, sigla_estado, tem_inconsistencia,\
                       vl_total_item_contrato, ds_item, dt_inicio_vigencia, qt_itens_contrato, nome_municipio, id_estado,\
                       ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) as rel, \ 
                       sg_unidade_medida \
@@ -126,6 +133,7 @@ router.post("/similares", (req, res) => {
                       AND sg_unidade_medida = '${unidade}'\
                       AND id_estado = '${id_estado}'\
                       AND vl_item_contrato > 0 \
+                      AND (tem_inconsistencia = 'false' OR tem_inconsistencia IS NULL)\
                       AND ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) >= 0.65\
                       ORDER BY ts_rank(item_search.document, to_tsquery('portuguese', '${termoRanking}')) DESC, id_item_contrato ASC \
                       LIMIT 21;`

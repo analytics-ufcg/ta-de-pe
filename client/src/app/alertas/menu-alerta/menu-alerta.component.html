@@ -9,9 +9,13 @@
       [checked]="alertaDisponivel.selected"
       (change)="changeTipoAlerta(alertaDisponivel, i)">
     <label
+      class="menu-titulo"
       [ngClass]="getCheckboxStyle(alertaDisponivel?.idAlerta)"
       [for]="alertaDisponivel.descricaoAlerta">
-      {{alertaDisponivel.descricaoAlerta}}
+      {{alertaDisponivel.tituloAlerta}}
     </label>
+    <div class="mb-1">
+      {{alertaDisponivel.descricaoAlerta}}
+    </div>
   </li>
 </ul>

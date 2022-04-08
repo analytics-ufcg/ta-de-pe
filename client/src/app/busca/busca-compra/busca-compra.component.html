@@ -29,7 +29,8 @@
 
         <app-lista-contratos
           *ngIf="((contratos$ | async)?.length > 0) && (loading$ | async) === false"
-          [contratos$]="contratos$"></app-lista-contratos>
+          [contratos$]="contratos$"
+          [showFimVigencia]="true"></app-lista-contratos>
       </div>
     </div>
 

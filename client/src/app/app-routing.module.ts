@@ -5,11 +5,12 @@ const routerOptions: ExtraOptions = {
   scrollPositionRestoration: 'enabled',
   anchorScrolling: 'enabled',
   scrollOffset: [0, 64],
+  relativeLinkResolution: 'legacy'
 };
 
 const routes: Routes = [
   {
-    path: 'municipio',
+    path: 'orgao',
     loadChildren: () => import('./municipio/municipio.module').then(m => m.MunicipioModule)
   },
   {

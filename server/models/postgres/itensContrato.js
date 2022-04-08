@@ -27,7 +27,8 @@ module.exports = (sequelize, type) => {
       ds_item: type.STRING,
       categoria: type.INTEGER,
       sg_unidade_medida: type.STRING,
-      servico: type.BOOLEAN
+      servico: type.BOOLEAN,
+      tem_inconsistencia: type.BOOLEAN
     },
     {
       freezeTableName: true,

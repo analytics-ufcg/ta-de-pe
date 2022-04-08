@@ -22,6 +22,7 @@ export class InfoFornecedorComponent implements OnInit {
   @ViewChildren(OrdenavelDirective) cabecalhos: QueryList<OrdenavelDirective>;
 
   public fornecedor: Fornecedor;
+  public showFimVigencia = true;
   public isLoading = true;
   public showSocios = 5;
   public showAtividades = 5;
@@ -40,7 +41,6 @@ export class InfoFornecedorComponent implements OnInit {
       this.getContratosFornecedorByID(params.id);
     });
   }
-
 
   getFornecedorByID(id: string) {
     this.fornecedorService

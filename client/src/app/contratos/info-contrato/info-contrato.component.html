@@ -2,7 +2,13 @@
   class="view-container"
   [hidden]="!contrato">
 
-  <div *ngIf="contrato?.tipo_instrumento_contrato === 'Compra'">
+  <div *ngIf="contrato?.sigla_estado === 'BR'">
+    <app-barra-titulo
+      [titulo]="'Compra nº ' + contrato?.nr_contrato"
+      [subtitulo]="(contrato?.nm_orgao | uppercase) + ' - ' + contrato?.sigla_estado"
+      [exibirVoltar]="true"></app-barra-titulo>
+  </div>
+  <div *ngIf="contrato?.sigla_estado !== 'BR' && contrato?.tipo_instrumento_contrato === 'Compra'">
     <app-barra-titulo
       [titulo]="'Compra sem número de contrato'"
       [subtitulo]="(contrato?.nm_orgao | uppercase) + ' - ' + contrato?.sigla_estado"
@@ -10,22 +16,30 @@
       [exibirTooltip]="contrato?.tipo_instrumento_contrato === 'Compra'"
       [textoTooltip]="'O  processo licitatório utilizado não produz um número de contrato.'"></app-barra-titulo>
   </div>
-  <div *ngIf="contrato?.tipo_instrumento_contrato !== 'Compra'">
+  <div *ngIf="contrato?.sigla_estado !== 'BR' && contrato?.tipo_instrumento_contrato !== 'Compra'">
     <app-barra-titulo
       [titulo]="'Contrato nº ' + contrato?.nr_contrato + '/' + contrato?.ano_contrato"
       [subtitulo]="(contrato?.nm_orgao | uppercase) + ' - ' + contrato?.sigla_estado"
       [exibirVoltar]="true"></app-barra-titulo>
   </div>
+
   <div class="container">
     <div class="row mt-4">
       <div class="col-sm-12 col-md-3 mb-4">
         <div class="dados-linha">
           <strong>Licitação</strong>
         </div>
-        <div class="dados-linha">
+        <div
+          class="dados-linha"
+          *ngIf="contrato?.nr_licitacao">
           <a [routerLink]="['/licitacoes/' + contrato?.id_licitacao + '/info/']">
             {{ contrato?.nr_licitacao }}/{{ contrato?.ano_licitacao }}
           </a>
+        </div>
+        <div
+          class="dados-linha"
+          *ngIf="!contrato?.nr_licitacao">
+          Não houve
         </div>
       </div>
       <div class="col-sm-12 col-md-9 mb-4">
@@ -38,7 +52,7 @@
               {{ contrato?.contratoFornecedor?.nm_pessoa ? contrato?.contratoFornecedor?.nm_pessoa : 'Pessoa física (nome não divulgado)' }}
             </a>
             <br>
-            ({{ contrato?.nr_documento_contratado | formatCpfCnpj }})
+            ({{ contrato?.nr_documento_contratado | formatCpfCnpj:contrato?.contratoFornecedor?.tp_pessoa }})
           </div>
         </div>
       </div>
@@ -118,7 +132,6 @@
       class="container custom-alert-card">
       <p class="mt-2 custom-alert-text">
         <strong>Alerta gerado pela Malha Fina</strong>
-        :
       </p>
       <div class="row mt-2 ml-1 mb-2">
         <div class="col-lg-12">
@@ -139,6 +152,29 @@
             class="custom-alert-text">
             <span class="tooltip-base tooltip-warning icon-alert-triangle mr-1"></span>
             {{ contrato?.contratoAlerta?.info}}
+          </p>
+        </div>
+      </div>
+    </ngb-alert>
+
+    <ngb-alert
+      [dismissible]="false"
+      *ngIf="contrato?.tem_alteracoes"
+      class="container custom-alert-card">
+      <p class="mt-2 custom-alert-text">
+        <strong>Compra com possíveis alterações</strong>
+      </p>
+      <div class="row mt-2 ml-1 mb-2">
+        <div class="col-lg-12">
+          <p class="custom-alert-text">
+            <span class="tooltip-base tooltip-warning icon-alert-triangle  mr-1"></span>
+            Consulte a seção Documento Relacionados da
+            <a
+              href="{{'https://www.portaldatransparencia.gov.br/despesas/empenho/' + contrato?.codigo_contrato + '?ordenarPor=fase&direcao=asc'}}"
+              target="_blank">
+              página do empenho
+            </a>
+            no Portal de Transparência.
           </p>
         </div>
       </div>
@@ -181,7 +217,8 @@
                 class="text-left align-middle"
                 ordenavel="ds_item"
                 (ordenar)="onOrdenar($event)"
-                appOrdenavel>
+                appOrdenavel
+                i18n="produto">
                 Produto
               </th>
               <th
@@ -216,10 +253,17 @@
                 appOrdenavel>
                 Mediana
                 <br>
-                <span class="nowrap">no estado</span>
+                <span class="nowrap">com demais</span>
+                <br>
+                compras
                 <br>
                 (R$)
-                <app-tooltip-ajuda [descricao]="'Mediana do preço de produtos similares contratados em municípios do estado seis meses antes ou depois da data do contrato'"></app-tooltip-ajuda>
+                <app-tooltip-ajuda
+                  *ngIf="contrato.sigla_estado !== 'BR'"
+                  [descricao]="'Mediana do preço de produtos similares contratados pelo órgão seis meses antes ou depois da data do contrato'"></app-tooltip-ajuda>
+                <app-tooltip-ajuda
+                  *ngIf="contrato.sigla_estado === 'BR'"
+                  [descricao]="'Comparação feita apenas entre contratos da mesma unidade federativa'"></app-tooltip-ajuda>
               </th>
               <th
                 scope="col"
@@ -230,12 +274,15 @@
                 appOrdenavel>
                 Diferença
                 <br>
-                <span class="nowrap">com estado</span>
+                <span class="nowrap">com demais</span>
+                <br>
+                compras
                 <br>
                 (%)
-                <app-tooltip-ajuda [descricao]="'Diferença percentual entre o valor contratado e o valor mediano de produtos similares contratados em municípios do estado'"></app-tooltip-ajuda>
+                <app-tooltip-ajuda [descricao]="'Diferença percentual entre o valor contratado e o valor mediano de produtos similares contratados pelo órgão'"></app-tooltip-ajuda>
               </th>
               <th
+                *ngIf="contrato.sigla_estado !== 'BR'"
                 scope="col"
                 class="table-th-monospace text-right"
                 ordenavel="vl_unitario_estimado"
@@ -249,6 +296,7 @@
                 <app-tooltip-ajuda [descricao]="'Valor de referência obtido através de orçamentos feitos pelo ente público; uma previsão de quanto será gasto no contrato'"></app-tooltip-ajuda>
               </th>
               <th
+                *ngIf="contrato.sigla_estado !== 'BR'"
                 scope="col"
                 class="table-th-monospace text-right"
                 ordenavel="percentual_vs_estimado"
@@ -271,18 +319,49 @@
               class="table-item">
               <td class="align-middle descricao">
                 <app-descricao-item
+                  *ngIf="item?.tem_inconsistencia"
+                  [item]="item"
+                  [comUnidade]="false"></app-descricao-item>
+                <app-descricao-item
+                  *ngIf="!item?.tem_inconsistencia"
                   [item]="item"
                   [temLink]="item?.itensSemelhantes?.length > 1 && !item?.servico"></app-descricao-item>
               </td>
               <td
                 class="numero align-middle"
                 *ngIf="!radioGroupForm.value['showTotal']">
-                {{ item.vl_item_contrato | currency:'':'' }}
+                <div
+                  *ngIf="item?.tem_inconsistencia"
+                  class="mediana"
+                  placement="top">
+                  <app-tooltip-ajuda
+                    [tipo]="'info'"
+                    [descricao]="'Existem inconsistências nas operações desse produto.'"></app-tooltip-ajuda>
+                </div>
+                <div
+                  *ngIf="!item?.tem_inconsistencia"
+                  class="mediana"
+                  placement="top">
+                  {{ item.vl_item_contrato | currency:'':'' }}&nbsp;&nbsp;
+                </div>
               </td>
               <td
                 class="numero align-middle"
                 *ngIf="radioGroupForm.value['showTotal']">
-                {{ item.vl_total_item_contrato | currency:'':'' }}
+                <div
+                  *ngIf="item?.tem_inconsistencia"
+                  class="mediana"
+                  placement="top"
+                  ngbTooltip="Item com histórico de alterações">
+                  {{ item.vl_total_item_contrato | currency:'':'' }}&nbsp;*
+                </div>
+                <div
+                  *ngIf="!item?.tem_inconsistencia"
+                  class="mediana"
+                  placement="top"
+                  ngbTooltip="Item com histórico de alterações">
+                  {{ item.vl_total_item_contrato | currency:'':'' }}&nbsp;&nbsp;
+                </div>
               </td>
               <td
                 class="numero align-middle"
@@ -292,9 +371,9 @@
                   class="pr-3"
                   *ngIf="item?.itensSemelhantes?.length <= 1 || item?.servico; else mostraMedianaEstado">
                   <app-tooltip-ajuda
-                    *ngIf="item?.itensSemelhantes?.length <= 1"
+                    *ngIf="!item?.servico && item?.itensSemelhantes?.length <= 1"
                     [tipo]="'info'"
-                    [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
+                    [descricao]="'Não existem produtos na região com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                   <app-tooltip-ajuda
                     *ngIf="item?.servico"
                     [tipo]="'info'"
@@ -312,9 +391,9 @@
                   class="pr-3"
                   *ngIf="item?.itensSemelhantes?.length <= 1 || item?.servico; else mostraMedianaTotalEstado">
                   <app-tooltip-ajuda
-                    *ngIf="item?.itensSemelhantes?.length <= 1"
+                    *ngIf="!item?.servico && item?.itensSemelhantes?.length <= 1"
                     [tipo]="'info'"
-                    [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
+                    [descricao]="'Não existem produtos na região com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                   <app-tooltip-ajuda
                     *ngIf="item?.servico"
                     [tipo]="'info'"
@@ -332,9 +411,9 @@
                   class="pr-3"
                   *ngIf="item?.itensSemelhantes?.length <= 1 || item?.servico; else mostraPercentualEstado">
                   <app-tooltip-ajuda
-                    *ngIf="item?.itensSemelhantes?.length <= 1"
+                    *ngIf="!item?.servico && item?.itensSemelhantes?.length <= 1"
                     [tipo]="'info'"
-                    [descricao]="'Não existem produtos no estado com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
+                    [descricao]="'Não existem produtos na região com descrição e quantidade semelhantes para comparação.'"></app-tooltip-ajuda>
                   <app-tooltip-ajuda
                     *ngIf="item?.servico"
                     [tipo]="'info'"
@@ -349,8 +428,7 @@
                     <span *ngIf="item.percentual_vs_estado > 0">+</span>
                     {{ item.percentual_vs_estado | percent:'1.1' }}&nbsp;*
                   </div>
-                  <div
-                    *ngIf="item?.itensSemelhantes?.length > 3">
+                  <div *ngIf="item?.itensSemelhantes?.length > 3">
                     <span *ngIf="item.percentual_vs_estado > 0">+</span>
                     {{ item.percentual_vs_estado | percent:'1.1' }}&nbsp;&nbsp;
                   </div>
@@ -358,7 +436,7 @@
               </td>
               <td
                 class="numero align-middle"
-                *ngIf="!radioGroupForm.value['showTotal']"
+                *ngIf="contrato.sigla_estado !== 'BR' && !radioGroupForm.value['showTotal']"
                 [title]="item?.itensLicitacaoItensContrato?.vl_unitario_estimado">
                 {{ item?.itensLicitacaoItensContrato?.vl_unitario_estimado | currency:'':'' }}
                 <app-tooltip-ajuda
@@ -368,7 +446,7 @@
               </td>
               <td
                 class="numero align-middle"
-                *ngIf="radioGroupForm.value['showTotal']"
+                *ngIf="contrato.sigla_estado !== 'BR' && radioGroupForm.value['showTotal']"
                 [title]="item?.itensLicitacaoItensContrato?.vl_unitario_estimado * item.qt_itens_contrato">
                 <span *ngIf="item?.itensLicitacaoItensContrato?.vl_unitario_estimado">
                   {{ item.qt_itens_contrato * item?.itensLicitacaoItensContrato?.vl_unitario_estimado | currency:'':'' }}
@@ -380,6 +458,7 @@
               </td>
               <td
                 class="numero align-middle"
+                *ngIf="contrato.sigla_estado !== 'BR'"
                 [title]="item?.itensLicitacaoItensContrato?.vl_unitario_estimado"
                 [style.background-color]="defineCorFundo(item.percentual_vs_estimado)"
                 [style.color]="defineCor(item.percentual_vs_estimado)">

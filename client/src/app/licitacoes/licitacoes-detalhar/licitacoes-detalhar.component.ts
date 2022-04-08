@@ -33,12 +33,16 @@ export class LicitacoesDetalharComponent implements OnInit, OnDestroy {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe(licitacao => {
         this.licitacao = licitacao;
-        this.temContrato = this.licitacao.contratosLicitacao.reduce((accumulator, currentValue) => {
-          if (accumulator) {
-            return true;
-          }
-          return (currentValue.tipo_instrumento_contrato !== 'Compra');
-        }, false);
+        if (this.licitacao.sigla_estado === 'BR') {
+          this.temContrato = this.licitacao.contratosLicitacao.length > 0;
+        } else {
+          this.temContrato = this.licitacao.contratosLicitacao.reduce((accumulator, currentValue) => {
+            if (accumulator) {
+              return true;
+            }
+            return (currentValue.tipo_instrumento_contrato !== 'Compra');
+          }, false);
+        }
       });
   }
 

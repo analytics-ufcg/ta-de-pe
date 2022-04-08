@@ -28,4 +28,6 @@ export interface ContratoLicitacao {
   contratoAlerta: any;
   sigla_estado: string;
   id_estado: number;
+  tem_alteracoes: boolean;
+  codigo_contrato: string;
 }

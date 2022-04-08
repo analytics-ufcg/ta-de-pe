@@ -99,3 +99,29 @@ Para matar um container
 ```
 docker kill <container_id>
 ```
+
+## Como preparar para produção
+
+Este projeto possui mais de um contexto de produção, podendo ser contruído a depender das configurações de `build` e de `environments`. Isso permite que cada contexto possua seus própios arquivos de estilo (SCSS), arquivos estáticos (.js e .json) e arquivos de textos (localização).
+
+Cada contexto é definido em um diretório em `client/src/environments/<contexto>`
+
+### Definindo o estilo do contexto
+
+Deve-se alterar a folha de estilo em `client/src/environments/<contexto>/scss/_variables.scss`.
+
+### Definindo os arquivos estáticos do contexto
+
+Deve-se alterar os arquivos .js e .json em `client/src/environments/<contexto>` e, em seguida, configurar o atributo `fileReplacements`, no arquivo `client/angular.json` para o contexto correspondente.
+
+### Definindo os arquivos de textos do contexto
+
+Para gerar textos específicos pra cada contexto utiliza-se a ferramenta de localização do angular [ng extract-i18n](https://angular.io/cli/extract-i18n). Cada contexto possui seu próprio arquivo de localização encontrados em `client/src/environments/<contexto>/locale.json` e são identificados pelo atributo locale neste arquivo (exemplo: pt-MR e pt-CV). Quando novas entradas de texto localizados forem introduzidas no HTML, é preciso gerar novamente esse arquivo utilizando o comando a seguir:
+
+```
+npm run locale
+```
+
+Um novo arquivo padrão `locale.json` vai ser gerado em `client/src/environments` e o mesmo deve ser usado como base para criação dos locale específicos de cada contexto.
+
+Para saber como gerar ou mudar entradas, [ler este artigo](https://angular.io/guide/i18n-common-prepare).

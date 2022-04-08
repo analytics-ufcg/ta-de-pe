@@ -11,7 +11,9 @@
         <ngb-panel
           [title]="faq.titulo"
           *ngFor="let faq of faqs">
-          <ng-template ngbPanelContent>{{ faq.texto }}</ng-template>
+          <ng-template ngbPanelContent>
+            <div [innerHTML]="faq.texto"></div>
+          </ng-template>
         </ngb-panel>
       </ngb-accordion>
     </div>

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, LOCALE_ID, Inject } from '@angular/core';
 
 @Component({
   selector: 'app-sobre',
@@ -7,9 +7,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SobreComponent implements OnInit {
 
-  constructor() { }
+  public showDoacao = false;
+
+  constructor(
+    @Inject(LOCALE_ID) public locale: string) { }
 
   ngOnInit() {
+    this.showDoacao = (this.locale === 'pt-CV');
   }
 
 }

@@ -7,7 +7,8 @@ module.exports = (sequelize, type) => {
           type: type.INTEGER,
           primaryKey: true
         },
-        titulo: type.STRING
+        titulo: type.STRING,
+        descricao: type.STRING
       },
       {
         freezeTableName: true,
