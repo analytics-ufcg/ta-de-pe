@@ -29,10 +29,10 @@
   "homepage": "https://github.com/analytics-ufcg/ta-na-mesa#readme",
   "dependencies": {
     "@ng-bootstrap/ng-bootstrap": "^6.0.0",
-    "body-parser": "^1.19.0",
+    "body-parser": "^1.20.1",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
-    "express": "^4.16.3",
+    "express": "^4.18.2",
     "express-validator": "^6.4.0",
     "force-ssl-heroku": "^1.0.2",
     "pg": "^7.17.1",
